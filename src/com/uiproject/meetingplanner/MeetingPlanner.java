@@ -5,8 +5,6 @@ import com.google.android.maps.MapActivity;
 import android.app.Activity;
 import android.os.Bundle;
 
-asd
-
 public class MeetingPlanner extends MapActivity {
     /** Called when the activity is first created. */
     @Override
