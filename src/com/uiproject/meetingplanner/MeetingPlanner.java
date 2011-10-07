@@ -2,7 +2,9 @@ package com.uiproject.meetingplanner;
 
 import java.util.List;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.google.android.maps.GeoPoint;
@@ -13,6 +15,9 @@ import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
 public class MeetingPlanner extends MapActivity {
+	
+	private LocationManager locationManager;	// for detecting current location
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +54,16 @@ public class MeetingPlanner extends MapActivity {
         // add the points to the map
         mapOverlays.add(itemizedoverlay);
         
-        //find the area to auto zoom to
+        // find the area to auto zoom to
         MapController mc = mapView.getController();
         mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
         
-        //set the center
+        // set the center
         mc.setCenter(itemizedoverlay.getCenter());
+        
+        // used for detecting current position
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new GeoUpdateHandler());
     }
     
     @Override
