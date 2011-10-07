@@ -93,13 +93,12 @@ public class MeetingPlanner extends MapActivity {
     this.language="en=US";
     this.sensor=false;}
 	
-    protected String getEta(WebView webView, Object origin, Object destination, String mode)
+    protected String getEta(Object origin, Object destination, String mode)
     {
     	this.origin = origin;
     	this.destination = destination;
     	this.mode = mode;
     	String myURL = "http://maps.googleapis.com/maps/api/distancematrix/xml?origins="+origin+"&destinations="+destination+"&mode="+mode+"&language="+language+"&sensor="+sensor+"";
-    	webView.loadUrl(myURL);
     	String readableValue = "";
     	try
         {
