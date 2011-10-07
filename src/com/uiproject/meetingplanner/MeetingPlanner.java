@@ -1,13 +1,18 @@
 package com.uiproject.meetingplanner;    
 
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.webkit.WebView;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -72,5 +77,94 @@ public class MeetingPlanner extends MapActivity {
     protected boolean isRouteDisplayed() {
         return false;
     }
+   
+
+    private static final String TAG = "MeetingTracker";
     
+    Object origin;
+	Object destination;
+	String mode;
+	String language;
+	boolean sensor;{
+    
+    this.origin = "Chicago+IL";
+    this.destination = "Madison+WI";
+    this.mode="driving";
+    this.language="en=US";
+    this.sensor=false;}
+	
+    protected String getEta(WebView webView, Object origin, Object destination, String mode)
+    {
+    	this.origin = origin;
+    	this.destination = destination;
+    	this.mode = mode;
+    	String myURL = "http://maps.googleapis.com/maps/api/distancematrix/xml?origins="+origin+"&destinations="+destination+"&mode="+mode+"&language="+language+"&sensor="+sensor+"";
+    	webView.loadUrl(myURL);
+    	String readableValue = "";
+    	try
+        {
+    		URL                url;
+    		URLConnection      urlConn;
+    		DataInputStream    dis;
+
+    		//My Directions
+    		url = new URL(myURL);
+
+    		urlConn = url.openConnection();
+    		urlConn.setDoInput(true);
+    		urlConn.setUseCaches(false);
+
+    		dis = new DataInputStream(urlConn.getInputStream());
+    		String line;
+    		String value;
+    		boolean done;
+    		done = false;
+    		
+    		while (((line = dis.readLine()) != null) && (done == false))
+    		{
+    			line = line.toString();
+    			line = line.trim();
+    			if (line.equals("<duration>"))
+    			{
+    				Log.v(TAG, "Here I am!");
+    				value = dis.readLine();
+    				value = value.trim();
+    				readableValue = dis.readLine();
+    				readableValue = readableValue.trim();
+    				if (value.startsWith("<value>"))
+    				{
+    					value = value.replaceAll("<value>", "");
+    					value = value.replaceAll("</value>", "");
+    				}
+    				if (readableValue.startsWith("<text>"))
+    				{
+    					readableValue = readableValue.replaceAll("<text>", "");
+    					readableValue = readableValue.replaceAll("</text>", "");
+    					//Log.v(TAG, "The final value is: " + readableValue);
+    					done = true;
+    				}
+    			}
+    		}
+            dis.close();
+        }
+
+    	catch (MalformedURLException mue) 
+    	{
+    		Log.e(TAG, "Sorry! Please double check the values passed: " + mue);
+    	}
+        catch (IOException ioe) 
+        {
+        	Log.e(TAG, "Sorry! Could not read values properly: " + ioe);
+        }
+        
+    	if (readableValue != "")
+    	{
+    		return readableValue;
+    	}
+    	else
+    	{
+    		return "Oh no! We could not find the ETA. Please try again."; 
+    	}
+    }
 }
+
