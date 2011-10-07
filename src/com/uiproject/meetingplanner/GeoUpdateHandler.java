@@ -6,18 +6,18 @@ import android.os.Bundle;
 
 public class GeoUpdateHandler implements LocationListener {
 
-	private int currentLat;	// current latitude
-	private int currentLng;	// current longitude
+	private int currentLat = 0;	// current latitude
+	private int currentLng = 0;	// current longitude
 	
-	public GeoUpdateHandler(){
+	/*public GeoUpdateHandler(){
 		currentLat = 0;	
 		currentLng = 0;
-	}
+	}*/
 	
 	@Override
 	public void onLocationChanged(Location location) {
-		currentLat = (int) (location.getLatitude() * 1E6);
-		currentLng = (int) (location.getLongitude() * 1E6);
+		//currentLat = (int) (location.getLatitude() * 1E6);
+		//currentLng = (int) (location.getLongitude() * 1E6);
 	}
 
 	@Override
@@ -36,16 +36,16 @@ public class GeoUpdateHandler implements LocationListener {
 	 * @author Tina Chen
 	 * @return current latitude
 	 */
-	public int getCurrentLat(){
+	/*public int getCurrentLat(){
 		return currentLat;
-	}
+	}*/
 	
 	/**
 	 * @author Tina Chen
 	 * @return current longitude
 	 */
-	public int getCurrentLng(){
+	/*public int getCurrentLng(){
 		return currentLng;
-	}
+	}*/
 
 }
