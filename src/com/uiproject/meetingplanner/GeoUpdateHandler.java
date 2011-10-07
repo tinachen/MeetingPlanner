@@ -4,8 +4,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 
-
-
 public class GeoUpdateHandler implements LocationListener {
 
 	private int currentLat;	// current latitude
