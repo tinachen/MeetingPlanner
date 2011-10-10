@@ -1,17 +1,22 @@
 package com.uiproject.meetingplanner;    
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import android.webkit.WebView;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -21,6 +26,9 @@ import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
 public class MeetingPlanner extends MapActivity {
+	
+	private LocationManager locationManager;	// for detecting current location
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,20 +65,23 @@ public class MeetingPlanner extends MapActivity {
         // add the points to the map
         mapOverlays.add(itemizedoverlay);
         
-        //find the area to auto zoom to
+        // find the area to auto zoom to
         MapController mc = mapView.getController();
         mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
         
-        //set the center
+        // set the center
         mc.setCenter(itemizedoverlay.getCenter());
         
+        // used for detecting current position
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new GeoUpdateHandler());
     }
     
     @Override
     protected boolean isRouteDisplayed() {
         return false;
     }
-    
+
     private static final String TAG = "MeetingTracker";
     
     Object origin;
@@ -91,7 +102,6 @@ public class MeetingPlanner extends MapActivity {
     	this.destination = destination;
     	this.mode = mode;
     	String myURL = "http://maps.googleapis.com/maps/api/distancematrix/xml?origins="+origin+"&destinations="+destination+"&mode="+mode+"&language="+language+"&sensor="+sensor+"";
-    	//webView.loadUrl(myURL);
     	String readableValue = "";
     	try
         {
@@ -176,4 +186,35 @@ public class MeetingPlanner extends MapActivity {
     	
 
     }
+    
+    /*Author:Yuwen
+     @Use this method to send your information
+     @The detailed info is stored individually into different params.
+     @And this method will also handling the response from the server.
+     */
+	private String getResponseResult() {
+		String param1="",param2="";
+		String urlStr = "http://XXXXXXXX/XXXXX/SendServlet?param1="+param1+"&param2="+param2;
+		//request.getParameter("param1");
+		String responseResult="";
+		try {
+			URL objUrl = new URL(urlStr);
+			URLConnection connect1 = objUrl.openConnection();
+			connect1.connect();
+			BufferedReader in = new BufferedReader(new InputStreamReader(connect1.getInputStream()));
+			//Data
+			String content;
+		
+			while((content=in.readLine())!=null)
+			{
+				responseResult+=content;
+			}
+			in.close();
+		} catch (Exception e) {
+			System.out.println("error!");
+		}
+		return responseResult;
+	}   	
+    
 }
+
