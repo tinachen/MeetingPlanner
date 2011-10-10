@@ -18,4 +18,64 @@ public class ServerMsg {
 		
 	}
 	
+	//adding getters and setters
+	public void setLat(int myLat)
+	{
+		this.myLat = myLat;
+	}
+	
+	public void setLong(int myLong)
+	{
+		this.myLong = myLong;
+	}
+	
+	public void setMeetingID(int meetingID)
+	{
+		this.meetingID = meetingID;
+	}
+	
+	public void setuserID(int userID)
+	{
+		this.userID = userID;
+	}
+	
+	public void setEta(String eta)
+	{
+		this.eta = eta;
+	}
+	
+	public void setPicture(String picture)
+	{
+		this.picture = picture;
+	}
+	
+	public int getLat()
+	{
+		return this.myLat;
+	}
+	
+	public int getLong()
+	{
+		return this.myLong;
+	}
+	
+	public int getMeetingID()
+	{
+		return this.meetingID;
+	}
+	
+	public int getUserID()
+	{
+		return this.userID;
+	}
+	
+	public String getEta()
+	{
+		return this.eta;
+	}
+	
+	public String getPicture()
+	{
+		return this.picture;
+	}
 }
