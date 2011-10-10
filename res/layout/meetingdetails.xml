@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+	<!--Details of the Meeting -->
+	
+		<!--id goes here-->
+		<TextView
+			android:id="@+id/meetingID"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			/>
+		
+		<!--subject goes here-->
+		<TextView
+			android:id="@+id/meetingSubject"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			/>
+			
+		<!--location goes here-->
+		<TextView
+			android:id="@+id/meetingLocation"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			/>
+			
+		<!--date,time goes here-->
+		<TextView
+			android:id="@+id/meetingTime"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			/>
+
+		<!--OK Button-->
+		<Button
+			android:id="@+id/OKButton"
+			android:text="OK"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:clickable="true"
+			/>
+
+</LinearLayout>

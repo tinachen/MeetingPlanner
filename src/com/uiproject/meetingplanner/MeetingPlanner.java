@@ -10,7 +10,8 @@ import java.util.List;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -62,6 +63,7 @@ public class MeetingPlanner extends MapActivity {
         
         //set the center
         mc.setCenter(itemizedoverlay.getCenter());
+        
     }
     
     @Override
@@ -83,13 +85,13 @@ public class MeetingPlanner extends MapActivity {
     this.language="en=US";
     this.sensor=false;}
 	
-    protected String getEta(WebView webView, Object origin, Object destination, String mode)
+    protected String getEta(Object origin, Object destination, String mode)
     {
     	this.origin = origin;
     	this.destination = destination;
     	this.mode = mode;
     	String myURL = "http://maps.googleapis.com/maps/api/distancematrix/xml?origins="+origin+"&destinations="+destination+"&mode="+mode+"&language="+language+"&sensor="+sensor+"";
-    	webView.loadUrl(myURL);
+    	//webView.loadUrl(myURL);
     	String readableValue = "";
     	try
         {
@@ -155,5 +157,23 @@ public class MeetingPlanner extends MapActivity {
     	{
     		return "Oh no! We could not find the ETA. Please try again."; 
     	}
+    }
+    
+    protected void displayMeeting(int identifier)
+    {
+    	setContentView(R.layout.meetingdetails);
+    	
+    	TextView meetingID = (TextView) findViewById(R.id.meetingID);
+    	meetingID.setText(identifier);
+    	TextView meetingDesc = (TextView) findViewById(R.id.meetingSubject);
+    	meetingDesc.setText(identifier);
+    	TextView meetingLoc = (TextView) findViewById(R.id.meetingLocation);
+    	meetingLoc.setText(identifier);
+    	TextView meetingTime = (TextView) findViewById(R.id.meetingTime);
+    	meetingTime.setText(identifier);
+    	Button myButton = (Button) findViewById(R.id.OKButton);
+    
+    	
+
     }
 }
