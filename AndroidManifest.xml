@@ -38,6 +38,11 @@
        			  android:theme="@android:style/Theme.NoTitleBar">
        			  
        	</activity>
+       	
+       	<activity android:name=".DisplayMeeting"
+       			  android:theme="@android:style/Theme.NoTitleBar">
+       			  
+       	</activity>
 
     </application>
 </manifest>
