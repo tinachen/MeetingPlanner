@@ -1,6 +1,7 @@
 package com.uiproject.meetingplanner;    
 
 import java.io.BufferedReader;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,6 +26,8 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+
+import com.uiproject.meetingplanner.*;
 
 public class MeetingPlanner extends MapActivity {
 	
