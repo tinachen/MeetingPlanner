@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
@@ -75,6 +76,11 @@ public class MeetingPlanner extends MapActivity {
         // used for detecting current position
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new GeoUpdateHandler());
+		
+		//Display Meeting details
+		Date myDate = new Date();
+		String [] myPeople = {"John","Jane"};
+		displayMeeting(new MeetingInstance(1,37,42,"Test meeting", myDate, myPeople));
     }
     
     @Override
@@ -171,19 +177,21 @@ public class MeetingPlanner extends MapActivity {
     
     protected void displayMeeting(MeetingInstance identifier)
     {
-    	setContentView(R.layout.meetingdetails);
+    	//setContentView(R.layout.meetingdetails);
     	
+    	Log.v(TAG,"The identifier is" + identifier.getMeetingID() + "and subject " + identifier.getMeetingSubject());
     	TextView meetingID = (TextView) findViewById(R.id.meetingID);
-    	meetingID.setText(identifier.getMeetingID());
+    	Log.v(TAG, "Printing meetingID:" + meetingID);
+    	//meetingID.setText("ID: "+identifier.getMeetingID());
     	
     	TextView meetingDesc = (TextView) findViewById(R.id.meetingSubject);
-    	meetingDesc.setText(identifier.getMeetingSubject());
+    	//meetingDesc.setText("Subject: " + identifier.getMeetingSubject());
     	
     	TextView meetingLoc = (TextView) findViewById(R.id.meetingLocation);
-    	meetingLoc.setText(identifier.getMeetingLat() + identifier.getMeetingLong());
+    	//meetingLoc.setText(identifier.getMeetingLat() + identifier.getMeetingLong());
     	
     	TextView meetingTime = (TextView) findViewById(R.id.meetingTime);
-    	meetingTime.setText(identifier.getMeetingDate().toString());
+    	//meetingTime.setText(identifier.getMeetingDate().toString());
     	
     	//Display all the attendees of the meeting
     	TableLayout attendees = (TableLayout) findViewById(R.id.attendees);
@@ -195,7 +203,7 @@ public class MeetingPlanner extends MapActivity {
     	}	
     	
     	Button myButton = (Button) findViewById(R.id.OKButton);
-    	myButton.setText("OK");
+    	//myButton.setText("OK");
     	
 
     }
