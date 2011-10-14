@@ -1,0 +1,96 @@
+package com.uiproject.meetingplanner;
+
+import java.util.List;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class MeetingListArrayAdapter extends ArrayAdapter<Meeting> {
+
+	private final List<Meeting> list;
+	private final Activity context;
+
+	public MeetingListArrayAdapter(Activity context, List<Meeting> list) {
+		super(context, R.layout.meetinglist, list);
+		this.context = context;
+		this.list = list;
+	}
+
+	static class ViewHolder {
+		protected TextView meetingName;
+		protected Button acceptBtn;
+		protected Button declineBtn;
+		
+	}
+
+	@Override
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		View view = null;
+		if (convertView == null) {
+			LayoutInflater inflator = context.getLayoutInflater();
+			view = inflator.inflate(R.layout.meetinglist, null);
+			final ViewHolder viewHolder = new ViewHolder();
+			viewHolder.meetingName = (TextView) view.findViewById(R.id.meetingName);
+			viewHolder.acceptBtn = (Button) view.findViewById(R.id.acceptBtn);
+			viewHolder.declineBtn = (Button) view.findViewById(R.id.declineBtn);
+			/*viewHolder.checkbox = (CheckBox) view.findViewById(R.id.check);
+			viewHolder.checkbox
+					.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+						@Override
+						public void onCheckedChanged(CompoundButton buttonView,
+								boolean isChecked) {
+							Model element = (Model) viewHolder.checkbox
+									.getTag();
+							element.setSelected(buttonView.isChecked());
+
+						}
+					});*/
+			
+			viewHolder.acceptBtn.setOnClickListener(new View.OnClickListener() {
+	             public void onClick(View v) {
+	                 // Perform action on click
+	            	 
+	            	 // For testing
+	            	 new AlertDialog.Builder(context)
+	         	      .setMessage("accept " + list.get(position).getMeetingName())
+	         	      .setTitle("Meeting")
+	         	      .setCancelable(true)
+	         	      .show();
+	             }});
+			
+			viewHolder.declineBtn.setOnClickListener(new View.OnClickListener() {
+	             public void onClick(View v) {
+	                 // Perform action on click
+	            	
+	            	// For testing
+	         		new AlertDialog.Builder(context)
+	         	      .setMessage("decline " + list.get(position).getMeetingName())
+	         	      .setTitle("Meeting")
+	         	      .setCancelable(true)
+	         	      .show();
+	         		
+	         		// Remove the declined one from meeting list
+	         		Meeting m = (Meeting) list.get(position);
+	         		remove(m);
+	         		notifyDataSetChanged();
+	         		
+	             }});
+			view.setTag(viewHolder);
+			//viewHolder.checkbox.setTag(list.get(position));
+		} else {
+			view = convertView;
+			//((ViewHolder) view.getTag()).checkbox.setTag(list.get(position));
+		}
+		ViewHolder holder = (ViewHolder) view.getTag();
+		holder.meetingName.setText(list.get(position).getMeetingName());
+		//holder.checkbox.setChecked(list.get(position).isSelected());
+		return view;
+	}
+}
