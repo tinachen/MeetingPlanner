@@ -174,9 +174,9 @@ public class MeetingPlanner extends MapActivity {
      @The detailed info is stored individually into different params.
      @And this method will also handling the response from the server.
      */
-	private String getResponseResult() {
-		String param1="",param2="";
-		String urlStr = "http://XXXXXXXX/XXXXX/SendServlet?param1="+param1+"&param2="+param2;
+	public String getResponseResult() {
+		String param1="6",param2="33",param3="44";
+		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/project?id="+param1+"&lat="+param2+"&lon="+param3;
 		//request.getParameter("param1");
 		String responseResult="";
 		try {
