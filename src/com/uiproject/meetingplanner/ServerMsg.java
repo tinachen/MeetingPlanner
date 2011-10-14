@@ -18,6 +18,14 @@ public class ServerMsg {
 		
 	}
 	
+	public ServerMsg(int u,int lat, int lon){
+		myLat = lat;
+		myLong = lon;
+		userID = u;
+	}
+	
+	
+	
 	//adding getters and setters
 	public void setLat(int myLat)
 	{
