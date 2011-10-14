@@ -14,21 +14,17 @@ public class GeoUpdateHandler implements LocationListener {
 		currentLng = 0;
 	}
 	
-	@Override
 	public void onLocationChanged(Location location) {
 		currentLat = (int) (location.getLatitude() * 1E6);
 		currentLng = (int) (location.getLongitude() * 1E6);
 	}
 
-	@Override
 	public void onProviderDisabled(String provider) {
 	}
 
-	@Override
 	public void onProviderEnabled(String provider) {
 	}
 
-	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 	}
 	

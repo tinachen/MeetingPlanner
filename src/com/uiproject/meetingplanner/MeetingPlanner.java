@@ -14,7 +14,9 @@ import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -79,7 +81,6 @@ public class MeetingPlanner extends MapActivity {
     protected boolean isRouteDisplayed() {
         return false;
     }
-   
 
     private static final String TAG = "MeetingTracker";
     
@@ -168,6 +169,36 @@ public class MeetingPlanner extends MapActivity {
     	}
     }
     
+    protected void displayMeeting(MeetingInstance identifier)
+    {
+    	setContentView(R.layout.meetingdetails);
+    	
+    	TextView meetingID = (TextView) findViewById(R.id.meetingID);
+    	meetingID.setText(identifier.getMeetingID());
+    	
+    	TextView meetingDesc = (TextView) findViewById(R.id.meetingSubject);
+    	meetingDesc.setText(identifier.getMeetingSubject());
+    	
+    	TextView meetingLoc = (TextView) findViewById(R.id.meetingLocation);
+    	meetingLoc.setText(identifier.getMeetingLat() + identifier.getMeetingLong());
+    	
+    	TextView meetingTime = (TextView) findViewById(R.id.meetingTime);
+    	meetingTime.setText(identifier.getMeetingDate().toString());
+    	
+    	//Display all the attendees of the meeting
+    	TableLayout attendees = (TableLayout) findViewById(R.id.attendees);
+    	Object[] myAttendees = identifier.getAttendees();
+    	for (int i = 0; i < myAttendees.length; i++)
+    	{
+    		//Display the names one by one
+    		//attendees.setText(myAttendees[i].getName);
+    	}	
+    	
+    	Button myButton = (Button) findViewById(R.id.OKButton);
+    	myButton.setText("OK");
+    	
+
+    }
     
     /*Author:Yuwen
      @Use this method to send your information
