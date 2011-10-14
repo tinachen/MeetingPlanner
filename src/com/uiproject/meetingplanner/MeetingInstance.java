@@ -20,6 +20,11 @@ public class MeetingInstance {
 		
 	}
 	
+	// for testing purpose
+	public MeetingInstance(String meetingSubject){
+		this.meetingSubject = meetingSubject;
+	}
+	
 	//adding getters and setters
 	public void setMeetingID(int meetingID)
 	{

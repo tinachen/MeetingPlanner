@@ -11,12 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MeetingListArrayAdapter extends ArrayAdapter<Meeting> {
+public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 
-	private final List<Meeting> list;
+	private final List<MeetingInstance> list;
 	private final Activity context;
 
-	public MeetingListArrayAdapter(Activity context, List<Meeting> list) {
+	public MeetingListArrayAdapter(Activity context, List<MeetingInstance> list) {
 		super(context, R.layout.meetinglist, list);
 		this.context = context;
 		this.list = list;
@@ -59,7 +59,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<Meeting> {
 	            	 
 	            	 // For testing
 	            	 new AlertDialog.Builder(context)
-	         	      .setMessage("accept " + list.get(position).getMeetingName())
+	         	      .setMessage("accept " + list.get(position).getMeetingSubject())
 	         	      .setTitle("Meeting")
 	         	      .setCancelable(true)
 	         	      .show();
@@ -71,13 +71,13 @@ public class MeetingListArrayAdapter extends ArrayAdapter<Meeting> {
 	            	
 	            	// For testing
 	         		new AlertDialog.Builder(context)
-	         	      .setMessage("decline " + list.get(position).getMeetingName())
+	         	      .setMessage("decline " + list.get(position).getMeetingSubject())
 	         	      .setTitle("Meeting")
 	         	      .setCancelable(true)
 	         	      .show();
 	         		
 	         		// Remove the declined one from meeting list
-	         		Meeting m = (Meeting) list.get(position);
+	         		MeetingInstance m = (MeetingInstance) list.get(position);
 	         		remove(m);
 	         		notifyDataSetChanged();
 	         		
@@ -89,7 +89,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<Meeting> {
 			//((ViewHolder) view.getTag()).checkbox.setTag(list.get(position));
 		}
 		ViewHolder holder = (ViewHolder) view.getTag();
-		holder.meetingName.setText(list.get(position).getMeetingName());
+		holder.meetingName.setText(list.get(position).getMeetingSubject());
 		//holder.checkbox.setChecked(list.get(position).isSelected());
 		return view;
 	}

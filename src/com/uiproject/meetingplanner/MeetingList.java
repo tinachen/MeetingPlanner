@@ -27,31 +27,31 @@ public class MeetingList extends ListActivity {
           }
         });*/
 
-        ArrayAdapter<Meeting> adapter = new MeetingListArrayAdapter(this, getMeeting());
+        ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, getMeeting());
 		setListAdapter(adapter);
         
     }
     
-    private List<Meeting> getMeeting(){
-    	List<Meeting> list = new ArrayList<Meeting>();
-		list.add(new Meeting("RTH"));
-		list.add(new Meeting("Campus Center"));
-		list.add(new Meeting("Campus Center2"));
-		list.add(new Meeting("Campus Center3"));
-		list.add(new Meeting("Campus Center4"));
-		list.add(new Meeting("Campus Center5"));
-		list.add(new Meeting("RTH6"));
-		list.add(new Meeting("Campus Center7"));
-		list.add(new Meeting("Campus Center8"));
-		list.add(new Meeting("RTH9"));
-		list.add(new Meeting("Campus Center10"));
-		list.add(new Meeting("Campus Center11"));
-		list.add(new Meeting("Campus Center12"));
-		list.add(new Meeting("Campus Center13"));
-		list.add(new Meeting("Campus Center14"));
-		list.add(new Meeting("Campus Center15"));
-		list.add(new Meeting("Campus Center16"));
-		list.add(new Meeting("Campus Center17"));
+    private List<MeetingInstance> getMeeting(){
+    	List<MeetingInstance> list = new ArrayList<MeetingInstance>();
+		list.add(new MeetingInstance("RTH"));
+		list.add(new MeetingInstance("Campus Center"));
+		list.add(new MeetingInstance("Campus Center2"));
+		list.add(new MeetingInstance("Campus Center3"));
+		list.add(new MeetingInstance("Campus Center4"));
+		list.add(new MeetingInstance("Campus Center5"));
+		list.add(new MeetingInstance("RTH6"));
+		list.add(new MeetingInstance("Campus Center7"));
+		list.add(new MeetingInstance("Campus Center8"));
+		list.add(new MeetingInstance("RTH9"));
+		list.add(new MeetingInstance("Campus Center10"));
+		list.add(new MeetingInstance("Campus Center11"));
+		list.add(new MeetingInstance("Campus Center12"));
+		list.add(new MeetingInstance("Campus Center13"));
+		list.add(new MeetingInstance("Campus Center14"));
+		list.add(new MeetingInstance("Campus Center15"));
+		list.add(new MeetingInstance("Campus Center16"));
+		list.add(new MeetingInstance("Campus Center17"));
 		
 		return list;
     }
