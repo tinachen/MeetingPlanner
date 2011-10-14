@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-/bin
-=======
+*.apk
 /bin
 /gen
->>>>>>> 3d6e4e073b6d4c1e14053b78f4f42349df6b965d
+/res/layout/main.xml
+/res/layout/selectlocation.xml

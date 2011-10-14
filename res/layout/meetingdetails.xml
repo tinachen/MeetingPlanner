@@ -4,6 +4,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
+<LinearLayout
+	android:orientation="horizontal"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+	
 	<!--Details of the Meeting -->
 	
 		<!--id goes here-->
@@ -48,5 +53,6 @@
 			android:layout_height="wrap_content"
 			android:clickable="true"
 			/>
-
+			
+	</LinearLayout>
 </LinearLayout>
