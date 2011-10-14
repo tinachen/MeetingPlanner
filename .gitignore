@@ -1,3 +1,5 @@
 *.apk
 /bin
 /gen
+/res/layout/main.xml
+/res/layout/selectlocation.xml
