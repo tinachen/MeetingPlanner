@@ -13,7 +13,7 @@ import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
-public class MyItemizedOverlay extends ItemizedOverlay {
+public class MyItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	private ArrayList<MyOverlayItem> mOverlays = new ArrayList<MyOverlayItem>();
 	private GeoPoint center;
 	private Context mContext;
