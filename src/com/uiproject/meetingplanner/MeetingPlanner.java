@@ -26,8 +26,6 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
-import com.uiproject.meetingplanner.*;
-
 public class MeetingPlanner extends MapActivity {
 	
 	private LocationManager locationManager;	// for detecting current location
