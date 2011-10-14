@@ -13,8 +13,7 @@
     	
         <activity android:name=".CreateMeeting"
                   android:theme="@android:style/Theme.NoTitleBar">
-        
-<<<<<<< HEAD
+      
           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,12 +24,10 @@
                   android:theme="@android:style/Theme.NoTitleBar">
         
             <intent-filter>
-=======
-            <!-- intent-filter>
->>>>>>> bfd48b8d389d76f896f402851f5028f174a90aad
+
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter-->
+            </intent-filter>
         </activity>
         
     	
