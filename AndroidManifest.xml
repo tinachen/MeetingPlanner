@@ -12,13 +12,13 @@
     	<uses-library android:name="com.google.android.maps" />
     	
         <activity android:name=".CreateMeeting"
-                  android:theme="@android:style/Theme.NoTitleBar">
+                  android:theme="@android:style/Theme.NoTitleBar">         
         </activity>
         
         <activity android:name=".MainPage"
-                  android:theme="@android:style/Theme.NoTitleBar">        
+        	android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            	<action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -39,7 +39,12 @@
        	
        	<activity android:name=".DisplayMeeting"
        			  android:theme="@android:style/Theme.NoTitleBar">
+			  
        	</activity>
+
+		<activity android:name=".Search"
+			android:theme="@android:style/Theme.NoTitleBar">
+		</activity>
 
     </application>
 </manifest>

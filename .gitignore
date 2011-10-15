@@ -1,5 +1,6 @@
 *.apk
-/bin
-/gen
+bin/
 /res/layout/main.xml
 /res/layout/selectlocation.xml
+.gitignore
+AndroidManifest.xml
