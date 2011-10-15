@@ -9,4 +9,12 @@
     	<item>1.5</item>
     	<item>2</item>
     </string-array>
+    <string-array name="search_contacts">
+    	<item>Elizabeth Deng</item>
+    	<item>Tina Chen</item>
+    	<item>Cauchy Choi</item>
+    	<item>Yuwen Bian</item>
+    	<item>Mengfei Xu</item>
+    	<item>Laura Rodriguez</item>
+    </string-array>
 </resources>
