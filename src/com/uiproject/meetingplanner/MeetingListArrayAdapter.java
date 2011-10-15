@@ -1,4 +1,4 @@
-package com.uiproject.meetingplanner;
+package com.uiproject.meetingplanner; 
 
 import java.util.List;
 
@@ -43,8 +43,6 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			viewHolder.acceptBtn.setOnClickListener(new View.OnClickListener() {
 	             public void onClick(View v) {
 	                 // Perform action on click
-	            	 
-	            	 // Get current meeting 
 	            	 MeetingInstance meeting = (MeetingInstance) viewHolder.acceptBtn.getTag();
 	            	 
 	            	 // For testing
@@ -57,11 +55,9 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			
 			viewHolder.declineBtn.setOnClickListener(new View.OnClickListener() {
 	             public void onClick(View v) {
-	                // Perform action on click
-	            	
-	            	// Get current meeting 
-	            	MeetingInstance meeting = (MeetingInstance) viewHolder.acceptBtn.getTag();
-	            		            	 
+	                 // Perform action on click
+	            	 MeetingInstance meeting = (MeetingInstance) viewHolder.acceptBtn.getTag();
+	            	 
 	            	// For testing
 	         		new AlertDialog.Builder(context)
 	         	      .setMessage("decline " + meeting.getMeetingSubject())
@@ -74,17 +70,19 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	         		notifyDataSetChanged();
 	         		
 	             }});
+			
 			view.setTag(viewHolder);
 			viewHolder.acceptBtn.setTag(list.get(position));
 			viewHolder.declineBtn.setTag(list.get(position));
+			
 		} else {
 			view = convertView;
 			((ViewHolder) view.getTag()).acceptBtn.setTag(list.get(position));
 			((ViewHolder) view.getTag()).declineBtn.setTag(list.get(position));
 		}
+		
 		ViewHolder holder = (ViewHolder) view.getTag();
 		holder.meetingName.setText(list.get(position).getMeetingSubject());
-		
 		return view;
 	}
 }

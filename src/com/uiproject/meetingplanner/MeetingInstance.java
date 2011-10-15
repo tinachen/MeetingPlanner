@@ -1,5 +1,5 @@
 package com.uiproject.meetingplanner;
-
+ 
 import java.util.Date;
 
 public class MeetingInstance {
@@ -85,4 +85,5 @@ public class MeetingInstance {
 	{
 		return this.attendees;
 	}
+	
 }

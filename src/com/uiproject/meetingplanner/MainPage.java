@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,30 +38,56 @@ import android.widget.SimpleAdapter;
 public class MainPage extends Activity {
     /** Called when the activity is first created. */
  
-    public Button button1;
+    //public Button button1;
     public TextView textview1;
     ServerMsg sm1=new ServerMsg(5,33,44);
     
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainpage);
+   
+        // For testing purpose
+        textview1 = (TextView) findViewById(R.id.textview1);
+        
+        // Link buttons to activities
+        // Server Test Btn
+	    Button serverTestBtn = (Button) findViewById(R.id.test1);      
+	    serverTestBtn.setOnClickListener(new Button.OnClickListener(){
+	        public void onClick(View v)
+	        {
+	        	try {
+					displayResult();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        	
+	        }
+	    });
+	    
+	    // Create Meeting Btn
+	    Button createMeetingBtn = (Button) findViewById(R.id.createMeeting);
+	    createMeetingBtn.setOnClickListener(new View.OnClickListener() {
+	    	public void onClick(View view) {
+	    		startActivity(new Intent(MainPage.this, CreateMeeting.class));
+	    }});
     
-    textview1 = (TextView)findViewById(R.id.textview1);
-    button1 = (Button) findViewById(R.id.button1);      
-    button1.setOnClickListener(new Button.OnClickListener(){
-        public void onClick(View v)
-        {
-        	try {
-				displayResult();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	
-        }
-    });
+	    // View Meeting List Btn
+	    Button viewMeetingBtn = (Button) findViewById(R.id.meetingList);
+	    viewMeetingBtn.setOnClickListener(new View.OnClickListener() {
+	    	public void onClick(View view) {
+	    		startActivity(new Intent(MainPage.this, MeetingList.class));
+	    }});
+	    
+	    // Display Meeting Details Btn
+	    Button displayMeetingBtn = (Button) findViewById(R.id.meetingDetail);
+	    displayMeetingBtn.setOnClickListener(new View.OnClickListener() {
+	    	public void onClick(View view) {
+	    		startActivity(new Intent(MainPage.this, DisplayMeeting.class));
+	    }});
+    
     }
-    
+
     
     
     public void displayResult() throws JSONException

@@ -44,4 +44,5 @@ public class GeoUpdateHandler implements LocationListener {
 		return currentLng;
 	}
 
+	
 }

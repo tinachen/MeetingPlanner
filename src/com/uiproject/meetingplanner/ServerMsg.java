@@ -30,7 +30,6 @@ public class ServerMsg {
 	}
 	
 	
-	
 	//adding getters and setters
 	public void setLat(int myLat)
 	{
@@ -91,4 +90,5 @@ public class ServerMsg {
 	{
 		return this.picture;
 	}
+	
 }

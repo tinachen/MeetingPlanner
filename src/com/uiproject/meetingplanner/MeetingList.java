@@ -53,6 +53,7 @@ public class MeetingList extends ListActivity {
 		list.add(new MeetingInstance("Campus Center16"));
 		list.add(new MeetingInstance("Campus Center17"));
 		
+		
 		return list;
     }
 }
