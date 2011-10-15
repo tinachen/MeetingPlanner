@@ -46,6 +46,9 @@ public class MainPage extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainpage);
    
+        // For testing purpose
+        textview1 = (TextView) findViewById(R.id.textview1);
+        
         // Link buttons to activities
         // Server Test Btn
 	    Button serverTestBtn = (Button) findViewById(R.id.test1);      
