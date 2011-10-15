@@ -27,8 +27,6 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
-import com.uiproject.meetingplanner.*;
-
 public class MeetingPlanner extends MapActivity {
 	
 	private LocationManager locationManager;	// for detecting current location
@@ -179,9 +177,9 @@ public class MeetingPlanner extends MapActivity {
      @The detailed info is stored individually into different params.
      @And this method will also handling the response from the server.
      */
-	private String getResponseResult() {
-		String param1="",param2="";
-		String urlStr = "http://XXXXXXXX/XXXXX/SendServlet?param1="+param1+"&param2="+param2;
+	public String getResponseResult() {
+		String param1="6",param2="33",param3="44";
+		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/project?id="+param1+"&lat="+param2+"&lon="+param3;
 		//request.getParameter("param1");
 		String responseResult="";
 		try {
