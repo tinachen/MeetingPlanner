@@ -41,10 +41,17 @@
        	
        	<activity android:name=".DisplayMeeting"
        			  android:theme="@android:style/Theme.NoTitleBar">
+<<<<<<< HEAD
        		<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>	  
+=======
+       		<!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+>>>>>>> d839f88ca0dfa2babf5e57584327fcf07359c489
        	</activity>
 
     </application>

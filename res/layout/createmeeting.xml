@@ -13,6 +13,7 @@
 	android:layout_height="wrap_content">
 		<TextView
 			android:id="@+id/form_label" 
+			android:textSize="40px"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent" />
 	</LinearLayout>
@@ -24,11 +25,13 @@
 	android:layout_height="wrap_content">
 		<TextView
 			android:id="@+id/mname_label" 
+			android:textSize="25px"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Meeting Name: "/>
 		<EditText
 			android:id="@+id/mname_field"
+			android:textSize="20px"
 			android:hint="Untitled" 
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content" />		
@@ -41,17 +44,19 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
 		<TextView android:id="@+id/date_label"
+			android:textSize="25px"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="Date: "/>
 		<TextView android:id="@+id/dateDisplay"
+			android:textSize="20px"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text=""/>
 	    <Button android:id="@+id/pickDate"
-	        android:layout_width="wrap_content"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:text="Set date"/>
+	        android:text="Change date"/>
 	</LinearLayout>
 	
 	<!-- start time -->
@@ -60,17 +65,19 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content">		
 	    <TextView android:id="@+id/startTime_label"
+			android:textSize="25px"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="Start time: "/>
 	    <TextView android:id="@+id/startTimeDisplay"
+			android:textSize="20px"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text=""/>
 	    <Button android:id="@+id/startPickTime"
-	        android:layout_width="wrap_content"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:text="Set start time"/>
+	        android:text="Change start time"/>
 	
 	</LinearLayout>
 	
@@ -81,17 +88,19 @@
 	android:layout_height="wrap_content">
 		
 	    <TextView android:id="@+id/endTime_label"
+			android:textSize="25px"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="End time: "/>
 	    <TextView android:id="@+id/endTimeDisplay"
+			android:textSize="20px"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text=""/>
 	    <Button android:id="@+id/endPickTime"
-	        android:layout_width="wrap_content"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:text="Set end time"/>
+	        android:text="Change end time"/>
 	</LinearLayout>
 	
 	<!-- start tracking __ hours before -->
@@ -100,9 +109,10 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
 		<TextView android:id="@+id/spinner_label1"
+			android:textSize="25px"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="Start tracking "/>
+	        android:text="Start tracking: "/>
 		<Spinner 
 	        android:id="@+id/tracker_selector"
 	        android:layout_width="wrap_content"
@@ -110,9 +120,10 @@
 	        android:prompt="@string/tracker_prompt"
 	    />
 		<TextView android:id="@+id/endTimeDisplay"
+			android:textSize="20px"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text=" hours before start time"/>
+	        android:text=" hours before"/>
 	</LinearLayout>
 	
 	<!-- buttons -->
@@ -121,7 +132,7 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
 		 <Button android:id="@+id/selectLocation"
-		        android:layout_width="wrap_content"
+		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:text="Select location"
 				android:onClick="selectLocation" />
@@ -132,7 +143,7 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
 	     <Button android:id="@+id/addPeople"
-			    android:layout_width="wrap_content"
+			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
 			    android:onClick="saveMeeting"
 			    android:text="Save and Invite"/>

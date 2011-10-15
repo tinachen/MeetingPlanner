@@ -233,7 +233,15 @@ public class CreateMeeting extends Activity {
     public void selectLocation(View button){    	
     	//String s = "TESTING!!!!!!!!!!!!!!!! YAY";
     	//Toast.makeText(CreateMeeting.this, s, Toast.LENGTH_SHORT).show();
-    	CreateMeeting.this.startActivity(new Intent(CreateMeeting.this, SelectLocation.class));
+    	int myLat = 34020105;
+    	int myLon = -118289821;
+    	Intent intent = new Intent(CreateMeeting.this, SelectLocation.class);
+    	Bundle bundle = new Bundle();
+    	bundle.putInt("lat", myLat);
+    	bundle.putInt("lon", myLon);
+    	intent.putExtras(bundle);
+    	CreateMeeting.this.startActivity(intent);
+    	
     }
     
     // for the tracker spinner

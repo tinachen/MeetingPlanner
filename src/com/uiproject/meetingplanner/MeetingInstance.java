@@ -85,4 +85,5 @@ public class MeetingInstance {
 	{
 		return this.attendees;
 	}
+	
 }

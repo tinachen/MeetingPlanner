@@ -4,8 +4,13 @@ import java.util.Date;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CursorAdapter;
+import android.widget.ListView;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import com.google.android.maps.MapActivity;
 
@@ -20,32 +25,35 @@ public class DisplayMeeting extends MapActivity {
     	
 		Date myDate = new Date();
 		String [] myPeople = {"John", "Jane"};
-		MeetingInstance identifier = new MeetingInstance(1,37,42,"Meeting 1 - Test", myDate, myPeople);
+		MeetingInstance identifier = new MeetingInstance(1,37,42,"My test meeting", myDate, myPeople);
 		
-    	Log.v(TAG,"The identifier is" + identifier.getMeetingID() + "and subject " + identifier.getMeetingSubject());
     	TextView meetingID = (TextView) findViewById(R.id.meetingID);
-    	Log.v(TAG, "Printing meetingID:" + meetingID);
-    	meetingID.setText("ID: "+identifier.getMeetingID());
+    	CharSequence meetingIDText = "ID: " + identifier.getMeetingID() + "\n";
+    	meetingID.setText(meetingIDText);
     	
     	TextView meetingDesc = (TextView) findViewById(R.id.meetingSubject);
-    	meetingDesc.setText("Subject: " + identifier.getMeetingSubject());
+    	CharSequence meetingSubject = "Subject: " + identifier.getMeetingSubject() + "\n";
+    	meetingDesc.setText(meetingSubject);
     	
     	TextView meetingLoc = (TextView) findViewById(R.id.meetingLocation);
-    	meetingLoc.setText(identifier.getMeetingLat() + identifier.getMeetingLong());
+    	CharSequence meetingLocation = "Location: " + "Lat " + identifier.getMeetingLat() + ", Long " + identifier.getMeetingLong() + "\n";
+    	meetingLoc.setText(meetingLocation);
     	
     	TextView meetingTime = (TextView) findViewById(R.id.meetingTime);
-    	meetingTime.setText(identifier.getMeetingDate().toString());
+    	CharSequence meetingDate = "Date/Time: " + identifier.getMeetingDate().toString() + "\n";
+    	meetingTime.setText(meetingDate);
     	
     	//Display all the attendees of the meeting
-    	TableLayout attendees = (TableLayout) findViewById(R.id.attendees);
-    	for (int i = 0; i < myPeople.length; i++)
-    	{
-    		//Display the names one by one
-    		attendees.setTag(myPeople[i]);
-    	}	
+    	TextView attendeesHeader = (TextView) findViewById(R.id.attHeader);
+    	CharSequence header = "List of attendees: \n";
+    	attendeesHeader.setText(header);
+    	
+    	ListView lv = (ListView)findViewById(R.id.attendees);
+    	lv.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1 , myPeople));
     	
     	Button myButton = (Button) findViewById(R.id.OKButton);
-    	myButton.setText("OK");
+    	CharSequence OKbut = "OK";
+    	myButton.setText(OKbut);
     	
     }
     

@@ -5,6 +5,7 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 <TextView
+	android:textSize="30px"
 	android:text="Select your meeting location!"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content" />
@@ -13,9 +14,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/selectlocview"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:clickable="true"
-    android:apiKey="0RgOCS6zp4Eiyli1LdMoNKdPVTXDMaTe3YY81GQ"
+    android:apiKey="0wN0oRwYCsR4VzTbYhaoRyVKyHcGtGQlmHhVcvg"
+    android:layout_weight="1"
 />
 
+<Button
+	android:text="select"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content" />
 </LinearLayout>
