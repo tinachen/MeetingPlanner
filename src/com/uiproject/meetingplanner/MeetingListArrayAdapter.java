@@ -39,27 +39,15 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			viewHolder.meetingName = (TextView) view.findViewById(R.id.meetingName);
 			viewHolder.acceptBtn = (Button) view.findViewById(R.id.acceptBtn);
 			viewHolder.declineBtn = (Button) view.findViewById(R.id.declineBtn);
-			/*viewHolder.checkbox = (CheckBox) view.findViewById(R.id.check);
-			viewHolder.checkbox
-					.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-						@Override
-						public void onCheckedChanged(CompoundButton buttonView,
-								boolean isChecked) {
-							Model element = (Model) viewHolder.checkbox
-									.getTag();
-							element.setSelected(buttonView.isChecked());
-
-						}
-					});*/
 			
 			viewHolder.acceptBtn.setOnClickListener(new View.OnClickListener() {
 	             public void onClick(View v) {
 	                 // Perform action on click
+	            	 MeetingInstance meeting = (MeetingInstance) viewHolder.acceptBtn.getTag();
 	            	 
 	            	 // For testing
 	            	 new AlertDialog.Builder(context)
-	         	      .setMessage("accept " + list.get(position).getMeetingSubject())
+	         	      .setMessage("accept " + meeting.getMeetingSubject())
 	         	      .setTitle("Meeting")
 	         	      .setCancelable(true)
 	         	      .show();
@@ -68,29 +56,33 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			viewHolder.declineBtn.setOnClickListener(new View.OnClickListener() {
 	             public void onClick(View v) {
 	                 // Perform action on click
-	            	
+	            	 MeetingInstance meeting = (MeetingInstance) viewHolder.acceptBtn.getTag();
+	            	 
 	            	// For testing
 	         		new AlertDialog.Builder(context)
-	         	      .setMessage("decline " + list.get(position).getMeetingSubject())
+	         	      .setMessage("decline " + meeting.getMeetingSubject())
 	         	      .setTitle("Meeting")
 	         	      .setCancelable(true)
 	         	      .show();
 	         		
 	         		// Remove the declined one from meeting list
-	         		MeetingInstance m = (MeetingInstance) list.get(position);
-	         		remove(m);
+	         		remove(meeting);
 	         		notifyDataSetChanged();
 	         		
 	             }});
+			
 			view.setTag(viewHolder);
-			//viewHolder.checkbox.setTag(list.get(position));
+			viewHolder.acceptBtn.setTag(list.get(position));
+			viewHolder.declineBtn.setTag(list.get(position));
+			
 		} else {
 			view = convertView;
-			//((ViewHolder) view.getTag()).checkbox.setTag(list.get(position));
+			((ViewHolder) view.getTag()).acceptBtn.setTag(list.get(position));
+			((ViewHolder) view.getTag()).declineBtn.setTag(list.get(position));
 		}
+		
 		ViewHolder holder = (ViewHolder) view.getTag();
 		holder.meetingName.setText(list.get(position).getMeetingSubject());
-		//holder.checkbox.setChecked(list.get(position).isSelected());
 		return view;
 	}
 }
