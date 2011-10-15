@@ -17,4 +17,5 @@ public class Search extends Activity {
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, search_contacts);
 	    textView.setAdapter(adapter);
 	}
+	
 }

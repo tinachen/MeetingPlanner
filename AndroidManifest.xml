@@ -16,16 +16,10 @@
         </activity>
         
         <activity android:name=".MainPage"
-<<<<<<< HEAD
                   android:theme="@android:style/Theme.NoTitleBar">
         	
-        	<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-=======
-        	android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
             	<action android:name="android.intent.action.MAIN" />
->>>>>>> b79c1d19b821f1f889152461703c9537d2f7a516
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -45,13 +39,8 @@
        	</activity>
        	
        	<activity android:name=".DisplayMeeting"
-<<<<<<< HEAD
        			  android:theme="@android:style/Theme.NoTitleBar">	  
 
-=======
-       			  android:theme="@android:style/Theme.NoTitleBar">
-			  
->>>>>>> b79c1d19b821f1f889152461703c9537d2f7a516
        	</activity>
 
 		<activity android:name=".Search"
