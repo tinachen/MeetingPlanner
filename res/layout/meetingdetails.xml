@@ -3,11 +3,6 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-
-<LinearLayout
-	android:orientation="horizontal"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content">
 	
 	<!--Details of the Meeting -->
 	
@@ -39,20 +34,21 @@
 			android:layout_height="wrap_content"
 			/>
 		
-		<!-- list of attendees goes here -->
-		<TableLayout android:layout_height="wrap_content" android:id="@+id/tableLayout1" android:layout_width="match_parent">
-			<TableRow android:id="@+id/attendees" android:layout_width="wrap_content" android:layout_height="wrap_content"></TableRow>
-		</TableLayout>
+		<!--Attendees list here-->
+		<TextView
+			android:id="@+id/attHeader"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			/>
 		
+		<!-- list of attendees goes here -->
+		<ListView android:id="@+id/attendees"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_weight="1"
+               android:drawSelectorOnTop="false"/>
 
 		<!--OK Button-->
-		<Button
-			android:id="@+id/OKButton"
-			android:text="OK"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:clickable="true"
-			/>
+		<Button android:layout_height="wrap_content" android:text="OK" android:clickable="true" android:layout_width="160dp" android:id="@+id/OKButton"></Button>
 			
-	</LinearLayout>
 </LinearLayout>
