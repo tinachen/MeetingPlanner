@@ -31,5 +31,4 @@ public class MyOverlayItem{
 	public OverlayItem getOverlayItem(){
 		return oi;
 	}
-
 }
