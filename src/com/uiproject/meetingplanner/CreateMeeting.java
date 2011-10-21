@@ -228,6 +228,8 @@ public class CreateMeeting extends Activity {
     	String s = "meeting saved!";
     	Toast.makeText(CreateMeeting.this, s, Toast.LENGTH_SHORT).show();
     	// add to db and get id back, go to add ppl page
+    	Intent intent = new Intent(CreateMeeting.this, Search.class);
+        CreateMeeting.this.startActivity(intent);
     }
     
     public void selectLocation(View button){    	
