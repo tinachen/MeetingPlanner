@@ -94,14 +94,15 @@ public class MainPage extends Activity {
     {
     	
     	String data = getResponseResult(sm1);
-    	HashMap<Integer, Msg> map = new HashMap<Integer, Msg>();
+    	//HashMap<Integer, Msg> map = new HashMap<Integer, Msg>();
+    	HashMap<Integer, ServerMsg> map = new HashMap<Integer, ServerMsg>();
 		JSONObject myjson = new JSONObject(data);
 		JSONArray nameArray = myjson.names();
 		JSONArray valArray = myjson.toJSONArray(nameArray);
 		for (int i = 0; i < valArray.length(); i++) {
 			int la = valArray.getJSONObject(i).getInt("lat");
 			int lo = valArray.getJSONObject(i).getInt("lon");
-			map.put(nameArray.getInt(i), new Msg(la,lo));
+			map.put(nameArray.getInt(i), new ServerMsg(la,lo));
 		}
 		
 		// Output the map
@@ -111,7 +112,7 @@ public class MainPage extends Activity {
 			//textview1.setText(i+":"+map.get(i).lat+","+map.get(i).lon);
 			ServerMsg[] responseitem=new ServerMsg[10];
 			int j=0;
-			ServerMsg response=new ServerMsg(i,map.get(i).lat,map.get(i).lon);
+			ServerMsg response=new ServerMsg(i,map.get(i).myLat,map.get(i).myLong);
 			responseitem[j]=response;
 			textview1.setText(responseitem[j].userID+":"+responseitem[j].myLat+","+responseitem[j].myLong);
 			j++;

@@ -19,9 +19,14 @@ public class ServerMsg {
 	}
 	
 	public ServerMsg(int u,int lat, int lon){
-		myLat = lat;
-		myLong = lon;
-		userID = u;
+		this.myLat = lat;
+		this.myLong = lon;
+		this.userID = u;
+	}
+	
+	public ServerMsg(int lat, int lon) {
+		this.myLat = lat;
+		this.myLong = lon;
 	}
 	
 	

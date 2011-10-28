@@ -230,6 +230,8 @@ public class CreateMeeting extends Activity {
     	Intent intent = new Intent(CreateMeeting.this, Search.class);
     	CreateMeeting.this.startActivity(intent);
     	// add to db and get id back, go to add ppl page
+    	Intent intent = new Intent(CreateMeeting.this, Search.class);
+        CreateMeeting.this.startActivity(intent);
     }
     
     public void selectLocation(View button){    	
