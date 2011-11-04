@@ -58,7 +58,7 @@ public class SelectLocation extends MapActivity {
     	EditText edittext = (EditText) findViewById(R.id.address_field);
     	String addy = edittext.getText().toString();
     	try{
-	    	Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.ENGLISH);
+	    	Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
 			List<Address> addresses = geoCoder.getFromLocationName(addy, 5);
 	
 		    if(addresses.size() > 0)
@@ -76,17 +76,20 @@ public class SelectLocation extends MapActivity {
 				
 				mapView.invalidate();
 				edittext.setText("");
+		    }else{
+	        	Toast.makeText(getBaseContext(), "0 addresses", Toast.LENGTH_SHORT).show();
+		    	
 		    }
 	    }catch(Exception e){
-
+	    	e.printStackTrace();
         	Toast.makeText(getBaseContext(), "cannot find " + addy, Toast.LENGTH_SHORT).show();
 	    }
 	}
     
     private class MyOverlay extends Overlay{	
-    	private OverlayItem o;
+    	public OverlayItem o;
     	  
-    	
+    	/*
     	public boolean onTouchEvent(MotionEvent event, MapView mapView) 
         {   
             //---when user lifts his finger---
@@ -123,7 +126,7 @@ public class SelectLocation extends MapActivity {
             else                
                 return false;
         }
-    	
+    	*/
     }
     //overlay class ends here
     
