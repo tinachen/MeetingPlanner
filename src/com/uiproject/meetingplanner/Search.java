@@ -36,12 +36,13 @@ public class Search extends Activity implements OnItemClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.search);
+	    //setContentView(R.layout.search);
 	    
 	    currentSearchList = new Vector<String>();
 	    contactList = new Vector<String>();
 	    checkedList = new HashSet<String>();
-
+	}
+	public void init() {
 	    // Gets the contact list and saves it into contactList
 	    ContentResolver cr = getContentResolver();
 	    Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI,null, null, null, null);

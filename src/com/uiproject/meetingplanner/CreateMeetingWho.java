@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
-public class CreateMeetingWho extends Activity {
+public class CreateMeetingWho extends Search {
 
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	
@@ -15,7 +15,7 @@ public class CreateMeetingWho extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createmeetingwho);
-        
+        init();
     }
 
     public void back(View button){
