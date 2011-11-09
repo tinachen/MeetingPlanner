@@ -1,16 +1,12 @@
 package com.uiproject.meetingplanner;
 
-import java.util.Calendar;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -48,6 +44,8 @@ public class EditMeeting extends Activity {
     protected double trackTime;
 	
     private Spinner spinner;
+    
+    TextView location, attendees;
     
     // set listeners
 	private DatePickerDialog.OnDateSetListener mDateSetListener =
@@ -89,14 +87,8 @@ public class EditMeeting extends Activity {
         msPickTime = (Button) findViewById(R.id.startPickTime);
         mePickTime = (Button) findViewById(R.id.endPickTime);
         spinner = (Spinner) findViewById(R.id.tracker_selector);
-        
-        
-        // add a click listener to the button
-        mPickDate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(DATE_DIALOG_ID);
-            }
-        });
+        location = (TextView) findViewById(R.id.location);
+        attendees = (TextView) findViewById(R.id.attendees);
 
         // get meeting info from db
         mYear = 2011;
@@ -112,13 +104,18 @@ public class EditMeeting extends Activity {
         updateTimeDisplay(true);
         updateTimeDisplay(false);
         
-        //------------------set tracking time
+        // set tracking time
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.tracker_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
+        //TODO put in current spinner
+        
+        // set location
+        // set attendees
+        
 		
 	}
 	
