@@ -1,6 +1,7 @@
 package com.uiproject.meetingplanner;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -44,5 +45,28 @@ public class CreateMeetingConfirm extends Activity {
     
     public void confirm(View button){
     	//save meeting data into the db
+
+    	// delete data from shared pref
+    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	SharedPreferences.Editor editor = settings.edit();
+    	editor.remove("mtitle");
+    	editor.remove("mdesc");
+    	editor.remove("mdatem");
+    	editor.remove("mdated");
+    	editor.remove("mdatey");
+    	editor.remove("mstarth");
+    	editor.remove("mstartm");
+    	editor.remove("mendh");
+    	editor.remove("mendm");
+    	editor.remove("mtracktime");
+    	
+    	//remove people
+    	//remove location
+    	editor.commit();
+    	
+
+		Intent intent = new Intent(CreateMeetingConfirm.this, MainPage.class);
+		CreateMeetingConfirm.this.startActivity(intent);
+		//TODO change this to clearing all create meeting activities from the stack
     }
 }
