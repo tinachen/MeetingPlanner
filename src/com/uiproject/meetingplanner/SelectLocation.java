@@ -26,8 +26,9 @@ public class SelectLocation extends MapActivity {
 	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.selectlocation);
-        
+    }
+    
+	public void init(){
         mapView = (MapView) findViewById(R.id.selectlocview);
         mapView.setBuiltInZoomControls(true);
 
@@ -47,8 +48,8 @@ public class SelectLocation extends MapActivity {
         // set the center
         mc.setCenter(new GeoPoint(myLat,myLon));
         
-    }
-    
+	}
+	
     @Override
     protected boolean isRouteDisplayed() {
         return false;

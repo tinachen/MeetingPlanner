@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
-public class CreateMeetingWhere extends Activity {
+public class CreateMeetingWhere extends SelectLocation {
 
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	
@@ -15,6 +15,7 @@ public class CreateMeetingWhere extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createmeetingwhere);
+        init();
         
     }
 
