@@ -1,14 +1,14 @@
 package com.uiproject.meetingplanner;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -85,6 +85,14 @@ public class SelectLocation extends MapActivity {
         	Toast.makeText(getBaseContext(), "cannot find " + addy, Toast.LENGTH_SHORT).show();
 	    }
 	}
+    
+    public void confirm(View button){
+    	
+    	Intent resultIntent = new Intent();
+    	// resultIntent.putExtra("lat", lat);
+    	// resultIntent.putExtra("lon", lon);
+    	setResult(Activity.RESULT_OK, resultIntent);
+    }
     
     private class MyOverlay extends Overlay{	
     	public OverlayItem o;

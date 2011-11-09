@@ -14,8 +14,8 @@
     <application android:icon="@drawable/icon" android:label="@string/app_name">
     	<uses-library android:name="com.google.android.maps" />
     	
-        <activity android:name=".CreateMeeting"
-                  android:theme="@android:style/Theme.NoTitleBar">         
+        <activity android:name=".EditMeeting"
+                  android:theme="@android:style/Theme.NoTitleBar">  
         </activity>
         
         <activity android:name=".MainPage"
@@ -45,14 +45,40 @@
 		</activity>
 
 		<activity android:name=".Login"
-				  android:theme="@android:style/Theme.NoTitleBar">
+				  android:theme="@android:style/Theme.NoTitleBar"
+				  android:noHistory="true">
             <intent-filter>
             	<action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+		<activity android:name=".EditProfile"
+				  android:theme="@android:style/Theme.NoTitleBar">
+        </activity>
 
 		<activity android:name=".Signup"
+				  android:theme="@android:style/Theme.NoTitleBar"
+				  android:noHistory="true">
+		</activity>
+
+		<activity android:name=".CreateMeetingWhat"
+				  android:theme="@android:style/Theme.NoTitleBar">
+		</activity>
+
+		<activity android:name=".CreateMeetingWhen"
+				  android:theme="@android:style/Theme.NoTitleBar">
+		</activity>
+
+		<activity android:name=".CreateMeetingWho"
+				  android:theme="@android:style/Theme.NoTitleBar">
+		</activity>
+
+		<activity android:name=".CreateMeetingWhere"
+				  android:theme="@android:style/Theme.NoTitleBar">
+		</activity>
+
+		<activity android:name=".CreateMeetingConfirm"
 				  android:theme="@android:style/Theme.NoTitleBar">
 		</activity>
 

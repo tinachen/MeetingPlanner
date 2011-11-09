@@ -14,7 +14,7 @@ public class Login extends Activity {
 	
 	EditText phone_field, pw_field;
 	CheckBox remember_me;
-	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";  
+	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 
@@ -22,6 +22,7 @@ public class Login extends Activity {
         setContentView(R.layout.login);
         
         //check to see if user is already logged in or not
+        /*
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	int uid = settings.getInt("uid", -1);
     	boolean remember = settings.getBoolean("remember", false);
@@ -31,7 +32,7 @@ public class Login extends Activity {
     	}else{
     		Toast.makeText(getBaseContext(), "your login is not currently remembered", Toast.LENGTH_SHORT).show();		
     	}
-        
+*/        
         phone_field = (EditText) findViewById(R.id.phone);
         pw_field = (EditText) findViewById(R.id.pw);
         remember_me = (CheckBox) findViewById(R.id.rememberme);
@@ -72,7 +73,7 @@ public class Login extends Activity {
         }
 
     	editor.commit();        	
-    	
+  
         // no problems, go to main page
         Intent intent = new Intent(Login.this, MainPage.class);
     	Login.this.startActivity(intent);
