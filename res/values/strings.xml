@@ -17,4 +17,5 @@
     	<item>Mengfei Xu</item>
     	<item>Laura Rodriguez</item>
     </string-array>
+    <string name="cancel_create">999</string>
 </resources>

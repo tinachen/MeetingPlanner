@@ -42,9 +42,24 @@ public class CreateMeetingConfirm extends Activity {
     	
     }
 
-    
+    public void cancel(View Button){
+
+    	clearData();
+    	CreateMeetingConfirm.this.setResult(R.string.cancel_create);
+    	CreateMeetingConfirm.this.finish();
+    	
+    }
+	
     public void confirm(View button){
     	//save meeting data into the db
+
+    	clearData();
+		Intent intent = new Intent(CreateMeetingConfirm.this, MainPage.class);
+		CreateMeetingConfirm.this.startActivity(intent);
+		//TODO change this to clearing all create meeting activities from the stack
+    }
+    
+    public void clearData(){
 
     	// delete data from shared pref
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
@@ -63,10 +78,7 @@ public class CreateMeetingConfirm extends Activity {
     	//remove people
     	//remove location
     	editor.commit();
-    	
-
-		Intent intent = new Intent(CreateMeetingConfirm.this, MainPage.class);
-		CreateMeetingConfirm.this.startActivity(intent);
-		//TODO change this to clearing all create meeting activities from the stack
+    		
+    
     }
 }

@@ -152,15 +152,17 @@ public class CreateMeetingWhen extends Activity {
 	    	//remove people
 	    	//remove location
 	    	editor.commit();
+
 	    	
-			finish();
+	    	CreateMeetingWhen.this.setResult(R.string.cancel_create);
+	    	CreateMeetingWhen.this.finish();
 			//need to clear the previous activities too
 	    }
 	    
 	    public void next(View button){
 	    	saveData();
 			Intent intent = new Intent(CreateMeetingWhen.this, CreateMeetingWho.class);
-			CreateMeetingWhen.this.startActivity(intent);
+			CreateMeetingWhen.this.startActivityForResult(intent, 0);
 	    	
 	    }
 	    
@@ -188,6 +190,16 @@ public class CreateMeetingWhen extends Activity {
 	    	editor.putFloat("mtracktime", (float) trackTime);
 	    	editor.commit();
 	    	
+	    }
+	    
+
+	    @Override
+	    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	        super.onActivityResult(requestCode, resultCode, data);
+	        if (resultCode == R.string.cancel_create) {
+	            this.setResult(R.string.cancel_create);
+	            this.finish();
+	        }
 	    }
 	    
 	    public void changeDate(View button){

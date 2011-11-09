@@ -40,16 +40,17 @@ public class CreateMeetingWhere extends Activity {
     	//remove people
     	//remove location
     	editor.commit();
+
     	
-		finish();
-		//need to clear the previous activities too
+    	CreateMeetingWhere.this.setResult(R.string.cancel_create);
+    	CreateMeetingWhere.this.finish();
     }
     
     public void next(View button){
     	saveData();
     	
 		Intent intent = new Intent(CreateMeetingWhere.this, CreateMeetingConfirm.class);
-		CreateMeetingWhere.this.startActivity(intent);
+		CreateMeetingWhere.this.startActivityForResult(intent, 0);
     	
     }
 
@@ -68,6 +69,15 @@ public class CreateMeetingWhere extends Activity {
     	//save stuff here
     	editor.commit();
     	
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == R.string.cancel_create) {
+            this.setResult(R.string.cancel_create);
+            this.finish();
+        }
     }
     
 }

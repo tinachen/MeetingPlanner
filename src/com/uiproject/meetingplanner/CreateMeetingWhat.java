@@ -42,7 +42,7 @@ public class CreateMeetingWhat extends Activity {
     	//remove location
     	editor.commit();
     	
-		CreateMeetingWhat.this.finish();
+    	CreateMeetingWhat.this.finish();
     	
     }
     
@@ -53,13 +53,20 @@ public class CreateMeetingWhat extends Activity {
     	
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();
-    	editor.putBoolean("cmwhat", true);
     	editor.putString("mtitle", mtitle);
     	editor.putString("mdesc", mdesc);
     	editor.commit();
     	
 		Intent intent = new Intent(CreateMeetingWhat.this, CreateMeetingWhen.class);
-		CreateMeetingWhat.this.startActivity(intent);
+		CreateMeetingWhat.this.startActivityForResult(intent, 0);
     	
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == R.string.cancel_create) {
+            this.finish();
+        }
     }
 }
