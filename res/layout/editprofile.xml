@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_height="fill_parent"
+	android:layout_width="fill_parent"
+	android:paddingLeft="30dip"
+	android:paddingRight="30dip"
+	android:paddingTop="5dip">
+		
+	<ImageView
+	   android:id="@+id/editprofile_img"
+	   android:src="@drawable/editprofile"
+	   android:paddingBottom="0dip" android:layout_width="200dip" android:layout_height="50dp"/>
+	<EditText
+    	android:id="@+id/fname"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:hint="First Name"
+		android:layout_marginTop="5dip" />	
+	
+	<EditText
+    	android:id="@+id/lname"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="5dip"
+		android:hint="Last Name" />	
+	
+	<EditText
+    	android:id="@+id/email"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="5dip"
+		android:hint="Email" />	
+	<EditText
+    	android:id="@+id/phone"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:phoneNumber="true"
+		android:layout_marginTop="5dip"
+		android:hint="Phone number" />	
+		
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:phoneNumber="true"
+		android:layout_marginTop="5dip"
+		android:text="Change your password"
+		/>
+	<EditText
+   		android:id="@+id/oldpw"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:password="true"
+		android:hint="Old Password" 
+		android:layout_marginTop="5dip"/>	
+	<EditText
+   		android:id="@+id/pw"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:password="true"
+		android:hint="New Password" 
+		android:layout_marginTop="5dip"/>	
+	<EditText
+   		android:id="@+id/pw2"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:password="true"
+		android:hint="Retype New Password" 
+		android:layout_marginTop="5dip"/>		
+	<Button
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:onClick="submit"
+		android:text="Submit"
+		android:layout_marginTop="5dip" />	
+</LinearLayout>
