@@ -17,4 +17,6 @@
     	<item>Mengfei Xu</item>
     	<item>Laura Rodriguez</item>
     </string-array>
+    
+    <color name="green">#529D2A</color>
 </resources>
