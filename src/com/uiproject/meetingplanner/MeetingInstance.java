@@ -1,31 +1,92 @@
+/********************
+ * 
+ * Last Modified by Tina Chen
+ * 
+ *******************/
+
 package com.uiproject.meetingplanner;
- 
+
+import java.util.ArrayList;
 import java.util.Date;
 
 public class MeetingInstance {
 	private int meetingID;
 	private int meetingLat;
-	private int meetingLong;
-	private String meetingSubject;
-	private Date meetingDate;
-	private Object[] attendees;
+	private int meetingLon;
+	private String meetingTitle;
+	private String meetingDescription; 
+	private String meetingAddress;
+	private String meetingDate;
+	private String meetingStartTime;
+	private String meetingEndTime;
+	private int meetingTrackTime;
+	private ArrayList<UserInstance> attendees;
+	private int meetingInitiatorID;
 	
+	
+	// to be deleted (new constructor has been created but since i don't want to get errors in display meeting, 
+	// i ll just leave it here for now - tina
 	public MeetingInstance(int meetingID, int meetingLat, int meetingLong, String meetingSubject, Date meetingDate, Object[] attendees){
 		this.meetingID = meetingID;
 		this.meetingLat = meetingLat;
-		this.meetingLong = meetingLong;
-		this.meetingSubject = meetingSubject;
+		this.meetingLon = meetingLong;
+		this.meetingTitle = meetingSubject;
+		//this.meetingDate = meetingDate;
+		//this.attendees = attendees;
+
+	}
+	
+	// to be deleted, for testing db only
+	public MeetingInstance(int meetingID, String meetingTitle){
+		this.meetingID = meetingID;
+		this.meetingTitle = meetingTitle;
+	}
+	
+	// to be deleted, for testing
+	public MeetingInstance(String meetingTitle){
+		this.meetingTitle = meetingTitle;
+	}
+	
+	public MeetingInstance(int meetingID, int meetingLat, int meetingLon, String meetingTitle, String meetingDescription,
+			String meetingAddress, String meetingDate, String meetingStartTime, String meetingEndTime, int meetingTrackTime, int meetingInitiatorID){
+		this.meetingID = meetingID;
+		this.meetingLat = meetingLat;
+		this.meetingLon = meetingLon;
+		this.meetingTitle = meetingTitle;
+		this.meetingDescription = meetingDescription;
+		this.meetingAddress = meetingAddress;
 		this.meetingDate = meetingDate;
+		this.meetingStartTime = meetingStartTime;
+		this.meetingEndTime = meetingEndTime;
+		this.meetingTrackTime = meetingTrackTime;
+		this.meetingInitiatorID = meetingInitiatorID;
+	}
+	
+	public MeetingInstance(int meetingID, int meetingLat, int meetingLon, String meetingTitle, String meetingDescription,
+				String meetingAddress, String meetingDate, String meetingStartTime, String meetingEndTime, int meetingTrackTime,
+				ArrayList<UserInstance> attendees, int meetingInitiatorID){
+		this.meetingID = meetingID;
+		this.meetingLat = meetingLat;
+		this.meetingLon = meetingLon;
+		this.meetingTitle = meetingTitle;
+		this.meetingDescription = meetingDescription;
+		this.meetingAddress = meetingAddress;
+		this.meetingDate = meetingDate;
+		this.meetingStartTime = meetingStartTime;
+		this.meetingEndTime = meetingEndTime;
+		this.meetingTrackTime = meetingTrackTime;
 		this.attendees = attendees;
-		
+		this.meetingInitiatorID = meetingInitiatorID;
 	}
 	
-	// for testing purpose
-	public MeetingInstance(String meetingSubject){
-		this.meetingSubject = meetingSubject;
-	}
+
 	
-	//adding getters and setters
+	/*************************************************
+	 * 
+	 * Setters
+	 *
+	 *************************************************/
+	
 	public void setMeetingID(int meetingID)
 	{
 		this.meetingID = meetingID;
@@ -36,25 +97,36 @@ public class MeetingInstance {
 		this.meetingLat = meetingLat;
 	}
 	
-	public void setMeetingLong(int meetingLong)
+	public void setMeetingLong(int meetingLon)
 	{
-		this.meetingLong = meetingLong;
+		this.meetingLon = meetingLon;
 	}
 	
-	public void setMeetingSubject(String meetingSubject)
+	public void setMeetingSubject(String meetingTitle)
 	{
-		this.meetingSubject = meetingSubject;
+		this.meetingTitle = meetingTitle;
 	}
 	
-	public void setMeetingDate(Date meetingDate)
+	public void setMeetingDate(String meetingDate)
 	{
 		this.meetingDate = meetingDate;
 	}
 	
-	public void setAttendees(Object[] attendees)
+	public void setMeetingTrackTime(int meetingTrackTime){
+		this.meetingTrackTime = meetingTrackTime;
+	}
+	
+	public void setAttendees(ArrayList<UserInstance> attendees)
 	{
 		this.attendees = attendees;
 	}
+	
+	
+	/*************************************************
+	 * 
+	 * Getters
+	 *
+	 *************************************************/
 	
 	public int getMeetingLat()
 	{
@@ -63,7 +135,7 @@ public class MeetingInstance {
 	
 	public int getMeetingLong()
 	{
-		return this.meetingLong;
+		return this.meetingLon;
 	}
 	
 	public int getMeetingID()
@@ -73,17 +145,25 @@ public class MeetingInstance {
 	
 	public String getMeetingSubject()
 	{
-		return this.meetingSubject;
+		return this.meetingTitle;
 	}
 	
-	public Date getMeetingDate()
+	public String getMeetingDate()
 	{
 		return this.meetingDate;
 	}
 	
-	public Object[] getAttendees()
+	public int getMeetingTrackTime()
+	{
+		return this.meetingTrackTime;
+	}
+	
+	public ArrayList<UserInstance> getMeetingAttendees()
 	{
 		return this.attendees;
 	}
 	
+	public int getMeetingInitiatorID(){
+		return this.meetingInitiatorID;
+	}
 }
