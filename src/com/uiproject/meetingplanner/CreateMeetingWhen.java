@@ -121,7 +121,8 @@ public class CreateMeetingWhen extends Activity {
 	        spinner.setAdapter(adapter);
 	        spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
 	        trackTime = (double) settings.getFloat("mtrackingtime", (float) .5);
-	        
+
+            Toast.makeText(getBaseContext(), trackTime + "", Toast.LENGTH_SHORT).show();
 	        //this doesn't work yet TODO
 	        int spinnerPosition = adapter.getPosition(trackTime + "");
 	        spinner.setSelection(spinnerPosition);

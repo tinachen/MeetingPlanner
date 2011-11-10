@@ -43,7 +43,6 @@ public class Login extends Activity {
 		String user = phone_field.getText().toString();
 		String pass = pw_field.getText().toString();
 		
-        Toast.makeText(getBaseContext(), "You pressed the login button!", Toast.LENGTH_SHORT).show();
 
         if(user.length() == 0 || pass.length() == 0){
             Toast.makeText(getBaseContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();

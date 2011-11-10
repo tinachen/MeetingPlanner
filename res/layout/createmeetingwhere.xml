@@ -46,45 +46,42 @@
         
 <!-- start main content -->
 
+ <RelativeLayout
+   android:layout_width="match_parent"
+   android:layout_height="fill_parent">
 <LinearLayout
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
-	
-<LinearLayout
-	android:orientation="horizontal"
-	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
-	<EditText
-		android:id="@+id/address_field"
-		android:textSize="20px"
-		android:hint="type address here..." 
+	
+	<LinearLayout
+		android:orientation="horizontal"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_weight=".3" />	
-	<Button
-		android:text="search"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_weight=".7" 
-		android:onClick="findAddress" />
-</LinearLayout>
+		android:layout_height="wrap_content">
+		<EditText
+			android:id="@+id/address_field"
+			android:textSize="20px"
+			android:hint="type address here..." 
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight=".3" />	
+		<Button
+			android:text="search"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight=".7" 
+			android:onClick="findAddress" />
+	</LinearLayout>
 
 <com.google.android.maps.MapView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/selectlocview"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:clickable="true"
-    android:apiKey="0wN0oRwYCsR4VzTbYhaoRyVKyHcGtGQlmHhVcvg"
-/>
+    android:apiKey="0wN0oRwYCsR4VzTbYhaoRyVKyHcGtGQlmHhVcvg" android:layout_height="376dp"/>
 
 </LinearLayout>
 
-    
-      <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent">
         
        <LinearLayout
        		android:orientation="horizontal"

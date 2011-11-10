@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class CreateMeetingWhat extends Activity {
 	
@@ -49,7 +50,17 @@ public class CreateMeetingWhat extends Activity {
     public void next(View button){
     	
     	String mtitle = title.getText().toString();
+    	
+    	if (mtitle.length() == 0){
+            Toast.makeText(getBaseContext(), "Please specify meeting title", Toast.LENGTH_SHORT).show();
+            return;
+    	}
+    	
     	String mdesc = desc.getText().toString();
+    	
+    	if (mdesc.length() == 0){
+    		mdesc = null;
+    	}
     	
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();

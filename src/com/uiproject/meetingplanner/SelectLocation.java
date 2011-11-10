@@ -23,15 +23,17 @@ import com.google.android.maps.OverlayItem;
 public class SelectLocation extends MapActivity {
 	MapController mc;
 	MapView mapView;
+	EditText address_field;
 	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
     
 	public void init(){
+
+    	address_field = (EditText) findViewById(R.id.address_field);
         mapView = (MapView) findViewById(R.id.selectlocview);
         mapView.setBuiltInZoomControls(true);
-
 
         List<Overlay> mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
@@ -41,9 +43,10 @@ public class SelectLocation extends MapActivity {
         // find the area to auto zoom to
         mc = mapView.getController();
         
+        
        Bundle bundle = this.getIntent().getExtras();
-       int myLat = bundle.getInt("lat");
-       int myLon = bundle.getInt("lon");
+       int myLat = 34019443; // bundle.getInt("lat");
+       int myLon = -118289440; //bundle.getInt("lon");
        
         // set the center
         mc.setCenter(new GeoPoint(myLat,myLon));
@@ -55,9 +58,9 @@ public class SelectLocation extends MapActivity {
         return false;
     }
     
-    public void findAddress(View button){    
-    	EditText edittext = (EditText) findViewById(R.id.address_field);
-    	String addy = edittext.getText().toString();
+    public void findAddress(View button){
+    	
+    	String addy = address_field.getText().toString();
     	try{
 	    	Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
 			List<Address> addresses = geoCoder.getFromLocationName(addy, 5);
@@ -76,7 +79,7 @@ public class SelectLocation extends MapActivity {
 				listOfOverlays.add(mapOverlay);
 				
 				mapView.invalidate();
-				edittext.setText("");
+				address_field.setText("");
 		    }else{
 	        	Toast.makeText(getBaseContext(), "0 addresses", Toast.LENGTH_SHORT).show();
 		    	
@@ -85,15 +88,8 @@ public class SelectLocation extends MapActivity {
 	    	e.printStackTrace();
         	Toast.makeText(getBaseContext(), "cannot find " + addy, Toast.LENGTH_SHORT).show();
 	    }
+	    
 	}
-    
-    public void confirm(View button){
-    	
-    	Intent resultIntent = new Intent();
-    	// resultIntent.putExtra("lat", lat);
-    	// resultIntent.putExtra("lon", lon);
-    	setResult(Activity.RESULT_OK, resultIntent);
-    }
     
     private class MyOverlay extends Overlay{	
     	public OverlayItem o;

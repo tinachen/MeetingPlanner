@@ -45,7 +45,24 @@
         android:background="#FF909090" />
 
 
-<!-- search goes here -->
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent" 
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search" />
+    <AutoCompleteTextView android:id="@+id/autocomplete_names"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"/>
+    <ListView android:layout_width="match_parent"
+        android:id="@+id/contactList"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+</LinearLayout>
 
     
       <RelativeLayout
