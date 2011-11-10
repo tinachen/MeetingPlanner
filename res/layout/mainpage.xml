@@ -4,21 +4,19 @@
     android:layout_height="fill_parent" 
     android:orientation="vertical" 
     android:weightSum="1"
-    android:background="@drawable/blue1"
+    android:background="@drawable/white"
+ 
+    
     >
-<TextView  
-    android:id="@+id/textview1" 
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
-<EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/editText1">
-    <requestFocus></requestFocus>
-</EditText>
-<RelativeLayout android:layout_weight="1.03" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/relativeLayout1">
-    <Button android:layout_height="150px" android:text="Create Meeting" android:layout_width="130px" android:id="@+id/createMeeting" android:layout_alignParentTop="true" android:layout_alignLeft="@+id/meetingDetail" android:layout_marginTop="49dp"></Button>
-    <Button android:text="Server Test" android:id="@+id/test1" android:layout_width="130px" android:layout_height="150px" android:layout_alignBaseline="@+id/createMeeting" android:layout_alignBottom="@+id/createMeeting" android:layout_alignLeft="@+id/meetingList"></Button>
-    <Button android:text="View Meetings" android:id="@+id/meetingList" android:layout_width="130px" android:layout_height="150px" android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:layout_marginLeft="34dp"></Button>
-    <Button android:text="Meeting Detail" android:id="@+id/meetingDetail" android:layout_width="130px" android:layout_height="150px" android:layout_alignBaseline="@+id/meetingList" android:layout_alignBottom="@+id/meetingList" android:layout_alignParentRight="true" android:layout_marginRight="32dp"></Button>
-</RelativeLayout>
+    <RelativeLayout android:layout_width="match_parent" android:layout_weight="1.03" android:layout_height="wrap_content" android:id="@+id/relativeLayout1">
+        <Button android:background="@drawable/mymeeting" android:layout_height="150px" android:layout_alignBaseline="@+id/createMeeting" android:layout_marginLeft="51dp" android:text="" android:layout_alignParentLeft="true" android:id="@+id/meetingList" android:layout_width="130px" android:layout_alignBottom="@+id/createMeeting"></Button>
+        <Button android:background="@drawable/creatmeeting" android:layout_alignParentRight="true" android:layout_alignParentTop="true" android:layout_height="150px" android:layout_marginRight="30dp" android:layout_marginTop="158dp" android:text="" android:id="@+id/createMeeting" android:layout_width="130px"></Button>
+        <TextView android:textAppearance="?android:attr/textAppearanceLarge" android:textSize="30dp" android:textColor="@drawable/black" android:layout_alignParentTop="true" android:layout_height="wrap_content" android:layout_marginTop="64dp" android:id="@+id/textView2" android:text="MeetApp" android:layout_width="wrap_content" android:layout_alignLeft="@+id/meetingList" android:layout_toLeftOf="@+id/createMeeting"></TextView>
+        <TextView android:layout_alignParentTop="true" android:textSize="15dp" android:textColor="@drawable/black" android:layout_height="50px" android:id="@+id/textview1" android:text="Elizabeth Deng" android:layout_width="111dp" android:layout_toLeftOf="@+id/button1"></TextView>
+        <Button android:layout_alignParentRight="true" android:layout_alignParentTop="true" android:layout_height="50px" android:text="Log Out" android:id="@+id/button1" android:layout_width="wrap_content"></Button>
+        <TextView android:layout_height="wrap_content" android:textColor="@drawable/black" android:layout_marginTop="86dp" android:id="@+id/textView3" android:text="Upcoming meeting: meeting1 date time" android:layout_width="wrap_content" android:layout_below="@+id/meetingList" android:layout_alignRight="@+id/createMeeting"></TextView>
+        <TextView android:layout_height="wrap_content" android:textColor="@drawable/black" android:text="My Meeting" android:layout_width="wrap_content" android:id="@+id/textView4" android:layout_below="@+id/meetingList" android:layout_alignRight="@+id/meetingList" android:layout_marginTop="16dp"></TextView>
+        <TextView android:layout_height="wrap_content" android:textColor="@drawable/black" android:text="Create Meeting" android:layout_width="wrap_content" android:id="@+id/textView5" android:layout_alignBottom="@+id/textView4" android:layout_alignRight="@+id/createMeeting"></TextView>
+    </RelativeLayout>
 </LinearLayout>
+
