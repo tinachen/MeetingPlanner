@@ -61,7 +61,7 @@
 		<EditText
 			android:id="@+id/address_field"
 			android:textSize="20px"
-			android:hint="type address here..." 
+			android:hint="type address here...." 
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_weight=".3" />	
