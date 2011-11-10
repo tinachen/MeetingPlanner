@@ -31,7 +31,7 @@ public class CreateMeetingWhere extends SelectLocation {
     	super.init(lat, lon);
 
     	OverlayItem oi = new OverlayItem(new GeoPoint(lat, lon), addr, "");  
-        //overlay.addOverlay(oi);   
+        overlay.addOverlay(oi);   
     	
     }
 
@@ -87,7 +87,7 @@ public class CreateMeetingWhere extends SelectLocation {
     }
     
     private void saveData(){
-/*
+
     	OverlayItem oi = overlay.getOverlayItem();
     	if (oi == null){
         	return;
@@ -96,14 +96,14 @@ public class CreateMeetingWhere extends SelectLocation {
     	String addr = oi.getTitle();
     	int lat = oi.getPoint().getLatitudeE6();
     	int lon = oi.getPoint().getLongitudeE6();
-  */  	
+    	
     	//save data in shared preferences
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();
-    	/*
+    	
     	editor.putString("maddr", addr);
     	editor.putInt("mlat", lat);
-    	editor.putInt("mlon", lon);*/
+    	editor.putInt("mlon", lon);
     	editor.commit();
     	
     }

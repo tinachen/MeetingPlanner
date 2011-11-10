@@ -40,7 +40,7 @@ public class SelectLocation extends MapActivity {
 
         List<Overlay> mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
-        MyOverlay overlay = new MyOverlay(drawable);
+        overlay = new MyOverlay(drawable);
         mapOverlays.add(overlay);
         
         // find the area to auto zoom to
