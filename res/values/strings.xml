@@ -2,12 +2,12 @@
 <resources>
     <string name="hello">Hello World, MeetingPlanner!</string>
     <string name="app_name">MeetingPlanner</string>
-    <string name="tracker_prompt">Start tracking __ hours before</string>
+    <string name="tracker_prompt">Track Time (in hours)</string>
     <string-array name="tracker_array">
     	<item>.5</item>
-    	<item>1</item>
+    	<item>1.0</item>
     	<item>1.5</item>
-    	<item>2</item>
+    	<item>2.0</item>
     </string-array>
     <string-array name="search_contacts">
     	<item>Elizabeth Deng</item>
@@ -17,4 +17,5 @@
     	<item>Mengfei Xu</item>
     	<item>Laura Rodriguez</item>
     </string-array>
+    <string name="cancel_create">999</string>
 </resources>

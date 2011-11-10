@@ -69,10 +69,11 @@ public class MainPage extends Activity {
 	    Button createMeetingBtn = (Button) findViewById(R.id.createMeeting);
 	    createMeetingBtn.setOnClickListener(new View.OnClickListener() {
 	    	public void onClick(View view) {
-	    		startActivity(new Intent(MainPage.this, CreateMeeting.class));
+
+	    		startActivity(new Intent(MainPage.this, CreateMeetingWhat.class));
 	    		Intent intent = new Intent(MainPage.this, CommunicateService.class);
 	    		startService(intent);
- 		
+
 	    }});
     
 	    // View Meeting List Btn

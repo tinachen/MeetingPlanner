@@ -9,6 +9,25 @@
 	android:text="Select your meeting location!"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content" />
+	
+<LinearLayout
+	android:orientation="horizontal"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+	<EditText
+		android:id="@+id/address_field"
+		android:textSize="20px"
+		android:hint="type address here..." 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight=".3" />	
+	<Button
+		android:text="search"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight=".7" 
+		android:onClick="findAddress" />
+</LinearLayout>
 
 <com.google.android.maps.MapView
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -21,7 +40,8 @@
 />
 
 <Button
-	android:text="select"
+	android:text="confirm"
 	android:layout_width="fill_parent"
-	android:layout_height="wrap_content" />
+	android:layout_height="wrap_content"
+	android:onClick="confirm" />
 </LinearLayout>
