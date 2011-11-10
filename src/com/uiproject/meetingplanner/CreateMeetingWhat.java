@@ -25,6 +25,11 @@ public class CreateMeetingWhat extends Activity {
     
     
     public void cancel(View button){
+    	onBackPressed();
+    }
+    
+    @Override
+    public void onBackPressed(){
 
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();

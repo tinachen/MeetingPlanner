@@ -120,10 +120,7 @@ public class CreateMeetingWhen extends Activity {
 	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	        spinner.setAdapter(adapter);
 	        spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
-	        trackTime = (double) settings.getFloat("mtrackingtime", (float) .5);
-
-            Toast.makeText(getBaseContext(), trackTime + "", Toast.LENGTH_SHORT).show();
-	        //this doesn't work yet TODO
+	        trackTime = (double) settings.getFloat("mtracktime", (float) .5);
 	        int spinnerPosition = adapter.getPosition(trackTime + "");
 	        spinner.setSelection(spinnerPosition);
 	        

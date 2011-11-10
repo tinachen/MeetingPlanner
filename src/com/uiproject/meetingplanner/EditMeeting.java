@@ -98,6 +98,7 @@ public class EditMeeting extends Activity {
         msMinute = 30;
         meHour = 19;
         meMinute = 0;
+        trackTime = 1.0;
         
         // update date and time displays
         updateDateDisplay();
@@ -111,7 +112,8 @@ public class EditMeeting extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
-        //TODO put in current spinner
+        int spinnerPosition = adapter.getPosition(trackTime + "");
+        spinner.setSelection(spinnerPosition);
         
         // set location
         // set attendees
@@ -209,8 +211,7 @@ public class EditMeeting extends Activity {
     	String s = "meeting saved!";
     	Toast.makeText(EditMeeting.this, s, Toast.LENGTH_SHORT).show();
     	//save in db
-    	finish();
-    	
+    	finish();    	
     }
     
     public void invite(View button){

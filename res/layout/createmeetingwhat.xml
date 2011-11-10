@@ -60,10 +60,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Meeting Title">
-
-        <requestFocus />
-    </EditText>
+        android:hint="Meeting Title" />
 
     <EditText
         android:id="@+id/desc"
@@ -72,10 +69,7 @@
 		android:lines="7"
 		android:gravity="top"
 		android:hint="Description" 
-		android:layout_marginTop="10dip">
-
-        <requestFocus />
-    </EditText>
+		android:layout_marginTop="10dip" />
 </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
