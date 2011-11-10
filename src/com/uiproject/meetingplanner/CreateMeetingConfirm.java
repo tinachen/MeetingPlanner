@@ -65,6 +65,10 @@ public class CreateMeetingConfirm extends Activity {
 	    db.open();
     }
 
+	public void back(View Button){
+		onBackPressed();
+	}
+	
     public void cancel(View Button){
 
     	clearData();
@@ -73,6 +77,12 @@ public class CreateMeetingConfirm extends Activity {
     	
     }
 	
+    @Override
+    public void onBackPressed(){
+    	finish();
+    	
+    }
+    
     public void confirm(View button){
     	// Pass meeting details to server TODO
     	// Retrieve meeting ID and set it
@@ -112,6 +122,9 @@ public class CreateMeetingConfirm extends Activity {
     	editor.remove("mendh");
     	editor.remove("mendm");
     	editor.remove("mtracktime");
+    	editor.remove("maddr");
+    	editor.remove("mlat");
+    	editor.remove("mlon");
     	
     	//remove people
     	//remove location

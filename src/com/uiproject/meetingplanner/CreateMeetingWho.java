@@ -36,6 +36,9 @@ public class CreateMeetingWho extends Search {
     	editor.remove("mendh");
     	editor.remove("mendm");
     	editor.remove("mtracktime");
+    	editor.remove("maddr");
+    	editor.remove("mlat");
+    	editor.remove("mlon");
     	
     	//remove people
     	//remove location
