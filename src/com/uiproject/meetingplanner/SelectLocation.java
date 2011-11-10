@@ -1,14 +1,14 @@
 package com.uiproject.meetingplanner;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -94,7 +94,7 @@ public class SelectLocation extends MapActivity {
     private class MyOverlay extends Overlay{	
     	public OverlayItem o;
     	  
-    	/*
+    	
     	public boolean onTouchEvent(MotionEvent event, MapView mapView) 
         {   
             //---when user lifts his finger---
@@ -131,7 +131,7 @@ public class SelectLocation extends MapActivity {
             else                
                 return false;
         }
-    	*/
+    	
     }
     //overlay class ends here
     
