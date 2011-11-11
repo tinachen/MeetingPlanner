@@ -80,7 +80,6 @@ public class CreateMeetingWhere extends SelectLocation {
 
     @Override
     public void onBackPressed(){
-    	Toast.makeText(getBaseContext(), "hereX", Toast.LENGTH_SHORT).show();
     	saveData();
     	CreateMeetingWhere.this.finish();
     	

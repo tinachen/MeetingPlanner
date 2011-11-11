@@ -180,8 +180,8 @@ public class EditMeeting extends Activity {
      mPickDate.setText(
          new StringBuilder()
                  // Month is 0 based so add 1
-                 .append(mMonth + 1).append("-")
-                 .append(mDay).append("-")
+                 .append(mMonth + 1).append("/")
+                 .append(mDay).append("/")
                  .append(mYear).append(" "));
    }
    
@@ -215,21 +215,13 @@ public class EditMeeting extends Activity {
     }
     
     public void invite(View button){
-    	Intent intent = new Intent(EditMeeting.this, Search.class);
+    	Intent intent = new Intent(EditMeeting.this, EditMeetingAttendees.class);
     	EditMeeting.this.startActivity(intent);
     }
     
-    public void selectLocation(View button){    	
-    	
-    	int myLat = 34020105;
-    	int myLon = -118289821;
-    	Intent intent = new Intent(EditMeeting.this, SelectLocation.class);
-    	Bundle bundle = new Bundle();
-    	bundle.putInt("lat", myLat);
-    	bundle.putInt("lon", myLon);
-    	intent.putExtras(bundle);
-    	EditMeeting.this.startActivityForResult(intent, 1);
-    	
+    public void selectLocation(View button){
+    	Intent intent = new Intent(EditMeeting.this, EditMeetingLocation.class);
+    	EditMeeting.this.startActivity(intent);
     }
     
     // for the tracker spinner

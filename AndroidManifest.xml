@@ -61,6 +61,14 @@
         <activity android:name=".EditMeeting"
                   android:theme="@android:style/Theme.NoTitleBar">  
         </activity>
+            	
+        <activity android:name=".EditMeetingLocation"
+                  android:theme="@android:style/Theme.NoTitleBar">  
+        </activity>
+        
+        <activity android:name=".EditMeetingAttendees"
+                  android:theme="@android:style/Theme.NoTitleBar">  
+        </activity>
 
 		<activity android:name=".Signup"
 				  android:theme="@android:style/Theme.NoTitleBar"
