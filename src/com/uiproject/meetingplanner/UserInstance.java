@@ -11,6 +11,18 @@ public class UserInstance {
 	private String userEta;
 	private String userAttendingStatus;
 	
+	public UserInstance(int userID){
+		this.userID = userID;
+		this.userFirstName = "invalid";
+		this.userLastName = "invalid";
+		this.userEmail = "invalid";
+		this.userPhone = "invalid";
+		this.userLocationLon = 0;
+		this.userLocationLat = 0;
+		this.userEta = "0";
+		this.userAttendingStatus = "pending";
+	}
+	
 	public UserInstance(int userID, String userFirstName, String userLastName, String userEmail,
 				String userPhone, int userLocationLon, int userLocationLat){
 		
@@ -117,4 +129,6 @@ public class UserInstance {
 	public void setUserAttendingStatus(String userAttendingStatus){
 		this.userAttendingStatus = userAttendingStatus;
 	}
+	
+	
 }
