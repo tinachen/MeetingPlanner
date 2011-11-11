@@ -16,10 +16,10 @@ public final class R {
     }
     public static final class drawable {
         public static final int androidmarker=0x7f020000;
-        public static final int black=0x7f02000e;
+        public static final int black=0x7f02000f;
         public static final int blue1=0x7f020001;
         public static final int creatmeeting=0x7f020002;
-        public static final int darkgray=0x7f02000c;
+        public static final int darkgray=0x7f02000d;
         public static final int editprofile=0x7f020003;
         public static final int icon=0x7f020004;
         public static final int login=0x7f020005;
@@ -28,8 +28,9 @@ public final class R {
         public static final int plannerart=0x7f020008;
         public static final int plussign=0x7f020009;
         public static final int signup=0x7f02000a;
-        public static final int trackmap=0x7f02000b;
-        public static final int white=0x7f02000d;
+        public static final int trackeretalist=0x7f02000b;
+        public static final int trackmap=0x7f02000c;
+        public static final int white=0x7f02000e;
     }
     public static final class id {
         public static final int OKButton=0x7f080034;
@@ -47,8 +48,8 @@ public final class R {
         public static final int date_label=0x7f080013;
         public static final int declineBtn=0x7f080036;
         public static final int desc=0x7f080006;
-        public static final int editmeeting=0x7f08003b;
-        public static final int editprofile=0x7f08003a;
+        public static final int editmeeting=0x7f08003c;
+        public static final int editprofile=0x7f08003b;
         public static final int editprofile_img=0x7f080023;
         public static final int email=0x7f080026;
         public static final int endPickTime=0x7f080018;
@@ -90,7 +91,8 @@ public final class R {
         public static final int time=0x7f080008;
         public static final int title=0x7f080005;
         public static final int tracker_selector=0x7f08001a;
-        public static final int trackermap=0x7f080039;
+        public static final int trackerlist=0x7f080039;
+        public static final int trackermap=0x7f08003a;
         public static final int tracktime=0x7f080009;
     }
     public static final class layout {
@@ -112,7 +114,8 @@ public final class R {
         public static final int search=0x7f03000f;
         public static final int selectlocation=0x7f030010;
         public static final int signup=0x7f030011;
-        public static final int trackermap=0x7f030012;
+        public static final int trackeretalist=0x7f030012;
+        public static final int trackermap=0x7f030013;
     }
     public static final class menu {
         public static final int mainmenu=0x7f070000;

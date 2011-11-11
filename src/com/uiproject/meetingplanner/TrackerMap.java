@@ -67,7 +67,7 @@ public class TrackerMap extends MapActivity {
     
     public void toList(View button){  	
 
-		Intent intent = new Intent(TrackerMap.this, MainPage.class); // TODO change to eta list page
+		Intent intent = new Intent(TrackerMap.this, TrackerEtaList.class); // TODO change to eta list page
 		TrackerMap.this.startActivityForResult(intent, 0);
     }
     
@@ -114,7 +114,7 @@ public class TrackerMap extends MapActivity {
     	  
     	  
     	  popup.showAtLocation(mapview, Gravity.BOTTOM, p.x, p.y);
-    	  */
+    	  
     	  
     	  //create new dialog and set the styles
     	  Dialog dialog = new Dialog(mContext, R.style.AttendeeDialogTheme);
@@ -132,7 +132,7 @@ public class TrackerMap extends MapActivity {
     	  //show the dialog with person's info
     	  dialog.show();
     	  
-    	  
+    	  */
     	  return true;
     	}
     	
