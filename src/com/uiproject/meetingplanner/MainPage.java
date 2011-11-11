@@ -62,6 +62,11 @@ public class MainPage extends Activity {
                 MainPage.this.startActivity(intent);
             	break;
             }
+            case R.id.trackermap:{
+                Intent intent = new Intent(MainPage.this, TrackerMap.class);
+                MainPage.this.startActivity(intent);
+            	break;
+            }
         }
         return true;
     }

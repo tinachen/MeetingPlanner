@@ -4,4 +4,6 @@
     <item android:id="@+id/editmeeting"
         android:title="Edit meeting"
         android:icon="@drawable/androidmarker" />
+    <item android:id="@+id/trackermap"
+        android:title="Tracker map" />
 </menu>
