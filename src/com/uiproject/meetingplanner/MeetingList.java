@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ExpandableListActivity;
 import android.app.ListActivity;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -31,15 +34,23 @@ public class MeetingList extends ExpandableListActivity {
     
     /** Called when the activity is first created. */
     ExpandableListAdapter mAdapter;
+    private MeetingPlannerDatabaseManager db;
+    public ArrayList<MeetingInstance> allMeet;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Hook up with database
+	    db = new MeetingPlannerDatabaseManager(this, 2);
+	    db.open();
+	    db.createMeeting("CS588 Progress", 32, -35, "Drinks and stuff", "RTCC 202", "10/31/2011", "11:30pm", "5:00pm", 5, 5);
+	    allMeet = db.getAllMeetings();
         // Set up our adapter
-        mAdapter = new MyExpandableListAdapter();
+        mAdapter = new MyExpandableListAdapter(allMeet);
         setListAdapter(mAdapter);
         registerForContextMenu(getExpandableListView());
+       
         //final ExpandableListView listView = getExpandableListView();
 		//listView.setItemsCanFocus(false);
 		//listView.setChoiceMode(ExpandableListView.CHOICE_MODE_MULTIPLE);
@@ -62,6 +73,12 @@ public class MeetingList extends ExpandableListActivity {
 		//setListAdapter(adapter);
     }
 
+    public ArrayList<MeetingInstance> getMeet()
+    {
+    	String TAG = "MeetingTracker";
+    	Log.v(TAG, "Size is " + allMeet.size());
+    	return allMeet;
+    }
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         menu.setHeaderTitle("Sample menu");
         //.add(0, 0, 0, R.layout.main);
@@ -103,16 +120,35 @@ public class MeetingList extends ExpandableListActivity {
     
     public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         // Sample data set.  children[i] contains the children (String[]) for groups[i].
-        private String[] groups = { "Status Meeting", "MeetApp management ", "Project Proposal", "Class discussion" };
-        private String[][] children = {
-                { "RTH 202\n 06/12/2012 \n 1:30pm \n John and Jane\n" },
-                { "SAL 300\n 05/07/2013 \n 4:00 pm \n Jennifer and Jack\n"},
-                { "RTCC 101\n 10/03/2012 \n 5:30 pm \n Melissa Arthur and Blake\n"},
-                { "THH 441\n 11/15/2011 \n 9:00 am \n Paul Mike and Paula" }
-        };
+        private String[] groups;
+    	private String[] children;
+    	private ArrayList<MeetingInstance> allMeetings;
+    	
+        public MyExpandableListAdapter(ArrayList<MeetingInstance> allMeet) {
+			// TODO Auto-generated constructor stub
+        	allMeetings = allMeet;
+        	//String TAG = "MeetingTracker";
+        	//Log.v(TAG, "Size is " + allMeetings.size());
+        	groups = new String[allMeetings.size()];
+        	children = new String[allMeetings.size()];
+        	
+        	//Log.v(TAG, "Groups is " + groups.length);
+        	//Log.v(TAG, "Children is " + children.length);
+        	
+        	for (int i = 0; i < allMeetings.size(); i++)
+        	{
+        		//Log.v(TAG, "Element number " + i + " is " + allMeetings.get(i).getMeetingSubject());
+        		groups[i] = allMeetings.get(i).getMeetingSubject();
+        		children[i] = allMeetings.get(i).getMeetingAddress() + "\n" +
+        									allMeetings.get(i).getMeetingDate() + "\n" +
+        									allMeetings.get(i).getMeetingAttendees() + "\n";
+         	}
+        	
+        	//Log.v(TAG, "I am at the end! ");
+		}
         
         public Object getChild(int groupPosition, int childPosition) {
-            return children[groupPosition][childPosition];
+            return children[groupPosition];
         }
 
         public long getChildId(int groupPosition, int childPosition) {
@@ -120,7 +156,7 @@ public class MeetingList extends ExpandableListActivity {
         }
 
         public int getChildrenCount(int groupPosition) {
-            return children[groupPosition].length;
+            return 1;
         }
 
         public TextView getGenericView() {
@@ -150,7 +186,7 @@ public class MeetingList extends ExpandableListActivity {
         }
 
         public int getGroupCount() {
-            return groups.length;
+            return allMeetings.size();
         }
 
         public long getGroupId(int groupPosition) {

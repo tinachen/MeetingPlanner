@@ -102,6 +102,11 @@ public class MeetingInstance {
 		this.meetingLon = meetingLon;
 	}
 	
+	public void setMeetingAddress(String newAddress)
+	{
+		this.meetingAddress = newAddress;
+	}
+	
 	public void setMeetingSubject(String meetingTitle)
 	{
 		this.meetingTitle = meetingTitle;
@@ -136,6 +141,11 @@ public class MeetingInstance {
 	public int getMeetingLong()
 	{
 		return this.meetingLon;
+	}
+	
+	public String getMeetingAddress()
+	{
+		return this.meetingAddress;
 	}
 	
 	public int getMeetingID()
