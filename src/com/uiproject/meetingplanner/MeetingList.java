@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ExpandableListActivity;
@@ -31,6 +33,7 @@ public class MeetingList extends ExpandableListActivity {
     
     /** Called when the activity is first created. */
     ExpandableListAdapter mAdapter;
+    private MeetingPlannerDatabaseManager db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,13 @@ public class MeetingList extends ExpandableListActivity {
         */
         //ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, getMeeting());
 		//setListAdapter(adapter);
+     // Hook up with database
+	    db = new MeetingPlannerDatabaseManager(this, 2);
+	    db.open();
+	    
+	    ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
+	    String s = "meeting size:" + meetings.size();
+    	Toast.makeText(MeetingList.this, s, Toast.LENGTH_SHORT).show();
     }
 
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {

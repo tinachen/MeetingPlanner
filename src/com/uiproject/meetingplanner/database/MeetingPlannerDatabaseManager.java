@@ -386,6 +386,9 @@ public class MeetingPlannerDatabaseManager {
 					dbHelper.USER_ID + "=?", new String[]{Integer.toString(userID)}, null, null, null
 			);
 			
+			String tag = "MeetingPlannerDb";
+			Log.v(tag, "getUser");
+			
 			// move the cursor's pointer to position zero.
 			cursor.moveToFirst();
  

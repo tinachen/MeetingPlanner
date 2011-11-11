@@ -80,11 +80,14 @@ public class Login extends Activity {
     	// User successfully logged in
     	
         // Grab user info from internal db
-        //db.get
+        //UserInstance user = db.getUser(userID);
         
         // Saves user info into sharedpreferences
     	editor.putInt("uid", userID);
-    	editor.putInt("userPhoneNumber", 123);
+    	/*editor.putString("userPhoneNumber", user.getUserPhone());
+    	editor.putString("userFirstName", user.getUserFirstName());
+    	editor.putString("userLastName", user.getUserLastName());
+    	editor.putString("userEmail", user.getUserEmail());*/
     	
     	// Saves user password if he/she checked remember password
         if(remember_me.isChecked()){ 
