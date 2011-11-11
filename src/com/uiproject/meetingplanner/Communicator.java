@@ -31,13 +31,13 @@ public class Communicator {
     	return responseResult;
     }
 	
-	public static int createUser(long phoneNumber, String firstName, String lastName, String email, String password) {
+	public static int createUser(String phoneNumber, String firstName, String lastName, String email, String password) {
     	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/mycreateuser?phoneNumber="+phoneNumber+"&firstName="+firstName+"&lastName="+lastName+"&email="+email+"&password="+password;
     	String result = getResponseResult(urlStr);
     	return Integer.valueOf(result);
     }
 	
-	public static boolean logIn(long phoneNumber, int password) {
+	public static boolean login(String phoneNumber, String password) {
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myverifyuser?phoneNumber="+phoneNumber+"&password="+password;
 		String result = getResponseResult(urlStr);
 		return Integer.valueOf(result)==1;

@@ -87,7 +87,7 @@
     android:id="@+id/selectlocview"
     android:layout_width="match_parent"
     android:clickable="true"
-    android:apiKey="0wN0oRwYCsR4VzTbYhaoRyVKyHcGtGQlmHhVcvg" android:layout_height="376dp"/>
+    android:apiKey="0RgOCS6zp4Eiyli1LdMoNKdPVTXDMaTe3YY81GQ" android:layout_height="376dp"/>
 
 </LinearLayout>
 

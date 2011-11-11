@@ -1,5 +1,7 @@
 package com.uiproject.meetingplanner;
 
+import java.util.ArrayList;
+
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 import android.app.Activity;
@@ -63,6 +65,10 @@ public class CreateMeetingConfirm extends Activity {
     	// Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, 2);
 	    db.open();
+	    
+	    ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
+	    String s = "meeting size:" + meetings.size();
+    	Toast.makeText(CreateMeetingConfirm.this, s, Toast.LENGTH_SHORT).show();
     }
 
 	public void back(View Button){
