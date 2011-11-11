@@ -27,7 +27,6 @@
 	<!-- meeting name -->
 	<EditText
 		android:id="@+id/mname_field"
-		android:textSize="20px"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:hint="Meeting Title"/>	

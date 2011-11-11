@@ -70,6 +70,9 @@ public class Signup extends Activity {
             return;
         	
         }
+        
+        //TODO hook up to db
+        
     	Intent intent = new Intent(Signup.this, MainPage.class);
     	Signup.this.startActivity(intent);
 	}

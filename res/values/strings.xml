@@ -18,4 +18,6 @@
     	<item>Laura Rodriguez</item>
     </string-array>
     <string name="cancel_create">999</string>
+    <string name="editmeetloc">998</string>
+    <string name="editmeetattendees">997</string>
 </resources>
