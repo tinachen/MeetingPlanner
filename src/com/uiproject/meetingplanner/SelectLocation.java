@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -86,9 +85,10 @@ public class SelectLocation extends MapActivity {
 	    
 	}
     
-    protected class MyOverlay extends ItemizedOverlay{	
+    protected class MyOverlay extends ItemizedOverlay<OverlayItem>{	
     	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
-    	  
+        
+        
     	public MyOverlay(Drawable defaultMarker) {
     		super(boundCenterBottom(defaultMarker));
     	}
@@ -117,48 +117,37 @@ public class SelectLocation extends MapActivity {
     		return mOverlays.get(0);
     	}
     	
-    	public boolean onTouchEvent(MotionEvent event, MapView mapView) 
-        {   
-            //---when user lifts his finger---
-            if (event.getAction() == 1) {                
-                GeoPoint p = mapView.getProjection().fromPixels(
-                    (int) event.getX(),
-                    (int) event.getY());
- 
+    	@Override
+    	public boolean onTap(GeoPoint p, MapView mapView){
+    		OverlayItem oi = new OverlayItem(p, "title", "something");
+            addOverlay(oi);
+            try {
 
-                OverlayItem oi = new OverlayItem(p, "title", "something");
-                addOverlay(oi);
-                try {
+            	Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.ENGLISH);
+                List<Address> addresses = geoCoder.getFromLocation(
+                    p.getLatitudeE6()  / 1E6, 
+                    p.getLongitudeE6() / 1E6, 1);
 
-                	Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.ENGLISH);
-                    List<Address> addresses = geoCoder.getFromLocation(
-                        p.getLatitudeE6()  / 1E6, 
-                        p.getLongitudeE6() / 1E6, 1);
- 
-                    String add = "";
-                    if (addresses.size() > 0) 
-                    {
-                        for (int i=0; i<addresses.get(0).getMaxAddressLineIndex(); 
-                             i++)
-                           add += addresses.get(0).getAddressLine(i) + "\n";
-                    }
-                    
-                     oi = new OverlayItem(p, add, "");
-                    addOverlay(oi);
-                    
-                    Toast.makeText(getBaseContext(), add, Toast.LENGTH_SHORT).show();
-                    
+                String add = "";
+                if (addresses.size() > 0) 
+                {
+                    for (int i=0; i<addresses.get(0).getMaxAddressLineIndex(); 
+                         i++)
+                       add += addresses.get(0).getAddressLine(i) + "\n";
                 }
-                catch (IOException e) {  
-                	Toast.makeText(getBaseContext(), "no addy found", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }   
-                return true;
+                
+                 oi = new OverlayItem(p, add, "");
+                addOverlay(oi);
+                
+                Toast.makeText(getBaseContext(), add, Toast.LENGTH_SHORT).show();
+                
             }
-            else                
-                return false;
-        }
-    	
+            catch (IOException e) {  
+            	Toast.makeText(getBaseContext(), "no addy found", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }   
+            return true;
+    	}
     }
     //overlay class ends here
     

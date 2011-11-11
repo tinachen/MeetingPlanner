@@ -13,37 +13,54 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="  What   "
+            android:layout_weight=".25"
+            android:gravity="center_horizontal"
+            android:text="What"
             android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444"/>
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="When   "
-            android:textAppearance="?android:attr/textAppearanceLarge" android:layout_marginLeft="3dp"/>
+            android:layout_weight=".25"
+            android:gravity="center_horizontal"
+            android:text="When"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Who   "
-            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444" android:layout_marginLeft="3dp"/>
+            android:layout_weight=".25"
+            android:gravity="center_horizontal"
+            android:text="Who"
+            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444"/>
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight=".25"
+            android:gravity="center_horizontal"
             android:text="Where"
-            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444" android:layout_marginLeft="3dp"/>
+            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444"/>
 
     </TableRow>
-
+<LinearLayout
+	android:orientation="horizontal"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
            <View
         android:layout_height="2dip"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_weight=".5"
         android:background="#FF909090" />
-
+           <View
+        android:layout_height="2dip"
+        android:layout_width="wrap_content"
+        android:layout_weight=".5"
+        android:background="#000000" />
+</LinearLayout>
 
 <LinearLayout
 	android:orientation="vertical"

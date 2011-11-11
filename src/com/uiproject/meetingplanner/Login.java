@@ -20,6 +20,9 @@ public class Login extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        phone_field = (EditText) findViewById(R.id.phone);
+        pw_field = (EditText) findViewById(R.id.pw);
+        remember_me = (CheckBox) findViewById(R.id.rememberme);
         
         //check to see if user is already logged in or not
         /*
@@ -33,9 +36,6 @@ public class Login extends Activity {
     		Toast.makeText(getBaseContext(), "your login is not currently remembered", Toast.LENGTH_SHORT).show();		
     	}
 */        
-        phone_field = (EditText) findViewById(R.id.phone);
-        pw_field = (EditText) findViewById(R.id.pw);
-        remember_me = (CheckBox) findViewById(R.id.rememberme);
         
 	}
 

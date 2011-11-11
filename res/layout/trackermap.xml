@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:weightSum="1">
+		
+
+		<ImageView
+		   android:id="@+id/trackermap"
+		   android:src="@drawable/trackmap"
+		   android:layout_width="150dp" android:layout_marginLeft="15dip"
+		   android:layout_marginRight="15dip" android:layout_height="100dp" android:layout_weight="0.20"/>
+		
+		<Button
+			android:text="ETA list" 
+			android:onClick="toList" android:layout_height="60dip" android:layout_width="120dip"
+			android:layout_marginTop="20dip"/>
+	</LinearLayout>
+
+<com.google.android.maps.MapView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mapview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:apiKey="0wN0oRwYCsR4VzTbYhaoRyVKyHcGtGQlmHhVcvg"
+/>
+
+</LinearLayout>

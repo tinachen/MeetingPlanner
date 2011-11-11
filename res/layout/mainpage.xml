@@ -4,20 +4,109 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" 
     android:orientation="vertical" 
-    android:weightSum="1"
-    android:background="@drawable/white"
- 
-    
-    >
-    <RelativeLayout android:layout_width="match_parent" android:layout_weight="1.03" android:layout_height="wrap_content" android:id="@+id/relativeLayout1">
-        <Button android:background="@drawable/mymeeting" android:layout_height="150px" android:layout_alignBaseline="@+id/createMeeting" android:layout_marginLeft="51dp" android:text="" android:layout_alignParentLeft="true" android:id="@+id/meetingList" android:layout_width="130px" android:layout_alignBottom="@+id/createMeeting"></Button>
-        <Button android:background="@drawable/creatmeeting" android:layout_alignParentRight="true" android:layout_alignParentTop="true" android:layout_height="150px" android:layout_marginRight="30dp" android:layout_marginTop="158dp" android:text="" android:id="@+id/createMeeting" android:layout_width="130px"></Button>
-        <TextView android:textAppearance="?android:attr/textAppearanceLarge" android:textSize="30dp" android:textColor="@drawable/black" android:layout_alignParentTop="true" android:layout_height="wrap_content" android:layout_marginTop="64dp" android:id="@+id/textView2" android:text="MeetApp" android:layout_width="wrap_content" android:layout_alignLeft="@+id/meetingList" android:layout_toLeftOf="@+id/createMeeting"></TextView>
-        <TextView android:layout_alignParentTop="true" android:textSize="15dp" android:textColor="@drawable/black" android:layout_height="50px" android:id="@+id/textview1" android:text="Elizabeth Deng" android:layout_width="111dp" android:layout_toLeftOf="@+id/button1"></TextView>
-        <Button android:layout_alignParentRight="true" android:layout_alignParentTop="true" android:layout_height="50px" android:text="Log Out" android:id="@+id/button1" android:layout_width="wrap_content"></Button>
-        <TextView android:layout_height="wrap_content" android:textColor="@drawable/black" android:layout_marginTop="86dp" android:id="@+id/textView3" android:text="Upcoming meeting: meeting1 date time" android:layout_width="wrap_content" android:layout_below="@+id/meetingList" android:layout_alignRight="@+id/createMeeting"></TextView>
-        <TextView android:layout_height="wrap_content" android:textColor="@drawable/black" android:text="My Meeting" android:layout_width="wrap_content" android:id="@+id/textView4" android:layout_below="@+id/meetingList" android:layout_alignRight="@+id/meetingList" android:layout_marginTop="16dp"></TextView>
-        <TextView android:layout_height="wrap_content" android:textColor="@drawable/black" android:text="Create Meeting" android:layout_width="wrap_content" android:id="@+id/textView5" android:layout_alignBottom="@+id/textView4" android:layout_alignRight="@+id/createMeeting"></TextView>
-    </RelativeLayout>
+	android:paddingLeft="10dip"
+	android:paddingRight="10dip">
+
+	<RelativeLayout
+		android:layout_height="wrap_content"
+		android:layout_width="fill_parent" >
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_alignParentRight="true">
+		<TextView
+		   android:layout_width="wrap_content"
+		   android:layout_height="wrap_content"
+		   android:text="Logged in as: " />
+		   
+		<TextView
+		   android:id="@+id/name"
+		   android:layout_width="wrap_content"
+		   android:layout_height="wrap_content"
+		   android:text="name" />
+	</LinearLayout>
+	</RelativeLayout>
+
+	<ImageView
+	   android:id="@+id/logo"
+	   android:src="@drawable/logo"
+	   android:layout_width="wrap_content"
+	   android:paddingBottom="0dip" 
+	   android:layout_marginTop="10dip"
+	   android:layout_height="75dip"/>
+	   
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_height="fill_parent"
+		android:layout_width="fill_parent"
+	   android:layout_marginTop="25dip"
+		android:paddingLeft="10dip"
+		android:paddingRight="10dip" >
+
+		
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_height="wrap_content"
+		android:layout_width="fill_parent" >
+		
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight=".5">
+			<ImageView
+			   android:src="@drawable/plannerart"
+			   android:layout_width="100dp"
+			   android:layout_height="100dp"
+			   android:clickable="true"
+			   android:onClick="gotoMyMeetings" />
+			<TextView
+			   android:layout_width="wrap_content"
+			   android:layout_height="wrap_content"
+			   android:clickable="true"
+			   android:onClick="gotoMyMeetings"
+			   android:text="My Meetings" />
+		</LinearLayout>
+
+		
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_marginLeft="15dip"
+            android:gravity="center_horizontal"
+            android:layout_weight=".5">
+			<ImageView
+			   android:src="@drawable/plussign"
+			   android:layout_width="100dp"
+			   android:layout_height="100dp"
+			   android:clickable="true"
+			   android:onClick="createMeeting" />
+			<TextView
+			   android:layout_width="wrap_content"
+			   android:layout_height="wrap_content"
+			   android:clickable="true"
+			   android:onClick="createMeeting"
+			   android:text="Create Meeting" />
+		</LinearLayout>
+	</LinearLayout>
+	
+	
+
+		
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_marginTop="50dip">
+		<TextView
+		   android:layout_width="fill_parent"
+		   android:layout_height="wrap_content"
+		   android:text="Info about next meeting goes here" />
+	</LinearLayout>
+	
+	</LinearLayout>
 </LinearLayout>
 
