@@ -10,39 +10,6 @@ import org.json.*;
 public class Communicator {
 
 	public static String getResponseResult(String urlStr) {
-<<<<<<< HEAD
-    	//String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/showmyusers";
-    	//String urlStr = "http://10.0.2.2:8080/newwallapp/forms/showmyusers";
-    	String responseResult="";
-    	try {
-    		URL objUrl = new URL(urlStr);
-    		URLConnection connect1 = objUrl.openConnection();
-    		connect1.setConnectTimeout(10000);
-    		connect1.connect();
-    		BufferedReader in = new BufferedReader(new InputStreamReader(connect1.getInputStream()));
-    		//Data
-    		String content;
-    		//System.out.println("right");
-    		while((content=in.readLine())!=null)
-    		{
-    			responseResult+=content;
-    		}
-    		in.close();
-    	} catch (Exception e) {
-    		System.out.println("error!");
-    	}
-    	return responseResult;
-    }
-	
-	public static int createUser(String phoneNumber, String firstName, String lastName, String email, String password) {
-    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/mycreateuser?phoneNumber="+phoneNumber+"&firstName="+firstName+"&lastName="+lastName+"&email="+email+"&password="+password;
-    	String result = getResponseResult(urlStr);
-    	return Integer.valueOf(result);
-    }
-	
-	public static boolean login(String phoneNumber, String password) {
-		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myverifyuser?phoneNumber="+phoneNumber+"&password="+password;
-=======
 		// String urlStr =
 		// "http://cs-server.usc.edu:21542/newwallapp/forms/showmyusers";
 		// String urlStr = "http://10.0.2.2:8080/newwallapp/forms/showmyusers";
@@ -91,7 +58,6 @@ public class Communicator {
 	
 	public static String getAllUsers() throws JSONException {
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/mygetallusers";
->>>>>>> small changes to logIn in Communicator
 		String result = getResponseResult(urlStr);
 		JSONObject myjson = new JSONObject(result);
 		JSONArray nameArray = myjson.names();
