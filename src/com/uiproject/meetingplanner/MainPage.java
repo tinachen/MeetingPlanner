@@ -30,7 +30,7 @@ public class MainPage extends Activity {
     }
 
     public void gotoMyMeetings(View button){
-        Intent intent = new Intent(MainPage.this, MeetingList.class);
+        Intent intent = new Intent(MainPage.this, AllMeetings.class);
         MainPage.this.startActivity(intent);
     	
     }
