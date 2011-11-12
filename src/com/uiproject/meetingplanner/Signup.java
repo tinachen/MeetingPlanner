@@ -57,8 +57,6 @@ public class Signup extends Activity {
 
 	public void submit(View button){
 
-        Toast.makeText(getBaseContext(), "You pressed the submit button!", Toast.LENGTH_SHORT).show();
-
         //error checking here
         
         String fname = fname_field.getText().toString();
@@ -101,7 +99,7 @@ public class Signup extends Activity {
 		editor.commit();
 		
 		// Notify user that the registration is successful
-		Toast.makeText(getBaseContext(), "You", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getBaseContext(), "You signed up successfully!", Toast.LENGTH_SHORT).show();
 		
     	Intent intent = new Intent(Signup.this, MainPage.class);
     	Signup.this.startActivity(intent);
