@@ -94,4 +94,10 @@ public class Communicator {
 		System.out.println(allUsers.get(1).getUserLocationLon());*/
 		return allUsers;
 	}
+	
+	public static String removeMeeting(int meetingId) {
+		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/removemeeting?meetingId="+meetingId;
+		String result = getResponseResult(urlStr);
+		return result;
+	}
 }
