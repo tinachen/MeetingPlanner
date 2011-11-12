@@ -7,6 +7,8 @@ import java.net.URLConnection;
 import java.text.ParseException;
 import org.json.*;
 
+import android.util.Log;
+
 public class Communicator {
 
 	public static String getResponseResult(String urlStr) {
@@ -43,6 +45,11 @@ public class Communicator {
 	public static int logIn(long phoneNumber, String password) {
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myverifyuser?phoneNumber=" + phoneNumber + "&password=" + password;
 		String result = getResponseResult(urlStr);
+		
+		// debug msg
+		String tag = "Communicator";
+		Log.v(tag, urlStr);
+		
 		return Integer.valueOf(result);
 	}
 
