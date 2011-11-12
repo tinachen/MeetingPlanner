@@ -32,11 +32,11 @@ public class DisplayMeeting extends MapActivity {
     	meetingID.setText(meetingIDText);
     	
     	TextView meetingDesc = (TextView) findViewById(R.id.meetingSubject);
-    	CharSequence meetingSubject = "Subject: " + identifier.getMeetingSubject() + "\n";
+    	CharSequence meetingSubject = "Subject: " + identifier.getMeetingTitle() + "\n";
     	meetingDesc.setText(meetingSubject);
     	
     	TextView meetingLoc = (TextView) findViewById(R.id.meetingLocation);
-    	CharSequence meetingLocation = "Location: " + "Lat " + identifier.getMeetingLat() + ", Long " + identifier.getMeetingLong() + "\n";
+    	CharSequence meetingLocation = "Location: " + "Lat " + identifier.getMeetingLat() + ", Long " + identifier.getMeetingLon() + "\n";
     	meetingLoc.setText(meetingLocation);
     	
     	TextView meetingTime = (TextView) findViewById(R.id.meetingTime);
