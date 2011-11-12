@@ -39,6 +39,7 @@ public final class R {
         public static final int address_field=0x7f08001a;
         public static final int attHeader=0x7f080032;
         public static final int attendees=0x7f08000b;
+        public static final int attendeesList=0x7f080039;
         public static final int autocomplete_names=0x7f08001c;
         public static final int back_button=0x7f08000c;
         public static final int cancel_button=0x7f08000d;
@@ -48,8 +49,8 @@ public final class R {
         public static final int date_label=0x7f080012;
         public static final int declineBtn=0x7f080035;
         public static final int desc=0x7f080006;
-        public static final int editmeeting=0x7f08003b;
-        public static final int editprofile=0x7f08003a;
+        public static final int editmeeting=0x7f08003c;
+        public static final int editprofile=0x7f08003b;
         public static final int editprofile_img=0x7f080022;
         public static final int email=0x7f080025;
         public static final int endPickTime=0x7f080017;
@@ -91,7 +92,7 @@ public final class R {
         public static final int title=0x7f080005;
         public static final int tracker_selector=0x7f080019;
         public static final int trackerlist=0x7f080038;
-        public static final int trackermap=0x7f080039;
+        public static final int trackermap=0x7f08003a;
         public static final int tracktime=0x7f080009;
     }
     public static final class layout {
@@ -115,8 +116,9 @@ public final class R {
         public static final int search=0x7f030011;
         public static final int selectlocation=0x7f030012;
         public static final int signup=0x7f030013;
-        public static final int trackeretalist=0x7f030014;
-        public static final int trackermap=0x7f030015;
+        public static final int tracker_list_item=0x7f030014;
+        public static final int trackeretalist=0x7f030015;
+        public static final int trackermap=0x7f030016;
     }
     public static final class menu {
         public static final int mainmenu=0x7f070000;

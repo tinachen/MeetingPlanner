@@ -31,6 +31,7 @@ public class Search extends Activity implements OnItemClickListener {
     private Vector<String> currentSearchList;
     private Vector<String> contactList;
     private HashSet<String> checkedList;
+    protected HashSet<String> phoneNumbers;
 	
     /** Called when the activity is first created. */
 	@Override
@@ -41,6 +42,7 @@ public class Search extends Activity implements OnItemClickListener {
 	    currentSearchList = new Vector<String>();
 	    contactList = new Vector<String>();
 	    checkedList = new HashSet<String>();
+	    phoneNumbers = new HashSet<String>();
 	}
 	public void init() {
 	    // Gets the contact list and saves it into contactList
@@ -48,10 +50,28 @@ public class Search extends Activity implements OnItemClickListener {
 	    Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI,null, null, null, null);
 	    if (cursor.getCount() > 0) {
 	    	while (cursor.moveToNext()) {
+	    		// Get name from contact list
 	    	    String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 	    	    currentSearchList.add(name);
 	    	    contactList.add(name);
 	    	    Log.d("Contact List", name);
+	    	    
+	    	    // Get phone number from contact list
+	    	    String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+	    	    String hasPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+
+	    	    if ( hasPhone.equalsIgnoreCase("1"))
+	    	    	hasPhone = "true";
+	    	    else
+	    	    	hasPhone = "false" ;
+
+	    	    if (Boolean.parseBoolean(hasPhone)) {
+	    	    	Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ contactId,null, null);
+	    	        while (phones.moveToNext()) {
+	    	        	phoneNumbers.add(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+	    	        }
+	    	        phones.close();
+	    	    }
 	    	}
 	    }
 	    
