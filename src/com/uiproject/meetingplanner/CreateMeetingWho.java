@@ -15,7 +15,16 @@ public class CreateMeetingWho extends Search {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createmeetingwho);
+    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	String names = settings.getString("mnames", "");
+    	String phones = settings.getString("mphones", "");
+        
         init();
+        
+        String n;
+    	if (names.length() > 0){
+    		
+    	}
     }
 
     public void back(View button){
@@ -36,6 +45,9 @@ public class CreateMeetingWho extends Search {
     	editor.remove("mendh");
     	editor.remove("mendm");
     	editor.remove("mtracktime");
+    	editor.remove("maddr");
+    	editor.remove("mlat");
+    	editor.remove("mlon");
     	
     	//remove people
     	//remove location
@@ -62,11 +74,30 @@ public class CreateMeetingWho extends Search {
     }
     
     private void saveData(){
-
+    	String names = "";
+    	boolean added = false;
+    	for (String n : checkedNames){
+    		if (added){
+    			names += ", ";
+    		}
+    		names += n;    		
+    	}
+    	
+    	String phones = "";
+    	added = false;
+    	for (String n : checkedPhoneNumbers){
+    		if (added){
+    			names += ",";
+    		}
+    		names += n;
+    		added = true;    		
+    	}
+    	
     	//save data in shared preferences
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();
-    	//save stuff here
+    	editor.putString("mnames", names);
+    	editor.putString("mphones", phones);
     	editor.commit();
     	
     }

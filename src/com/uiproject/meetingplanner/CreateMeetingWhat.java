@@ -19,12 +19,24 @@ public class CreateMeetingWhat extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createmeetingwhat);
         
+        clearData();
         title = (EditText) findViewById(R.id.title);
         desc = (EditText) findViewById(R.id.desc);
     }
     
     
     public void cancel(View button){
+    	onBackPressed();
+    }
+    
+    @Override
+    public void onBackPressed(){
+    	clearData();
+    	CreateMeetingWhat.this.finish();
+    	
+    }
+    
+    public void clearData(){
 
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();
@@ -38,13 +50,13 @@ public class CreateMeetingWhat extends Activity {
     	editor.remove("mendh");
     	editor.remove("mendm");
     	editor.remove("mtracktime");
+    	editor.remove("maddr");
+    	editor.remove("mlat");
+    	editor.remove("mlon");
     	
     	//remove people
     	//remove location
     	editor.commit();
-    	
-    	CreateMeetingWhat.this.finish();
-    	
     }
     
     public void next(View button){

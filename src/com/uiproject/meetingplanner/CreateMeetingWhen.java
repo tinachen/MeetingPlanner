@@ -120,10 +120,7 @@ public class CreateMeetingWhen extends Activity {
 	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	        spinner.setAdapter(adapter);
 	        spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
-	        trackTime = (double) settings.getFloat("mtrackingtime", (float) .5);
-
-            Toast.makeText(getBaseContext(), trackTime + "", Toast.LENGTH_SHORT).show();
-	        //this doesn't work yet TODO
+	        trackTime = (double) settings.getFloat("mtracktime", (float) .5);
 	        int spinnerPosition = adapter.getPosition(trackTime + "");
 	        spinner.setSelection(spinnerPosition);
 	        
@@ -149,6 +146,9 @@ public class CreateMeetingWhen extends Activity {
 	    	editor.remove("mendh");
 	    	editor.remove("mendm");
 	    	editor.remove("mtracktime");
+	    	editor.remove("maddr");
+	    	editor.remove("mlat");
+	    	editor.remove("mlon");
 	    	
 	    	//remove people
 	    	//remove location
@@ -242,8 +242,8 @@ public class CreateMeetingWhen extends Activity {
 	       mPickDate.setText(
 	           new StringBuilder()
 	                   // Month is 0 based so add 1
-	                   .append(mMonth + 1).append("-")
-	                   .append(mDay).append("-")
+	                   .append(mMonth + 1).append("/")
+	                   .append(mDay).append("/")
 	                   .append(mYear).append(" "));
 	   }
 	   

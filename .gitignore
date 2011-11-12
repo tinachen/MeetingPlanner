@@ -2,5 +2,6 @@
 bin/
 /res/layout/main.xml
 /res/layout/selectlocation.xml
+/res/layout/createmeetingwhere.xml
 .gitignore
 AndroidManifest.xml

@@ -371,4 +371,55 @@ public class MeetingPlannerDatabaseManager {
 		
 		return meetingUsersArray;
 	}
+	
+	
+	public UserInstance getUser(int userID){
+		Cursor cursor;
+		UserInstance user = new UserInstance(userID);
+
+		try{
+			// Do the query
+			cursor = db.query(
+					dbHelper.USER_TABLE,
+					new String[]{dbHelper.USER_FIRSTNAME, dbHelper.USER_LASTNAME, dbHelper.USER_EMAIL, dbHelper.USER_PHONE,
+							dbHelper.USER_LOCATIONLAT, dbHelper.USER_LOCATIONLON},
+					dbHelper.USER_ID + "=?", new String[]{Integer.toString(userID)}, null, null, null
+			);
+			
+			// move the cursor's pointer to position zero.
+			cursor.moveToFirst();
+ 
+			// if there is data after the current cursor position, add it
+			// to the ArrayList.
+			if (!cursor.isAfterLast())
+			{
+				do
+				{	
+					String userFirstName = cursor.getString(0);
+					String userLastName = cursor.getString(1);
+					String userEmail = cursor.getString(2);
+					String userPhone = cursor.getString(3);
+					int userLocationLat = cursor.getInt(4);
+					int userLocationLon = cursor.getInt(5);
+					
+					user.setUserFirstName(userFirstName);
+					user.setUserLastName(userLastName);
+					user.setUserEmail(userEmail);
+					user.setUserPhone(userPhone);
+					user.setUserLocationLat(userLocationLat);
+					user.setUserLocationLon(userLocationLon);
+					
+				}
+				
+				// move the cursor's pointer up one position.
+				while (cursor.moveToNext());
+			}
+		}catch(SQLException e) 
+		{
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
 }

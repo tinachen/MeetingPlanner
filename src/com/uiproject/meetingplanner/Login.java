@@ -1,5 +1,7 @@
 package com.uiproject.meetingplanner;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,11 +17,16 @@ public class Login extends Activity {
 	EditText phone_field, pw_field;
 	CheckBox remember_me;
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+	private MeetingPlannerDatabaseManager db;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        phone_field = (EditText) findViewById(R.id.phone);
+        pw_field = (EditText) findViewById(R.id.pw);
+        remember_me = (CheckBox) findViewById(R.id.rememberme);
         
         //check to see if user is already logged in or not
         /*
@@ -33,44 +40,60 @@ public class Login extends Activity {
     		Toast.makeText(getBaseContext(), "your login is not currently remembered", Toast.LENGTH_SHORT).show();		
     	}
 */        
-        phone_field = (EditText) findViewById(R.id.phone);
-        pw_field = (EditText) findViewById(R.id.pw);
-        remember_me = (CheckBox) findViewById(R.id.rememberme);
-        
+     // Hook up with database
+	    //db = new MeetingPlannerDatabaseManager(this, 2);
+	    //db.open();
 	}
 
 	public void checkLogin(View button){
-		String user = phone_field.getText().toString();
-		String pass = pw_field.getText().toString();
 		
-
-        if(user.length() == 0 || pass.length() == 0){
-            Toast.makeText(getBaseContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
-        	return;        	
-        }
+		Communicator serverRequest = new Communicator();
+		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
+		SharedPreferences.Editor editor = settings.edit();
+		
+    	boolean remember = settings.getBoolean("remember", false);
+    	String userPhoneNumber = settings.getString("userPhoneNumber", "invalid phone number");
+    	String userPassword = settings.getString("userPassword", "invalid password");
+    	
+    	// if user didn't check remember password before, set user phone number & password from user inputs
+    	if(!remember){
+    		userPhoneNumber = phone_field.getText().toString();
+        	userPassword = pw_field.getText().toString();
+        	
+        	if(userPhoneNumber.length() == 0 || userPassword.length() == 0){
+                Toast.makeText(getBaseContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            	return;        	
+            }
+    	}
+		
+    	//int userID = serverRequest.login(userPhoneNumber, userPassword);TODO
+    	int userID = 1;
+    	boolean loginSuccess = (userID==0)?false:true;
         
-
-        //query db and check if login is correct
-        int uid = 1; //TODO CHANGE THIS TO A REAL ONE!!
-        
-        boolean error = false; // TODO CHANGE THIS WHEN CHECKING LOGIN
-        
-        if (error){ // if login does not work
+        if (!loginSuccess){ // if login does not work
             Toast.makeText(getBaseContext(), "Invalid login", Toast.LENGTH_SHORT).show();
             phone_field.setText("");
             pw_field.setText("");
-            return;
+            return;   
         }
 
-    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-    	SharedPreferences.Editor editor = settings.edit();
-    	editor.putInt("uid", uid);
+    	// User successfully logged in
     	
-        if(remember_me.isChecked()){ // if they want their login to be remembered
+        // Grab user info from internal db
+        //db.get
+        
+        // Saves user info into sharedpreferences
+    	editor.putInt("uid", userID);
+    	editor.putInt("userPhoneNumber", 123);
+    	
+    	// Saves user password if he/she checked remember password
+        if(remember_me.isChecked()){ 
         	editor.putBoolean("remember", true);
+        	editor.putString("userPassword", userPassword);
             Toast.makeText(getBaseContext(), "remembering you", Toast.LENGTH_SHORT).show();
         }
 
+        // Saves the changes in sharedpreferences
     	editor.commit();        	
   
         // no problems, go to main page

@@ -14,7 +14,7 @@
 	   android:src="@drawable/logo"
 	   android:layout_width="wrap_content"
 	   android:paddingBottom="0dip" 
-	   android:layout_marginTop="0dip"
+	   android:layout_marginTop="16dip"
 	   android:layout_height="75dip"/>
 	   
 	<LinearLayout
@@ -22,7 +22,8 @@
 		android:layout_height="fill_parent"
 		android:layout_width="fill_parent"
 		android:paddingLeft="20dip"
-		android:paddingRight="20dip" >
+		android:paddingRight="20dip"
+		android:layout_marginTop="30dip">
 
 	<ImageView
 	   android:id="@+id/login"

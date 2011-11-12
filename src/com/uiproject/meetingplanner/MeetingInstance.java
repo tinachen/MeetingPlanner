@@ -8,6 +8,8 @@ package com.uiproject.meetingplanner;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MeetingInstance {
 	private int meetingID;
@@ -20,7 +22,7 @@ public class MeetingInstance {
 	private String meetingStartTime;
 	private String meetingEndTime;
 	private int meetingTrackTime;
-	private ArrayList<UserInstance> attendees;
+	private Set<UserInstance> attendees = new HashSet<UserInstance>();
 	private int meetingInitiatorID;
 	
 	
@@ -64,7 +66,7 @@ public class MeetingInstance {
 	
 	public MeetingInstance(int meetingID, int meetingLat, int meetingLon, String meetingTitle, String meetingDescription,
 				String meetingAddress, String meetingDate, String meetingStartTime, String meetingEndTime, int meetingTrackTime,
-				ArrayList<UserInstance> attendees, int meetingInitiatorID){
+				Set<UserInstance> attendees, int meetingInitiatorID){
 		this.meetingID = meetingID;
 		this.meetingLat = meetingLat;
 		this.meetingLon = meetingLon;
@@ -121,7 +123,7 @@ public class MeetingInstance {
 		this.meetingTrackTime = meetingTrackTime;
 	}
 	
-	public void setAttendees(ArrayList<UserInstance> attendees)
+	public void setAttendees(Set<UserInstance> attendees)
 	{
 		this.attendees = attendees;
 	}
@@ -168,7 +170,7 @@ public class MeetingInstance {
 		return this.meetingTrackTime;
 	}
 	
-	public ArrayList<UserInstance> getMeetingAttendees()
+	public Set<UserInstance> getMeetingAttendees()
 	{
 		return this.attendees;
 	}
