@@ -1,10 +1,14 @@
 package com.uiproject.meetingplanner;
 
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.json.*;
 
 import android.util.Log;
@@ -63,12 +67,31 @@ public class Communicator {
 		return Integer.valueOf(result);
 	}
 	
-	public static String getAllUsers() throws JSONException {
+	public static Map<Integer,UserInstance> getAllUsers() throws JSONException {
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/mygetallusers";
 		String result = getResponseResult(urlStr);
-		JSONObject myjson = new JSONObject(result);
-		JSONArray nameArray = myjson.names();
-		
-		return result;
+		JSONObject users = new JSONObject(result);
+		JSONArray userIds = users.names();
+		JSONArray userInfos = users.toJSONArray(userIds);
+		Map<Integer,UserInstance> allUsers = new HashMap<Integer, UserInstance>();
+		for ( int i = 0; i<userInfos.length();i++) {
+			int userID = userIds.getInt(i);
+			String userFirstName = userInfos.getJSONObject(i).getString("firstName");
+			String userLastName = userInfos.getJSONObject(i).getString("lastName");
+			String userEmail = userInfos.getJSONObject(i).getString("email");
+			String userPhone = String.valueOf(userInfos.getJSONObject(i).getLong("phoneNumber"));
+			int userLocationLon = userInfos.getJSONObject(i).getInt("lon");
+			int userLocationLat = userInfos.getJSONObject(i).getInt("lat");
+			UserInstance userInstance = new UserInstance(userID,userFirstName,userLastName,userEmail,userPhone,userLocationLon,userLocationLat);
+			allUsers.put(userID, userInstance);
+		}
+		/*System.out.println(allUsers.get(1).getUserID());
+		System.out.println(allUsers.get(1).getUserFirstName());
+		System.out.println(allUsers.get(1).getUserLastName());
+		System.out.println(allUsers.get(1).getUserEmail());
+		System.out.println(allUsers.get(1).getUserPhone());
+		System.out.println(allUsers.get(1).getUserLocationLat());
+		System.out.println(allUsers.get(1).getUserLocationLon());*/
+		return allUsers;
 	}
 }
