@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ public class Login extends Activity {
 	EditText phone_field, pw_field;
 	CheckBox remember_me;
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+	public static final String LoginTag = "Login";
 	private MeetingPlannerDatabaseManager db;
 	
 	@Override
@@ -51,11 +53,12 @@ public class Login extends Activity {
 		SharedPreferences.Editor editor = settings.edit();
 		
     	boolean remember = settings.getBoolean("remember", false);
-    	String userPhoneNumber = settings.getString("userPhoneNumber", "invalid phone number");
-    	String userPassword = settings.getString("userPassword", "invalid password");
-    	
+    	String userPhoneNumber = settings.getString("userPhoneNumber", "invalid");
+    	String userPassword = settings.getString("userPassword", "invalid");
+
     	// if user didn't check remember password before, set user phone number & password from user inputs
-    	if(!remember){
+    	if(!remember || (userPhoneNumber.compareTo("invalid")==0) || (userPassword.compareTo("invalid")==0)){
+    		Toast.makeText(getBaseContext(), "userphonecomapre " + userPhoneNumber + " " +userPhoneNumber.compareTo("invalid phone number"), Toast.LENGTH_SHORT).show();
     		userPhoneNumber = phone_field.getText().toString();
         	userPassword = pw_field.getText().toString();
         	
@@ -63,6 +66,10 @@ public class Login extends Activity {
                 Toast.makeText(getBaseContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
             	return;        	
             }
+        	
+    	}else{
+    		phone_field.setText(userPhoneNumber);
+    		pw_field.setText(userPassword);
     	}
 		
     	long userPhoneNumberLong = Long.parseLong(userPhoneNumber);
@@ -80,8 +87,8 @@ public class Login extends Activity {
     	
         // Grab user info from internal db
         UserInstance user = db.getUser(userID);
-        String tests = "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName();
-        Toast.makeText(getBaseContext(), tests, Toast.LENGTH_SHORT).show();
+        Log.v(LoginTag, "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName());
+        
         // Saves user info into sharedpreferences
     	editor.putInt("uid", userID);
     	editor.putString("userPhoneNumber", user.getUserPhone());
@@ -94,6 +101,8 @@ public class Login extends Activity {
         	editor.putBoolean("remember", true);
         	editor.putString("userPassword", userPassword);
             Toast.makeText(getBaseContext(), "remembering you", Toast.LENGTH_SHORT).show();
+        }else{
+        	editor.putBoolean("remember", false);
         }
 
         // Saves the changes in sharedpreferences

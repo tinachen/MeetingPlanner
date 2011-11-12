@@ -47,6 +47,9 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 	public final int ATTENDINGSTATUS_ATTENDING = 0;
 	public final int ATTENDINGSTATUS_DECLINING = 1;
 	public final int ATTENDINGSTATUS_PENDING = 2;
+	public final static String ATTENDINGSTATUS_ATTENDINGSTRING = "attending";
+	public final static String ATTENDINGSTATUS_DECLININGSTRING = "decline";
+	public final static String ATTENDINGSTATUS_PENDINGSTRING = "pending";
 	
 	
 	public MeetingPlannerDatabaseHelper(Context context, int version){
@@ -108,15 +111,15 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 		
 		try{
 			ContentValues values = new ContentValues();
-			values.put(ATTENDINGSTATUS_NAME, "attending");
+			values.put(ATTENDINGSTATUS_NAME, ATTENDINGSTATUS_ATTENDINGSTRING);
 			db.insert(ATTENDINGSTATUS_TABLE, null, values);
 		
 			values = new ContentValues();
-			values.put(ATTENDINGSTATUS_NAME, "declining");
+			values.put(ATTENDINGSTATUS_NAME, ATTENDINGSTATUS_DECLININGSTRING);
 			db.insert(ATTENDINGSTATUS_TABLE, null, values);
 			
 			values = new ContentValues();
-			values.put(ATTENDINGSTATUS_NAME, "pending");
+			values.put(ATTENDINGSTATUS_NAME, ATTENDINGSTATUS_PENDINGSTRING);
 			db.insert(ATTENDINGSTATUS_TABLE, null, values);
 			
 		}

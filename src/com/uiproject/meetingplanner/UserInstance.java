@@ -10,6 +10,7 @@ public class UserInstance {
 	private int userLocationLat;
 	private String userEta;
 	private String userAttendingStatus;
+
 	
 	public UserInstance(int userID){
 		this.userID = userID;
