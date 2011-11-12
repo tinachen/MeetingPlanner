@@ -47,7 +47,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            	 
 	            	 // For testing
 	            	 new AlertDialog.Builder(context)
-	         	      .setMessage("accept " + meeting.getMeetingSubject())
+	         	      .setMessage("accept " + meeting.getMeetingTitle())
 	         	      .setTitle("Meeting")
 	         	      .setCancelable(true)
 	         	      .show();
@@ -60,7 +60,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            	 
 	            	// For testing
 	         		new AlertDialog.Builder(context)
-	         	      .setMessage("decline " + meeting.getMeetingSubject())
+	         	      .setMessage("decline " + meeting.getMeetingTitle())
 	         	      .setTitle("Meeting")
 	         	      .setCancelable(true)
 	         	      .show();
@@ -82,7 +82,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		}
 		
 		ViewHolder holder = (ViewHolder) view.getTag();
-		holder.meetingName.setText(list.get(position).getMeetingSubject());
+		holder.meetingName.setText(list.get(position).getMeetingTitle());
 		return view;
 	}
 }

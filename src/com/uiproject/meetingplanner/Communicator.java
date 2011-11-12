@@ -126,14 +126,14 @@ public class Communicator {
 			int meetingTrackTime = meetingInfos.getJSONObject(i).getInt("meetingTrackTime");
 			JSONArray users = meetingInfos.getJSONObject(i).getJSONObject("users").names();
 			JSONArray userStatusArray = meetingInfos.getJSONObject(i).getJSONObject("users").toJSONArray(users);
-			Set<UserInstance> attendees = new HashSet<UserInstance>();
+			HashMap<Integer,UserInstance> attendees = new HashMap<Integer,UserInstance>();
 			for (int j = 0; j < userStatusArray.length(); j++) {
 				if (userStatusArray.getInt(j) == 2)
-					attendees.add(new UserInstance(users.getInt(i), "attending"));
+					attendees.put(users.getInt(i),new UserInstance(users.getInt(i), "attending"));
 				if (userStatusArray.getInt(j) == 3)
-					attendees.add(new UserInstance(users.getInt(i), "pending"));
+					attendees.put(users.getInt(i),new UserInstance(users.getInt(i), "pending"));
 				if (userStatusArray.getInt(j) == 4)
-					attendees.add(new UserInstance(users.getInt(i), "decline"));
+					attendees.put(users.getInt(i),new UserInstance(users.getInt(i), "decline"));
 			}
 			int meetingInitiatorID = meetingInfos.getJSONObject(i).getInt("userId");
 			allMeetings.put(meetingIds.getInt(i), new MeetingInstance(meetingID, meetingLat, meetingLon, meetingTitle, meetingDescription,
@@ -156,6 +156,25 @@ public class Communicator {
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdateuser?userId="+userId+"&phoneNumber="+phoneNumber+"&firstName="+firstName+"&lastName="+lastName+"&email="+email+"&password="+password;;
 		String result = getResponseResult(urlStr);
 		return Integer.valueOf(result);
+	}
+	
+	public static Map<String,Object> updateLocation (int userId, int meetingId, int lat, int lon, String eta) throws JSONException {
+		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId="+userId+"&meetingId="+meetingId+"&lat="+lat+"&lon="+lon+"&eta="+eta;
+		String result = getResponseResult(urlStr);
+		Map<String,Object> msg =new HashMap<String,Object> ();
+		JSONObject message = new JSONObject(result);
+		int tag = message.getInt("tag");
+		msg.put("tag",tag);
+		JSONObject locations = message.getJSONObject("locations");
+		if(locations==null) return msg;
+		JSONArray userIds = locations.names();
+		JSONArray locationInfos = locations.toJSONArray(userIds);
+		Map<Integer,UserInstance> locs = new HashMap<Integer, UserInstance>();
+		for (int i=0; i<locationInfos.length();i++) {
+			locs.put(userIds.getInt(i), new UserInstance(userIds.getInt(i),locationInfos.getJSONObject(i).getInt("lon"),locationInfos.getJSONObject(i).getInt("lat"),locationInfos.getJSONObject(i).getString("eta")));
+		}
+		msg.put("locations", locs);
+		return msg;
 	}
 
 }
