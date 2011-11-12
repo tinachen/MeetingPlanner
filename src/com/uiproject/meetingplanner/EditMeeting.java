@@ -27,6 +27,7 @@ public class EditMeeting extends Activity {
 	
 	private EditText mname, desc;
 	private Button delete;
+	private int mid;
 	
 	//for date picker
 	private Button mPickDate;
@@ -91,6 +92,8 @@ public class EditMeeting extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editmeeting);
         
+        //mid = savedInstanceState.getInt("mid");
+        mid = 0;
         mname = (EditText) findViewById(R.id.mname_field);
         desc = (EditText) findViewById(R.id.desc);
         mPickDate = (Button) findViewById(R.id.pickDate);
@@ -135,10 +138,6 @@ public class EditMeeting extends Activity {
         spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
         int spinnerPosition = adapter.getPosition(trackTime + "");
         spinner.setSelection(spinnerPosition);
-        
-        // set location
-        // set attendees
-        
 		
 	}
 	
@@ -252,23 +251,22 @@ public class EditMeeting extends Activity {
     }
     
     public void deleteMeeting(View button){
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-    	builder.setMessage("Are you sure you want to delete this meeting? You cannot undo this action!")
-	       .setCancelable(false)
-	       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-	           public void onClick(DialogInterface dialog, int id) {
-	        	   //TODO delete meeting
-	           }
-	       })
-	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
-	           public void onClick(DialogInterface dialog, int id) {
-	                dialog.cancel();
-	           }
-	       });
-    	AlertDialog alert = builder.create();
-    	
+    	AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
+    	alt_bld.setMessage("Are you sure you want to delete this meeting? You cannot undo this action!");
+    	alt_bld.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	    	public void onClick(DialogInterface dialog, int id) {
+	    		Toast.makeText(EditMeeting.this, "meeting deleted", Toast.LENGTH_SHORT).show();
+	    		//Communicator.removeMeeting(mid);
+	    		}
+	    	});
+    	alt_bld.setNegativeButton("No", new DialogInterface.OnClickListener() {
+	    	public void onClick(DialogInterface dialog, int id) {
+		    	dialog.cancel();
+		    	}
+	    	});
+    	alt_bld.show();
     }
+    	
     
     // for the tracker spinner
     public class MyOnItemSelectedListener implements OnItemSelectedListener {
