@@ -1,5 +1,7 @@
 package com.uiproject.meetingplanner;
 
+import java.util.HashSet;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -20,7 +22,7 @@ import android.widget.Toast;
 
 public class EditMeeting extends Activity {
 	
-	private EditText mname;
+	private EditText mname, desc;
 	
 	//for date picker
 	private Button mPickDate;
@@ -46,6 +48,9 @@ public class EditMeeting extends Activity {
     private Spinner spinner;
     
     TextView location, attendees;
+    int lat, lon;
+    String addr, title, description;
+    HashSet<String> attendeeNames;
     
     // set listeners
 	private DatePickerDialog.OnDateSetListener mDateSetListener =
@@ -83,6 +88,7 @@ public class EditMeeting extends Activity {
         setContentView(R.layout.editmeeting);
         
         mname = (EditText) findViewById(R.id.mname_field);
+        desc = (EditText) findViewById(R.id.desc);
         mPickDate = (Button) findViewById(R.id.pickDate);
         msPickTime = (Button) findViewById(R.id.startPickTime);
         mePickTime = (Button) findViewById(R.id.endPickTime);
@@ -99,6 +105,15 @@ public class EditMeeting extends Activity {
         meHour = 19;
         meMinute = 0;
         trackTime = 1.0;
+        lat = 34019443;
+        lon = -118289440;
+        addr = "SAL";
+        title = "My meeting title";
+        description = "I have a meeting description";
+        
+        
+        mname.setText(title);
+        desc.setText(description);
         
         // update date and time displays
         updateDateDisplay();
@@ -126,19 +141,21 @@ public class EditMeeting extends Activity {
 		super.onActivityResult(requestCode, resultCode, data); 
 			  
 		switch(requestCode) { 
-			case (1) : { // location
+			case (R.string.editmeetloc) : { // location
 				 if (resultCode == Activity.RESULT_OK) { 
-					String lat = data.getStringExtra("lat");
-					String lon = data.getStringExtra("lon");
-					// do more stuff with this
+					lat = data.getIntExtra("lat", 0);
+					lon = data.getIntExtra("lon", 0);
+					addr = data.getStringExtra("addr");
+					location.setText(addr);
 				} 
-			}case (2): { // people
+				break;
+			}case (R.string.editmeetattendees): { // people
 				 if (resultCode == Activity.RESULT_OK) { 
 					// do more stuff 
 				} 
+				break; 
 				
 			}
-			break; 
 		} 
 	}
 	
@@ -208,9 +225,10 @@ public class EditMeeting extends Activity {
     
     
     public void saveMeeting(View button){
-    	String s = "meeting saved!";
-    	Toast.makeText(EditMeeting.this, s, Toast.LENGTH_SHORT).show();
-    	//save in db
+    	Toast.makeText(EditMeeting.this, "meeting saved!", Toast.LENGTH_SHORT).show();
+    	// TODO save in db
+    	
+    	
     	finish();    	
     }
     
@@ -221,8 +239,13 @@ public class EditMeeting extends Activity {
     
     public void selectLocation(View button){
     	Intent intent = new Intent(EditMeeting.this, EditMeetingLocation.class);
-    	EditMeeting.this.startActivity(intent);
+    	intent.putExtra("lat", lat);
+    	intent.putExtra("lon", lon);
+    	intent.putExtra("addr", addr);
+    	EditMeeting.this.startActivityForResult(intent, R.string.editmeetloc);
     }
+    
+
     
     // for the tracker spinner
     public class MyOnItemSelectedListener implements OnItemSelectedListener {

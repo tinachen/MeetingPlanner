@@ -82,9 +82,8 @@ public class EditProfile extends Activity {
 	        	
 	        }
         }
-        
-    	Intent intent = new Intent(EditProfile.this, MainPage.class);
-    	EditProfile.this.startActivity(intent);
+
+        EditProfile.this.finish();
 	}
 
 }

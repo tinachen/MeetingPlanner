@@ -22,12 +22,56 @@
 			android:onClick="toMap" android:layout_height="60dip" android:layout_width="120dip"
 			android:layout_marginTop="20dip"/>
 	</LinearLayout>
-
-<TextView
-		   android:src="@drawable/trackeretalist"
-		   android:layout_width="fill_parent"
-		   android:layout_height="wrap_content"
-		   android:text="ETA list goes here..........."/>
-
+	    
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical"
+	        android:background="#169100">
+	    <TextView
+	        android:id="@+id/meetingName"
+	        android:text="CSCI588 Project Meeting"
+	        android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dip"
+            android:padding="3dip"/>
+	    
+	    
+	    <LinearLayout
+	        android:orientation="horizontal"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="3dip"
+	        android:paddingRight="3dip"
+	        android:paddingBottom="3dip"
+	        android:weightSum="1">
+			<TextView 
+			    android:id="@+id/location"
+			    android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+			    android:layout_weight="0.33"
+			    android:gravity="center_horizontal"
+			    android:text="TCC330"/>
+			<TextView 
+			    android:id="@+id/date"
+			    android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+			    android:layout_weight="0.34"
+			    android:gravity="center_horizontal"
+			    android:text="11/11/11"/>
+			<TextView
+			    android:id="@+id/time"
+			    android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+			    android:layout_weight="0.33"
+			    android:gravity="center_horizontal"
+			    android:text="1:00pm"/>
+		</LinearLayout>
+	    
+		<ListView
+		android:id="@+id/attendeesList"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"/>
+		</LinearLayout>
 
 </LinearLayout>
