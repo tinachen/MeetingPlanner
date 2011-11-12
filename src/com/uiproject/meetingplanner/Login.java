@@ -40,14 +40,13 @@ public class Login extends Activity {
     		Toast.makeText(getBaseContext(), "your login is not currently remembered", Toast.LENGTH_SHORT).show();		
     	}
 */        
-     // Hook up with database
-	    //db = new MeetingPlannerDatabaseManager(this, 2);
-	    //db.open();
+        // Hook up with database
+	    db = new MeetingPlannerDatabaseManager(this, 2);
+	    db.open();
 	}
 
 	public void checkLogin(View button){
 		
-		Communicator serverRequest = new Communicator();
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		SharedPreferences.Editor editor = settings.edit();
 		
@@ -66,10 +65,10 @@ public class Login extends Activity {
             }
     	}
 		
-    	//int userID = serverRequest.login(userPhoneNumber, userPassword);TODO
-    	int userID = 1;
-    	boolean loginSuccess = (userID==0)?false:true;
-        
+    	long userPhoneNumberLong = Long.parseLong(userPhoneNumber);
+    	int userID = Communicator.logIn(userPhoneNumberLong, userPassword);
+    	boolean loginSuccess = (userID<0)?false:true;
+    	
         if (!loginSuccess){ // if login does not work
             Toast.makeText(getBaseContext(), "Invalid login", Toast.LENGTH_SHORT).show();
             phone_field.setText("");
@@ -80,11 +79,15 @@ public class Login extends Activity {
     	// User successfully logged in
     	
         // Grab user info from internal db
-        //db.get
-        
+        UserInstance user = db.getUser(userID);
+        String tests = "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName();
+        Toast.makeText(getBaseContext(), tests, Toast.LENGTH_SHORT).show();
         // Saves user info into sharedpreferences
     	editor.putInt("uid", userID);
-    	editor.putInt("userPhoneNumber", 123);
+    	editor.putString("userPhoneNumber", user.getUserPhone());
+    	editor.putString("userFirstName", user.getUserFirstName());
+    	editor.putString("userLastName", user.getUserLastName());
+    	editor.putString("userEmail", user.getUserEmail());
     	
     	// Saves user password if he/she checked remember password
         if(remember_me.isChecked()){ 

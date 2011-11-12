@@ -44,7 +44,7 @@ public class MeetingList extends ExpandableListActivity {
         // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, 2);
 	    db.open();
-	    db.createMeeting("CS588 Progress", 32, -35, "Drinks and stuff", "RTCC 202", "10/31/2011", "11:30pm", "5:00pm", 5, 5);
+	    db.createMeeting("CS588 Progress", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);
 	    allMeet = db.getAllMeetings();
         // Set up our adapter
         mAdapter = new MyExpandableListAdapter(allMeet);
@@ -71,6 +71,13 @@ public class MeetingList extends ExpandableListActivity {
         */
         //ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, getMeeting());
 		//setListAdapter(adapter);
+     // Hook up with database
+	    db = new MeetingPlannerDatabaseManager(this, 2);
+	    db.open();
+	    
+	    ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
+	    String s = "meeting size:" + meetings.size();
+    	Toast.makeText(MeetingList.this, s, Toast.LENGTH_SHORT).show();
     }
 
     public ArrayList<MeetingInstance> getMeet()
@@ -139,8 +146,9 @@ public class MeetingList extends ExpandableListActivity {
         	{
         		//Log.v(TAG, "Element number " + i + " is " + allMeetings.get(i).getMeetingSubject());
         		groups[i] = allMeetings.get(i).getMeetingSubject();
-        		children[i] = allMeetings.get(i).getMeetingAddress() + "\n" +
-        									allMeetings.get(i).getMeetingDate() + "\n" +
+        		children[i] = allMeetings.get(i).getMeetingDescription() + "\n" +
+        									allMeetings.get(i).getMeetingAddress() + "\n" +
+        									allMeetings.get(i).getMeetingDate() + "  " + allMeetings.get(i).getMeetingStartTime() + " to " + allMeetings.get(i).getMeetingEndTime() + "\n" +
         									allMeetings.get(i).getMeetingAttendees() + "\n";
          	}
         	

@@ -128,6 +128,17 @@ public class MeetingInstance {
 		this.attendees = attendees;
 	}
 	
+	public void setMeetingStartTime(String meetingStartTime){
+		this.meetingStartTime = meetingStartTime;
+	}
+	
+	public void setMeetingEndTime(String meetingEndTime){
+		this.meetingEndTime = meetingEndTime;
+	}
+	
+	public void setMeetingDescription(String meetingDescription){
+		this.meetingDescription = meetingDescription;
+	}
 	
 	/*************************************************
 	 * 
@@ -177,5 +188,17 @@ public class MeetingInstance {
 	
 	public int getMeetingInitiatorID(){
 		return this.meetingInitiatorID;
+	}
+	
+	public String getMeetingStartTime(){
+		return this.meetingStartTime;
+	}
+	
+	public String getMeetingEndTime(){
+		return this.meetingEndTime;
+	}
+	
+	public String getMeetingDescription(){
+		return this.meetingDescription;
 	}
 }
