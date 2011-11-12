@@ -1,5 +1,7 @@
 package com.uiproject.meetingplanner;
 
+import java.util.ArrayList;
+
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 import android.app.Activity;
@@ -63,6 +65,10 @@ public class CreateMeetingConfirm extends Activity {
     	// Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, 2);
 	    db.open();
+	    
+	    ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
+	    String s = "meeting size:" + meetings.size();
+    	Toast.makeText(CreateMeetingConfirm.this, s, Toast.LENGTH_SHORT).show();
     }
 
 	public void back(View Button){
@@ -90,8 +96,7 @@ public class CreateMeetingConfirm extends Activity {
     	
     	//save meeting data into the db
 
-    	String s = "meeting saved!";
-    	Toast.makeText(CreateMeetingConfirm.this, s, Toast.LENGTH_SHORT).show();
+    	Toast.makeText(CreateMeetingConfirm.this, "meeting saved!", Toast.LENGTH_SHORT).show();
     	// add to db and get id back, go to add ppl page
     	
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
@@ -100,11 +105,10 @@ public class CreateMeetingConfirm extends Activity {
 
     	int initiatorID = settings.getInt("uid", 0);
     	db.createMeeting(mtitle, mlat, mlon, mdesc, maddr, mdate, mstarttime, mendtime, mtracktime, initiatorID); //TODO need meeting ID
-    	
+
     	clearData();
-		Intent intent = new Intent(CreateMeetingConfirm.this, MainPage.class);
-		CreateMeetingConfirm.this.startActivity(intent);
-		//TODO change this to clearing all create meeting activities from the stack
+    	CreateMeetingConfirm.this.setResult(R.string.cancel_create);
+    	CreateMeetingConfirm.this.finish();
     }
     
     public void clearData(){

@@ -1,5 +1,7 @@
 package com.uiproject.meetingplanner;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -39,12 +41,6 @@ public class EditMeetingLocation extends SelectLocation {
     
     @Override
     public void onBackPressed(){
-    	saveData();
-    	EditMeetingLocation.this.finish();
-    	
-    }
-    
-    private void saveData(){
     	OverlayItem oi = overlay.getOverlayItem();
     	if (oi == null){
         	return;
@@ -54,13 +50,13 @@ public class EditMeetingLocation extends SelectLocation {
     	int lat = oi.getPoint().getLatitudeE6();
     	int lon = oi.getPoint().getLongitudeE6();
     	
-    	//save data in shared preferences
-    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-    	SharedPreferences.Editor editor = settings.edit();
+    	Intent resultIntent = new Intent();
+    	resultIntent.putExtra("lat", lat);
+    	resultIntent.putExtra("lon", lon);
+    	resultIntent.putExtra("addr", addr);
+    	setResult(Activity.RESULT_OK, resultIntent);
     	
-    	editor.putString("maddr", addr);
-    	editor.putInt("mlat", lat);
-    	editor.putInt("mlon", lon);
-    	editor.commit();    	
+    	EditMeetingLocation.this.finish();
+    	
     }
 }

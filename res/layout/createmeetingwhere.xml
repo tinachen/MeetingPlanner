@@ -54,26 +54,26 @@
         
 <!-- start main content -->
 
-	
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-	android:layout_marginTop="5dip">
-		<EditText
-			android:id="@+id/address_field"
-			android:textSize="20px"
-			android:hint="type address here...." 
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:layout_weight=".3" />	
-		<Button
-			android:text="search"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:layout_weight=".7" 
-			android:onClick="findAddress" />
-	</LinearLayout>
+
+<LinearLayout
+android:orientation="horizontal"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:layout_marginTop="5dip">
+<EditText
+android:id="@+id/address_field"
+android:textSize="20px"
+android:hint="type address here...."
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:layout_weight=".3" />
+<Button
+android:text="search"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:layout_weight=".7"
+android:onClick="findAddress" />
+</LinearLayout>
 
 <com.google.android.maps.MapView
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -86,12 +86,12 @@
 />
 
         
-       <LinearLayout 
-       		android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-       		android:weightSum="1" >
-	        
+       <LinearLayout
+        android:orientation="horizontal"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+        android:weightSum="1" >
+
         <Button
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
@@ -117,6 +117,6 @@
             android:onClick="next"
             android:layout_weight="0.33" />
 
-		</LinearLayout>
+</LinearLayout>
 
 </LinearLayout>

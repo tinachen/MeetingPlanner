@@ -69,7 +69,7 @@ public class CreateMeetingWho extends Search {
     	//save data in shared preferences
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();
-    	//save stuff here
+    	//editor.putStringSet("mpplnames", checkedList);
     	editor.commit();
     	
     }
