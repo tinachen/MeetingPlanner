@@ -57,8 +57,6 @@ public class Signup extends Activity {
 
 	public void submit(View button){
 
-        Toast.makeText(getBaseContext(), "You pressed the submit button!", Toast.LENGTH_SHORT).show();
-
         //error checking here
         
         String fname = fname_field.getText().toString();
@@ -86,8 +84,6 @@ public class Signup extends Activity {
         // Send create user request to server
 		int uid = Communicator.createUser(phonenumber, fname, lname, email, pw);
 		
-		
-		
 		// Store user into internal db
 		db.createUser(uid, fname, lname, email, Long.toString(phonenumber), 0, 0);
 		
@@ -101,6 +97,10 @@ public class Signup extends Activity {
     	editor.putString("userLastName", lname);
     	editor.putString("userEmail", email);
 		editor.commit();
+		
+		// Notify user that the registration is successful
+		Toast.makeText(getBaseContext(), "You signed up successfully!", Toast.LENGTH_SHORT).show();
+		
     	Intent intent = new Intent(Signup.this, MainPage.class);
     	Signup.this.startActivity(intent);
 	}

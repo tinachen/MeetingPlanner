@@ -201,4 +201,28 @@ public class MeetingInstance {
 	public String getMeetingDescription(){
 		return this.meetingDescription;
 	}
+
+	public int getMeetingLon() {
+		return meetingLon;
+	}
+
+	public void setMeetingLon(int meetingLon) {
+		this.meetingLon = meetingLon;
+	}
+
+	public String getMeetingTitle() {
+		return meetingTitle;
+	}
+
+	public void setMeetingTitle(String meetingTitle) {
+		this.meetingTitle = meetingTitle;
+	}
+
+	public Set<UserInstance> getAttendees() {
+		return attendees;
+	}
+
+	public void setMeetingInitiatorID(int meetingInitiatorID) {
+		this.meetingInitiatorID = meetingInitiatorID;
+	}
 }

@@ -19,8 +19,7 @@ import android.util.Log;
 import android.util.SparseBooleanArray;
 
 public class Search extends Activity implements OnItemClickListener {
-	private final String LOG_TAG = "Search";
-    public static final String TAG = "ContactManager";
+    public static final String LOG_TAG = "Search";
 
     protected ListView mContactList;
     protected AutoCompleteTextView textView;
@@ -93,17 +92,17 @@ public class Search extends Activity implements OnItemClickListener {
 	        @Override
 	        public void onChanged() {
 	            super.onChanged();
-	            Log.d(TAG, "dataset changed");
+	            Log.d(LOG_TAG, "dataset changed");
 	            currentSearchList.clear();
 	            for (int i = 0; i < adapter.getCount(); i++) {
 		            Object item = adapter.getItem(i);
 		            currentSearchList.add(item.toString());
 		            	if (checkedNames.contains(item)) {
-		            		Log.d("TEST", item.toString());
+		            		Log.d("Search checkedNames", item.toString());
 		            		mContactList.setItemChecked(i, true);
 		            	}
 		            
-		            Log.d(TAG, "item.toString "+ item.toString());
+		            Log.d(LOG_TAG, "item.toString "+ item.toString());
 	            }
 	            ArrayAdapter<String> searchUpdateAdapter = new ArrayAdapter<String>(Search.this, R.layout.list_item, currentSearchList);
 	            mContactList.setAdapter(searchUpdateAdapter);
@@ -129,6 +128,7 @@ public class Search extends Activity implements OnItemClickListener {
 		// Displays the clicked name in LogCat for now
 		Log.d("TEST", parent.getItemAtPosition(position).toString());
 		SparseBooleanArray checked = mContactList.getCheckedItemPositions();
+		checkedNames.clear();
 		for (int i = 0; i < currentSearchList.size(); i++) {
 			if (checked.get(i)) {
 				checkedNames.add(currentSearchList.elementAt(i));
@@ -141,7 +141,14 @@ public class Search extends Activity implements OnItemClickListener {
 		//view.setSelected(true);
 	}
 	
-	
+	public void recheck() {
+		for (int i = 0; i < currentSearchList.size(); i++) {
+			if (checkedNames.contains(currentSearchList.elementAt(i))) {
+				Log.d("TEST", currentSearchList.elementAt(i));
+				mContactList.setItemChecked(i, true);
+			}
+		}
+	}
     /**
      * Populate the contact list based on account currently selected in the account spinner.
      */
