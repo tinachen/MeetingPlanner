@@ -62,6 +62,8 @@ public class CreateMeetingConfirm extends Activity {
     	//set attendees
     	
     	
+    	// Hook up with server
+    	
     	// Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, 2);
 	    db.open();
