@@ -5,6 +5,7 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class EditProfile extends Activity {
+	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 
 	EditText fname_field, lname_field, phone_field, email_field, oldpw_field, pw_field, pw2_field;
 	String fname, lname, phone, email;
@@ -54,20 +56,8 @@ public class EditProfile extends Activity {
         String pw = pw_field.getText().toString();
         String pw2 = pw2_field.getText().toString();
         
-        if (!fname.equals(this.fname)){
-        	//change first name
-        }
-        
-        if (!lname.equals(this.lname)){
-        	//change last name
-        }
-
-        if (!phone.equals(this.phone)){
-        	//change phone
-        }
-
-        if (!email.equals(this.email)){
-        	//change email
+        if (fname.length() == 0 || lname.length() == 0 || phone.length() == 0 || email.length() == 0){
+            Toast.makeText(getBaseContext(), "Please fill in all fields (name, phone, email)", Toast.LENGTH_SHORT).show();
         }
         
         if (oldpw.length() != 0 && pw.length() != 0 && pw2.length() != 0){ // if they want to change password
@@ -78,11 +68,15 @@ public class EditProfile extends Activity {
 	        	
 	        }else{
 	            Toast.makeText(getBaseContext(), "Password has changed", Toast.LENGTH_SHORT).show();
-	        	// change pw in db
+	        	pw = oldpw;
 	        	
 	        }
         }
 
+		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
+		int uid = settings.getInt("uid", 0);
+        Communicator.updateUser(uid, Long.parseLong(phone), fname, lname, email, pw);
+        
         EditProfile.this.finish();
 	}
 
