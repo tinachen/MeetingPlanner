@@ -157,5 +157,24 @@ public class Communicator {
 		String result = getResponseResult(urlStr);
 		return Integer.valueOf(result);
 	}
+	
+	public static Map<String,Object> updateLocation (int userId, int meetingId, int lat, int lon, String eta) throws JSONException {
+		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId="+userId+"&meetingId="+meetingId+"&lat="+lat+"&lon="+lon+"&eta="+eta;
+		String result = getResponseResult(urlStr);
+		Map<String,Object> msg =new HashMap<String,Object> ();
+		JSONObject message = new JSONObject(result);
+		int tag = message.getInt("tag");
+		msg.put("tag",tag);
+		JSONObject locations = message.getJSONObject("locations");
+		if(locations==null) return msg;
+		JSONArray userIds = locations.names();
+		JSONArray locationInfos = locations.toJSONArray(userIds);
+		Map<Integer,UserInstance> locs = new HashMap<Integer, UserInstance>();
+		for (int i=0; i<locationInfos.length();i++) {
+			locs.put(userIds.getInt(i), new UserInstance(userIds.getInt(i),locationInfos.getJSONObject(i).getInt("lon"),locationInfos.getJSONObject(i).getInt("lat"),locationInfos.getJSONObject(i).getString("eta")));
+		}
+		msg.put("locations", locs);
+		return msg;
+	}
 
 }
