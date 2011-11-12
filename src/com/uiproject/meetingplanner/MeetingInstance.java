@@ -23,7 +23,7 @@ public class MeetingInstance {
 	private String meetingStartTime;
 	private String meetingEndTime;
 	private int meetingTrackTime;
-	private HashMap<Integer, UserInstance> attendees;
+	private HashMap<Integer, UserInstance> attendees = new HashMap<Integer,UserInstance>();
 	private int meetingInitiatorID;
 	
 	
