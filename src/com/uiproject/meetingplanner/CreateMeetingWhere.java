@@ -56,8 +56,8 @@ public class CreateMeetingWhere extends SelectLocation {
     	editor.remove("maddr");
     	editor.remove("mlat");
     	editor.remove("mlon");
-    	
-    	//remove people
+    	editor.remove("mnames");
+    	editor.remove("mphones");
     	editor.commit();
 
     	

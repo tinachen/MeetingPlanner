@@ -149,9 +149,8 @@ public class CreateMeetingWhen extends Activity {
 	    	editor.remove("maddr");
 	    	editor.remove("mlat");
 	    	editor.remove("mlon");
-	    	
-	    	//remove people
-	    	//remove location
+	    	editor.remove("mnames");
+	    	editor.remove("mphones");
 	    	editor.commit();
 
 	    	

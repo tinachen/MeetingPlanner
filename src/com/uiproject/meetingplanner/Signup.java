@@ -1,5 +1,8 @@
 package com.uiproject.meetingplanner;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 public class Signup extends Activity {
 	EditText fname_field, lname_field, phone_field, email_field, pw_field, pw2_field;
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+	private MeetingPlannerDatabaseManager db;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -45,6 +49,10 @@ public class Signup extends Activity {
         TelephonyManager tMgr =(TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
         String phone = tMgr.getLine1Number();
         phone_field.setText(phone);
+        
+        // Hook up with database
+	    db = new MeetingPlannerDatabaseManager(this, 2);
+	    db.open();
 	}
 
 	public void submit(View button){
@@ -75,15 +83,24 @@ public class Signup extends Activity {
         	
         }
         
-
-		Communicator serverRequest = new Communicator();
-		int uid = serverRequest.createUser(phonenumber, fname, lname, email, pw);
+        // Send create user request to server
+		int uid = Communicator.createUser(phonenumber, fname, lname, email, pw);
+		
+		
+		
+		// Store user into internal db
+		db.createUser(uid, fname, lname, email, Long.toString(phonenumber), 0, 0);
+		
+		// User has been created successfully
+		// Log user in
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		Editor editor = settings.edit();
 		editor.putInt("uid", uid);
-        
+    	editor.putString("userPhoneNumber", Long.toString(phonenumber));
+    	editor.putString("userFirstName", fname);
+    	editor.putString("userLastName", lname);
+    	editor.putString("userEmail", email);
 		editor.commit();
-		
     	Intent intent = new Intent(Signup.this, MainPage.class);
     	Signup.this.startActivity(intent);
 	}
