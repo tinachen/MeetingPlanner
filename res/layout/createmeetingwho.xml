@@ -69,14 +69,11 @@
     android:layout_height="wrap_content"
     android:padding="5dp"
         android:layout_weight="1">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search" />
     <AutoCompleteTextView android:id="@+id/autocomplete_names"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginLeft="5dp"
+        android:hint="Search Names"/>
     <ListView android:layout_width="match_parent"
         android:id="@+id/contactList"
         android:layout_height="wrap_content"/>
