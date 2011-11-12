@@ -41,6 +41,7 @@ public class Search extends Activity implements OnItemClickListener {
 	    checkedNames = new ArrayList<String>();
 	    checkedPhoneNumbers = new ArrayList<String>();
 	}
+	
 	public void init() {
 	    // Gets the contact list and saves it into contactList
 	    ContentResolver cr = getContentResolver();

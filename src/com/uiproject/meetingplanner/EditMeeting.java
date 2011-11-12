@@ -3,10 +3,13 @@ package com.uiproject.meetingplanner;
 import java.util.HashSet;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +26,7 @@ import android.widget.Toast;
 public class EditMeeting extends Activity {
 	
 	private EditText mname, desc;
+	private Button delete;
 	
 	//for date picker
 	private Button mPickDate;
@@ -95,7 +99,9 @@ public class EditMeeting extends Activity {
         spinner = (Spinner) findViewById(R.id.tracker_selector);
         location = (TextView) findViewById(R.id.location);
         attendees = (TextView) findViewById(R.id.attendees);
-
+        delete = (Button) findViewById(R.id.delete);
+        delete.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+        
         // get meeting info from db
         mYear = 2011;
         mMonth = 11;
@@ -245,7 +251,24 @@ public class EditMeeting extends Activity {
     	EditMeeting.this.startActivityForResult(intent, R.string.editmeetloc);
     }
     
+    public void deleteMeeting(View button){
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+    	builder.setMessage("Are you sure you want to delete this meeting? You cannot undo this action!")
+	       .setCancelable(false)
+	       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	        	   //TODO delete meeting
+	           }
+	       })
+	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	                dialog.cancel();
+	           }
+	       });
+    	AlertDialog alert = builder.create();
+    	
+    }
     
     // for the tracker spinner
     public class MyOnItemSelectedListener implements OnItemSelectedListener {
