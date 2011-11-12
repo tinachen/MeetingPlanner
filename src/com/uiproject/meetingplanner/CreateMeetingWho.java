@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 public class CreateMeetingWho extends Search {
@@ -48,7 +49,11 @@ public class CreateMeetingWho extends Search {
 		    		phones = phones.substring(commaIndex + 2);
 	    		}
     		}
-	    		
+	    	for (int i = 0; i < checkedNames.size(); i++)
+	    		Log.d("CMW names", checkedNames.get(i));
+	    	for (int i = 0; i < checkedPhoneNumbers.size(); i++)
+	    		Log.d("CMW phone", checkedPhoneNumbers.get(i));
+	    	recheck();	
     	}
     }
 
@@ -104,19 +109,21 @@ public class CreateMeetingWho extends Search {
     		if (added){
     			names += ", ";
     		}
-    		names += n;    		
+    		names += n;
+    		added = true;
     	}
     	
     	String phones = "";
     	added = false;
     	for (String n : checkedPhoneNumbers){
     		if (added){
-    			names += ",";
+    			phones += ",";
     		}
-    		names += n;
+    		phones += n;
     		added = true;    		
     	}
-    	
+    	Log.d("CMW", names);
+    	Log.d("CMW", phones);
     	//save data in shared preferences
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();
