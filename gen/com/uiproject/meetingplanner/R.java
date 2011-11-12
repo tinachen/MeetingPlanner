@@ -115,12 +115,13 @@ public final class R {
         public static final int mainpage=0x7f03000e;
         public static final int meetingdetails=0x7f03000f;
         public static final int meetinglist=0x7f030010;
-        public static final int search=0x7f030011;
-        public static final int selectlocation=0x7f030012;
-        public static final int signup=0x7f030013;
-        public static final int tracker_list_item=0x7f030014;
-        public static final int trackeretalist=0x7f030015;
-        public static final int trackermap=0x7f030016;
+        public static final int meetinglistpending=0x7f030011;
+        public static final int search=0x7f030012;
+        public static final int selectlocation=0x7f030013;
+        public static final int signup=0x7f030014;
+        public static final int tracker_list_item=0x7f030015;
+        public static final int trackeretalist=0x7f030016;
+        public static final int trackermap=0x7f030017;
     }
     public static final class menu {
         public static final int mainmenu=0x7f070000;
