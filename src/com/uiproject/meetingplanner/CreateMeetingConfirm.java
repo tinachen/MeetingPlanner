@@ -92,15 +92,10 @@ public class CreateMeetingConfirm extends Activity {
     }
     
     public void confirm(View button){
-    	// Pass meeting details to server TODO
-    	// Retrieve meeting ID and set it
-    	int meetingID;
     	
-    	//save meeting data into the db
+    	//save meeting data into the db, send to server
 
-    	Toast.makeText(CreateMeetingConfirm.this, "meeting saved!", Toast.LENGTH_SHORT).show();
-    	Communicator communicator = new Communicator();
-    	int mid = communicator.createMeeting(uid, mtitle, mdesc, mlat, mlon, maddr, mdate, mstarttime, mendtime, mtracktime, mphones);
+    	int mid = Communicator.createMeeting(uid, mtitle, mdesc, mlat, mlon, maddr, mdate, mstarttime, mendtime, mtracktime, mphones);
     	
     	
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
