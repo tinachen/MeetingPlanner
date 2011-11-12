@@ -28,6 +28,7 @@ public class Search extends Activity implements OnItemClickListener {
     protected Vector<String> contactList;
     protected ArrayList<String> checkedNames;
     protected ArrayList<String> checkedPhoneNumbers;
+    // TODO change to list of user id's
 
     /** Called when the activity is first created. */
 	@Override

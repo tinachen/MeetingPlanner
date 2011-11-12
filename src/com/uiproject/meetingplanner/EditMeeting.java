@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class EditMeeting extends Activity {
+	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	
 	private EditText mname, desc;
 	private Button delete;
@@ -55,7 +57,7 @@ public class EditMeeting extends Activity {
     TextView location, attendees;
     int lat, lon;
     String addr, title, description;
-    HashSet<String> attendeeNames;
+    String people, names;
     
     // set listeners
 	private DatePickerDialog.OnDateSetListener mDateSetListener =
@@ -156,7 +158,9 @@ public class EditMeeting extends Activity {
 				break;
 			}case (R.string.editmeetattendees): { // people
 				 if (resultCode == Activity.RESULT_OK) { 
-					// do more stuff 
+					 people = data.getStringExtra("people");
+					 names = data.getStringExtra("names");
+					 
 				} 
 				break; 
 				
@@ -234,7 +238,18 @@ public class EditMeeting extends Activity {
     	// TODO save in db
     	
     	
-    	finish();    	
+    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	int uid = settings.getInt("uid", 0);
+    	String mtitle = mname.getText().toString();
+    	String mdesc = desc.getText().toString();
+    	String mdate = mMonth + "/" + mDay + "/" + mYear;
+    	String mstarttime = msHour + ":" + msMinute;
+    	String mendtime = meHour + ":" + meMinute;
+    	Communicator.updateMeeting(mid, uid, mtitle, mdesc, lat, lon, addr, mdate, mstarttime, mendtime, (int) (trackTime * 60), people);
+
+		Intent intent = new Intent(EditMeeting.this, MeetingList.class);
+		EditMeeting.this.startActivity(intent);
+    	this.finish();    	
     }
     
     public void invite(View button){
