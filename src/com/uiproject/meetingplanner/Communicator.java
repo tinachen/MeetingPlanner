@@ -176,5 +176,17 @@ public class Communicator {
 		msg.put("locations", locs);
 		return msg;
 	}
+	
+	public static String acceptMeeting(int userId, int meetingId) {
+		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myacceptmeeting?userId="+userId+"&meetingId="+meetingId;
+		String result = getResponseResult(urlStr);
+		return result;
+	}
+	
+	public static String declineMeeting(int userId, int meetingId) {
+		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/mydeclinemeeting?userId="+userId+"&meetingId="+meetingId;
+		String result = getResponseResult(urlStr);
+		return result;
+	}
 
 }
