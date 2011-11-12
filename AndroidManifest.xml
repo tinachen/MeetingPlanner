@@ -42,6 +42,18 @@
        			  android:theme="@android:style/Theme.NoTitleBar">
        	</activity>
        	
+       	<activity android:name=".MeetingListAccepted"
+       			  android:theme="@android:style/Theme.NoTitleBar">
+       	</activity>
+       	
+       	<activity android:name=".MeetingListDeclined"
+       			  android:theme="@android:style/Theme.NoTitleBar">
+       	</activity>
+       	
+       	<activity android:name=".AllMeetings"
+       			  android:theme="@android:style/Theme.NoTitleBar">
+       	</activity>
+       	
        	<activity android:name=".DisplayMeeting"
        			  android:theme="@android:style/Theme.NoTitleBar">	 
        	</activity>

@@ -145,7 +145,7 @@ public class MeetingList extends ExpandableListActivity {
         	for (int i = 0; i < allMeetings.size(); i++)
         	{
         		//Log.v(TAG, "Element number " + i + " is " + allMeetings.get(i).getMeetingSubject());
-        		groups[i] = allMeetings.get(i).getMeetingSubject();
+        		groups[i] = allMeetings.get(i).getMeetingTitle();
         		children[i] = allMeetings.get(i).getMeetingDescription() + "\n" +
         									allMeetings.get(i).getMeetingAddress() + "\n" +
         									allMeetings.get(i).getMeetingDate() + "  " + allMeetings.get(i).getMeetingStartTime() + " to " + allMeetings.get(i).getMeetingEndTime() + "\n" +

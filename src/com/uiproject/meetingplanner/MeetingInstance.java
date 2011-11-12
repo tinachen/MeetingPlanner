@@ -8,6 +8,7 @@ package com.uiproject.meetingplanner;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ public class MeetingInstance {
 	private String meetingStartTime;
 	private String meetingEndTime;
 	private int meetingTrackTime;
-	private Set<UserInstance> attendees = new HashSet<UserInstance>();
+	private HashMap<Integer, UserInstance> attendees;
 	private int meetingInitiatorID;
 	
 	
@@ -62,11 +63,12 @@ public class MeetingInstance {
 		this.meetingEndTime = meetingEndTime;
 		this.meetingTrackTime = meetingTrackTime;
 		this.meetingInitiatorID = meetingInitiatorID;
+		this.attendees = new HashMap<Integer, UserInstance>();
 	}
 	
 	public MeetingInstance(int meetingID, int meetingLat, int meetingLon, String meetingTitle, String meetingDescription,
 				String meetingAddress, String meetingDate, String meetingStartTime, String meetingEndTime, int meetingTrackTime,
-				Set<UserInstance> attendees, int meetingInitiatorID){
+				HashMap<Integer, UserInstance> attendees, int meetingInitiatorID){
 		this.meetingID = meetingID;
 		this.meetingLat = meetingLat;
 		this.meetingLon = meetingLon;
@@ -99,7 +101,7 @@ public class MeetingInstance {
 		this.meetingLat = meetingLat;
 	}
 	
-	public void setMeetingLong(int meetingLon)
+	public void setMeetingLon(int meetingLon)
 	{
 		this.meetingLon = meetingLon;
 	}
@@ -109,8 +111,12 @@ public class MeetingInstance {
 		this.meetingAddress = newAddress;
 	}
 	
-	public void setMeetingSubject(String meetingTitle)
+	/*public void setMeetingSubject(String meetingTitle)
 	{
+		this.meetingTitle = meetingTitle;
+	}*/
+	
+	public void setMeetingTitle(String meetingTitle) {
 		this.meetingTitle = meetingTitle;
 	}
 	
@@ -123,7 +129,7 @@ public class MeetingInstance {
 		this.meetingTrackTime = meetingTrackTime;
 	}
 	
-	public void setAttendees(Set<UserInstance> attendees)
+	public void setMeetingAttendees(HashMap<Integer, UserInstance> attendees)
 	{
 		this.attendees = attendees;
 	}
@@ -139,6 +145,10 @@ public class MeetingInstance {
 	public void setMeetingDescription(String meetingDescription){
 		this.meetingDescription = meetingDescription;
 	}
+
+	public void setMeetingInitiatorID(int meetingInitiatorID) {
+		this.meetingInitiatorID = meetingInitiatorID;
+	}
 	
 	/*************************************************
 	 * 
@@ -151,9 +161,8 @@ public class MeetingInstance {
 		return this.meetingLat;
 	}
 	
-	public int getMeetingLong()
-	{
-		return this.meetingLon;
+	public int getMeetingLon() {
+		return meetingLon;
 	}
 	
 	public String getMeetingAddress()
@@ -166,9 +175,13 @@ public class MeetingInstance {
 		return this.meetingID;
 	}
 	
-	public String getMeetingSubject()
+	/*public String getMeetingSubject()
 	{
 		return this.meetingTitle;
+	}*/
+	
+	public String getMeetingTitle() {
+		return meetingTitle;
 	}
 	
 	public String getMeetingDate()
@@ -181,7 +194,7 @@ public class MeetingInstance {
 		return this.meetingTrackTime;
 	}
 	
-	public Set<UserInstance> getMeetingAttendees()
+	public HashMap<Integer, UserInstance> getMeetingAttendees()
 	{
 		return this.attendees;
 	}
@@ -201,4 +214,5 @@ public class MeetingInstance {
 	public String getMeetingDescription(){
 		return this.meetingDescription;
 	}
+
 }

@@ -24,6 +24,12 @@ public class UserInstance {
 		this.userAttendingStatus = "pending";
 	}
 	
+	public UserInstance(int userID, String userAttendingStatus) {
+		super();
+		this.userID = userID;
+		this.userAttendingStatus = userAttendingStatus;
+	}
+
 	public UserInstance(int userID, String userFirstName, String userLastName, String userEmail,
 				String userPhone, int userLocationLon, int userLocationLat){
 		
@@ -52,6 +58,14 @@ public class UserInstance {
 	this.userAttendingStatus = userAttendingStatus;
 }
 	
+	public UserInstance(int userID, int userLocationLon, int userLocationLat, String userEta) {
+		super();
+		this.userID = userID;
+		this.userLocationLon = userLocationLon;
+		this.userLocationLat = userLocationLat;
+		this.userEta = userEta;
+	}
+
 	/************
 	 * Getters
 	 ***********/
