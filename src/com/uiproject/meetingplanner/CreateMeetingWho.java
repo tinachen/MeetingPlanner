@@ -141,6 +141,9 @@ public class CreateMeetingWho extends Search {
         if (resultCode == R.string.cancel_create) {
             this.setResult(R.string.cancel_create);
             this.finish();
+        }else if (resultCode == R.string.meeting_created) {
+            this.setResult(R.string.meeting_created);
+            this.finish();
         }
     }
     

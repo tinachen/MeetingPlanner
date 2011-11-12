@@ -17,7 +17,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	private final Activity context;
 
 	public MeetingListArrayAdapter(Activity context, List<MeetingInstance> list) {
-		super(context, R.layout.meetinglist, list);
+		super(context, R.layout.meetinglistpending, list);
 		this.context = context;
 		this.list = list;
 	}
@@ -34,7 +34,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		View view = null;
 		if (convertView == null) {
 			LayoutInflater inflator = context.getLayoutInflater();
-			view = inflator.inflate(R.layout.meetinglist, null);
+			view = inflator.inflate(R.layout.meetinglistpending, null);
 			final ViewHolder viewHolder = new ViewHolder();
 			viewHolder.meetingName = (TextView) view.findViewById(R.id.meetingName);
 			viewHolder.acceptBtn = (Button) view.findViewById(R.id.acceptBtn);

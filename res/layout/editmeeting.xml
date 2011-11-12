@@ -176,12 +176,19 @@
 			    android:text="Change attendees"
 				android:layout_marginTop="3dip"/>
 				
-	     <Button android:id="@+id/addPeople"
+	     <Button android:id="@+id/save"
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
 			    android:onClick="saveMeeting"
 			    android:text="Save"
-		android:layout_marginTop="3dip"/>
+				android:layout_marginTop="3dip"/>
+				
+	     <Button android:id="@+id/delete"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:onClick="deleteMeeting"
+			    android:text="Delete"
+				android:layout_marginTop="3dip"/>
 	</LinearLayout>
 </LinearLayout>
 </ScrollView>

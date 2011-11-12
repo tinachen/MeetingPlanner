@@ -36,7 +36,6 @@ public class MainPage extends Activity {
     }
     
     public void createMeeting(View button){
-
         Intent intent = new Intent(MainPage.this, CreateMeetingWhat.class);
         MainPage.this.startActivity(intent);
     }

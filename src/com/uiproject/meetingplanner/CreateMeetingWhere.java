@@ -19,10 +19,14 @@ public class CreateMeetingWhere extends SelectLocation {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createmeetingwhere);
 
+        GeoUpdateHandler guh = new GeoUpdateHandler();
+        int lat = guh.getCurrentLat();
+        int lon = guh.getCurrentLng();
+        String addr = guh.getCurrentAddr();
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-        int lat = settings.getInt("mlat", 34019443); // TODO get current location and make that the default
-        int lon = settings.getInt("mlon", -118289440);
-        String addr = settings.getString("maddr", "current adress");
+        lat = settings.getInt("mlat", lat);
+        lon = settings.getInt("mlon", lon);
+        addr = settings.getString("maddr", addr);
         init(lat, lon, addr);
         
     }
@@ -112,6 +116,9 @@ public class CreateMeetingWhere extends SelectLocation {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == R.string.cancel_create) {
             this.setResult(R.string.cancel_create);
+            this.finish();
+        }else if (resultCode == R.string.meeting_created) {
+            this.setResult(R.string.meeting_created);
             this.finish();
         }
     }
