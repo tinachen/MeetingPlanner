@@ -3,5 +3,6 @@ bin/
 /res/layout/main.xml
 /res/layout/selectlocation.xml
 /res/layout/createmeetingwhere.xml
+/src/com/uiproject/.DS_Store
 .gitignore
 AndroidManifest.xml

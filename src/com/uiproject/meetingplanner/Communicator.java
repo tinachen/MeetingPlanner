@@ -40,7 +40,7 @@ public class Communicator {
 		return Integer.valueOf(result);
 	}
 
-	public static int logIn(long phoneNumber, int password) {
+	public static int logIn(long phoneNumber, String password) {
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myverifyuser?phoneNumber=" + phoneNumber + "&password=" + password;
 		String result = getResponseResult(urlStr);
 		return Integer.valueOf(result);
