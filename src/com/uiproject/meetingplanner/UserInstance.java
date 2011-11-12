@@ -24,6 +24,12 @@ public class UserInstance {
 		this.userAttendingStatus = "pending";
 	}
 	
+	public UserInstance(int userID, String userAttendingStatus) {
+		super();
+		this.userID = userID;
+		this.userAttendingStatus = userAttendingStatus;
+	}
+
 	public UserInstance(int userID, String userFirstName, String userLastName, String userEmail,
 				String userPhone, int userLocationLon, int userLocationLat){
 		
