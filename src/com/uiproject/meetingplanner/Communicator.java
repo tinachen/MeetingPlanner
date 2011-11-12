@@ -126,14 +126,14 @@ public class Communicator {
 			int meetingTrackTime = meetingInfos.getJSONObject(i).getInt("meetingTrackTime");
 			JSONArray users = meetingInfos.getJSONObject(i).getJSONObject("users").names();
 			JSONArray userStatusArray = meetingInfos.getJSONObject(i).getJSONObject("users").toJSONArray(users);
-			Set<UserInstance> attendees = new HashSet<UserInstance>();
+			HashMap<Integer,UserInstance> attendees = new HashMap<Integer,UserInstance>();
 			for (int j = 0; j < userStatusArray.length(); j++) {
 				if (userStatusArray.getInt(j) == 2)
-					attendees.add(new UserInstance(users.getInt(i), "attending"));
+					attendees.put(users.getInt(i),new UserInstance(users.getInt(i), "attending"));
 				if (userStatusArray.getInt(j) == 3)
-					attendees.add(new UserInstance(users.getInt(i), "pending"));
+					attendees.put(users.getInt(i),new UserInstance(users.getInt(i), "pending"));
 				if (userStatusArray.getInt(j) == 4)
-					attendees.add(new UserInstance(users.getInt(i), "decline"));
+					attendees.put(users.getInt(i),new UserInstance(users.getInt(i), "decline"));
 			}
 			int meetingInitiatorID = meetingInfos.getJSONObject(i).getInt("userId");
 			allMeetings.put(meetingIds.getInt(i), new MeetingInstance(meetingID, meetingLat, meetingLon, meetingTitle, meetingDescription,
