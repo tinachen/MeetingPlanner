@@ -44,7 +44,7 @@ public class MeetingListDeclined extends ExpandableListActivity {
         // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, 2);
 	    db.open();
-	    db.createMeeting("CS588 Progress", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);
+	    //db.createMeeting("CS588 Progress", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);
 	    allMeet = db.getAllMeetings();
         // Set up our adapter
         mAdapter = new MyExpandableListAdapter(allMeet);
