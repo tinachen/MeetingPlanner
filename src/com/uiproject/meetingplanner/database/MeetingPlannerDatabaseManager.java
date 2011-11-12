@@ -44,12 +44,12 @@ public class MeetingPlannerDatabaseManager {
 	 * 
 	 *******************************************************************/
 	
-	public void createMeeting(/*int meetingID, */String meetingTitle, int meetingLat, int meetingLon,
+	public void createMeeting(int meetingID, String meetingTitle, int meetingLat, int meetingLon,
 				String meetingDescription, String meetingAddress, String meetingDate, String meetingStartTime,
 				String meetingEndTime, int meetingTrackTime, int meetingInitiatorID){
 		
 		ContentValues values = new ContentValues();
-		//values.put(dbHelper.MEETING_ID, meetingID); //TODO
+		values.put(dbHelper.MEETING_ID, meetingID); //TODO
 		values.put(dbHelper.MEETING_TITLE, meetingTitle);
 		values.put(dbHelper.MEETING_LAT, meetingLat);
 		values.put(dbHelper.MEETING_LON, meetingLon);
@@ -101,6 +101,15 @@ public class MeetingPlannerDatabaseManager {
 	public void deleteMeeting(int meetingID){
 		try {
 			db.delete(dbHelper.MEETING_TABLE, dbHelper.MEETING_ID + "=" + meetingID, null);
+		}catch (Exception e){
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteAllMeetings(){
+		try {
+			db.delete(dbHelper.MEETING_TABLE, null, null);
 		}catch (Exception e){
 			Log.e("DB ERROR", e.toString());
 			e.printStackTrace();
@@ -168,6 +177,15 @@ public class MeetingPlannerDatabaseManager {
 		}
 	}
 	
+	public void deleteAllUsers(){
+		try {
+			db.delete(dbHelper.USER_TABLE, null, null);
+		}catch (Exception e){
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+	}
+	
 	public void createMeetingUser(int meetingID, int userID, int attendingStatusID, String meetingUserEta){
 		ContentValues values = new ContentValues();
 		values.put(dbHelper.MEETING_ID, meetingID);
@@ -225,6 +243,15 @@ public class MeetingPlannerDatabaseManager {
 	public void deleteMeetingUser(int meetingID, int userID){
 		try {
 			db.delete(dbHelper.MEETINGUSER_TABLE, dbHelper.USER_ID + "=" + userID + " AND " + dbHelper.MEETING_ID + " = " + meetingID, null);
+		}catch (Exception e){
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteAllMeetingUsers(){
+		try {
+			db.delete(dbHelper.MEETINGUSER_TABLE, null, null);
 		}catch (Exception e){
 			Log.e("DB ERROR", e.toString());
 			e.printStackTrace();
