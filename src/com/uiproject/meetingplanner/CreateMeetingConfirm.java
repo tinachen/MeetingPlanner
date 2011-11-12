@@ -2,6 +2,7 @@ package com.uiproject.meetingplanner;
 
 import java.util.ArrayList;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 import android.app.Activity;
@@ -65,7 +66,7 @@ public class CreateMeetingConfirm extends Activity {
     	
     	
     	// Hook up with database
-	    db = new MeetingPlannerDatabaseManager(this, 2);
+	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 	    
 	    ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
@@ -97,14 +98,12 @@ public class CreateMeetingConfirm extends Activity {
 
     	int mid = Communicator.createMeeting(uid, mtitle, mdesc, mlat, mlon, maddr, mdate, mstarttime, mendtime, mtracktime, mphones);
     	
-    	
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 
     	int initiatorID = settings.getInt("uid", 0);
-    	//db.createMeeting(mtitle, mlat, mlon, mdesc, maddr, mdate, mstarttime, mendtime, mtracktime, initiatorID); //TODO need meeting ID
+    	
+    	db.createMeeting(mid, mtitle, mlat, mlon, mdesc, maddr, mdate, mstarttime, mendtime, mtracktime, initiatorID); 
 
-    	
-    	
     	clearData();
     	CreateMeetingConfirm.this.setResult(R.string.meeting_created);
     	CreateMeetingConfirm.this.finish();

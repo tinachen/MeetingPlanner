@@ -10,6 +10,7 @@ import android.widget.Toast;
 public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 
 	private final static String DATABASE_NAME = "MeetingPlanner";
+	public final static int DATABASE_VERSION = 3;
 	
 	// Meetings Table
 	public final String MEETING_TABLE = "Meetings";

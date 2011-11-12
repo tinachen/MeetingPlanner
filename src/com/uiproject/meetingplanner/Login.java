@@ -50,7 +50,7 @@ public class Login extends Activity {
     	}
 */        
         // Hook up with database
-	    db = new MeetingPlannerDatabaseManager(this, 2);
+	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 	}
 

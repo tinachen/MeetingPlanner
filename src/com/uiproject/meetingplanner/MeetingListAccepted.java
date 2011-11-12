@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 import android.app.DatePickerDialog;
@@ -42,7 +43,7 @@ public class MeetingListAccepted extends ExpandableListActivity {
         super.onCreate(savedInstanceState);
 
         // Hook up with database
-	    db = new MeetingPlannerDatabaseManager(this, 2);
+	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 
 	    //db.createMeeting("CS588 Progress", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
