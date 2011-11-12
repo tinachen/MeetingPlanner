@@ -44,9 +44,9 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 	public final String ATTENDINGSTATUS_TABLE = "AttendingStatus";
 	public final String ATTENDINGSTATUS_ID = "AttendingStatusID";
 	public final String ATTENDINGSTATUS_NAME = "AttendingStatusName";
-	public final int ATTENDINGSTATUS_ATTENDING = 0;
-	public final int ATTENDINGSTATUS_DECLINING = 1;
-	public final int ATTENDINGSTATUS_PENDING = 2;
+	public final static int ATTENDINGSTATUS_ATTENDING = 0;
+	public final static int ATTENDINGSTATUS_DECLINING = 1;
+	public final static int ATTENDINGSTATUS_PENDING = 2;
 	public final static String ATTENDINGSTATUS_ATTENDINGSTRING = "attending";
 	public final static String ATTENDINGSTATUS_DECLININGSTRING = "decline";
 	public final static String ATTENDINGSTATUS_PENDINGSTRING = "pending";

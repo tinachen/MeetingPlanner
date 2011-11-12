@@ -1,5 +1,12 @@
 package com.uiproject.meetingplanner;
 
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import org.json.JSONException;
+
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 import android.app.Activity;
@@ -47,7 +54,7 @@ public class Login extends Activity {
 	    db.open();
 	}
 
-	public void checkLogin(View button){
+	public void checkLogin(View button) throws JSONException, ParseException{
 		
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		SharedPreferences.Editor editor = settings.edit();
@@ -108,6 +115,47 @@ public class Login extends Activity {
         // Saves the changes in sharedpreferences
     	editor.commit();        	
   
+    	// Get meetings info & user infos from server
+    	HashMap<Integer, UserInstance> usersMap = (HashMap<Integer, UserInstance>) Communicator.getAllUsers();
+    	HashMap<Integer, MeetingInstance> meetingsMap = (HashMap<Integer, MeetingInstance>) Communicator.getAllMeetings();
+    	
+    	/****** Update internal db ******/
+    	
+    	// 1. Delete all data in db
+    	db.deleteAllUsers();
+    	db.deleteAllMeetings();
+    	db.deleteAllMeetingUsers();
+    	
+    	// 2-1. Update Users
+    	for (UserInstance userObj : usersMap.values()) {
+    		db.createUser(userObj.getUserID(), userObj.getUserFirstName(), userObj.getUserLastName(),
+    				userObj.getUserEmail(), userObj.getUserPhone(), userObj.getUserLocationLon(), userObj.getUserLocationLat());
+    	}
+
+
+    	// 2-2. Update Meetings
+    	for (MeetingInstance meetingObj : meetingsMap.values()) {
+    		db.createMeeting(meetingObj.getMeetingID(), meetingObj.getMeetingTitle(), meetingObj.getMeetingLat(), meetingObj.getMeetingLon(),
+    						meetingObj.getMeetingDescription(), meetingObj.getMeetingAddress(), meetingObj.getMeetingDate(), 
+    						meetingObj.getMeetingStartTime(), meetingObj.getMeetingEndTime(), meetingObj.getMeetingTrackTime(), meetingObj.getMeetingInitiatorID());
+    	
+    		// 2-3. Update Meeting Users
+    		HashMap<Integer, UserInstance> meetingUsers = meetingObj.getMeetingAttendees();
+    		
+    		for(UserInstance meetingUserObj : meetingUsers.values()){
+    			
+    			int attendingStatusID = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING;
+    			
+    			if(meetingUserObj.getUserAttendingStatus().compareTo(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDINGSTRING) == 0){
+    				attendingStatusID = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING;
+    			}else if(meetingUserObj.getUserAttendingStatus().compareTo(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLININGSTRING) == 0){
+    				attendingStatusID = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING;
+    			}
+    			
+    			db.createMeetingUser(meetingObj.getMeetingID(), meetingUserObj.getUserID(), attendingStatusID, meetingUserObj.getUserEta());
+    		}
+    	}
+    	
         // no problems, go to main page
         Intent intent = new Intent(Login.this, MainPage.class);
     	Login.this.startActivity(intent);
