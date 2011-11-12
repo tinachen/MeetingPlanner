@@ -1,7 +1,6 @@
 package com.uiproject.meetingplanner;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import android.app.Activity;
@@ -16,8 +15,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 
@@ -30,8 +27,8 @@ public class Search extends Activity implements OnItemClickListener {
     protected ArrayAdapter<String> adapter;
     protected Vector<String> currentSearchList;
     protected Vector<String> contactList;
-    protected HashSet<String> checkedList;
-    protected HashSet<String> phoneNumbers;
+    protected ArrayList<String> checkedNames;
+    protected ArrayList<String> checkedPhoneNumbers;
 
     /** Called when the activity is first created. */
 	@Override
@@ -41,8 +38,8 @@ public class Search extends Activity implements OnItemClickListener {
 	    
 	    currentSearchList = new Vector<String>();
 	    contactList = new Vector<String>();
-	    checkedList = new HashSet<String>();
-	    phoneNumbers = new HashSet<String>();
+	    checkedNames = new ArrayList<String>();
+	    checkedPhoneNumbers = new ArrayList<String>();
 	}
 	public void init() {
 	    // Gets the contact list and saves it into contactList
@@ -68,7 +65,7 @@ public class Search extends Activity implements OnItemClickListener {
 	    	    if (Boolean.parseBoolean(hasPhone)) {
 	    	    	Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ contactId,null, null);
 	    	        while (phones.moveToNext()) {
-	    	        	phoneNumbers.add(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+	    	        	checkedPhoneNumbers.add(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
 	    	        }
 	    	        phones.close();
 	    	    }
@@ -101,7 +98,7 @@ public class Search extends Activity implements OnItemClickListener {
 	            for (int i = 0; i < adapter.getCount(); i++) {
 		            Object item = adapter.getItem(i);
 		            currentSearchList.add(item.toString());
-		            	if (checkedList.contains(item)) {
+		            	if (checkedNames.contains(item)) {
 		            		Log.d("TEST", item.toString());
 		            		mContactList.setItemChecked(i, true);
 		            	}
@@ -111,7 +108,7 @@ public class Search extends Activity implements OnItemClickListener {
 	            ArrayAdapter<String> searchUpdateAdapter = new ArrayAdapter<String>(Search.this, R.layout.list_item, currentSearchList);
 	            mContactList.setAdapter(searchUpdateAdapter);
 	            for (int i =  0; i < currentSearchList.size(); i++) {
-	            	if (checkedList.contains(currentSearchList.get(i))) {
+	            	if (checkedNames.contains(currentSearchList.get(i))) {
 	            		mContactList.setItemChecked(i, true);
 	            	}
 	            }
@@ -135,13 +132,13 @@ public class Search extends Activity implements OnItemClickListener {
 		SparseBooleanArray checked = mContactList.getCheckedItemPositions();
 		for (int i = 0; i < currentSearchList.size(); i++) {
 			if (checked.get(i)) {
-				checkedList.add(currentSearchList.elementAt(i));
+				checkedNames.add(currentSearchList.elementAt(i));
 			}
 			else if (!checked.get(i)) {
-				checkedList.remove(currentSearchList.elementAt(i));
+				checkedNames.remove(currentSearchList.elementAt(i));
 			}
 		}
-		Log.d("checkedList", checkedList.toString());
+		Log.d("checkedNames", checkedNames.toString());
 		//view.setSelected(true);
 	}
 	
