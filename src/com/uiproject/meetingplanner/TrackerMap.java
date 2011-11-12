@@ -44,6 +44,8 @@ public class TrackerMap extends MapActivity {
         // set the center
         mc.setCenter(itemizedoverlay.getCenter());
         
+        
+        
     }
     
     @Override
@@ -67,7 +69,7 @@ public class TrackerMap extends MapActivity {
     
     public void toList(View button){  	
 
-		Intent intent = new Intent(TrackerMap.this, TrackerEtaList.class); // TODO change to eta list page
+		Intent intent = new Intent(TrackerMap.this, TrackerEtaList.class);
 		TrackerMap.this.startActivityForResult(intent, 0);
     }
     

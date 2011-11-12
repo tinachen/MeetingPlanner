@@ -5,6 +5,8 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 public class Signup extends Activity {
 	EditText fname_field, lname_field, phone_field, email_field, pw_field, pw2_field;
+	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -53,6 +56,7 @@ public class Signup extends Activity {
         String fname = fname_field.getText().toString();
         String lname = lname_field.getText().toString();
         String phone = phone_field.getText().toString();
+        long phonenumber = Long.parseLong(phone);
         String email = email_field.getText().toString();
         String pw = pw_field.getText().toString();
         String pw2 = pw2_field.getText().toString();
@@ -71,8 +75,15 @@ public class Signup extends Activity {
         	
         }
         
-        //TODO hook up to db
+
+		Communicator serverRequest = new Communicator();
+		int uid = serverRequest.createUser(phonenumber, fname, lname, email, pw);
+		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
+		Editor editor = settings.edit();
+		editor.putInt("uid", uid);
         
+		editor.commit();
+		
     	Intent intent = new Intent(Signup.this, MainPage.class);
     	Signup.this.startActivity(intent);
 	}

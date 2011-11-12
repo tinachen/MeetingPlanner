@@ -25,12 +25,12 @@ public class Search extends Activity implements OnItemClickListener {
 	private final String LOG_TAG = "Search";
     public static final String TAG = "ContactManager";
 
-    private ListView mContactList;
-    private AutoCompleteTextView textView;
-    private ArrayAdapter<String> adapter;
-    private Vector<String> currentSearchList;
-    private Vector<String> contactList;
-    private HashSet<String> checkedList;
+    protected ListView mContactList;
+    protected AutoCompleteTextView textView;
+    protected ArrayAdapter<String> adapter;
+    protected Vector<String> currentSearchList;
+    protected Vector<String> contactList;
+    protected HashSet<String> checkedList;
 	
     /** Called when the activity is first created. */
 	@Override
