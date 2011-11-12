@@ -34,10 +34,6 @@ public class AllMeetings extends TabActivity{
         			  .setContent(intent);
 	    tabHost.addTab(spec);
 
-<<<<<<< HEAD
 	    tabHost.setCurrentTab(3);
-=======
-	    tabHost.setCurrentTab(1);
->>>>>>> 332ee120e22c165763c88916ec871a326d2c9c69
 	}
 }

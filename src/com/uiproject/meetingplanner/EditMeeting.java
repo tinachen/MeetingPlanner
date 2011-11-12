@@ -247,8 +247,6 @@ public class EditMeeting extends Activity {
     	String mendtime = meHour + ":" + meMinute;
     	Communicator.updateMeeting(mid, uid, mtitle, mdesc, lat, lon, addr, mdate, mstarttime, mendtime, (int) (trackTime * 60), people);
 
-		Intent intent = new Intent(EditMeeting.this, MeetingList.class);
-		EditMeeting.this.startActivity(intent);
     	this.finish();    	
     }
     
