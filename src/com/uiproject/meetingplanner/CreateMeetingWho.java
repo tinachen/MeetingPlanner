@@ -22,8 +22,33 @@ public class CreateMeetingWho extends Search {
         init();
         
         String n;
+        String p;
+        int commaIndex;
     	if (names.length() > 0){
-    		
+	    	while (names.length() > 0){
+	    		commaIndex = names.indexOf(',');
+	    		if (commaIndex == -1){
+	    			checkedNames.add(names);
+	    			break;
+	    		}else{
+		    		n = names.substring(0, commaIndex);
+		    		checkedNames.add(n);
+		    		names = names.substring(commaIndex + 2);
+	    		}
+    		}
+
+	    	while (phones.length() > 0){
+	    		commaIndex = phones.indexOf(',');
+	    		if (commaIndex == -1){
+	    			checkedPhoneNumbers.add(phones);
+	    			break;
+	    		}else{
+		    		p = phones.substring(0, commaIndex);
+		    		checkedPhoneNumbers.add(p);
+		    		phones = phones.substring(commaIndex + 2);
+	    		}
+    		}
+	    		
     	}
     }
 
