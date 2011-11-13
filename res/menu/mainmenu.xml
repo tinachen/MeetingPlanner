@@ -6,4 +6,6 @@
         android:icon="@drawable/androidmarker" />
     <item android:id="@+id/trackermap"
         android:title="Tracker map" />
+    <item android:id="@+id/logout"
+        android:title="Logout" />
 </menu>

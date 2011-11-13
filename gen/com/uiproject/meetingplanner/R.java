@@ -63,6 +63,7 @@ public final class R {
         public static final int location=0x7f08000a;
         public static final int login=0x7f08002d;
         public static final int logo=0x7f08002c;
+        public static final int logout=0x7f08003f;
         public static final int mapview=0x7f08002f;
         public static final int meetingID=0x7f080030;
         public static final int meetingLocation=0x7f080032;

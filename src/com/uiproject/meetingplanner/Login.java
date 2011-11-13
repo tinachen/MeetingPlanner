@@ -38,17 +38,15 @@ public class Login extends Activity {
         remember_me = (CheckBox) findViewById(R.id.rememberme);
         
         //check to see if user is already logged in or not
-        /*
+        
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	int uid = settings.getInt("uid", -1);
     	boolean remember = settings.getBoolean("remember", false);
     	if (uid != -1 && remember){ // if logged in, then go directly to main page
             Intent intent = new Intent(Login.this, MainPage.class);
         	Login.this.startActivity(intent);    		
-    	}else{
-    		Toast.makeText(getBaseContext(), "your login is not currently remembered", Toast.LENGTH_SHORT).show();		
     	}
-*/        
+    	
         // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
