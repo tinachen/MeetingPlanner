@@ -4,6 +4,6 @@ bin/
 /res/layout/selectlocation.xml
 /res/layout/createmeetingwhere.xml
 /src/com/uiproject/.DS_Store
-/gen/com/uiproject/meetingplanner/R.java
+
 .gitignore
 AndroidManifest.xml
