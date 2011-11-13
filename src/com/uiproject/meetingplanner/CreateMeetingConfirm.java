@@ -97,10 +97,9 @@ public class CreateMeetingConfirm extends Activity {
     	//save meeting data into the db, send to server
 
     	int mid = Communicator.createMeeting(uid, mtitle, mdesc, mlat, mlon, maddr, mdate, mstarttime, mendtime, mtracktime, mphones);
-    	
-    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
+    	Communicator.acceptMeeting(uid, mid); // accept meeting
 
-    	int initiatorID = settings.getInt("uid", 0);
+    	int initiatorID = uid;
     	
     	db.createMeeting(mid, mtitle, mlat, mlon, mdesc, maddr, mdate, mstarttime, mendtime, mtracktime, initiatorID); 
 
