@@ -86,7 +86,7 @@ public class Signup extends Activity {
 		
 		if(uid == -1){
 			// User has already been created, show error msg
-			Toast.makeText(getBaseContext(), "Phone number has been used before!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getBaseContext(), "Phone number has already been used by other users!", Toast.LENGTH_SHORT).show();
 			return;
 		}
 			
