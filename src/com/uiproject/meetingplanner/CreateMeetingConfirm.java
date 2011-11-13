@@ -2,6 +2,7 @@ package com.uiproject.meetingplanner;
 
 import java.util.ArrayList;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 import android.app.Activity;
@@ -18,7 +19,7 @@ public class CreateMeetingConfirm extends Activity {
 	TextView title, desc, date, time, tracktime, attendees, location;
 	private MeetingPlannerDatabaseManager db;
 	private String mtitle, mdesc, maddr, mdate, mstarttime, mendtime, mphones, mnames;
-	private int mtracktime, mlon, mlat;
+	private int mtracktime, mlon, mlat, uid;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class CreateMeetingConfirm extends Activity {
 
         // Get var values from sharedpreferences
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	uid = settings.getInt("uid", 0);
     	int month = settings.getInt("mdatem", 0) + 1;
     	int day = settings.getInt("mdated", 0);
     	int year = settings.getInt("mdatey", 0);
@@ -64,7 +66,7 @@ public class CreateMeetingConfirm extends Activity {
     	
     	
     	// Hook up with database
-	    db = new MeetingPlannerDatabaseManager(this, 2);
+	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 	    
 	    ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
@@ -91,24 +93,18 @@ public class CreateMeetingConfirm extends Activity {
     }
     
     public void confirm(View button){
-    	// Pass meeting details to server TODO
-    	// Retrieve meeting ID and set it
-    	int meetingID;
     	
-    	//save meeting data into the db
+    	//save meeting data into the db, send to server
 
-    	Toast.makeText(CreateMeetingConfirm.this, "meeting saved!", Toast.LENGTH_SHORT).show();
-    	// add to db and get id back, go to add ppl page
+    	int mid = Communicator.createMeeting(uid, mtitle, mdesc, mlat, mlon, maddr, mdate, mstarttime, mendtime, mtracktime, mphones);
+    	Communicator.acceptMeeting(uid, mid); // accept meeting
+
+    	int initiatorID = uid;
     	
-    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
-    	//int latitude = 1234567;
-    	//int longitude = 2222222;
-
-    	int initiatorID = settings.getInt("uid", 0);
-    	db.createMeeting(mtitle, mlat, mlon, mdesc, maddr, mdate, mstarttime, mendtime, mtracktime, initiatorID); //TODO need meeting ID
+    	db.createMeeting(mid, mtitle, mlat, mlon, mdesc, maddr, mdate, mstarttime, mendtime, mtracktime, initiatorID); 
 
     	clearData();
-    	CreateMeetingConfirm.this.setResult(R.string.cancel_create);
+    	CreateMeetingConfirm.this.setResult(R.string.meeting_created);
     	CreateMeetingConfirm.this.finish();
     }
     

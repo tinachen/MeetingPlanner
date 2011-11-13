@@ -19,10 +19,14 @@ public class EditMeetingLocation extends SelectLocation {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editmeetinglocation);
 
+        GeoUpdateHandler guh = new GeoUpdateHandler();
+        int lat = guh.getCurrentLat();
+        int lon = guh.getCurrentLng();
+        String addr = guh.getCurrentAddr();
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-        int lat = settings.getInt("mlat", 34019443); // TODO get current location and make that the default
-        int lon = settings.getInt("mlon", -118289440);
-        String addr = settings.getString("maddr", "current adress");
+        lat = settings.getInt("mlat", lat);
+        lon = settings.getInt("mlon", lon);
+        addr = settings.getString("maddr", addr);
         init(lat, lon, addr);
         address_field.setText(addr);       
     }

@@ -24,8 +24,20 @@ public class MainPage extends Activity {
         name = (TextView) findViewById(R.id.name);
 
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-    	String username = settings.getString("name", "my name!");
-    	name.setText(username);
+    	String username = settings.getString("userFirstName", "") + " " + settings.getString("userLastName", "");
+    	if (username.length() == 1){
+    		name.setText("Add your name");
+    		name.setClickable(true);
+    		name.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainPage.this, EditProfile.class);
+                    MainPage.this.startActivity(intent);
+                }
+            });
+    		
+    	}else{
+    		name.setText(username);
+    	}
         
     }
 
@@ -36,11 +48,11 @@ public class MainPage extends Activity {
     }
     
     public void createMeeting(View button){
-
         Intent intent = new Intent(MainPage.this, CreateMeetingWhat.class);
         MainPage.this.startActivity(intent);
     }
     
+ 
     // menu 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,6 +77,13 @@ public class MainPage extends Activity {
             case R.id.trackermap:{
                 Intent intent = new Intent(MainPage.this, TrackerMap.class);
                 MainPage.this.startActivity(intent);
+            	break;
+            }
+            case R.id.logout:{
+            	Logout.logout(this);
+                Intent intent = new Intent(MainPage.this, Login.class);
+                MainPage.this.startActivity(intent);
+                finish();
             	break;
             }
         }

@@ -89,6 +89,10 @@ public class CreateMeetingWhat extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == R.string.cancel_create) {
             this.finish();
+        }else if (resultCode == R.string.meeting_created) {
+    		Intent intent = new Intent(CreateMeetingWhat.this, AllMeetings.class);
+    		CreateMeetingWhat.this.startActivity(intent);
+            this.finish();
         }
     }
 }

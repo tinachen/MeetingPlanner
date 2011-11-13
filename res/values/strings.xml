@@ -20,4 +20,5 @@
     <string name="cancel_create">999</string>
     <string name="editmeetloc">998</string>
     <string name="editmeetattendees">997</string>
+    <string name="meeting_created">996</string>
 </resources>
