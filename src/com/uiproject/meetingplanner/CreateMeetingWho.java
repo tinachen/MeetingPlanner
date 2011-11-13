@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 public class CreateMeetingWho extends Search {
@@ -62,6 +65,13 @@ public class CreateMeetingWho extends Search {
     }
 
     public void cancel(View button){
+    	clearData();
+    	CreateMeetingWho.this.setResult(R.string.cancel_create);
+    	CreateMeetingWho.this.finish();
+		//need to clear the previous activities too
+    }
+    
+    private void clearData(){
 
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();
@@ -83,9 +93,6 @@ public class CreateMeetingWho extends Search {
     	editor.commit();
 
     	
-    	CreateMeetingWho.this.setResult(R.string.cancel_create);
-    	CreateMeetingWho.this.finish();
-		//need to clear the previous activities too
     }
     
     public void next(View button){
@@ -147,4 +154,25 @@ public class CreateMeetingWho extends Search {
         }
     }
     
+
+
+	 // menu 
+	    @Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
+	        MenuInflater inflater = getMenuInflater();
+	        inflater.inflate(R.menu.logoutonly, menu);
+	        return true;
+	    }
+	    
+	    @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	            case R.id.logout:{
+	            	clearData();
+	            	Logout.logout(this);
+	            	break;
+	            }
+	        }
+	        return true;
+	    }
 }

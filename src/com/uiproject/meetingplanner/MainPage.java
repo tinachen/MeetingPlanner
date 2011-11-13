@@ -29,7 +29,7 @@ public class MainPage extends Activity {
     }
 
     public void gotoMyMeetings(View button){
-        Intent intent = new Intent(MainPage.this, MeetingList.class);
+        Intent intent = new Intent(MainPage.this, AllMeetings.class);
         MainPage.this.startActivity(intent);
     	
     }
@@ -68,9 +68,13 @@ public class MainPage extends Activity {
                 MainPage.this.startActivity(intent);
             	break;
             }
+            case R.id.logout:{
+            	Logout.logout(this);
+            	break;
+            }
         }
         return true;
     }
-
+    
 }
 

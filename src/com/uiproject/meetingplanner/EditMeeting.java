@@ -12,6 +12,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -160,7 +163,7 @@ public class EditMeeting extends Activity {
 				 if (resultCode == Activity.RESULT_OK) { 
 					 people = data.getStringExtra("people");
 					 names = data.getStringExtra("names");
-					 
+					 attendees.setText(names);					 
 				} 
 				break; 
 				
@@ -252,7 +255,7 @@ public class EditMeeting extends Activity {
     
     public void invite(View button){
     	Intent intent = new Intent(EditMeeting.this, EditMeetingAttendees.class);
-    	EditMeeting.this.startActivity(intent);
+    	EditMeeting.this.startActivityForResult(intent, R.string.editmeetattendees);
     }
     
     public void selectLocation(View button){
@@ -293,4 +296,24 @@ public class EditMeeting extends Activity {
           // Do nothing.
         }
     }
+    
+    // menu 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logoutonly, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:{
+            	Logout.logout(this);
+            	break;
+            }
+        }
+        return true;
+    }
+    
 }

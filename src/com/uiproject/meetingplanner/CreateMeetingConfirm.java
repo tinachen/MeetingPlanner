@@ -9,6 +9,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +21,7 @@ public class CreateMeetingConfirm extends Activity {
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	TextView title, desc, date, time, tracktime, attendees, location;
 	private MeetingPlannerDatabaseManager db;
-	private String mtitle, mdesc, maddr, mdate, mstarttime, mendtime, mphones, mnames;
+	private String mtitle, mdesc, maddr, mdate, mstarttime, mendtime, mattendeeids, mnames;
 	private int mtracktime, mlon, mlat, uid;
 	
 	@Override
@@ -52,7 +55,8 @@ public class CreateMeetingConfirm extends Activity {
     	mtracktime = (int) ((double) settings.getFloat("mtracktime", (float).5) * 60);
     	mlon = settings.getInt("mlon", 0);
     	mlat = settings.getInt("mlat", 0);
-    	mphones = settings.getString("mphones", "");
+    	//mattendeeids = settings.getString("mphones", ""); //TODO hard code it for now
+    	mattendeeids = "1,2,3";
     	mnames = settings.getString("mnames", "");
     	
     	// Set the view
@@ -96,7 +100,7 @@ public class CreateMeetingConfirm extends Activity {
     	
     	//save meeting data into the db, send to server
 
-    	int mid = Communicator.createMeeting(uid, mtitle, mdesc, mlat, mlon, maddr, mdate, mstarttime, mendtime, mtracktime, mphones);
+    	int mid = Communicator.createMeeting(uid, mtitle, mdesc, mlat, mlon, maddr, mdate, mstarttime, mendtime, mtracktime, mattendeeids);
     	Communicator.acceptMeeting(uid, mid); // accept meeting
 
     	int initiatorID = uid;
@@ -129,7 +133,31 @@ public class CreateMeetingConfirm extends Activity {
     	editor.remove("mnames");
     	editor.remove("mphones");
     	editor.commit();
-    		
-    
     }
+    
+
+
+	 // menu 
+	    @Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
+	        MenuInflater inflater = getMenuInflater();
+	        inflater.inflate(R.menu.logoutonly, menu);
+	        return true;
+	    }
+	    
+	    @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	            case R.id.logout:{
+	            	logout();
+	            	break;
+	            }
+	        }
+	        return true;
+	    }
+	    
+	    private void logout(){
+          this.setResult(R.string.logout);
+          this.finish();
+	    }
 }

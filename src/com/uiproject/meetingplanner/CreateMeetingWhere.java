@@ -3,6 +3,9 @@ package com.uiproject.meetingplanner;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -45,6 +48,13 @@ public class CreateMeetingWhere extends SelectLocation {
 
     public void cancel(View button){
 
+    	clearData();
+    	CreateMeetingWhere.this.setResult(R.string.cancel_create);
+    	CreateMeetingWhere.this.finish();
+    }
+    
+    private void clearData(){
+
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();
     	editor.remove("mtitle");
@@ -63,10 +73,7 @@ public class CreateMeetingWhere extends SelectLocation {
     	editor.remove("mnames");
     	editor.remove("mphones");
     	editor.commit();
-
     	
-    	CreateMeetingWhere.this.setResult(R.string.cancel_create);
-    	CreateMeetingWhere.this.finish();
     }
     
     public void next(View button){
@@ -122,5 +129,25 @@ public class CreateMeetingWhere extends SelectLocation {
             this.finish();
         }
     }
+
+	 // menu 
+	    @Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
+	        MenuInflater inflater = getMenuInflater();
+	        inflater.inflate(R.menu.logoutonly, menu);
+	        return true;
+	    }
+	    
+	    @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	            case R.id.logout:{
+	            	clearData();
+	            	Logout.logout(this);
+	            	break;
+	            }
+	        }
+	        return true;
+	    }
     
 }
