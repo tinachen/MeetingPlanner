@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -93,6 +96,33 @@ public class CreateMeetingWhat extends Activity {
     		Intent intent = new Intent(CreateMeetingWhat.this, AllMeetings.class);
     		CreateMeetingWhat.this.startActivity(intent);
             this.finish();
-        }
+	    }else if (resultCode == R.string.logout) {
+	    	logout();
+	    }
     }
+    
+    // menu 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logoutonly, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:{
+            	logout();
+            	break;
+            }
+        }
+        return true;
+    }
+    
+    private void logout(){
+        this.setResult(R.string.logout);
+        this.finish();
+    }
+    
 }

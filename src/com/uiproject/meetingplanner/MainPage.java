@@ -49,7 +49,15 @@ public class MainPage extends Activity {
     
     public void createMeeting(View button){
         Intent intent = new Intent(MainPage.this, CreateMeetingWhat.class);
-        MainPage.this.startActivity(intent);
+        MainPage.this.startActivityForResult(intent, 0);
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == R.string.logout) {
+	    	logout();
+	    }
     }
     
  
@@ -80,14 +88,20 @@ public class MainPage extends Activity {
             	break;
             }
             case R.id.logout:{
-            	Logout.logout(this);
-                Intent intent = new Intent(MainPage.this, Login.class);
-                MainPage.this.startActivity(intent);
-                finish();
+            	logout();
             	break;
             }
         }
         return true;
+    }
+    
+
+    
+    private void logout(){
+    	Logout.logout(this);
+        Intent intent = new Intent(MainPage.this, Login.class);
+        MainPage.this.startActivity(intent);
+        finish();
     }
 
 }

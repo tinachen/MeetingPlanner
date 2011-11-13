@@ -50,8 +50,8 @@ public final class R {
         public static final int declineBtn=0x7f080037;
         public static final int delete=0x7f080023;
         public static final int desc=0x7f080006;
-        public static final int editmeeting=0x7f08003e;
-        public static final int editprofile=0x7f08003d;
+        public static final int editmeeting=0x7f08003f;
+        public static final int editprofile=0x7f08003e;
         public static final int editprofile_img=0x7f080024;
         public static final int email=0x7f080027;
         public static final int endPickTime=0x7f080017;
@@ -63,7 +63,7 @@ public final class R {
         public static final int location=0x7f08000a;
         public static final int login=0x7f08002d;
         public static final int logo=0x7f08002c;
-        public static final int logout=0x7f08003f;
+        public static final int logout=0x7f08003d;
         public static final int mapview=0x7f08002f;
         public static final int meetingID=0x7f080030;
         public static final int meetingLocation=0x7f080032;
@@ -125,7 +125,8 @@ public final class R {
         public static final int trackermap=0x7f030017;
     }
     public static final class menu {
-        public static final int mainmenu=0x7f070000;
+        public static final int logoutonly=0x7f070000;
+        public static final int mainmenu=0x7f070001;
     }
     public static final class string {
         public static final int app_name=0x7f040001;
@@ -133,6 +134,7 @@ public final class R {
         public static final int editmeetattendees=0x7f040005;
         public static final int editmeetloc=0x7f040004;
         public static final int hello=0x7f040000;
+        public static final int logout=0x7f040007;
         public static final int meeting_created=0x7f040006;
         public static final int tracker_prompt=0x7f040002;
     }

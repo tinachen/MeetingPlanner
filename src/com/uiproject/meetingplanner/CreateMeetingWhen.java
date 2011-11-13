@@ -9,6 +9,9 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -202,6 +205,9 @@ public class CreateMeetingWhen extends Activity {
 	        }else if (resultCode == R.string.meeting_created) {
 	            this.setResult(R.string.meeting_created);
 	            this.finish();
+	        }else if (resultCode == R.string.logout) {
+	            this.setResult(R.string.logout);
+	            this.finish();
 	        }
 	    }
 	    
@@ -282,6 +288,30 @@ public class CreateMeetingWhen extends Activity {
 	        public void onNothingSelected(AdapterView parent) {
 	          // Do nothing.
 	        }
+	    }
+	    
+	 // menu 
+	    @Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
+	        MenuInflater inflater = getMenuInflater();
+	        inflater.inflate(R.menu.logoutonly, menu);
+	        return true;
+	    }
+	    
+	    @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	            case R.id.logout:{
+	            	logout();
+	            	break;
+	            }
+	        }
+	        return true;
+	    }
+	    
+	    private void logout(){
+            this.setResult(R.string.logout);
+            this.finish();
 	    }
 	    
 }
