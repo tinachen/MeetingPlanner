@@ -1,6 +1,8 @@
 package com.uiproject.meetingplanner;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -25,10 +27,12 @@ public class TrackerEtaList extends Activity {
         attendeesList.setAdapter(adapter);
     }
     
-    public void updateList(ArrayList<UserInstance> a) {
+    public void updateList(Map<Integer, UserInstance> map) {
     	attendees.clear();
-    	for (int i = 0; i < a.size(); i++) {
-    		attendees.add(a.get(i));
+
+    	Set<Integer> keys = map.keySet();
+    	for (Integer i : keys){
+    		attendees.add(map.get(i));
     	}
     	adapter = new ArrayAdapter<UserInstance>(this, R.layout.tracker_list_item, attendees);
         attendeesList.setAdapter(adapter);

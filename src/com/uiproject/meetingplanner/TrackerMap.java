@@ -2,15 +2,14 @@ package com.uiproject.meetingplanner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -44,6 +43,8 @@ public class TrackerMap extends MapActivity {
         // set the center
         mc.setCenter(itemizedoverlay.getCenter());
         
+        Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
+        startService(intent);
         
         
     }
@@ -53,11 +54,14 @@ public class TrackerMap extends MapActivity {
         return false;
     }
 
-    public void updateList(ArrayList<UserInstance> attendees){
+    public void updateList(Map<Integer,UserInstance> attendees){
     	itemizedoverlay.clear();
     	MyOverlayItem myoi;
     	OverlayItem oi;
-    	for (UserInstance a : attendees){
+    	Set<Integer> keys = attendees.keySet();
+    	UserInstance a;
+    	for (Integer i : keys){
+    		a = attendees.get(i);
     		oi = new OverlayItem(new GeoPoint(a.getUserLocationLat(), a.getUserLocationLon()), "", "");
     		myoi = new MyOverlayItem(oi, a.getUserFirstName() + " " + a.getUserLastName(), a.getUserEta());
     		itemizedoverlay.addOverlay(myoi);
