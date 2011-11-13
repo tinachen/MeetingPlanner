@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import org.json.JSONArray;
@@ -49,7 +50,7 @@ public class CommunicateService extends Service {
 			while(status){
 				try{
 					displayResult();
-					Thread.sleep(10000);
+					Thread.sleep(1000);
 				}
 				catch(Exception e) {   
 					e.printStackTrace();
@@ -60,14 +61,29 @@ public class CommunicateService extends Service {
 	}
 	
 	
-    public void displayResult() throws JSONException
+    public Map<String,Object> displayResult() throws JSONException
     {
     	Random r=new Random();
     	int ran=r.nextInt(10);
     	int test = 10+ran;
     	
     	ServerMsg sm1=new ServerMsg(test);
-    	String data = getResponseResult(sm1);
+    	String result = getResponseResult(sm1);
+    	Map<String,Object> msg =new HashMap<String,Object> ();
+		JSONObject message = new JSONObject(result);
+		int tag = message.getInt("tag");
+		msg.put("tag",tag);
+		JSONObject locations = message.getJSONObject("locations");
+		if(locations==null) return msg;
+		JSONArray userIds = locations.names();
+		JSONArray locationInfos = locations.toJSONArray(userIds);
+		Map<Integer,UserInstance> locs = new HashMap<Integer, UserInstance>();
+		for (int i=0; i<locationInfos.length();i++) {
+			locs.put(userIds.getInt(i), new UserInstance(userIds.getInt(i),locationInfos.getJSONObject(i).getInt("lon"),locationInfos.getJSONObject(i).getInt("lat"),locationInfos.getJSONObject(i).getString("eta")));
+		}
+		msg.put("locations", locs);
+//		Log.d("##############","Hello");
+		return msg;
 /*    	//HashMap<Integer, Msg> map = new HashMap<Integer, Msg>();
     	HashMap<Integer, ServerMsg> map = new HashMap<Integer, ServerMsg>();
 		JSONObject myjson = new JSONObject(data);
@@ -98,7 +114,8 @@ public class CommunicateService extends Service {
     	String param1=new Integer(sm.userID).toString(); 
     //	String param2=new Integer(sm.myLat).toString();
     //	String param3=new Integer(sm.myLong).toString();
-    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/yuwen?i="+param1;
+    //	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/yuwen?i="+param1;
+    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=6&meetingId=2&lat=9&lon=9&eta=9";
     	String responseResult="";
     	try {
     		URL objUrl = new URL(urlStr);
