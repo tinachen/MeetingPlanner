@@ -46,7 +46,7 @@ public class MeetingListAccepted extends ExpandableListActivity {
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 
-	    //db.createMeeting("CS588 Progress", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeeting(2,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
 
 	    allMeet = db.getAllMeetings();
         // Set up our adapter
@@ -54,27 +54,7 @@ public class MeetingListAccepted extends ExpandableListActivity {
         setListAdapter(mAdapter);
         registerForContextMenu(getExpandableListView());
        
-        //final ExpandableListView listView = getExpandableListView();
-		//listView.setItemsCanFocus(false);
-		//listView.setChoiceMode(ExpandableListView.CHOICE_MODE_MULTIPLE);
-        //Button acceptBtn = (Button) findViewById(R.id.acceptBtn);
-        //Button declineBtn = (Button) findViewById(R.id.declineBtn);
-        /*acceptBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-            	Toast.makeText(getApplicationContext(), "Meeting accepted!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        declineBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-            	Toast.makeText(getApplicationContext(), "Meeting declined", Toast.LENGTH_SHORT).show();
-            }
-        });
-        */
-        //ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, getMeeting());
-		//setListAdapter(adapter);
-     // Hook up with database
+        // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, 2);
 	    db.open();
 	    
@@ -148,7 +128,7 @@ public class MeetingListAccepted extends ExpandableListActivity {
         	for (int i = 0; i < allMeetings.size(); i++)
         	{
         		//Log.v(TAG, "Element number " + i + " is " + allMeetings.get(i).getMeetingSubject());
-        		groups[i] = allMeetings.get(i).getMeetingTitle();
+        		groups[i] = allMeetings.get(i).getMeetingTitle() + "\n\n" + "Fixme" + "\t\t" + allMeetings.get(i).getMeetingDate() + "\t" + allMeetings.get(i).getMeetingStartTime();
         		children[i] = allMeetings.get(i).getMeetingDescription() + "\n" +
         									allMeetings.get(i).getMeetingAddress() + "\n" +
         									allMeetings.get(i).getMeetingDate() + "  " + allMeetings.get(i).getMeetingStartTime() + " to " + allMeetings.get(i).getMeetingEndTime() + "\n" +
@@ -173,15 +153,15 @@ public class MeetingListAccepted extends ExpandableListActivity {
         public TextView getGenericView() {
             // Layout parameters for the ExpandableListView
             AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, 100);
+                    ViewGroup.LayoutParams.WRAP_CONTENT, 100);
 
             TextView textView = new TextView(MeetingListAccepted.this);
             textView.setLayoutParams(lp);
             // Center the text vertically
             textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
             // Set the text starting position
-            textView.setPadding(50, 0, 0, 0);
-            
+            textView.setPadding(80, 0, 0, 0);
+            textView.setTextSize(14);
             return textView;
         }
 
@@ -219,50 +199,6 @@ public class MeetingListAccepted extends ExpandableListActivity {
             return true;
         }
 
-    }
-    
-    private List<MeetingInstance> getMeeting(){
-    	List<MeetingInstance> list = new ArrayList<MeetingInstance>();
-    	
-    	//Adding a few meetings to test
-    	
-    	Date myDate = new Date(06/12/2014);
-    	String [] myPeople = {"John", "Jane"};
-    	list.add(new MeetingInstance(1,42,37,"Status Meeting",myDate, myPeople));
-    	
-    	Date myDate2 = new Date(05/07/2013);
-    	String [] myPeople2 = {"Jennifer", "Jack"};
-    	list.add(new MeetingInstance(2,40,30,"Status Meeting 2 ",myDate2, myPeople2));
-    	
-    	Date myDate3 = new Date(10/03/2012);
-    	String [] myPeople3 = {"Michael", "Pete"};
-    	list.add(new MeetingInstance(3,35,-37,"Status Meeting 3",myDate3, myPeople3));
-    	
-    	Date myDate4 = new Date(10/10/2012);
-    	String [] myPeople4 = {"Melissa", "Jakob"};
-    	list.add(new MeetingInstance(4,-35,-37,"Status Meeting 4",myDate4, myPeople4));
-    	
-		list.add(new MeetingInstance("RTH"));
-		list.add(new MeetingInstance("Campus Center"));
-		list.add(new MeetingInstance("Campus Center2"));
-		list.add(new MeetingInstance("Campus Center3"));
-		list.add(new MeetingInstance("Campus Center4"));
-		list.add(new MeetingInstance("Campus Center5"));
-		list.add(new MeetingInstance("RTH6"));
-		list.add(new MeetingInstance("Campus Center7"));
-		list.add(new MeetingInstance("Campus Center8"));
-		list.add(new MeetingInstance("RTH9"));
-		list.add(new MeetingInstance("Campus Center10"));
-		list.add(new MeetingInstance("Campus Center11"));
-		list.add(new MeetingInstance("Campus Center12"));
-		list.add(new MeetingInstance("Campus Center13"));
-		list.add(new MeetingInstance("Campus Center14"));
-		list.add(new MeetingInstance("Campus Center15"));
-		list.add(new MeetingInstance("Campus Center16"));
-		list.add(new MeetingInstance("Campus Center17"));
-		
-		
-		return list;
     }
     
 }
