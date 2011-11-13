@@ -23,6 +23,7 @@ public class CreateMeetingConfirm extends Activity {
 	private MeetingPlannerDatabaseManager db;
 	private String mtitle, mdesc, maddr, mdate, mstarttime, mendtime, mattendeeids, mnames;
 	private int mtracktime, mlon, mlat, uid;
+	private ArrayList<Integer> attendessIdsArray;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,28 @@ public class CreateMeetingConfirm extends Activity {
     	location.setText(maddr);
     	attendees.setText(mnames);
     	
+    	// Convert attendees ids string back to an array
+    	String n;
+        String p;
+        int commaIndex;
+        String tempids = mattendeeids;
+    	attendessIdsArray = new ArrayList<Integer>();
+    	if (tempids.length() > 0){
+	    	while (tempids.length() > 0){
+	    		commaIndex = tempids.indexOf(',');
+	    		if (commaIndex == -1){
+	    			int meetingId = Integer.parseInt(tempids);
+	    			attendessIdsArray.add(meetingId);
+	    			break;
+	    		}else{
+		    		n = tempids.substring(0, commaIndex);
+		    		int meetingId = Integer.parseInt(n);
+		    		attendessIdsArray.add(meetingId);
+		    		tempids = tempids.substring(commaIndex + 1);
+	    		}
+    		}
+    	}
+    	
     	
     	// Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
@@ -100,12 +123,20 @@ public class CreateMeetingConfirm extends Activity {
     	
     	//save meeting data into the db, send to server
 
+    	//TODO
+    	maddr = "meetingaddr";
     	int mid = Communicator.createMeeting(uid, mtitle, mdesc, mlat, mlon, maddr, mdate, mstarttime, mendtime, mtracktime, mattendeeids);
     	Communicator.acceptMeeting(uid, mid); // accept meeting
 
     	int initiatorID = uid;
     	
+    	// Add meeting users to internal db
     	db.createMeeting(mid, mtitle, mlat, mlon, mdesc, maddr, mdate, mstarttime, mendtime, mtracktime, initiatorID); 
+    	db.createMeetingUser(mid, uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");	// initiator
+    	for(int i=0; i<attendessIdsArray.size(); i++){
+    		db.createMeetingUser(mid, attendessIdsArray.get(i), MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING, "0"); 	// other attendees other than initiator
+    	}
+    	db.close();
 
     	clearData();
     	CreateMeetingConfirm.this.setResult(R.string.meeting_created);

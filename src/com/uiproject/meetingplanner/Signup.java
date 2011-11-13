@@ -51,7 +51,7 @@ public class Signup extends Activity {
         phone_field.setText(phone);
         
         // Hook up with database
-	    db = new MeetingPlannerDatabaseManager(this, 2);
+	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 	}
 
@@ -84,8 +84,15 @@ public class Signup extends Activity {
         // Send create user request to server
 		int uid = Communicator.createUser(phonenumber, fname, lname, email, pw);
 		
+		if(uid == -1){
+			// User has already been created, show error msg
+			Toast.makeText(getBaseContext(), "Phone number has been used before!", Toast.LENGTH_SHORT).show();
+			return;
+		}
+			
 		// Store user into internal db
 		db.createUser(uid, fname, lname, email, Long.toString(phonenumber), 0, 0);
+		db.close();
 		
 		// User has been created successfully
 		// Log user in
@@ -103,6 +110,9 @@ public class Signup extends Activity {
 		
     	Intent intent = new Intent(Signup.this, MainPage.class);
     	Signup.this.startActivity(intent);
+		
+		
+		
 	}
 
 }

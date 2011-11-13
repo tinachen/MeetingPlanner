@@ -65,7 +65,10 @@ public class MeetingPlannerDatabaseManager {
 			long l= db.insert(dbHelper.MEETING_TABLE, null, values);
 		
 			String s1 = "debug " + l;
-			Toast.makeText(context, s1, Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, s1, Toast.LENGTH_SHORT).show(); //TODO
+			
+			Log.v(dbManagerTag, "createMeetingr: meetingID=" + meetingID + "meetingTitle=" + meetingTitle + 
+					", meetingDescription=" + meetingDescription + ", meetingInitiatorID=" + meetingInitiatorID);
 		}
 		catch(Exception e)
 		{
@@ -130,6 +133,9 @@ public class MeetingPlannerDatabaseManager {
 		
 		try{
 			db.insert(dbHelper.USER_TABLE, null, values);
+			Log.v(dbManagerTag, "createUser: userID=" + userID + "userFirstName=" + userFirstName + 
+					", userLastName=" + userLastName + ", userEmail=" + userEmail + ", userPhone=" + userPhone +
+					", userLocationLon=" + userLocationLon + ", userLocationLat=" + userLocationLat);
 		}
 		catch(Exception e)
 		{
@@ -195,6 +201,8 @@ public class MeetingPlannerDatabaseManager {
 		
 		try{
 			db.insert(dbHelper.MEETINGUSER_TABLE, null, values);
+			Log.v(dbManagerTag, "createMeetingUser: meetingID=" + meetingID + "userID=" + userID + 
+					", attendingStatusID=" + attendingStatusID + ", meetingUserEta=" + meetingUserEta);
 		}
 		catch(Exception e)
 		{

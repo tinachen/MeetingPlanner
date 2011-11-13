@@ -63,7 +63,7 @@ public class Login extends Activity {
 
     	// if user didn't check remember password before, set user phone number & password from user inputs
     	if(!remember || (userPhoneNumber.compareTo("invalid")==0) || (userPassword.compareTo("invalid")==0)){
-    		Toast.makeText(getBaseContext(), "userphonecomapre " + userPhoneNumber + " " +userPhoneNumber.compareTo("invalid phone number"), Toast.LENGTH_SHORT).show();
+    		//Toast.makeText(getBaseContext(), "userphonecomapre " + userPhoneNumber + " " +userPhoneNumber.compareTo("invalid phone number"), Toast.LENGTH_SHORT).show();
     		userPhoneNumber = phone_field.getText().toString();
         	userPassword = pw_field.getText().toString();
         	
@@ -153,6 +153,9 @@ public class Login extends Activity {
     			db.createMeetingUser(meetingObj.getMeetingID(), meetingUserObj.getUserID(), attendingStatusID, "0");
     		}
     	}
+    	
+    	// Close db
+    	db.close();
     	
         // no problems, go to main page
         Intent intent = new Intent(Login.this, MainPage.class);
