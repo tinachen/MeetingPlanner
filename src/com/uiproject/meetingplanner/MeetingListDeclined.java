@@ -39,7 +39,6 @@ public class MeetingListDeclined extends ExpandableListActivity {
     private MeetingPlannerDatabaseManager db;
     public ArrayList<MeetingInstance> allMeet;
     public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
-    public static final String declinedListTag = "MeetingListDeclined";
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,18 +57,12 @@ public class MeetingListDeclined extends ExpandableListActivity {
 	    
 	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	int uid = settings.getInt("uid", -1);
-    	
-    	Log.v(declinedListTag, "uid = " + uid);
-    	
 	    allMeet = db.getDeclinedMeetings(uid);
 	    db.close();
         // Set up our adapter
         mAdapter = new MyExpandableListAdapter(allMeet);
         setListAdapter(mAdapter);
         registerForContextMenu(getExpandableListView());
-        
-        String s = "meeting size:" + allMeet.size();
-    	Toast.makeText(MeetingListDeclined.this, s, Toast.LENGTH_SHORT).show(); //TODO for testing only
        
         //final ExpandableListView listView = getExpandableListView();
 		//listView.setItemsCanFocus(false);
@@ -91,6 +84,13 @@ public class MeetingListDeclined extends ExpandableListActivity {
         */
         //ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, getMeeting());
 		//setListAdapter(adapter);
+     // Hook up with database
+	    //db = new MeetingPlannerDatabaseManager(this, 2);
+	    //db.open();
+	    
+	    //ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
+	    //String s = "meeting size:" + meetings.size();
+    	//Toast.makeText(MeetingListDeclined.this, s, Toast.LENGTH_SHORT).show();
     }
 
     public ArrayList<MeetingInstance> getMeet()
