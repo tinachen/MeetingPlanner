@@ -84,12 +84,12 @@ public class MeetingListDeclined extends ExpandableListActivity {
         //ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, getMeeting());
 		//setListAdapter(adapter);
      // Hook up with database
-	    db = new MeetingPlannerDatabaseManager(this, 2);
-	    db.open();
+	    //db = new MeetingPlannerDatabaseManager(this, 2);
+	    //db.open();
 	    
-	    ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
-	    String s = "meeting size:" + meetings.size();
-    	Toast.makeText(MeetingListDeclined.this, s, Toast.LENGTH_SHORT).show();
+	    //ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
+	    //String s = "meeting size:" + meetings.size();
+    	//Toast.makeText(MeetingListDeclined.this, s, Toast.LENGTH_SHORT).show();
     }
 
     public ArrayList<MeetingInstance> getMeet()
