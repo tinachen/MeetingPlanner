@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:orientation="vertical" 
+	android:paddingLeft="10dip"
+	android:paddingRight="10dip">
+
+	<RelativeLayout
+		android:layout_height="wrap_content"
+		android:layout_width="fill_parent" >
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_alignParentRight="true">
+		<TextView
+		   android:layout_width="wrap_content"
+		   android:layout_height="wrap_content"
+		   android:text="Logged in as: " />
+		   
+		<TextView
+		   android:id="@+id/name"
+		   android:layout_width="wrap_content"
+		   android:layout_height="wrap_content"
+		   android:text="name" />
+	</LinearLayout>
+	</RelativeLayout>
+
+	<ImageView
+	   android:id="@+id/logo"
+	   android:src="@drawable/logo"
+	   android:layout_width="wrap_content"
+	   android:paddingBottom="0dip" 
+	   android:layout_marginTop="10dip"
+	   android:layout_height="75dip"/>
+	   
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_height="fill_parent"
+		android:layout_width="fill_parent"
+	   android:layout_marginTop="25dip"
+		android:paddingLeft="10dip"
+		android:paddingRight="10dip" >
+
+		
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_height="wrap_content"
+		android:layout_width="fill_parent" >
+		
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight=".5">
+			<ImageView
+			   android:src="@drawable/plannerart"
+			   android:layout_width="100dp"
+			   android:layout_height="100dp"
+			   android:clickable="true"
+			   android:onClick="gotoMyMeetings" />
+			<TextView
+			   android:layout_width="wrap_content"
+			   android:layout_height="wrap_content"
+			   android:clickable="true"
+			   android:onClick="gotoMyMeetings"
+			   android:text="My Meetings" />
+		</LinearLayout>
+
+		
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_marginLeft="15dip"
+            android:gravity="center_horizontal"
+            android:layout_weight=".5">
+			<ImageView
+			   android:src="@drawable/plussign"
+			   android:layout_width="100dp"
+			   android:layout_height="100dp"
+			   android:clickable="true"
+			   android:onClick="createMeeting" />
+			<TextView
+			   android:layout_width="wrap_content"
+			   android:layout_height="wrap_content"
+			   android:clickable="true"
+			   android:onClick="createMeeting"
+			   android:text="Create Meeting" />
+		</LinearLayout>
+	</LinearLayout>
+	
+	
+
+		
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_marginTop="50dip">
+		<TextView
+		   android:layout_width="fill_parent"
+		   android:layout_height="wrap_content"
+		   android:text="Info about next meeting goes here" />
+	</LinearLayout>
+	
+	</LinearLayout>
+</LinearLayout>
+

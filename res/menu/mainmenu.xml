@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/editprofile"
+        android:title="Edit profile" />
+    <item android:id="@+id/editmeeting"
+        android:title="Edit meeting"
+        android:icon="@drawable/androidmarker" />
+    <item android:id="@+id/trackermap"
+        android:title="Tracker map" />
+    <item android:id="@+id/logout"
+        android:title="Logout" />
+</menu>

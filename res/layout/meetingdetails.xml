@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+	
+	<!--Details of the Meeting -->
+	
+		<!--id goes here-->
+		<TextView
+			android:id="@+id/meetingID"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			/>
+		
+		<!--subject goes here-->
+		<TextView
+			android:id="@+id/meetingSubject"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			/>
+			
+		<!--location goes here-->
+		<TextView
+			android:id="@+id/meetingLocation"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			/>
+			
+		<!--date,time goes here-->
+		<TextView
+			android:id="@+id/meetingTime"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			/>
+		
+		<!--Attendees list here-->
+		<TextView
+			android:id="@+id/attHeader"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			/>
+		
+		<!-- list of attendees goes here -->
+		<ListView android:id="@+id/attendees"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_weight="1"
+               android:drawSelectorOnTop="false"/>
+
+		<!--OK Button-->
+		<Button android:layout_height="wrap_content" android:text="OK" android:clickable="true" android:layout_width="160dp" android:id="@+id/OKButton"></Button>
+			
+</LinearLayout>

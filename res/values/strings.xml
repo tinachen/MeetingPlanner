@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, MeetingPlanner!</string>
+    <string name="app_name">MeetingPlanner</string>
+    <string name="tracker_prompt">Track Time (in hours)</string>
+    <string-array name="tracker_array">
+    	<item>.5</item>
+    	<item>1.0</item>
+    	<item>1.5</item>
+    	<item>2.0</item>
+    </string-array>
+    <string-array name="search_contacts">
+    	<item>Elizabeth Deng</item>
+    	<item>Tina Chen</item>
+    	<item>Cauchy Choi</item>
+    	<item>Yuwen Bian</item>
+    	<item>Mengfei Xu</item>
+    	<item>Laura Rodriguez</item>
+    </string-array>
+    <string name="cancel_create">999</string>
+    <string name="editmeetloc">998</string>
+    <string name="editmeetattendees">997</string>
+    <string name="meeting_created">996</string>
+</resources>

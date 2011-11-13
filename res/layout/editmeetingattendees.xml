@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent" 
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+        android:layout_weight="1">
+    <AutoCompleteTextView android:id="@+id/autocomplete_names"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"/>
+    <ListView android:layout_width="match_parent"
+        android:id="@+id/contactList"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+
+    
+        
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:text="Confirm"
+            android:onClick="confirm"/>
+
+</LinearLayout>
