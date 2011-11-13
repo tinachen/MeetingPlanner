@@ -192,5 +192,6 @@ public class Communicator {
 		String result = getResponseResult(urlStr);
 		return result;
 	}
+	
 
 }
