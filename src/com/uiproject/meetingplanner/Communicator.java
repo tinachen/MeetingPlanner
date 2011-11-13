@@ -16,6 +16,8 @@ import android.util.Log;
 
 public class Communicator {
 
+	public static final String communicatorTag = "Communicator";
+	
 	public static String getResponseResult(String urlStr) {
 		// String urlStr =
 		// "http://cs-server.usc.edu:21542/newwallapp/forms/showmyusers";
@@ -65,6 +67,8 @@ public class Communicator {
 				+ meetingDate + "&meetingStartTime=" + meetingStartTime + "&meetingEndTime=" + meetingEndTime + "&meetingTrackTime="
 				+ meetingTrackTime + "&people=" + people;
 		String result = getResponseResult(urlStr);
+		Log.v(communicatorTag, "createMeeting url = " + urlStr);
+		Log.v(communicatorTag, "createMeeting return string = " + result);
 		return Integer.valueOf(result);
 	}
 

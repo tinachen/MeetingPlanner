@@ -150,7 +150,7 @@ public class Login extends Activity {
     				attendingStatusID = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING;
     			}
     			
-    			db.createMeetingUser(meetingObj.getMeetingID(), meetingUserObj.getUserID(), attendingStatusID, meetingUserObj.getUserEta());
+    			db.createMeetingUser(meetingObj.getMeetingID(), meetingUserObj.getUserID(), attendingStatusID, "0");
     		}
     	}
     	

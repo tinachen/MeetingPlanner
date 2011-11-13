@@ -18,7 +18,7 @@ public class CreateMeetingConfirm extends Activity {
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	TextView title, desc, date, time, tracktime, attendees, location;
 	private MeetingPlannerDatabaseManager db;
-	private String mtitle, mdesc, maddr, mdate, mstarttime, mendtime, mphones, mnames;
+	private String mtitle, mdesc, maddr, mdate, mstarttime, mendtime, mattendeeids, mnames;
 	private int mtracktime, mlon, mlat, uid;
 	
 	@Override
@@ -52,7 +52,8 @@ public class CreateMeetingConfirm extends Activity {
     	mtracktime = (int) ((double) settings.getFloat("mtracktime", (float).5) * 60);
     	mlon = settings.getInt("mlon", 0);
     	mlat = settings.getInt("mlat", 0);
-    	mphones = settings.getString("mphones", "");
+    	//mattendeeids = settings.getString("mphones", ""); //TODO hard code it for now
+    	mattendeeids = "1,2,3";
     	mnames = settings.getString("mnames", "");
     	
     	// Set the view
@@ -96,7 +97,7 @@ public class CreateMeetingConfirm extends Activity {
     	
     	//save meeting data into the db, send to server
 
-    	int mid = Communicator.createMeeting(uid, mtitle, mdesc, mlat, mlon, maddr, mdate, mstarttime, mendtime, mtracktime, mphones);
+    	int mid = Communicator.createMeeting(uid, mtitle, mdesc, mlat, mlon, maddr, mdate, mstarttime, mendtime, mtracktime, mattendeeids);
     	Communicator.acceptMeeting(uid, mid); // accept meeting
 
     	int initiatorID = uid;
