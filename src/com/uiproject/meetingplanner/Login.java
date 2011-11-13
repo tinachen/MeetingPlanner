@@ -167,4 +167,10 @@ public class Login extends Activity {
     	Intent intent = new Intent(Login.this, Signup.class);
     	Login.this.startActivity(intent);		
 	}
+	
+	@Override
+	public void onBackPressed(){
+		moveTaskToBack(true);
+		return;
+	}
 }
