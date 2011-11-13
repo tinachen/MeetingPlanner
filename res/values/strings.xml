@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, MeetingPlanner!</string>
-    <string name="app_name">MeetingPlanner</string>
+    <string name="app_name">MeetApp</string>
     <string name="tracker_prompt">Track Time (in hours)</string>
     <string-array name="tracker_array">
     	<item>.5</item>

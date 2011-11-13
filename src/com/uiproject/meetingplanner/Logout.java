@@ -1,6 +1,7 @@
 package com.uiproject.meetingplanner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 public class Logout {
@@ -18,6 +19,8 @@ public class Logout {
     	editor.remove("userEmail");
     	editor.remove("remember");
     	editor.commit();
-		
+
+        Intent intent = new Intent(context, Login.class);
+        context.startActivity(intent);
 	}
 }
