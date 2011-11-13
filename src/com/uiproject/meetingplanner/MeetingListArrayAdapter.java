@@ -15,9 +15,9 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 
 	private final List<MeetingInstance> list;
 	private final Activity context;
-
+	
 	public MeetingListArrayAdapter(Activity context, List<MeetingInstance> list) {
-		super(context, R.layout.meetinglistpending, list);
+		super(context, R.layout.meetingitems, list);
 		this.context = context;
 		this.list = list;
 	}
@@ -30,6 +30,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		
 	}
 
+	/*
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View view = null;
@@ -85,8 +86,43 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		
 		ViewHolder holder = (ViewHolder) view.getTag();
 		holder.meetingName.setText(list.get(position).getMeetingTitle());
-		holder.meetingDesc.setText("\n\n" + list.get(position).getMeetingAddress() + "\t" +
+		holder.meetingDesc.setText("\n\n\n" + list.get(position).getMeetingAddress() + "\t" +
 				list.get(position).getMeetingDate() + "\t" +  list.get(position).getMeetingStartTime() + " to " + list.get(position).getMeetingEndTime());
 		return view;
+	}
+	*/
+	
+	@Override
+	public int getCount() {
+		return list.size();
+	}
+
+	@Override
+	public MeetingInstance getItem(int position) {
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		MeetingInstance entry = list.get(position);
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.listitem, null);
+        }
+        TextView tvMeetingTitle = (TextView) convertView.findViewById(R.id.meetingTitle);
+        tvMeetingTitle.setText(entry.getMeetingTitle());
+
+        TextView tvTime = (TextView) convertView.findViewById(R.id.time);
+        tvTime.setText(entry.getMeetingDate()+" "+entry.getMeetingStartTime());
+
+        TextView tvCreator = (TextView) convertView.findViewById(R.id.creator);
+        tvCreator.setText("FixMe");        
+        return convertView;
 	}
 }

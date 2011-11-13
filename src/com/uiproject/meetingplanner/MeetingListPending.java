@@ -41,10 +41,11 @@ public class MeetingListPending extends ListActivity {
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-	        
+	        //setContentView(R.layout.meetingitems);
 	        // Hook up with database
 		    db = new MeetingPlannerDatabaseManager(this, 2);
 		    db.open();
+		    db.createMeeting(4,"CS588 Progress", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);
 		    allMeet = db.getAllMeetings();
 		    
 	        /*setListAdapter(new ArrayAdapter<String>(this, R.layout.meetinglist, COUNTRIES));
@@ -58,10 +59,29 @@ public class MeetingListPending extends ListActivity {
 	            Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
 	                Toast.LENGTH_SHORT).show();
 	          }
+	        });
+			
+			*/
+	        ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, allMeet);
+	        setListAdapter(adapter);
+	        
+
+	        //ListView list = (ListView) findViewById(R.id.listView1);
+	        //list.setClickable(true);
+
+	        //final ArrayAdapter<MeetingInstance> listOfMeeting = new MeetingListArrayAdapter(this,allMeet);
+
+	        /*list.setOnItemClickListener(new OnItemClickListener() {
+
+	            @Override
+	            public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
+	                System.out.println("sadsfsf");
+	                showToast(listOfMeeting.get(position).getName());
+	            }
 	        });*/
 
-	        ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, allMeet);
-	                setListAdapter(adapter);
+	        //list.setAdapter(listOfMeeting);
+
 	        
 	    }
 
