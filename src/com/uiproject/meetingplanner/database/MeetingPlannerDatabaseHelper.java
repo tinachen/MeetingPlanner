@@ -10,7 +10,7 @@ import android.widget.Toast;
 public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 
 	private final static String DATABASE_NAME = "MeetingPlanner";
-	public final static int DATABASE_VERSION = 4;
+	public final static int DATABASE_VERSION = 2;
 	public final static String dbHelperTag = "MeetingPlannerDatabaseHelper";
 	
 	// Meetings Table
@@ -63,7 +63,7 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 	private void createTables(SQLiteDatabase db){
 		// Create Tables statements
 		String sql_create_meetings = "CREATE TABLE " + MEETING_TABLE + " (" +
-										MEETING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+										MEETING_ID + " INTEGER PRIMARY KEY," +
 										MEETING_TITLE + " TEXT NOT NULL," +
 										MEETING_LAT + " INTEGER NOT NULL," +
 										MEETING_LON + " INTEGER NOT NULL," +
@@ -91,7 +91,7 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 											MEETING_ID + " INTEGER NOT NULL," +
 											USER_ID + " INTEGER NOT NULL," +
 											ATTENDINGSTATUS_ID + " INTEGER NOT NULL," +
-											MEETINGUSER_ETA + "TEXT DEFAULT 0 NOT NULL," +
+											MEETINGUSER_ETA + " TEXT DEFAULT 0 NOT NULL," +
 											"PRIMARY KEY (" + MEETING_ID + ", " + USER_ID +")," +
 											"FOREIGN KEY (" + MEETING_ID + ") REFERENCES " + MEETING_TABLE + "(" + MEETING_ID + ")," +
 											"FOREIGN KEY (" + USER_ID + ") REFERENCES " + USER_TABLE + "(" + USER_ID + ")," +
@@ -167,5 +167,9 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 		Log.v(dbHelperTag, "Upgrade from version " + oldVersion + " to version " + newVersion);
 		dropTables(db);
 		onCreate(db);
+	}
+	
+	public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
+		Log.v(dbHelperTag, "Downgrade from version " + oldVersion + " to version " + newVersion);
 	}
 }
