@@ -52,7 +52,6 @@ public class Signup extends Activity {
         
         // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
-	    db.open();
 	}
 
 	public void submit(View button){
@@ -89,7 +88,10 @@ public class Signup extends Activity {
 			Toast.makeText(getBaseContext(), "Phone number has already been used by other users!", Toast.LENGTH_SHORT).show();
 			return;
 		}
-			
+		
+		// Open db connection
+		db.open();
+		
 		// Store user into internal db
 		db.createUser(uid, fname, lname, email, Long.toString(phonenumber), 0, 0);
 		db.close();
@@ -110,8 +112,6 @@ public class Signup extends Activity {
 		
     	Intent intent = new Intent(Signup.this, MainPage.class);
     	Signup.this.startActivity(intent);
-		
-		
 		
 	}
 
