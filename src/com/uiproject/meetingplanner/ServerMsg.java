@@ -29,10 +29,6 @@ public class ServerMsg {
 		this.myLong = lon;
 	}
 	
-	public ServerMsg(int u){
-		this.userID = u;
-	}
-	
 	
 	//adding getters and setters
 	public void setLat(int myLat)

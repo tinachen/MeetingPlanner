@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
-import java.util.Random;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +15,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 public class CommunicateService extends Service {
-	MultiThread thread1;
+
 	@Override
 	public IBinder onBind(Intent arg0) {
 		// TODO Auto-generated method stub
@@ -30,9 +29,11 @@ public class CommunicateService extends Service {
 	
 	public void onStart(Intent intent, int startId) {
 		Log.d("CommunicateService", "onStart");
-		if(thread1==null){
-			thread1 = new MultiThread();
-			thread1.start();
+		try {
+			displayResult();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		super.onStart(intent, startId);
 
@@ -42,33 +43,14 @@ public class CommunicateService extends Service {
 		Log.d("CommunicateService", "onDestroy");
 		super.onDestroy();
 	}
-	
-	public class MultiThread extends Thread{
-		boolean status = true;
-		public void run(){
-			while(status){
-				try{
-					displayResult();
-					Thread.sleep(10000);
-				}
-				catch(Exception e) {   
-					e.printStackTrace();
-				}
-			}
-		}
-		
-	}
+
 	
 	
     public void displayResult() throws JSONException
     {
-    	Random r=new Random();
-    	int ran=r.nextInt(10);
-    	int test = 10+ran;
-    	
-    	ServerMsg sm1=new ServerMsg(test);
+    	ServerMsg sm1=new ServerMsg(5,66,88);
     	String data = getResponseResult(sm1);
-/*    	//HashMap<Integer, Msg> map = new HashMap<Integer, Msg>();
+    	//HashMap<Integer, Msg> map = new HashMap<Integer, Msg>();
     	HashMap<Integer, ServerMsg> map = new HashMap<Integer, ServerMsg>();
 		JSONObject myjson = new JSONObject(data);
 		JSONArray nameArray = myjson.names();
@@ -91,14 +73,14 @@ public class CommunicateService extends Service {
 		//	textview1.setText(responseitem[j].userID+":"+responseitem[j].myLat+","+responseitem[j].myLong);
 			j++;
 		}
-*/	
+	
     }
     
     public String getResponseResult(ServerMsg sm) {
     	String param1=new Integer(sm.userID).toString(); 
-    //	String param2=new Integer(sm.myLat).toString();
-    //	String param3=new Integer(sm.myLong).toString();
-    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/yuwen?i="+param1;
+    	String param2=new Integer(sm.myLat).toString();
+    	String param3=new Integer(sm.myLong).toString();
+    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/project?id="+param1+"&lat="+param2+"&lon="+param3;
     	String responseResult="";
     	try {
     		URL objUrl = new URL(urlStr);
