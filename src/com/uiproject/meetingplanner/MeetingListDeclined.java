@@ -12,6 +12,7 @@ import android.app.Dialog;
 import android.app.ExpandableListActivity;
 import android.app.ListActivity;
 import android.app.TimePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -37,7 +38,8 @@ public class MeetingListDeclined extends ExpandableListActivity {
     ExpandableListAdapter mAdapter;
     private MeetingPlannerDatabaseManager db;
     public ArrayList<MeetingInstance> allMeet;
-
+    public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +55,9 @@ public class MeetingListDeclined extends ExpandableListActivity {
 	    db.createMeetingUser(1, 1, 2, "Hello");
 	    db.createMeetingUser(1, 2, 1, "Hello2");
 	    
-	    allMeet = db.getAllMeetings();
+	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	int uid = settings.getInt("uid", -1);
+	    allMeet = db.getDeclinedMeetings(uid);
         // Set up our adapter
         mAdapter = new MyExpandableListAdapter(allMeet);
         setListAdapter(mAdapter);

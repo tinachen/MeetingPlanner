@@ -13,6 +13,7 @@ import android.app.Dialog;
 import android.app.ExpandableListActivity;
 import android.app.ListActivity;
 import android.app.TimePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -40,6 +41,7 @@ public class MeetingListAccepted extends ExpandableListActivity {
     ExpandableListAdapter mAdapter;
     private MeetingPlannerDatabaseManager db;
     public ArrayList<MeetingInstance> allMeet;
+    public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,19 +60,19 @@ public class MeetingListAccepted extends ExpandableListActivity {
 	    db.createMeetingUser(2, 1, 2, "Hello");
 	    db.createMeetingUser(2, 2, 1, "Hello2");
 	    
-	    allMeet = db.getAllMeetings();
+	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	int uid = settings.getInt("uid", -1);
+	    allMeet = db.getAcceptedMeetings(uid);
         // Set up our adapter
+
+	    String s = "meeting size:" + allMeet.size();
+    	Toast.makeText(MeetingListAccepted.this, s, Toast.LENGTH_SHORT).show();
+	    
         mAdapter = new MyExpandableListAdapter(allMeet);
         setListAdapter(mAdapter);
         registerForContextMenu(getExpandableListView());
        
-        // Hook up with database
-	    db = new MeetingPlannerDatabaseManager(this, 2);
-	    db.open();
 	    
-	    ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
-	    String s = "meeting size:" + meetings.size();
-    	Toast.makeText(MeetingListAccepted.this, s, Toast.LENGTH_SHORT).show();
     }
 
     public ArrayList<MeetingInstance> getMeet()

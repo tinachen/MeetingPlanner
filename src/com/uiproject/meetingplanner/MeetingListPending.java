@@ -12,6 +12,7 @@ import android.app.ExpandableListActivity;
 import android.app.ListActivity;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -37,6 +38,7 @@ public class MeetingListPending extends ListActivity {
 	
 		private MeetingPlannerDatabaseManager db;
 		public ArrayList<MeetingInstance> allMeet;
+		public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,10 @@ public class MeetingListPending extends ListActivity {
 		    db = new MeetingPlannerDatabaseManager(this, 2);
 		    db.open();
 		    db.createMeeting(4,"CS588 Progress", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);
-		    allMeet = db.getAllMeetings();
+
+		    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+	    	int uid = settings.getInt("uid", -1);
+		    allMeet = db.getPendingMeetings(uid);
 		    
 	        ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, allMeet);
 	        setListAdapter(adapter);
