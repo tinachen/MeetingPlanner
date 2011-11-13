@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 import android.app.DatePickerDialog;
@@ -39,19 +40,22 @@ public class MeetingListPending extends ListActivity {
 		private MeetingPlannerDatabaseManager db;
 		public ArrayList<MeetingInstance> allMeet;
 		public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+		public static final String pendingMeetingsTag = "MeetingListPending";
 	
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        //setContentView(R.layout.meetingitems);
 	        // Hook up with database
-		    db = new MeetingPlannerDatabaseManager(this, 2);
+		    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 		    db.open();
-		    db.createMeeting(4,"CS588 Progress", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);
+		    //db.createMeeting(4,"CS588 Progress", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);
 
 		    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
 	    	int uid = settings.getInt("uid", -1);
+	    	Log.v(pendingMeetingsTag, "uid = " + uid);
 		    allMeet = db.getPendingMeetings(uid);
+		    db.close();
 		    
 	        ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, allMeet);
 	        setListAdapter(adapter);

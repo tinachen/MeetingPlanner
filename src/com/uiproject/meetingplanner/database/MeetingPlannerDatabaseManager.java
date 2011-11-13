@@ -35,6 +35,7 @@ public class MeetingPlannerDatabaseManager {
 	
 	public void close(){
 		dbHelper.close();
+		db.close();
 	}
 	
 	
@@ -49,7 +50,7 @@ public class MeetingPlannerDatabaseManager {
 				String meetingEndTime, int meetingTrackTime, int meetingInitiatorID){
 		
 		ContentValues values = new ContentValues();
-		values.put(dbHelper.MEETING_ID, meetingID); //TODO
+		values.put(dbHelper.MEETING_ID, meetingID);
 		values.put(dbHelper.MEETING_TITLE, meetingTitle);
 		values.put(dbHelper.MEETING_LAT, meetingLat);
 		values.put(dbHelper.MEETING_LON, meetingLon);
@@ -64,10 +65,10 @@ public class MeetingPlannerDatabaseManager {
 		try{
 			long l= db.insert(dbHelper.MEETING_TABLE, null, values);
 		
-			String s1 = "debug " + l;
+			String s1 = "create meeting debug " + l;
 			Toast.makeText(context, s1, Toast.LENGTH_SHORT).show(); //TODO
 			
-			Log.v(dbManagerTag, "createMeetingr: meetingID=" + meetingID + "meetingTitle=" + meetingTitle + 
+			Log.v(dbManagerTag, "createMeeting: meetingID=" + meetingID + ", meetingTitle=" + meetingTitle + 
 					", meetingDescription=" + meetingDescription + ", meetingInitiatorID=" + meetingInitiatorID);
 		}
 		catch(Exception e)
@@ -133,7 +134,7 @@ public class MeetingPlannerDatabaseManager {
 		
 		try{
 			db.insert(dbHelper.USER_TABLE, null, values);
-			Log.v(dbManagerTag, "createUser: userID=" + userID + "userFirstName=" + userFirstName + 
+			Log.v(dbManagerTag, "createUser: userID=" + userID + ", userFirstName=" + userFirstName + 
 					", userLastName=" + userLastName + ", userEmail=" + userEmail + ", userPhone=" + userPhone +
 					", userLocationLon=" + userLocationLon + ", userLocationLat=" + userLocationLat);
 		}
@@ -201,7 +202,7 @@ public class MeetingPlannerDatabaseManager {
 		
 		try{
 			db.insert(dbHelper.MEETINGUSER_TABLE, null, values);
-			Log.v(dbManagerTag, "createMeetingUser: meetingID=" + meetingID + "userID=" + userID + 
+			Log.v(dbManagerTag, "createMeetingUser: meetingID=" + meetingID + ", userID=" + userID + 
 					", attendingStatusID=" + attendingStatusID + ", meetingUserEta=" + meetingUserEta);
 		}
 		catch(Exception e)
@@ -354,18 +355,26 @@ public class MeetingPlannerDatabaseManager {
 		
 		try{
 			
-			String query = "SELECT " + dbHelper.MEETING_ID + "," + dbHelper.MEETING_TITLE  + "," + dbHelper.MEETING_LAT+ "," + dbHelper.MEETING_LON + "," 
-				+ dbHelper.MEETING_DESCRIPTION + "," + dbHelper.MEETING_ADDRESS + "," + dbHelper.MEETING_DATE + "," + dbHelper.MEETING_STARTTIME + "," + dbHelper.MEETING_ENDTIME + "," 
-				+ dbHelper.MEETING_TRACKTIME + "," + dbHelper.MEETING_INITIATOR_ID
- 				+ " FROM " + dbHelper.MEETINGUSER_TABLE 
-				+ " LEFT JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
-				+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
-				+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?";
+			String query = "SELECT " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TITLE  + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LAT+ "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LON + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DESCRIPTION + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ADDRESS + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DATE + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ENDTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TRACKTIME + ","
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_INITIATOR_ID
+						+ " FROM " + dbHelper.MEETINGUSER_TABLE 
+						+ " LEFT JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
+						+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
+						+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?";
 			
 			Log.v(dbManagerTag, "getDeclinedMeetings query1: " + query);
 			
 			// Do the query
-			cursor = db.rawQuery(query, new String[]{String.valueOf(userID), String.valueOf(dbHelper.ATTENDINGSTATUS_ATTENDING)});
+			cursor = db.rawQuery(query, new String[]{String.valueOf(userID), String.valueOf(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING)});
 			
 			// move the cursor's pointer to position zero.
 			cursor.moveToFirst();
@@ -405,6 +414,8 @@ public class MeetingPlannerDatabaseManager {
 				// move the cursor's pointer up one position.
 				while (cursor.moveToNext());
 			}
+			
+			cursor.close();
 		}catch(SQLException e) 
 		{
 			Log.e("DB ERROR", e.toString());
@@ -421,9 +432,17 @@ public class MeetingPlannerDatabaseManager {
 		
 		try{
 			
-			String query = "SELECT " + dbHelper.MEETING_ID + "," + dbHelper.MEETING_TITLE  + "," + dbHelper.MEETING_LAT+ "," + dbHelper.MEETING_LON + "," 
-				+ dbHelper.MEETING_DESCRIPTION + "," + dbHelper.MEETING_ADDRESS + "," + dbHelper.MEETING_DATE + "," + dbHelper.MEETING_STARTTIME + "," + dbHelper.MEETING_ENDTIME + "," 
-				+ dbHelper.MEETING_TRACKTIME + "," + dbHelper.MEETING_INITIATOR_ID
+			String query = "SELECT " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TITLE  + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LAT+ "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LON + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DESCRIPTION + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ADDRESS + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DATE + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ENDTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TRACKTIME + ","
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_INITIATOR_ID
  				+ " FROM " + dbHelper.MEETINGUSER_TABLE 
 				+ " LEFT JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
 				+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
@@ -432,7 +451,7 @@ public class MeetingPlannerDatabaseManager {
 			Log.v(dbManagerTag, "getDeclinedMeetings query1: " + query);
 			
 			// Do the query
-			cursor = db.rawQuery(query, new String[]{String.valueOf(userID), String.valueOf(dbHelper.ATTENDINGSTATUS_DECLINING)});
+			cursor = db.rawQuery(query, new String[]{String.valueOf(userID), String.valueOf(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING)});
 			
 			// move the cursor's pointer to position zero.
 			cursor.moveToFirst();
@@ -472,12 +491,14 @@ public class MeetingPlannerDatabaseManager {
 				// move the cursor's pointer up one position.
 				while (cursor.moveToNext());
 			}
+			cursor.close();
 		}catch(SQLException e) 
 		{
 			Log.e("DB ERROR", e.toString());
 			e.printStackTrace();
 		}
 		
+		Log.v(dbManagerTag, "getDeclinedMeetings: meetingsArray size = " + meetingsArray.size());
 		return meetingsArray;
 	}
 	
@@ -488,18 +509,29 @@ public class MeetingPlannerDatabaseManager {
 		
 		try{
 			
-			String query = "SELECT " + dbHelper.MEETING_ID + "," + dbHelper.MEETING_TITLE  + "," + dbHelper.MEETING_LAT+ "," + dbHelper.MEETING_LON + "," 
-				+ dbHelper.MEETING_DESCRIPTION + "," + dbHelper.MEETING_ADDRESS + "," + dbHelper.MEETING_DATE + "," + dbHelper.MEETING_STARTTIME + "," + dbHelper.MEETING_ENDTIME + "," 
-				+ dbHelper.MEETING_TRACKTIME + "," + dbHelper.MEETING_INITIATOR_ID
- 				+ " FROM " + dbHelper.MEETINGUSER_TABLE 
-				+ " LEFT JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
-				+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
-				+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?";
+			String query = "SELECT " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID /*+ "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TITLE  + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LAT+ "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LON + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DESCRIPTION + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ADDRESS + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DATE + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ENDTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TRACKTIME + ","
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_INITIATOR_ID*/
+						+ " FROM " + dbHelper.MEETINGUSER_TABLE ;
+						//+ " JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
+						//+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=" + userID
+						//+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?";
 			
 			Log.v(dbManagerTag, "getPendingMeetings query1: " + query);
 			
 			// Do the query
-			cursor = db.rawQuery(query, new String[]{String.valueOf(userID), String.valueOf(dbHelper.ATTENDINGSTATUS_PENDING)});
+			cursor = db.rawQuery(query, null);
+			//cursor = db.rawQuery(query, new String[]{String.valueOf(userID)/*, String.valueOf(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING)*/});
+			
+			Log.v(dbManagerTag, "getPendingMeetings cursor row count= " + cursor.getCount());
 			
 			// move the cursor's pointer to position zero.
 			cursor.moveToFirst();
@@ -539,12 +571,14 @@ public class MeetingPlannerDatabaseManager {
 				// move the cursor's pointer up one position.
 				while (cursor.moveToNext());
 			}
+			cursor.close();
 		}catch(SQLException e) 
 		{
 			Log.e("DB ERROR", e.toString());
 			e.printStackTrace();
 		}
 		
+		Log.v(dbManagerTag, "getPendingMeetings: meetingsArray size = " + meetingsArray.size());
 		return meetingsArray;
 	}
 	
@@ -599,6 +633,7 @@ public class MeetingPlannerDatabaseManager {
 				// move the cursor's pointer up one position.
 				while (cursor.moveToNext());
 			}
+			cursor.close();
 		}catch(SQLException e) 
 		{
 			Log.e("DB ERROR", e.toString());
@@ -659,6 +694,8 @@ public class MeetingPlannerDatabaseManager {
 				// move the cursor's pointer up one position.
 				while (cursor.moveToNext());
 			}
+			
+			cursor.close();
 		}catch(SQLException e) 
 		{
 			Log.e("DB ERROR", e.toString());
@@ -713,6 +750,8 @@ public class MeetingPlannerDatabaseManager {
 				// move the cursor's pointer up one position.
 				while (cursor.moveToNext());
 			}
+			
+			cursor.close();
 		}catch(SQLException e) 
 		{
 			Log.e("DB ERROR", e.toString());

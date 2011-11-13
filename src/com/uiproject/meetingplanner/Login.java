@@ -2,7 +2,6 @@ package com.uiproject.meetingplanner;
 
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import org.json.JSONException;
 
@@ -12,7 +11,6 @@ import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,7 +47,6 @@ public class Login extends Activity {
     	
         // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
-	    db.open();
 	}
 
 	public void checkLogin(View button) throws JSONException, ParseException{
@@ -88,36 +85,16 @@ public class Login extends Activity {
             return;   
         }
 
-    	// User successfully logged in
-    	
-        // Grab user info from internal db
-        UserInstance user = db.getUser(userID);
-        Log.v(LoginTag, "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName());
-        
-        // Saves user info into sharedpreferences
-    	editor.putInt("uid", userID);
-    	editor.putString("userPhoneNumber", user.getUserPhone());
-    	editor.putString("userFirstName", user.getUserFirstName());
-    	editor.putString("userLastName", user.getUserLastName());
-    	editor.putString("userEmail", user.getUserEmail());
-    	
-    	// Saves user password if he/she checked remember password
-        if(remember_me.isChecked()){ 
-        	editor.putBoolean("remember", true);
-        	editor.putString("userPassword", userPassword);
-            Toast.makeText(getBaseContext(), "remembering you", Toast.LENGTH_SHORT).show();
-        }else{
-        	editor.putBoolean("remember", false);
-        }
-
-        // Saves the changes in sharedpreferences
-    	editor.commit();        	
+    	// User successfully logged in       	
   
     	// Get meetings info & user infos from server
     	HashMap<Integer, UserInstance> usersMap = (HashMap<Integer, UserInstance>) Communicator.getAllUsers();
     	HashMap<Integer, MeetingInstance> meetingsMap = (HashMap<Integer, MeetingInstance>) Communicator.getAllMeetings();
     	
     	/****** Update internal db ******/
+    	
+    	// Open db connection
+    	db.open();
     	
     	// 1. Delete all data in db
     	db.deleteAllUsers();
@@ -154,8 +131,32 @@ public class Login extends Activity {
     		}
     	}
     	
-    	// Close db
+    	 // Grab user info from internal db
+        UserInstance user = db.getUser(userID);
+     
+        // Close db
     	db.close();
+    	
+        Log.v(LoginTag, "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName());
+        
+        // Saves user info into sharedpreferences
+    	editor.putInt("uid", userID);
+    	editor.putString("userPhoneNumber", user.getUserPhone());
+    	editor.putString("userFirstName", user.getUserFirstName());
+    	editor.putString("userLastName", user.getUserLastName());
+    	editor.putString("userEmail", user.getUserEmail());
+    	
+    	// Saves user password if he/she checked remember password
+        if(remember_me.isChecked()){ 
+        	editor.putBoolean("remember", true);
+        	editor.putString("userPassword", userPassword);
+            Toast.makeText(getBaseContext(), "remembering you", Toast.LENGTH_SHORT).show();
+        }else{
+        	editor.putBoolean("remember", false);
+        }
+
+        // Saves the changes in sharedpreferences
+    	editor.commit(); 
     	
         // no problems, go to main page
         Intent intent = new Intent(Login.this, MainPage.class);
