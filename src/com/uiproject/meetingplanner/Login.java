@@ -154,6 +154,9 @@ public class Login extends Activity {
     		}
     	}
     	
+    	// Close db
+    	db.close();
+    	
         // no problems, go to main page
         Intent intent = new Intent(Login.this, MainPage.class);
     	Login.this.startActivity(intent);
