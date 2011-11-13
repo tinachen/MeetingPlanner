@@ -46,7 +46,7 @@ public class MeetingListDeclined extends ExpandableListActivity {
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 
-	    //db.createMeeting("CS588 Progress", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeeting(1,"Halloween Party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
 
 	    allMeet = db.getAllMeetings();
         // Set up our adapter
@@ -148,7 +148,7 @@ public class MeetingListDeclined extends ExpandableListActivity {
         	for (int i = 0; i < allMeetings.size(); i++)
         	{
         		//Log.v(TAG, "Element number " + i + " is " + allMeetings.get(i).getMeetingSubject());
-        		groups[i] = allMeetings.get(i).getMeetingTitle();
+        		groups[i] = allMeetings.get(i).getMeetingTitle() + "\n\n" + "Fixme" + "\t\t" + allMeetings.get(i).getMeetingDate() + "\t" + allMeetings.get(i).getMeetingStartTime();
         		children[i] = allMeetings.get(i).getMeetingDescription() + "\n" +
         									allMeetings.get(i).getMeetingAddress() + "\n" +
         									allMeetings.get(i).getMeetingDate() + "  " + allMeetings.get(i).getMeetingStartTime() + " to " + allMeetings.get(i).getMeetingEndTime() + "\n" +
@@ -173,15 +173,15 @@ public class MeetingListDeclined extends ExpandableListActivity {
         public TextView getGenericView() {
             // Layout parameters for the ExpandableListView
             AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, 100);
+                    ViewGroup.LayoutParams.WRAP_CONTENT, 100);
 
             TextView textView = new TextView(MeetingListDeclined.this);
             textView.setLayoutParams(lp);
             // Center the text vertically
             textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
             // Set the text starting position
-            textView.setPadding(50, 0, 0, 0);
-            
+            textView.setPadding(80, 0, 0, 0);
+            textView.setTextSize(14);
             return textView;
         }
 

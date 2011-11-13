@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent" android:layout_height="wrap_content">
-	<ExpandableListView android:textSize="30px" android:id="@+id/meetingName" android:text="Meeting Name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:layout_marginLeft="18dp" android:clickable="true" android:onClick="onClick">
+	<ExpandableListView android:textSize="50px" android:id="@+id/meetingName" android:text="Meeting Name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:layout_marginLeft="18dp" android:clickable="true" android:onClick="onClick">
 	<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:id="@+id/declineBtn" android:text="Decline"></Button>
 	<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Accept" android:id="@+id/acceptBtn" android:layout_alignParentTop="true" android:layout_toLeftOf="@+id/declineBtn"></Button>
 	</ExpandableListView>
