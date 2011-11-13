@@ -133,11 +133,11 @@ public class Communicator {
 			HashMap<Integer,UserInstance> attendees = new HashMap<Integer,UserInstance>();
 			for (int j = 0; j < userStatusArray.length(); j++) {
 				if (userStatusArray.getInt(j) == 2)
-					attendees.put(users.getInt(i),new UserInstance(users.getInt(i), "attending"));
+					attendees.put(users.getInt(j),new UserInstance(users.getInt(j), "attending"));
 				if (userStatusArray.getInt(j) == 3)
-					attendees.put(users.getInt(i),new UserInstance(users.getInt(i), "pending"));
+					attendees.put(users.getInt(j),new UserInstance(users.getInt(j), "pending"));
 				if (userStatusArray.getInt(j) == 4)
-					attendees.put(users.getInt(i),new UserInstance(users.getInt(i), "decline"));
+					attendees.put(users.getInt(j),new UserInstance(users.getInt(j), "decline"));
 			}
 			int meetingInitiatorID = meetingInfos.getJSONObject(i).getInt("userId");
 			allMeetings.put(meetingIds.getInt(i), new MeetingInstance(meetingID, meetingLat, meetingLon, meetingTitle, meetingDescription,
@@ -192,5 +192,6 @@ public class Communicator {
 		String result = getResponseResult(urlStr);
 		return result;
 	}
+	
 
 }
