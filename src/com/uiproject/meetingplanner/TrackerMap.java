@@ -43,6 +43,8 @@ public class TrackerMap extends MapActivity {
         // set the center
         mc.setCenter(itemizedoverlay.getCenter());
         
+        Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
+        startService(intent);
         
         
     }
