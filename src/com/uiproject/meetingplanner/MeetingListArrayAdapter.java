@@ -24,6 +24,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 
 	static class ViewHolder {
 		protected TextView meetingName;
+		protected TextView meetingDesc;
 		protected Button acceptBtn;
 		protected Button declineBtn;
 		
@@ -37,6 +38,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			view = inflator.inflate(R.layout.meetinglistpending, null);
 			final ViewHolder viewHolder = new ViewHolder();
 			viewHolder.meetingName = (TextView) view.findViewById(R.id.meetingName);
+			viewHolder.meetingDesc = (TextView) view.findViewById(R.id.meetingDesc);
 			viewHolder.acceptBtn = (Button) view.findViewById(R.id.acceptBtn);
 			viewHolder.declineBtn = (Button) view.findViewById(R.id.declineBtn);
 			
@@ -83,6 +85,8 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		
 		ViewHolder holder = (ViewHolder) view.getTag();
 		holder.meetingName.setText(list.get(position).getMeetingTitle());
+		holder.meetingDesc.setText("\n\n" + list.get(position).getMeetingAddress() + "\t" +
+				list.get(position).getMeetingDate() + "\t" +  list.get(position).getMeetingStartTime() + " to " + list.get(position).getMeetingEndTime());
 		return view;
 	}
 }

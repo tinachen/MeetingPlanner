@@ -34,12 +34,20 @@ import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 public class MeetingListPending extends ListActivity {
 
 	    /** Called when the activity is first created. */
+	
+		private MeetingPlannerDatabaseManager db;
+		public ArrayList<MeetingInstance> allMeet;
+	
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        
+	        // Hook up with database
+		    db = new MeetingPlannerDatabaseManager(this, 2);
+		    db.open();
+		    allMeet = db.getAllMeetings();
+		    
 	        /*setListAdapter(new ArrayAdapter<String>(this, R.layout.meetinglist, COUNTRIES));
-
 	        ListView lv = getListView();
 	        //lv.setTextFilterEnabled(true);
 
@@ -52,7 +60,7 @@ public class MeetingListPending extends ListActivity {
 	          }
 	        });*/
 
-	        ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, getMeeting());
+	        ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, allMeet);
 	                setListAdapter(adapter);
 	        
 	    }

@@ -39,7 +39,7 @@ public final class R {
         public static final int address_field=0x7f08001a;
         public static final int attHeader=0x7f080032;
         public static final int attendees=0x7f08000b;
-        public static final int attendeesList=0x7f080039;
+        public static final int attendeesList=0x7f08003a;
         public static final int autocomplete_names=0x7f08001c;
         public static final int back_button=0x7f08000c;
         public static final int cancel_button=0x7f08000d;
@@ -49,8 +49,8 @@ public final class R {
         public static final int date_label=0x7f080012;
         public static final int declineBtn=0x7f080035;
         public static final int desc=0x7f080006;
-        public static final int editmeeting=0x7f08003c;
-        public static final int editprofile=0x7f08003b;
+        public static final int editmeeting=0x7f08003d;
+        public static final int editprofile=0x7f08003c;
         public static final int editprofile_img=0x7f080022;
         public static final int email=0x7f080025;
         public static final int endPickTime=0x7f080017;
@@ -63,6 +63,7 @@ public final class R {
         public static final int login=0x7f08002b;
         public static final int logo=0x7f08002a;
         public static final int mapview=0x7f08002d;
+        public static final int meetingDesc=0x7f080037;
         public static final int meetingID=0x7f08002e;
         public static final int meetingLocation=0x7f080030;
         public static final int meetingName=0x7f080034;
@@ -80,7 +81,7 @@ public final class R {
         public static final int rememberme=0x7f08002c;
         public static final int selectLocation=0x7f080020;
         public static final int selectlocview=0x7f08001b;
-        public static final int signup=0x7f080037;
+        public static final int signup=0x7f080038;
         public static final int spinner_label1=0x7f080018;
         public static final int startPickTime=0x7f080015;
         public static final int startTime_label=0x7f080014;
@@ -91,8 +92,8 @@ public final class R {
         public static final int time=0x7f080008;
         public static final int title=0x7f080005;
         public static final int tracker_selector=0x7f080019;
-        public static final int trackerlist=0x7f080038;
-        public static final int trackermap=0x7f08003a;
+        public static final int trackerlist=0x7f080039;
+        public static final int trackermap=0x7f08003b;
         public static final int tracktime=0x7f080009;
     }
     public static final class layout {
