@@ -48,6 +48,13 @@ public class CreateMeetingWhere extends SelectLocation {
 
     public void cancel(View button){
 
+    	clearData();
+    	CreateMeetingWhere.this.setResult(R.string.cancel_create);
+    	CreateMeetingWhere.this.finish();
+    }
+    
+    private void clearData(){
+
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();
     	editor.remove("mtitle");
@@ -66,10 +73,7 @@ public class CreateMeetingWhere extends SelectLocation {
     	editor.remove("mnames");
     	editor.remove("mphones");
     	editor.commit();
-
     	
-    	CreateMeetingWhere.this.setResult(R.string.cancel_create);
-    	CreateMeetingWhere.this.finish();
     }
     
     public void next(View button){
@@ -123,8 +127,6 @@ public class CreateMeetingWhere extends SelectLocation {
         }else if (resultCode == R.string.meeting_created) {
             this.setResult(R.string.meeting_created);
             this.finish();
-        }else if (resultCode == R.string.logout) {
-        	logout();
         }
     }
 
@@ -140,17 +142,12 @@ public class CreateMeetingWhere extends SelectLocation {
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	        switch (item.getItemId()) {
 	            case R.id.logout:{
-	            	logout();
+	            	clearData();
+	            	Logout.logout(this);
 	            	break;
 	            }
 	        }
 	        return true;
 	    }
-	    
-	    private void logout(){
-           this.setResult(R.string.logout);
-           this.finish();
-	    }
-	    
     
 }

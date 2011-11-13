@@ -15,11 +15,14 @@
     		android:label="@string/app_name"
     		android:debuggable="true">
     		
-    		
-    		
-    		
     	<uses-library android:name="com.google.android.maps" />
         
+
+		<activity android:name=".Login"
+				  android:theme="@android:style/Theme.NoTitleBar"
+				  android:noHistory="true">
+
+        </activity>
         <activity android:name=".MainPage"
                   android:theme="@android:style/Theme.NoTitleBar">
              <intent-filter>
@@ -30,90 +33,104 @@
             	
     	<activity android:name=".MeetingPlanner"
                   android:label="@string/app_name"
-                  android:theme="@android:style/Theme.NoTitleBar">
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
         </activity>
         
         <activity android:name=".SelectLocation"
-       			  android:theme="@android:style/Theme.NoTitleBar">       			  
+       			  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">       			  
        	</activity>
        	
        	<activity android:name=".MeetingListPending"
-       			  android:theme="@android:style/Theme.NoTitleBar">
+       			  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
        	</activity>
        	
        	<activity android:name=".MeetingListAccepted"
-       			  android:theme="@android:style/Theme.NoTitleBar">
+       			  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
        	</activity>
        	
        	<activity android:name=".MeetingListDeclined"
-       			  android:theme="@android:style/Theme.NoTitleBar">
+       			  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
        	</activity>
        	
        	<activity android:name=".AllMeetings"
-       			  android:theme="@android:style/Theme.NoTitleBar">
+       			  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
        	</activity>
        	
        	<activity android:name=".DisplayMeeting"
-       			  android:theme="@android:style/Theme.NoTitleBar">	 
+       			  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">	 
        	</activity>
 
 		<activity android:name=".Search"
-				  android:theme="@android:style/Theme.NoTitleBar">
-		</activity>
-
-		<activity android:name=".Login"
 				  android:theme="@android:style/Theme.NoTitleBar"
-				  android:noHistory="true">
-
-        </activity>
+                  android:finishOnTaskLaunch="true">
+		</activity>
         
 		<activity android:name=".EditProfile"
-				  android:theme="@android:style/Theme.NoTitleBar">
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
         </activity>
             	
         <activity android:name=".EditMeeting"
-                  android:theme="@android:style/Theme.NoTitleBar">  
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">  
         </activity>
             	
         <activity android:name=".EditMeetingLocation"
-                  android:theme="@android:style/Theme.NoTitleBar">  
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">  
         </activity>
         
         <activity android:name=".EditMeetingAttendees"
-                  android:theme="@android:style/Theme.NoTitleBar">  
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">  
         </activity>
 
 		<activity android:name=".Signup"
 				  android:theme="@android:style/Theme.NoTitleBar"
-				  android:noHistory="true">
+				  android:noHistory="true"
+                  android:finishOnTaskLaunch="true">
 		</activity>
 
 		<activity android:name=".CreateMeetingWhat"
-				  android:theme="@android:style/Theme.NoTitleBar">
+				  android:theme="@android:style/Theme.NoTitleBar"
+				  android:finishOnTaskLaunch="true">
 		</activity>
 
 		<activity android:name=".CreateMeetingWhen"
-				  android:theme="@android:style/Theme.NoTitleBar">
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
 		</activity>
 
 		<activity android:name=".CreateMeetingWho"
-				  android:theme="@android:style/Theme.NoTitleBar">
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
 		</activity>
 
 		<activity android:name=".CreateMeetingWhere"
-				  android:theme="@android:style/Theme.NoTitleBar">
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
 		</activity>
 
 		<activity android:name=".CreateMeetingConfirm"
-				  android:theme="@android:style/Theme.NoTitleBar">
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
 		</activity>
 		
 		<activity android:name=".TrackerMap"
-				  android:theme="@android:style/Theme.NoTitleBar">
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
 		</activity>
 		
 		<activity android:name=".TrackerEtaList"
-				  android:theme="@android:style/Theme.NoTitleBar">
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
 		</activity>
 		
 		

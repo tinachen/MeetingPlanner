@@ -135,6 +135,14 @@ public class CreateMeetingWhen extends Activity {
 	    }
 
 	    public void cancel(View button){
+	    	clearData();
+	    	
+	    	CreateMeetingWhen.this.setResult(R.string.cancel_create);
+	    	CreateMeetingWhen.this.finish();
+			//need to clear the previous activities too
+	    }
+	    
+	    private void clearData(){
 
 
 	    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
@@ -157,9 +165,6 @@ public class CreateMeetingWhen extends Activity {
 	    	editor.commit();
 
 	    	
-	    	CreateMeetingWhen.this.setResult(R.string.cancel_create);
-	    	CreateMeetingWhen.this.finish();
-			//need to clear the previous activities too
 	    }
 	    
 	    public void next(View button){
@@ -302,16 +307,12 @@ public class CreateMeetingWhen extends Activity {
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	        switch (item.getItemId()) {
 	            case R.id.logout:{
-	            	logout();
+	            	clearData();
+	            	Logout.logout(this);
 	            	break;
 	            }
 	        }
 	        return true;
-	    }
-	    
-	    private void logout(){
-            this.setResult(R.string.logout);
-            this.finish();
 	    }
 	    
 }

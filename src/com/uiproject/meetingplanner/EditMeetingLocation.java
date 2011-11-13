@@ -78,14 +78,10 @@ public class EditMeetingLocation extends SelectLocation {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:{
-            	logout();
+            	Logout.logout(this);
             	break;
             }
         }
         return true;
-    }
-    
-    private void logout(){
-    	Logout.logout(this);
     }
 }

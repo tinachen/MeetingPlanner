@@ -65,6 +65,13 @@ public class CreateMeetingWho extends Search {
     }
 
     public void cancel(View button){
+    	clearData();
+    	CreateMeetingWho.this.setResult(R.string.cancel_create);
+    	CreateMeetingWho.this.finish();
+		//need to clear the previous activities too
+    }
+    
+    private void clearData(){
 
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();
@@ -86,9 +93,6 @@ public class CreateMeetingWho extends Search {
     	editor.commit();
 
     	
-    	CreateMeetingWho.this.setResult(R.string.cancel_create);
-    	CreateMeetingWho.this.finish();
-		//need to clear the previous activities too
     }
     
     public void next(View button){
@@ -147,8 +151,6 @@ public class CreateMeetingWho extends Search {
         }else if (resultCode == R.string.meeting_created) {
             this.setResult(R.string.meeting_created);
             this.finish();
-        }else if (resultCode == R.string.logout) {
-        	logout();
         }
     }
     
@@ -166,15 +168,11 @@ public class CreateMeetingWho extends Search {
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	        switch (item.getItemId()) {
 	            case R.id.logout:{
-	            	logout();
+	            	clearData();
+	            	Logout.logout(this);
 	            	break;
 	            }
 	        }
 	        return true;
-	    }
-	    
-	    private void logout(){
-          this.setResult(R.string.logout);
-          this.finish();
 	    }
 }

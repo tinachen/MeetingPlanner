@@ -96,8 +96,6 @@ public class CreateMeetingWhat extends Activity {
     		Intent intent = new Intent(CreateMeetingWhat.this, AllMeetings.class);
     		CreateMeetingWhat.this.startActivity(intent);
             this.finish();
-	    }else if (resultCode == R.string.logout) {
-	    	logout();
 	    }
     }
     
@@ -113,16 +111,12 @@ public class CreateMeetingWhat extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:{
-            	logout();
+            	clearData();
+            	Logout.logout(this);
             	break;
             }
         }
         return true;
-    }
-    
-    private void logout(){
-        this.setResult(R.string.logout);
-        this.finish();
     }
     
 }

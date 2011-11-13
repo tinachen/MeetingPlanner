@@ -49,18 +49,10 @@ public class MainPage extends Activity {
     
     public void createMeeting(View button){
         Intent intent = new Intent(MainPage.this, CreateMeetingWhat.class);
-        MainPage.this.startActivityForResult(intent, 0);
+        MainPage.this.startActivity(intent);
     }
     
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == R.string.logout) {
-	    	logout();
-	    }
-    }
-    
- 
+
     // menu 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,10 +77,6 @@ public class MainPage extends Activity {
             case R.id.trackermap:{
                 Intent intent = new Intent(MainPage.this, TrackerMap.class);
                 MainPage.this.startActivity(intent);
-            	break;
-            }
-            case R.id.logout:{
-            	logout();
             	break;
             }
         }

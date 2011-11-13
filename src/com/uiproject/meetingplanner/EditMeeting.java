@@ -163,7 +163,7 @@ public class EditMeeting extends Activity {
 				 if (resultCode == Activity.RESULT_OK) { 
 					 people = data.getStringExtra("people");
 					 names = data.getStringExtra("names");
-					 
+					 attendees.setText(names);					 
 				} 
 				break; 
 				
@@ -255,7 +255,7 @@ public class EditMeeting extends Activity {
     
     public void invite(View button){
     	Intent intent = new Intent(EditMeeting.this, EditMeetingAttendees.class);
-    	EditMeeting.this.startActivity(intent);
+    	EditMeeting.this.startActivityForResult(intent, R.string.editmeetattendees);
     }
     
     public void selectLocation(View button){
@@ -309,14 +309,11 @@ public class EditMeeting extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:{
-            	logout();
+            	Logout.logout(this);
             	break;
             }
         }
         return true;
     }
     
-    private void logout(){
-    	Logout.logout(this);
-    }
 }
