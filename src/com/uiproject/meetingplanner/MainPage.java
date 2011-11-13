@@ -79,6 +79,13 @@ public class MainPage extends Activity {
                 MainPage.this.startActivity(intent);
             	break;
             }
+            case R.id.logout:{
+            	Logout.logout(this);
+                Intent intent = new Intent(MainPage.this, Login.class);
+                MainPage.this.startActivity(intent);
+                finish();
+            	break;
+            }
         }
         return true;
     }
