@@ -46,8 +46,13 @@ public class MeetingListDeclined extends ExpandableListActivity {
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 
-	    db.createMeeting(1,"Halloween Party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
-
+	    db.createUser(1, "Laura", "Rodriguez", "lau.rodriguez@gmail", "3128573352", 37, -34);
+	    db.createUser(2, "Dummy", "Joe", "tt@gmail.com", "1234567778", 32, 34);
+	    db.createMeeting(2,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);
+	    db.createMeeting(1,"Halloween Party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);
+	    db.createMeetingUser(1, 1, 2, "Hello");
+	    db.createMeetingUser(1, 2, 1, "Hello2");
+	    
 	    allMeet = db.getAllMeetings();
         // Set up our adapter
         mAdapter = new MyExpandableListAdapter(allMeet);
@@ -152,7 +157,7 @@ public class MeetingListDeclined extends ExpandableListActivity {
         		children[i] = allMeetings.get(i).getMeetingDescription() + "\n" +
         									allMeetings.get(i).getMeetingAddress() + "\n" +
         									allMeetings.get(i).getMeetingDate() + "  " + allMeetings.get(i).getMeetingStartTime() + " to " + allMeetings.get(i).getMeetingEndTime() + "\n" +
-        									allMeetings.get(i).getMeetingAttendees() + "\n";
+        									allMeetings.get(i).getMeetingAttendees().toString() + "\n";
          	}
         	
         	//Log.v(TAG, "I am at the end! ");

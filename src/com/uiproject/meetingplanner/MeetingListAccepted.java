@@ -7,6 +7,7 @@ import java.util.List;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ExpandableListActivity;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.AbsListView;
@@ -41,13 +44,20 @@ public class MeetingListAccepted extends ExpandableListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //final LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 
+	    db.createUser(1, "Laura", "Rodriguez", "lau.rodriguez@gmail", "3128573352", 37, -34);
+	    db.createUser(2, "Dummy", "Joe", "tt@gmail.com", "1234567778", 32, 34);
 	    db.createMeeting(2,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
-
+	    db.createMeeting(5,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeeting(6,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeeting(7,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeetingUser(2, 1, 2, "Hello");
+	    db.createMeetingUser(2, 2, 1, "Hello2");
+	    
 	    allMeet = db.getAllMeetings();
         // Set up our adapter
         mAdapter = new MyExpandableListAdapter(allMeet);
@@ -132,7 +142,7 @@ public class MeetingListAccepted extends ExpandableListActivity {
         		children[i] = allMeetings.get(i).getMeetingDescription() + "\n" +
         									allMeetings.get(i).getMeetingAddress() + "\n" +
         									allMeetings.get(i).getMeetingDate() + "  " + allMeetings.get(i).getMeetingStartTime() + " to " + allMeetings.get(i).getMeetingEndTime() + "\n" +
-        									allMeetings.get(i).getMeetingAttendees() + "\n";
+        									allMeetings.get(i).getMeetingAttendees().toString() + "\n";
          	}
         	
         	//Log.v(TAG, "I am at the end! ");
@@ -167,9 +177,37 @@ public class MeetingListAccepted extends ExpandableListActivity {
 
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
                 View convertView, ViewGroup parent) {
-            TextView textView = getGenericView();
+            
+        	TextView textView = getGenericView();
             textView.setText(getChild(groupPosition, childPosition).toString());
+            Button btn = (Button)textView.findViewById(R.id.editBtn);
+            btn.setFocusable(false);
+            btn.setOnClickListener(new View.OnClickListener() {
+				
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Toast.makeText(getApplicationContext(), "You clicked!", Toast.LENGTH_SHORT).show();
+				}
+			});
+			
             return textView;
+            /*
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.listitem, null);
+            
+        	View v = inflater.inflate(R.layout.expander_child, null);
+
+            Button button = (Button)v.findViewById(R.id.expand_child_button);
+            button.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(ExpandableList1.this, "button pushed", Toast.LENGTH_SHORT).show();
+                }
+            });
+                     
+            return v;
+            */
         }
 
         public Object getGroup(int groupPosition) {
@@ -195,6 +233,12 @@ public class MeetingListAccepted extends ExpandableListActivity {
             return true;
         }
 
+        public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) { 
+            Button cb = (Button)v.findViewById( R.id.editBtn );
+            if( cb != null )
+                cb.bringToFront();
+            return false;
+        }
         public boolean hasStableIds() {
             return true;
         }
