@@ -1,7 +1,12 @@
 package com.uiproject.meetingplanner;
 
+import java.text.ParseException;
+
+import org.json.JSONException;
+
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseUtility;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -54,7 +59,7 @@ public class Signup extends Activity {
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	}
 
-	public void submit(View button){
+	public void submit(View button) throws JSONException, ParseException{
 
         //error checking here
         
@@ -89,14 +94,18 @@ public class Signup extends Activity {
 			return;
 		}
 		
+		// User has been created successfully
+		
 		// Open db connection
 		db.open();
+		// Get meetings info & user infos from server and update internal db
+    	MeetingPlannerDatabaseUtility.updateDatabase(db);
 		
 		// Store user into internal db
-		db.createUser(uid, fname, lname, email, Long.toString(phonenumber), 0, 0);
+		//db.createUser(uid, fname, lname, email, Long.toString(phonenumber), 0, 0);
 		db.close();
 		
-		// User has been created successfully
+		
 		// Log user in
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		Editor editor = settings.edit();

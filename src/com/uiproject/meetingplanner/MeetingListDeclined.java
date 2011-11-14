@@ -67,9 +67,9 @@ public class MeetingListDeclined extends ExpandableListActivity
 	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	int uid = settings.getInt("uid", -1);
     	Log.v(LOG_TAG, "uid = " + uid);
-    	//allMeet = db.getDeclinedMeetings(uid);//TODO
+    	allMeet = db.getDeclinedMeetings(uid);
         // Set up our adapter
-    	allMeet = db.getAllMeetings();
+    	//allMeet = db.getAllMeetings();
     	db.close();
     	
     	groups = new String[allMeet.size()];
