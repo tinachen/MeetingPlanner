@@ -51,8 +51,8 @@ public class CreateMeetingConfirm extends Activity {
     	mdesc = settings.getString("mdesc", "No description");
     	maddr = settings.getString("maddr", "default addr");
     	mdate = month + "-" + day + "-" + year;
-    	mstarttime = sh + ":" + sm;
-    	mendtime = eh + ":" + em;
+    	mstarttime = pad(sh) + ":" + pad(sm);
+    	mendtime = pad(eh) + ":" + pad(em);
     	mtracktime = (int) ((double) settings.getFloat("mtracktime", (float).5) * 60);
     	mlon = settings.getInt("mlon", 0);
     	mlat = settings.getInt("mlat", 0);
@@ -164,6 +164,12 @@ public class CreateMeetingConfirm extends Activity {
     	editor.remove("mnames");
     	editor.remove("mphones");
     	editor.commit();
+    }
+    private static String pad(int c) {
+        if (c >= 10)
+            return String.valueOf(c);
+        else
+            return "0" + String.valueOf(c);
     }
     
 
