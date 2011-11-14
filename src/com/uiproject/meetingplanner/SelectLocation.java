@@ -74,7 +74,6 @@ public class SelectLocation extends MapActivity {
 				overlay.addOverlay(oi);
 				
 				mapView.invalidate();
-				address_field.setText("");
 		    }else{
 	        	Toast.makeText(getBaseContext(), "Cannot find " + addy, Toast.LENGTH_SHORT).show();		    	
 		    }
@@ -138,8 +137,7 @@ public class SelectLocation extends MapActivity {
                 
                  oi = new OverlayItem(p, add, "");
                 addOverlay(oi);
-                
-                Toast.makeText(getBaseContext(), add, Toast.LENGTH_SHORT).show();
+                address_field.setText(add);
                 
             }
             catch (IOException e) {  

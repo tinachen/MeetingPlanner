@@ -10,6 +10,8 @@ import android.widget.Toast;
 public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 
 	private final static String DATABASE_NAME = "MeetingPlanner";
+	public final static int DATABASE_VERSION = 6;
+	public final static String dbHelperTag = "MeetingPlannerDatabaseHelper";
 	
 	// Meetings Table
 	public final String MEETING_TABLE = "Meetings";
@@ -44,9 +46,9 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 	public final String ATTENDINGSTATUS_TABLE = "AttendingStatus";
 	public final String ATTENDINGSTATUS_ID = "AttendingStatusID";
 	public final String ATTENDINGSTATUS_NAME = "AttendingStatusName";
-	public final int ATTENDINGSTATUS_ATTENDING = 0;
-	public final int ATTENDINGSTATUS_DECLINING = 1;
-	public final int ATTENDINGSTATUS_PENDING = 2;
+	public final static int ATTENDINGSTATUS_ATTENDING = 0;
+	public final static int ATTENDINGSTATUS_DECLINING = 1;
+	public final static int ATTENDINGSTATUS_PENDING = 2;
 	public final static String ATTENDINGSTATUS_ATTENDINGSTRING = "attending";
 	public final static String ATTENDINGSTATUS_DECLININGSTRING = "decline";
 	public final static String ATTENDINGSTATUS_PENDINGSTRING = "pending";
@@ -55,12 +57,13 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 	public MeetingPlannerDatabaseHelper(Context context, int version){
 		
 		super(context, DATABASE_NAME, null, version);
+		Log.v(dbHelperTag, "Current Version = " + version);
 	}
 	
 	private void createTables(SQLiteDatabase db){
 		// Create Tables statements
 		String sql_create_meetings = "CREATE TABLE " + MEETING_TABLE + " (" +
-										MEETING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+										MEETING_ID + " INTEGER PRIMARY KEY NOT NULL," +
 										MEETING_TITLE + " TEXT NOT NULL," +
 										MEETING_LAT + " INTEGER NOT NULL," +
 										MEETING_LON + " INTEGER NOT NULL," +
@@ -88,7 +91,7 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 											MEETING_ID + " INTEGER NOT NULL," +
 											USER_ID + " INTEGER NOT NULL," +
 											ATTENDINGSTATUS_ID + " INTEGER NOT NULL," +
-											MEETINGUSER_ETA + "TEXT DEFAULT 0 NOT NULL," +
+											MEETINGUSER_ETA + " TEXT DEFAULT 0 NOT NULL," +
 											"PRIMARY KEY (" + MEETING_ID + ", " + USER_ID +")," +
 											"FOREIGN KEY (" + MEETING_ID + ") REFERENCES " + MEETING_TABLE + "(" + MEETING_ID + ")," +
 											"FOREIGN KEY (" + USER_ID + ") REFERENCES " + USER_TABLE + "(" + USER_ID + ")," +
@@ -99,6 +102,11 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 												ATTENDINGSTATUS_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT," +
 												ATTENDINGSTATUS_NAME + " TEXT NOT NULL" +
 											");";
+		
+		Log.v(dbHelperTag, "Create Meetings Table sql: " + sql_create_meetings);
+		Log.v(dbHelperTag, "Create Users Table sql: " + sql_create_users);
+		Log.v(dbHelperTag, "Create MeetingUsers Table sql: " + sql_create_meetingusers);
+		Log.v(dbHelperTag, "Create AttendingStatus Table sql: " + sql_create_attendingstatus);
 		
 		db.execSQL(sql_create_meetings);
 		db.execSQL(sql_create_users);
@@ -148,6 +156,7 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 		
 		createTables(db);
 		insertAttendingStatuses(db);
+		
 	}
 	
 	@Override
@@ -155,8 +164,12 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 	{
 		// NOTHING TO DO HERE. THIS IS THE ORIGINAL DATABASE VERSION.
 		// OTHERWISE, YOU WOULD SPECIFIY HOW TO UPGRADE THE DATABASE.
-		
+		Log.v(dbHelperTag, "Upgrade from version " + oldVersion + " to version " + newVersion);
 		dropTables(db);
 		onCreate(db);
+	}
+	
+	public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
+		Log.v(dbHelperTag, "Downgrade from version " + oldVersion + " to version " + newVersion);
 	}
 }

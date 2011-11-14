@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.maps.GeoPoint;
@@ -19,10 +22,14 @@ public class EditMeetingLocation extends SelectLocation {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editmeetinglocation);
 
+        GeoUpdateHandler guh = new GeoUpdateHandler();
+        int lat = guh.getCurrentLat();
+        int lon = guh.getCurrentLng();
+        String addr = guh.getCurrentAddr();
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-        int lat = settings.getInt("mlat", 34019443); // TODO get current location and make that the default
-        int lon = settings.getInt("mlon", -118289440);
-        String addr = settings.getString("maddr", "current adress");
+        lat = settings.getInt("mlat", lat);
+        lon = settings.getInt("mlon", lon);
+        addr = settings.getString("maddr", addr);
         init(lat, lon, addr);
         address_field.setText(addr);       
     }
@@ -58,5 +65,23 @@ public class EditMeetingLocation extends SelectLocation {
     	
     	EditMeetingLocation.this.finish();
     	
+    }
+    // menu 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logoutonly, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:{
+            	Logout.logout(this);
+            	break;
+            }
+        }
+        return true;
     }
 }

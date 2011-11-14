@@ -1,6 +1,7 @@
 package com.uiproject.meetingplanner.database;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.uiproject.meetingplanner.MeetingInstance;
 import com.uiproject.meetingplanner.UserInstance;
@@ -19,6 +20,7 @@ public class MeetingPlannerDatabaseManager {
 	private int version;
 	private SQLiteDatabase db;
 	private MeetingPlannerDatabaseHelper dbHelper;
+	public final static String dbManagerTag = "MeetingPlannerDbManager";
 	
 	public MeetingPlannerDatabaseManager(Context context, int version){
 		this.context = context;
@@ -33,6 +35,7 @@ public class MeetingPlannerDatabaseManager {
 	
 	public void close(){
 		dbHelper.close();
+		db.close();
 	}
 	
 	
@@ -42,12 +45,12 @@ public class MeetingPlannerDatabaseManager {
 	 * 
 	 *******************************************************************/
 	
-	public void createMeeting(/*int meetingID, */String meetingTitle, int meetingLat, int meetingLon,
+	public void createMeeting(int meetingID, String meetingTitle, int meetingLat, int meetingLon,
 				String meetingDescription, String meetingAddress, String meetingDate, String meetingStartTime,
 				String meetingEndTime, int meetingTrackTime, int meetingInitiatorID){
 		
 		ContentValues values = new ContentValues();
-		//values.put(dbHelper.MEETING_ID, meetingID); //TODO
+		values.put(dbHelper.MEETING_ID, meetingID);
 		values.put(dbHelper.MEETING_TITLE, meetingTitle);
 		values.put(dbHelper.MEETING_LAT, meetingLat);
 		values.put(dbHelper.MEETING_LON, meetingLon);
@@ -62,8 +65,11 @@ public class MeetingPlannerDatabaseManager {
 		try{
 			long l= db.insert(dbHelper.MEETING_TABLE, null, values);
 		
-			String s1 = "debug " + l;
-			Toast.makeText(context, s1, Toast.LENGTH_SHORT).show();
+			String s1 = "create meeting debug " + l;
+			Toast.makeText(context, s1, Toast.LENGTH_SHORT).show(); //TODO
+			
+			Log.v(dbManagerTag, "createMeeting: meetingID=" + meetingID + ", meetingTitle=" + meetingTitle + 
+					", meetingDescription=" + meetingDescription + ", meetingInitiatorID=" + meetingInitiatorID);
 		}
 		catch(Exception e)
 		{
@@ -105,6 +111,15 @@ public class MeetingPlannerDatabaseManager {
 		}
 	}
 	
+	public void deleteAllMeetings(){
+		try {
+			db.delete(dbHelper.MEETING_TABLE, null, null);
+		}catch (Exception e){
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+	}
+	
 	public void createUser(int userID, String userFirstName, String userLastName, String userEmail, 
 							String userPhone, int userLocationLon, int userLocationLat){
 		
@@ -119,6 +134,9 @@ public class MeetingPlannerDatabaseManager {
 		
 		try{
 			db.insert(dbHelper.USER_TABLE, null, values);
+			Log.v(dbManagerTag, "createUser: userID=" + userID + ", userFirstName=" + userFirstName + 
+					", userLastName=" + userLastName + ", userEmail=" + userEmail + ", userPhone=" + userPhone +
+					", userLocationLon=" + userLocationLon + ", userLocationLat=" + userLocationLat);
 		}
 		catch(Exception e)
 		{
@@ -166,6 +184,15 @@ public class MeetingPlannerDatabaseManager {
 		}
 	}
 	
+	public void deleteAllUsers(){
+		try {
+			db.delete(dbHelper.USER_TABLE, null, null);
+		}catch (Exception e){
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+	}
+	
 	public void createMeetingUser(int meetingID, int userID, int attendingStatusID, String meetingUserEta){
 		ContentValues values = new ContentValues();
 		values.put(dbHelper.MEETING_ID, meetingID);
@@ -175,6 +202,8 @@ public class MeetingPlannerDatabaseManager {
 		
 		try{
 			db.insert(dbHelper.MEETINGUSER_TABLE, null, values);
+			Log.v(dbManagerTag, "createMeetingUser: meetingID=" + meetingID + ", userID=" + userID + 
+					", attendingStatusID=" + attendingStatusID + ", meetingUserEta=" + meetingUserEta);
 		}
 		catch(Exception e)
 		{
@@ -228,6 +257,15 @@ public class MeetingPlannerDatabaseManager {
 			e.printStackTrace();
 		}
 	}
+	
+	public void deleteAllMeetingUsers(){
+		try {
+			db.delete(dbHelper.MEETINGUSER_TABLE, null, null);
+		}catch (Exception e){
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+	}
 	/*******************************************************************
 	 * 
 	 * All select SQL statements start from here
@@ -275,7 +313,6 @@ public class MeetingPlannerDatabaseManager {
 					MeetingInstance m = new MeetingInstance(meetingID, meetingLat, meetingLon, 
 							meetingTitle, meetingDescription, meetingAddress, 
 							meetingDate, meetingStartTime, meetingEndTime, meetingTrackTime, meetingInitiatorID);
-					//MeetingInstance m = new MeetingInstance(meetingTitle);
 					
 					meetingsArray.add(m);
 					
@@ -311,7 +348,302 @@ public class MeetingPlannerDatabaseManager {
 		return meetingsArray;
 	}
 
-	public ArrayList<UserInstance> getMeetingUsers(int meetingID){
+	//TODO
+	public ArrayList<MeetingInstance> getAcceptedMeetings(int userID){
+		ArrayList<MeetingInstance> meetingsArray = new ArrayList<MeetingInstance>();
+		Cursor cursor;
+		
+		try{
+			
+			String query = "SELECT " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TITLE  + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LAT+ "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LON + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DESCRIPTION + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ADDRESS + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DATE + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ENDTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TRACKTIME + ","
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_INITIATOR_ID
+						+ " FROM " + dbHelper.MEETINGUSER_TABLE 
+						+ " LEFT JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
+						+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
+						+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?";
+			
+			Log.v(dbManagerTag, "getDeclinedMeetings query1: " + query);
+			
+			// Do the query
+			cursor = db.rawQuery(query, new String[]{String.valueOf(userID), String.valueOf(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING)});
+			
+			// move the cursor's pointer to position zero.
+			cursor.moveToFirst();
+ 
+			// if there is data after the current cursor position, add it
+			// to the ArrayList.
+			if (!cursor.isAfterLast())
+			{
+				do
+				{
+					int meetingID = cursor.getInt(0);
+					String meetingTitle = cursor.getString(1);
+					int meetingLat = cursor.getInt(2);
+					int meetingLon = cursor.getInt(3);
+					String meetingDescription = cursor.getString(4);
+					String meetingAddress = cursor.getString(5);
+					String meetingDate = cursor.getString(6);
+					String meetingStartTime = cursor.getString(7);
+					String meetingEndTime = cursor.getString(8);
+					int meetingTrackTime = cursor.getInt(9);
+					int meetingInitiatorID = cursor.getInt(10);
+
+					MeetingInstance m = new MeetingInstance(meetingID, meetingLat, meetingLon, 
+							meetingTitle, meetingDescription, meetingAddress, 
+							meetingDate, meetingStartTime, meetingEndTime, meetingTrackTime, meetingInitiatorID);
+					
+					// Do another query to get every meeting's invited users
+					HashMap<Integer, UserInstance> meetingUsersMap = getMeetingUsersMap(meetingID);
+					
+					// Add meeting users to the meeting
+					m.setMeetingAttendees(meetingUsersMap);
+					
+					// Add current meeting into meeting array
+					meetingsArray.add(m);
+					
+				}
+				// move the cursor's pointer up one position.
+				while (cursor.moveToNext());
+			}
+			
+			cursor.close();
+		}catch(SQLException e) 
+		{
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+		
+		return meetingsArray;
+	}
+	
+	//TODO
+	public ArrayList<MeetingInstance> getDeclinedMeetings(int userID){
+		ArrayList<MeetingInstance> meetingsArray = new ArrayList<MeetingInstance>();
+		Cursor cursor;
+		
+		try{
+			
+			String query = "SELECT " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TITLE  + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LAT+ "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LON + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DESCRIPTION + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ADDRESS + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DATE + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ENDTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TRACKTIME + ","
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_INITIATOR_ID
+ 				+ " FROM " + dbHelper.MEETINGUSER_TABLE 
+				+ " LEFT JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
+				+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
+				+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?";
+			
+			Log.v(dbManagerTag, "getDeclinedMeetings query1: " + query);
+			
+			// Do the query
+			cursor = db.rawQuery(query, new String[]{String.valueOf(userID), String.valueOf(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING)});
+			
+			// move the cursor's pointer to position zero.
+			cursor.moveToFirst();
+ 
+			// if there is data after the current cursor position, add it
+			// to the ArrayList.
+			if (!cursor.isAfterLast())
+			{
+				do
+				{
+					int meetingID = cursor.getInt(0);
+					String meetingTitle = cursor.getString(1);
+					int meetingLat = cursor.getInt(2);
+					int meetingLon = cursor.getInt(3);
+					String meetingDescription = cursor.getString(4);
+					String meetingAddress = cursor.getString(5);
+					String meetingDate = cursor.getString(6);
+					String meetingStartTime = cursor.getString(7);
+					String meetingEndTime = cursor.getString(8);
+					int meetingTrackTime = cursor.getInt(9);
+					int meetingInitiatorID = cursor.getInt(10);
+
+					MeetingInstance m = new MeetingInstance(meetingID, meetingLat, meetingLon, 
+							meetingTitle, meetingDescription, meetingAddress, 
+							meetingDate, meetingStartTime, meetingEndTime, meetingTrackTime, meetingInitiatorID);
+					
+					// Do another query to get every meeting's invited users
+					HashMap<Integer, UserInstance> meetingUsersMap = getMeetingUsersMap(meetingID);
+					
+					// Add meeting users to the meeting
+					m.setMeetingAttendees(meetingUsersMap);
+					
+					// Add current meeting into meeting array
+					meetingsArray.add(m);
+					
+				}
+				// move the cursor's pointer up one position.
+				while (cursor.moveToNext());
+			}
+			cursor.close();
+		}catch(SQLException e) 
+		{
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+		
+		Log.v(dbManagerTag, "getDeclinedMeetings: meetingsArray size = " + meetingsArray.size());
+		return meetingsArray;
+	}
+	
+	//Done - need testing
+	public ArrayList<MeetingInstance> getPendingMeetings(int userID){
+		ArrayList<MeetingInstance> meetingsArray = new ArrayList<MeetingInstance>();
+		Cursor cursor;
+		
+		try{
+			
+			String query = "SELECT " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID /*+ "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TITLE  + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LAT+ "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LON + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DESCRIPTION + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ADDRESS + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DATE + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ENDTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TRACKTIME + ","
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_INITIATOR_ID*/
+						+ " FROM " + dbHelper.MEETINGUSER_TABLE ;
+						//+ " JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
+						//+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=" + userID
+						//+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?";
+			
+			Log.v(dbManagerTag, "getPendingMeetings query1: " + query);
+			
+			// Do the query
+			cursor = db.rawQuery(query, null);
+			//cursor = db.rawQuery(query, new String[]{String.valueOf(userID)/*, String.valueOf(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING)*/});
+			
+			Log.v(dbManagerTag, "getPendingMeetings cursor row count= " + cursor.getCount());
+			
+			// move the cursor's pointer to position zero.
+			cursor.moveToFirst();
+ 
+			// if there is data after the current cursor position, add it
+			// to the ArrayList.
+			if (!cursor.isAfterLast())
+			{
+				do
+				{
+					int meetingID = cursor.getInt(0);
+					String meetingTitle = cursor.getString(1);
+					int meetingLat = cursor.getInt(2);
+					int meetingLon = cursor.getInt(3);
+					String meetingDescription = cursor.getString(4);
+					String meetingAddress = cursor.getString(5);
+					String meetingDate = cursor.getString(6);
+					String meetingStartTime = cursor.getString(7);
+					String meetingEndTime = cursor.getString(8);
+					int meetingTrackTime = cursor.getInt(9);
+					int meetingInitiatorID = cursor.getInt(10);
+
+					MeetingInstance m = new MeetingInstance(meetingID, meetingLat, meetingLon, 
+							meetingTitle, meetingDescription, meetingAddress, 
+							meetingDate, meetingStartTime, meetingEndTime, meetingTrackTime, meetingInitiatorID);
+					
+					// Do another query to get every meeting's invited users
+					HashMap<Integer, UserInstance> meetingUsersMap = getMeetingUsersMap(meetingID);
+					
+					// Add meeting users to the meeting
+					m.setMeetingAttendees(meetingUsersMap);
+					
+					// Add current meeting into meeting array
+					meetingsArray.add(m);
+					
+				}
+				// move the cursor's pointer up one position.
+				while (cursor.moveToNext());
+			}
+			cursor.close();
+		}catch(SQLException e) 
+		{
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+		
+		Log.v(dbManagerTag, "getPendingMeetings: meetingsArray size = " + meetingsArray.size());
+		return meetingsArray;
+	}
+	
+	public HashMap<Integer, UserInstance> getMeetingUsersMap(int meetingID){
+		
+		/*
+		 * meetingUsersArray - used for storing meeting's users info
+		 * cursor - used for storing query result 
+		 */
+		HashMap<Integer, UserInstance> meetingUsersMap = new HashMap<Integer, UserInstance>();
+		Cursor cursor;
+		
+		try{
+			
+			//String MY_QUERY = "SELECT * FROM table_a a INNER JOIN table_b b ON a.id=b.other_id WHERE b.property_id=?";
+			String query = "SELECT " + dbHelper.USER_ID + "," + dbHelper.USER_FIRSTNAME  + "," + dbHelper.USER_LASTNAME+ "," + dbHelper.USER_EMAIL + "," 
+				+ dbHelper.USER_PHONE + "," + dbHelper.USER_LOCATIONLON + "," + dbHelper.USER_LOCATIONLAT + "," + dbHelper.MEETINGUSER_ETA + "," + dbHelper.ATTENDINGSTATUS_NAME 
+				+ " FROM " + dbHelper.MEETINGUSER_TABLE 
+				+ " LEFT JOIN " + dbHelper.USER_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=" + dbHelper.USER_TABLE + "." + dbHelper.USER_ID
+				+ " LEFT JOIN " + dbHelper.ATTENDINGSTATUS_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=" + dbHelper.ATTENDINGSTATUS_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID
+				+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=?";
+			
+			// Do the query
+			cursor = db.rawQuery(query, new String[]{String.valueOf(meetingID)});
+			
+			// move the cursor's pointer to position zero.
+			cursor.moveToFirst();
+ 
+			// if there is data after the current cursor position, add it
+			// to the ArrayList.
+			if (!cursor.isAfterLast())
+			{
+				do
+				{
+					int userID = cursor.getInt(0);
+					String userFirstName = cursor.getString(1);
+					String userLastName = cursor.getString(2);
+					String userEmail = cursor.getString(3);
+					String userPhone = cursor.getString(4);
+					int userLocationLon = cursor.getInt(5);
+					int userLocationLat = cursor.getInt(6);
+					String userEta = cursor.getString(7);
+					String userAttendingStatus = cursor.getString(8);
+					
+					UserInstance u = new UserInstance(userID, userFirstName, userLastName, 
+														userEmail, userPhone, userLocationLon, 
+														userLocationLat, userEta, userAttendingStatus);
+					
+					meetingUsersMap.put(userID, u);
+					
+				}
+				// move the cursor's pointer up one position.
+				while (cursor.moveToNext());
+			}
+			cursor.close();
+		}catch(SQLException e) 
+		{
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+		
+		return meetingUsersMap;
+	}
+	
+	public ArrayList<UserInstance> getMeetingUsersArray(int meetingID){
 		
 		/*
 		 * meetingUsersArray - used for storing meeting's users info
@@ -320,7 +652,6 @@ public class MeetingPlannerDatabaseManager {
 		ArrayList<UserInstance> meetingUsersArray = new ArrayList<UserInstance>();
 		Cursor cursor;
 		
-		//TODO need to do join with user table
 		try{
 			
 			//String MY_QUERY = "SELECT * FROM table_a a INNER JOIN table_b b ON a.id=b.other_id WHERE b.property_id=?";
@@ -363,6 +694,8 @@ public class MeetingPlannerDatabaseManager {
 				// move the cursor's pointer up one position.
 				while (cursor.moveToNext());
 			}
+			
+			cursor.close();
 		}catch(SQLException e) 
 		{
 			Log.e("DB ERROR", e.toString());
@@ -417,6 +750,8 @@ public class MeetingPlannerDatabaseManager {
 				// move the cursor's pointer up one position.
 				while (cursor.moveToNext());
 			}
+			
+			cursor.close();
 		}catch(SQLException e) 
 		{
 			Log.e("DB ERROR", e.toString());

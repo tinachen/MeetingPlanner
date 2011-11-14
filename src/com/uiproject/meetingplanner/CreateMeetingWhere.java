@@ -3,6 +3,9 @@ package com.uiproject.meetingplanner;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,10 +22,14 @@ public class CreateMeetingWhere extends SelectLocation {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createmeetingwhere);
 
+        GeoUpdateHandler guh = new GeoUpdateHandler();
+        int lat = guh.getCurrentLat();
+        int lon = guh.getCurrentLng();
+        String addr = guh.getCurrentAddr();
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-        int lat = settings.getInt("mlat", 34019443); // TODO get current location and make that the default
-        int lon = settings.getInt("mlon", -118289440);
-        String addr = settings.getString("maddr", "current adress");
+        lat = settings.getInt("mlat", lat);
+        lon = settings.getInt("mlon", lon);
+        addr = settings.getString("maddr", addr);
         init(lat, lon, addr);
         
     }
@@ -40,6 +47,13 @@ public class CreateMeetingWhere extends SelectLocation {
     }
 
     public void cancel(View button){
+
+    	clearData();
+    	CreateMeetingWhere.this.setResult(R.string.cancel_create);
+    	CreateMeetingWhere.this.finish();
+    }
+    
+    private void clearData(){
 
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();
@@ -59,10 +73,7 @@ public class CreateMeetingWhere extends SelectLocation {
     	editor.remove("mnames");
     	editor.remove("mphones");
     	editor.commit();
-
     	
-    	CreateMeetingWhere.this.setResult(R.string.cancel_create);
-    	CreateMeetingWhere.this.finish();
     }
     
     public void next(View button){
@@ -113,7 +124,30 @@ public class CreateMeetingWhere extends SelectLocation {
         if (resultCode == R.string.cancel_create) {
             this.setResult(R.string.cancel_create);
             this.finish();
+        }else if (resultCode == R.string.meeting_created) {
+            this.setResult(R.string.meeting_created);
+            this.finish();
         }
     }
+
+	 // menu 
+	    @Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
+	        MenuInflater inflater = getMenuInflater();
+	        inflater.inflate(R.menu.logoutonly, menu);
+	        return true;
+	    }
+	    
+	    @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	            case R.id.logout:{
+	            	clearData();
+	            	Logout.logout(this);
+	            	break;
+	            }
+	        }
+	        return true;
+	    }
     
 }

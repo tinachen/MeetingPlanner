@@ -24,6 +24,19 @@ public class UserInstance {
 		this.userAttendingStatus = "pending";
 	}
 	
+	public UserInstance(int userID, String userAttendingStatus) {
+		super();
+		this.userID = userID;
+		this.userAttendingStatus = userAttendingStatus;
+		this.userFirstName = "invalid";
+		this.userLastName = "invalid";
+		this.userEmail = "invalid";
+		this.userPhone = "invalid";
+		this.userLocationLon = 0;
+		this.userLocationLat = 0;
+		this.userEta = "0";
+	}
+
 	public UserInstance(int userID, String userFirstName, String userLastName, String userEmail,
 				String userPhone, int userLocationLon, int userLocationLat){
 		
@@ -52,6 +65,19 @@ public class UserInstance {
 	this.userAttendingStatus = userAttendingStatus;
 }
 	
+	public UserInstance(int userID, int userLocationLon, int userLocationLat, String userEta) {
+		super();
+		this.userID = userID;
+		this.userLocationLon = userLocationLon;
+		this.userLocationLat = userLocationLat;
+		this.userEta = userEta;
+		this.userFirstName = "invalid";
+		this.userLastName = "invalid";
+		this.userEmail = "invalid";
+		this.userPhone = "invalid";
+		this.userAttendingStatus = "pending";
+	}
+
 	/************
 	 * Getters
 	 ***********/

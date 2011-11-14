@@ -1,11 +1,16 @@
 package com.uiproject.meetingplanner;
 
+import java.text.ParseException;
+import java.util.HashMap;
+
+import org.json.JSONException;
+
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,23 +36,20 @@ public class Login extends Activity {
         remember_me = (CheckBox) findViewById(R.id.rememberme);
         
         //check to see if user is already logged in or not
-        /*
+        
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	int uid = settings.getInt("uid", -1);
     	boolean remember = settings.getBoolean("remember", false);
     	if (uid != -1 && remember){ // if logged in, then go directly to main page
             Intent intent = new Intent(Login.this, MainPage.class);
         	Login.this.startActivity(intent);    		
-    	}else{
-    		Toast.makeText(getBaseContext(), "your login is not currently remembered", Toast.LENGTH_SHORT).show();		
     	}
-*/        
+    	
         // Hook up with database
-	    db = new MeetingPlannerDatabaseManager(this, 2);
-	    db.open();
+	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	}
 
-	public void checkLogin(View button){
+	public void checkLogin(View button) throws JSONException, ParseException{
 		
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		SharedPreferences.Editor editor = settings.edit();
@@ -58,7 +60,7 @@ public class Login extends Activity {
 
     	// if user didn't check remember password before, set user phone number & password from user inputs
     	if(!remember || (userPhoneNumber.compareTo("invalid")==0) || (userPassword.compareTo("invalid")==0)){
-    		Toast.makeText(getBaseContext(), "userphonecomapre " + userPhoneNumber + " " +userPhoneNumber.compareTo("invalid phone number"), Toast.LENGTH_SHORT).show();
+    		//Toast.makeText(getBaseContext(), "userphonecomapre " + userPhoneNumber + " " +userPhoneNumber.compareTo("invalid phone number"), Toast.LENGTH_SHORT).show();
     		userPhoneNumber = phone_field.getText().toString();
         	userPassword = pw_field.getText().toString();
         	
@@ -83,10 +85,58 @@ public class Login extends Activity {
             return;   
         }
 
-    	// User successfully logged in
+    	// User successfully logged in       	
+  
+    	// Get meetings info & user infos from server
+    	HashMap<Integer, UserInstance> usersMap = (HashMap<Integer, UserInstance>) Communicator.getAllUsers();
+    	HashMap<Integer, MeetingInstance> meetingsMap = (HashMap<Integer, MeetingInstance>) Communicator.getAllMeetings();
     	
-        // Grab user info from internal db
+    	/****** Update internal db ******/
+    	
+    	// Open db connection
+    	db.open();
+    	
+    	// 1. Delete all data in db
+    	db.deleteAllUsers();
+    	db.deleteAllMeetings();
+    	db.deleteAllMeetingUsers();
+    	
+    	// 2-1. Update Users
+    	for (UserInstance userObj : usersMap.values()) {
+    		db.createUser(userObj.getUserID(), userObj.getUserFirstName(), userObj.getUserLastName(),
+    				userObj.getUserEmail(), userObj.getUserPhone(), userObj.getUserLocationLon(), userObj.getUserLocationLat());
+    	}
+
+
+    	// 2-2. Update Meetings
+    	for (MeetingInstance meetingObj : meetingsMap.values()) {
+    		db.createMeeting(meetingObj.getMeetingID(), meetingObj.getMeetingTitle(), meetingObj.getMeetingLat(), meetingObj.getMeetingLon(),
+    						meetingObj.getMeetingDescription(), meetingObj.getMeetingAddress(), meetingObj.getMeetingDate(), 
+    						meetingObj.getMeetingStartTime(), meetingObj.getMeetingEndTime(), meetingObj.getMeetingTrackTime(), meetingObj.getMeetingInitiatorID());
+    	
+    		// 2-3. Update Meeting Users
+    		HashMap<Integer, UserInstance> meetingUsers = meetingObj.getMeetingAttendees();
+    		
+    		for(UserInstance meetingUserObj : meetingUsers.values()){
+    			
+    			int attendingStatusID = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING;
+    			
+    			if(meetingUserObj.getUserAttendingStatus().compareTo(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDINGSTRING) == 0){
+    				attendingStatusID = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING;
+    			}else if(meetingUserObj.getUserAttendingStatus().compareTo(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLININGSTRING) == 0){
+    				attendingStatusID = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING;
+    			}
+    			
+    			db.createMeetingUser(meetingObj.getMeetingID(), meetingUserObj.getUserID(), attendingStatusID, "0");
+    		}
+    	}
+    	
+    	 // Grab user info from internal db
         UserInstance user = db.getUser(userID);
+     
+        // Close db
+    	db.close();
+    	
         Log.v(LoginTag, "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName());
         
         // Saves user info into sharedpreferences
@@ -106,8 +156,8 @@ public class Login extends Activity {
         }
 
         // Saves the changes in sharedpreferences
-    	editor.commit();        	
-  
+    	editor.commit(); 
+    	
         // no problems, go to main page
         Intent intent = new Intent(Login.this, MainPage.class);
     	Login.this.startActivity(intent);
@@ -120,5 +170,11 @@ public class Login extends Activity {
 	public void signup(View button){ // go to signup page
     	Intent intent = new Intent(Login.this, Signup.class);
     	Login.this.startActivity(intent);		
+	}
+	
+	@Override
+	public void onBackPressed(){
+		moveTaskToBack(true);
+		return;
 	}
 }

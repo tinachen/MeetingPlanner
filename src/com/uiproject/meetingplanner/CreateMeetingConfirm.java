@@ -2,12 +2,16 @@ package com.uiproject.meetingplanner;
 
 import java.util.ArrayList;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +21,9 @@ public class CreateMeetingConfirm extends Activity {
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	TextView title, desc, date, time, tracktime, attendees, location;
 	private MeetingPlannerDatabaseManager db;
-	private String mtitle, mdesc, maddr, mdate, mstarttime, mendtime, mphones, mnames;
-	private int mtracktime, mlon, mlat;
+	private String mtitle, mdesc, maddr, mdate, mstarttime, mendtime, mattendeeids, mnames;
+	private int mtracktime, mlon, mlat, uid;
+	private ArrayList<Integer> attendessIdsArray;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,7 @@ public class CreateMeetingConfirm extends Activity {
 
         // Get var values from sharedpreferences
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	uid = settings.getInt("uid", 0);
     	int month = settings.getInt("mdatem", 0) + 1;
     	int day = settings.getInt("mdated", 0);
     	int year = settings.getInt("mdatey", 0);
@@ -50,7 +56,8 @@ public class CreateMeetingConfirm extends Activity {
     	mtracktime = (int) ((double) settings.getFloat("mtracktime", (float).5) * 60);
     	mlon = settings.getInt("mlon", 0);
     	mlat = settings.getInt("mlat", 0);
-    	mphones = settings.getString("mphones", "");
+    	//mattendeeids = settings.getString("mphones", ""); //TODO hard code it for now
+    	mattendeeids = "1,2,4";
     	mnames = settings.getString("mnames", "");
     	
     	// Set the view
@@ -62,9 +69,31 @@ public class CreateMeetingConfirm extends Activity {
     	location.setText(maddr);
     	attendees.setText(mnames);
     	
+    	// Convert attendees ids string back to an array
+    	String n;
+        String p;
+        int commaIndex;
+        String tempids = mattendeeids;
+    	attendessIdsArray = new ArrayList<Integer>();
+    	if (tempids.length() > 0){
+	    	while (tempids.length() > 0){
+	    		commaIndex = tempids.indexOf(',');
+	    		if (commaIndex == -1){
+	    			int meetingId = Integer.parseInt(tempids);
+	    			attendessIdsArray.add(meetingId);
+	    			break;
+	    		}else{
+		    		n = tempids.substring(0, commaIndex);
+		    		int meetingId = Integer.parseInt(n);
+		    		attendessIdsArray.add(meetingId);
+		    		tempids = tempids.substring(commaIndex + 1);
+	    		}
+    		}
+    	}
+    	
     	
     	// Hook up with database
-	    db = new MeetingPlannerDatabaseManager(this, 2);
+	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 	    
 	    ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
@@ -91,24 +120,26 @@ public class CreateMeetingConfirm extends Activity {
     }
     
     public void confirm(View button){
-    	// Pass meeting details to server TODO
-    	// Retrieve meeting ID and set it
-    	int meetingID;
     	
-    	//save meeting data into the db
+    	//save meeting data into the db, send to server
 
-    	Toast.makeText(CreateMeetingConfirm.this, "meeting saved!", Toast.LENGTH_SHORT).show();
-    	// add to db and get id back, go to add ppl page
+    	//TODO
+    	maddr = "meetingaddr";
+    	int mid = Communicator.createMeeting(uid, mtitle, mdesc, mlat, mlon, maddr, mdate, mstarttime, mendtime, mtracktime, mattendeeids);
+    	Communicator.acceptMeeting(uid, mid); // accept meeting
+
+    	int initiatorID = uid;
     	
-    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
-    	//int latitude = 1234567;
-    	//int longitude = 2222222;
-
-    	int initiatorID = settings.getInt("uid", 0);
-    	db.createMeeting(mtitle, mlat, mlon, mdesc, maddr, mdate, mstarttime, mendtime, mtracktime, initiatorID); //TODO need meeting ID
+    	// Add meeting users to internal db
+    	db.createMeeting(mid, mtitle, mlat, mlon, mdesc, maddr, mdate, mstarttime, mendtime, mtracktime, initiatorID); 
+    	db.createMeetingUser(mid, uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");	// initiator
+    	for(int i=0; i<attendessIdsArray.size(); i++){
+    		db.createMeetingUser(mid, attendessIdsArray.get(i), MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING, "0"); 	// other attendees other than initiator
+    	}
+    	db.close();
 
     	clearData();
-    	CreateMeetingConfirm.this.setResult(R.string.cancel_create);
+    	CreateMeetingConfirm.this.setResult(R.string.meeting_created);
     	CreateMeetingConfirm.this.finish();
     }
     
@@ -133,7 +164,31 @@ public class CreateMeetingConfirm extends Activity {
     	editor.remove("mnames");
     	editor.remove("mphones");
     	editor.commit();
-    		
-    
     }
+    
+
+
+	 // menu 
+	    @Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
+	        MenuInflater inflater = getMenuInflater();
+	        inflater.inflate(R.menu.logoutonly, menu);
+	        return true;
+	    }
+	    
+	    @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	            case R.id.logout:{
+	            	logout();
+	            	break;
+	            }
+	        }
+	        return true;
+	    }
+	    
+	    private void logout(){
+          this.setResult(R.string.logout);
+          this.finish();
+	    }
 }

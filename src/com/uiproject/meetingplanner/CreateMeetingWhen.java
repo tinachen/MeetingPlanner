@@ -9,6 +9,9 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -132,6 +135,14 @@ public class CreateMeetingWhen extends Activity {
 	    }
 
 	    public void cancel(View button){
+	    	clearData();
+	    	
+	    	CreateMeetingWhen.this.setResult(R.string.cancel_create);
+	    	CreateMeetingWhen.this.finish();
+			//need to clear the previous activities too
+	    }
+	    
+	    private void clearData(){
 
 
 	    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
@@ -154,9 +165,6 @@ public class CreateMeetingWhen extends Activity {
 	    	editor.commit();
 
 	    	
-	    	CreateMeetingWhen.this.setResult(R.string.cancel_create);
-	    	CreateMeetingWhen.this.finish();
-			//need to clear the previous activities too
 	    }
 	    
 	    public void next(View button){
@@ -198,6 +206,12 @@ public class CreateMeetingWhen extends Activity {
 	        super.onActivityResult(requestCode, resultCode, data);
 	        if (resultCode == R.string.cancel_create) {
 	            this.setResult(R.string.cancel_create);
+	            this.finish();
+	        }else if (resultCode == R.string.meeting_created) {
+	            this.setResult(R.string.meeting_created);
+	            this.finish();
+	        }else if (resultCode == R.string.logout) {
+	            this.setResult(R.string.logout);
 	            this.finish();
 	        }
 	    }
@@ -279,6 +293,26 @@ public class CreateMeetingWhen extends Activity {
 	        public void onNothingSelected(AdapterView parent) {
 	          // Do nothing.
 	        }
+	    }
+	    
+	 // menu 
+	    @Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
+	        MenuInflater inflater = getMenuInflater();
+	        inflater.inflate(R.menu.logoutonly, menu);
+	        return true;
+	    }
+	    
+	    @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	            case R.id.logout:{
+	            	clearData();
+	            	Logout.logout(this);
+	            	break;
+	            }
+	        }
+	        return true;
 	    }
 	    
 }

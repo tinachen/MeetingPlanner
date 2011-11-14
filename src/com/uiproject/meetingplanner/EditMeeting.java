@@ -3,11 +3,18 @@ package com.uiproject.meetingplanner;
 import java.util.HashSet;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -21,8 +28,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class EditMeeting extends Activity {
+	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	
 	private EditText mname, desc;
+	private Button delete;
+	private int mid;
 	
 	//for date picker
 	private Button mPickDate;
@@ -50,7 +60,7 @@ public class EditMeeting extends Activity {
     TextView location, attendees;
     int lat, lon;
     String addr, title, description;
-    HashSet<String> attendeeNames;
+    String people, names;
     
     // set listeners
 	private DatePickerDialog.OnDateSetListener mDateSetListener =
@@ -87,6 +97,8 @@ public class EditMeeting extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editmeeting);
         
+        //mid = savedInstanceState.getInt("mid");
+        mid = 0;
         mname = (EditText) findViewById(R.id.mname_field);
         desc = (EditText) findViewById(R.id.desc);
         mPickDate = (Button) findViewById(R.id.pickDate);
@@ -95,7 +107,9 @@ public class EditMeeting extends Activity {
         spinner = (Spinner) findViewById(R.id.tracker_selector);
         location = (TextView) findViewById(R.id.location);
         attendees = (TextView) findViewById(R.id.attendees);
-
+        delete = (Button) findViewById(R.id.delete);
+        delete.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+        
         // get meeting info from db
         mYear = 2011;
         mMonth = 11;
@@ -129,10 +143,6 @@ public class EditMeeting extends Activity {
         spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
         int spinnerPosition = adapter.getPosition(trackTime + "");
         spinner.setSelection(spinnerPosition);
-        
-        // set location
-        // set attendees
-        
 		
 	}
 	
@@ -151,7 +161,9 @@ public class EditMeeting extends Activity {
 				break;
 			}case (R.string.editmeetattendees): { // people
 				 if (resultCode == Activity.RESULT_OK) { 
-					// do more stuff 
+					 people = data.getStringExtra("people");
+					 names = data.getStringExtra("names");
+					 attendees.setText(names);					 
 				} 
 				break; 
 				
@@ -229,12 +241,21 @@ public class EditMeeting extends Activity {
     	// TODO save in db
     	
     	
-    	finish();    	
+    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	int uid = settings.getInt("uid", 0);
+    	String mtitle = mname.getText().toString();
+    	String mdesc = desc.getText().toString();
+    	String mdate = mMonth + "/" + mDay + "/" + mYear;
+    	String mstarttime = msHour + ":" + msMinute;
+    	String mendtime = meHour + ":" + meMinute;
+    	Communicator.updateMeeting(mid, uid, mtitle, mdesc, lat, lon, addr, mdate, mstarttime, mendtime, (int) (trackTime * 60), people);
+
+    	this.finish();    	
     }
     
     public void invite(View button){
     	Intent intent = new Intent(EditMeeting.this, EditMeetingAttendees.class);
-    	EditMeeting.this.startActivity(intent);
+    	EditMeeting.this.startActivityForResult(intent, R.string.editmeetattendees);
     }
     
     public void selectLocation(View button){
@@ -245,7 +266,23 @@ public class EditMeeting extends Activity {
     	EditMeeting.this.startActivityForResult(intent, R.string.editmeetloc);
     }
     
-
+    public void deleteMeeting(View button){
+    	AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
+    	alt_bld.setMessage("Are you sure you want to delete this meeting? You cannot undo this action!");
+    	alt_bld.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	    	public void onClick(DialogInterface dialog, int id) {
+	    		Toast.makeText(EditMeeting.this, "meeting deleted", Toast.LENGTH_SHORT).show();
+	    		//Communicator.removeMeeting(mid);
+	    		}
+	    	});
+    	alt_bld.setNegativeButton("No", new DialogInterface.OnClickListener() {
+	    	public void onClick(DialogInterface dialog, int id) {
+		    	dialog.cancel();
+		    	}
+	    	});
+    	alt_bld.show();
+    }
+    	
     
     // for the tracker spinner
     public class MyOnItemSelectedListener implements OnItemSelectedListener {
@@ -259,4 +296,24 @@ public class EditMeeting extends Activity {
           // Do nothing.
         }
     }
+    
+    // menu 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logoutonly, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:{
+            	Logout.logout(this);
+            	break;
+            }
+        }
+        return true;
+    }
+    
 }
