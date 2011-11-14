@@ -10,7 +10,7 @@ import android.widget.Toast;
 public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 
 	private final static String DATABASE_NAME = "MeetingPlanner";
-	public final static int DATABASE_VERSION = 2;
+	public final static int DATABASE_VERSION = 6;
 	public final static String dbHelperTag = "MeetingPlannerDatabaseHelper";
 	
 	// Meetings Table
@@ -57,13 +57,13 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 	public MeetingPlannerDatabaseHelper(Context context, int version){
 		
 		super(context, DATABASE_NAME, null, version);
-		Log.v(dbHelperTag, "Current Version" + version);
+		Log.v(dbHelperTag, "Current Version = " + version);
 	}
 	
 	private void createTables(SQLiteDatabase db){
 		// Create Tables statements
 		String sql_create_meetings = "CREATE TABLE " + MEETING_TABLE + " (" +
-										MEETING_ID + " INTEGER PRIMARY KEY," +
+										MEETING_ID + " INTEGER PRIMARY KEY NOT NULL," +
 										MEETING_TITLE + " TEXT NOT NULL," +
 										MEETING_LAT + " INTEGER NOT NULL," +
 										MEETING_LON + " INTEGER NOT NULL," +

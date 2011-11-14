@@ -33,6 +33,6 @@ public class AllMeetings extends TabActivity{
 	    spec = tabHost.newTabSpec("declined").setIndicator("Declined")
         			  .setContent(intent);
 	    tabHost.addTab(spec);
-	    tabHost.setCurrentTab(2);
+	    tabHost.setCurrentTab(1);
 	}
 }

@@ -2,17 +2,14 @@ package com.uiproject.meetingplanner;
 
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import org.json.JSONException;
 
-import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
-import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+import com.uiproject.meetingplanner.database.*;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,7 +46,6 @@ public class Login extends Activity {
     	
         // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
-	    db.open();
 	}
 
 	public void checkLogin(View button) throws JSONException, ParseException{
@@ -88,10 +84,22 @@ public class Login extends Activity {
             return;   
         }
 
-    	// User successfully logged in
+    	// User successfully logged in       	
+  
+        /****** Update internal db ******/
+        
+        // Open db connection
+    	db.open();
     	
-        // Grab user info from internal db
+    	// Get meetings info & user infos from server and update internal db
+    	MeetingPlannerDatabaseUtility.updateDatabase(db);
+    	
+    	 // Grab user info from internal db
         UserInstance user = db.getUser(userID);
+     
+        // Close db
+    	db.close();
+    	
         Log.v(LoginTag, "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName());
         
         // Saves user info into sharedpreferences
@@ -111,51 +119,7 @@ public class Login extends Activity {
         }
 
         // Saves the changes in sharedpreferences
-    	editor.commit();        	
-  
-    	// Get meetings info & user infos from server
-    	HashMap<Integer, UserInstance> usersMap = (HashMap<Integer, UserInstance>) Communicator.getAllUsers();
-    	HashMap<Integer, MeetingInstance> meetingsMap = (HashMap<Integer, MeetingInstance>) Communicator.getAllMeetings();
-    	
-    	/****** Update internal db ******/
-    	
-    	// 1. Delete all data in db
-    	db.deleteAllUsers();
-    	db.deleteAllMeetings();
-    	db.deleteAllMeetingUsers();
-    	
-    	// 2-1. Update Users
-    	for (UserInstance userObj : usersMap.values()) {
-    		db.createUser(userObj.getUserID(), userObj.getUserFirstName(), userObj.getUserLastName(),
-    				userObj.getUserEmail(), userObj.getUserPhone(), userObj.getUserLocationLon(), userObj.getUserLocationLat());
-    	}
-
-
-    	// 2-2. Update Meetings
-    	for (MeetingInstance meetingObj : meetingsMap.values()) {
-    		db.createMeeting(meetingObj.getMeetingID(), meetingObj.getMeetingTitle(), meetingObj.getMeetingLat(), meetingObj.getMeetingLon(),
-    						meetingObj.getMeetingDescription(), meetingObj.getMeetingAddress(), meetingObj.getMeetingDate(), 
-    						meetingObj.getMeetingStartTime(), meetingObj.getMeetingEndTime(), meetingObj.getMeetingTrackTime(), meetingObj.getMeetingInitiatorID());
-    	
-    		// 2-3. Update Meeting Users
-    		HashMap<Integer, UserInstance> meetingUsers = meetingObj.getMeetingAttendees();
-    		
-    		for(UserInstance meetingUserObj : meetingUsers.values()){
-    			
-    			int attendingStatusID = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING;
-    			
-    			if(meetingUserObj.getUserAttendingStatus().compareTo(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDINGSTRING) == 0){
-    				attendingStatusID = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING;
-    			}else if(meetingUserObj.getUserAttendingStatus().compareTo(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLININGSTRING) == 0){
-    				attendingStatusID = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING;
-    			}
-    			
-    			db.createMeetingUser(meetingObj.getMeetingID(), meetingUserObj.getUserID(), attendingStatusID, "0");
-    		}
-    	}
-    	
-    	// Close db
-    	db.close();
+    	editor.commit(); 
     	
         // no problems, go to main page
         Intent intent = new Intent(Login.this, MainPage.class);
