@@ -123,8 +123,6 @@ public class CreateMeetingConfirm extends Activity {
     	
     	//save meeting data into the db, send to server
 
-    	//TODO
-    	maddr = "meetingaddr";
     	int mid = Communicator.createMeeting(uid, mtitle, mdesc, mlat, mlon, maddr, mdate, mstarttime, mendtime, mtracktime, mattendeeids);
     	Communicator.acceptMeeting(uid, mid); // accept meeting
 
