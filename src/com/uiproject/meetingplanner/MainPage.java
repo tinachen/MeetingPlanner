@@ -67,7 +67,7 @@ public class MainPage extends Activity {
         switch (item.getItemId()) {
             case R.id.editprofile:{
                 Intent intent = new Intent(MainPage.this, EditProfile.class);
-                MainPage.this.startActivity(intent);
+                MainPage.this.startActivityForResult(intent, 0);
                 break;
             }       
             case R.id.editmeeting:{
@@ -87,6 +87,17 @@ public class MainPage extends Activity {
         }
         return true;
     }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == R.string.edited_profile) {
+        	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+        	String username = settings.getString("userFirstName", "") + " " + settings.getString("userLastName", "");
+    		name.setText(username);
+        }
+    }
+    
     
 }
 

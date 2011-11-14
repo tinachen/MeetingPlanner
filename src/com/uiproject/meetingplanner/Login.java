@@ -97,7 +97,7 @@ public class Login extends Activity {
     	 // Grab user info from internal db
         UserInstance user = db.getUser(userID);
      
-        // Close db
+        // Close db 
     	db.close();
     	
         Log.v(LoginTag, "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName());
