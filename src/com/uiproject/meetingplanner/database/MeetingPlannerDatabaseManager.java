@@ -509,7 +509,7 @@ public class MeetingPlannerDatabaseManager {
 		
 		try{
 			
-			String query = "SELECT " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID /*+ "," 
+			String query = "SELECT " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "," 
 									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TITLE  + "," 
 									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LAT+ "," 
 									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LON + "," 
@@ -519,17 +519,17 @@ public class MeetingPlannerDatabaseManager {
 									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIME + "," 
 									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ENDTIME + "," 
 									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TRACKTIME + ","
-									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_INITIATOR_ID*/
-						+ " FROM " + dbHelper.MEETINGUSER_TABLE ;
-						//+ " JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
-						//+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=" + userID
-						//+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?";
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_INITIATOR_ID
+						+ " FROM " + dbHelper.MEETINGUSER_TABLE
+						+ " JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
+						+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
+						+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?";
 			
 			Log.v(dbManagerTag, "getPendingMeetings query1: " + query);
 			
 			// Do the query
-			cursor = db.rawQuery(query, null);
-			//cursor = db.rawQuery(query, new String[]{String.valueOf(userID)/*, String.valueOf(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING)*/});
+			//cursor = db.rawQuery(query, null);
+			cursor = db.rawQuery(query, new String[]{String.valueOf(userID), String.valueOf(MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING)});
 			
 			Log.v(dbManagerTag, "getPendingMeetings cursor row count= " + cursor.getCount());
 			
@@ -594,8 +594,15 @@ public class MeetingPlannerDatabaseManager {
 		try{
 			
 			//String MY_QUERY = "SELECT * FROM table_a a INNER JOIN table_b b ON a.id=b.other_id WHERE b.property_id=?";
-			String query = "SELECT " + dbHelper.USER_ID + "," + dbHelper.USER_FIRSTNAME  + "," + dbHelper.USER_LASTNAME+ "," + dbHelper.USER_EMAIL + "," 
-				+ dbHelper.USER_PHONE + "," + dbHelper.USER_LOCATIONLON + "," + dbHelper.USER_LOCATIONLAT + "," + dbHelper.MEETINGUSER_ETA + "," + dbHelper.ATTENDINGSTATUS_NAME 
+			String query = "SELECT " + dbHelper.USER_TABLE + "." + dbHelper.USER_ID + "," 
+									+ dbHelper.USER_TABLE + "." + dbHelper.USER_FIRSTNAME + "," 
+									+ dbHelper.USER_TABLE + "." + dbHelper.USER_LASTNAME+ "," 
+									+ dbHelper.USER_TABLE + "." + dbHelper.USER_EMAIL + "," 
+									+ dbHelper.USER_TABLE + "." + dbHelper.USER_PHONE + "," 
+									+ dbHelper.USER_TABLE + "." + dbHelper.USER_LOCATIONLON + "," 
+									+ dbHelper.USER_TABLE + "." + dbHelper.USER_LOCATIONLAT + "," 
+									+ dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETINGUSER_ETA + "," 
+									+ dbHelper.ATTENDINGSTATUS_TABLE + "." + dbHelper.ATTENDINGSTATUS_NAME 
 				+ " FROM " + dbHelper.MEETINGUSER_TABLE 
 				+ " LEFT JOIN " + dbHelper.USER_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=" + dbHelper.USER_TABLE + "." + dbHelper.USER_ID
 				+ " LEFT JOIN " + dbHelper.ATTENDINGSTATUS_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=" + dbHelper.ATTENDINGSTATUS_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID
