@@ -82,6 +82,7 @@ public class CommunicateService extends Service {
 			locs.put(userIds.getInt(i), new UserInstance(userIds.getInt(i),locationInfos.getJSONObject(i).getInt("lon"),locationInfos.getJSONObject(i).getInt("lat"),locationInfos.getJSONObject(i).getString("eta")));
 		}
 		msg.put("locations", locs);
+		
 //		Log.d("##############","Hello");
 		return msg;
 /*    	//HashMap<Integer, Msg> map = new HashMap<Integer, Msg>();

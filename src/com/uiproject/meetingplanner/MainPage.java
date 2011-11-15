@@ -39,6 +39,7 @@ public class MainPage extends Activity {
     	startActivity(new Intent(MainPage.this, CreateMeetingWhat.class));
 		Intent intent = new Intent(MainPage.this, CommunicateService.class);
 		startService(intent);
+		
 
     }
     
