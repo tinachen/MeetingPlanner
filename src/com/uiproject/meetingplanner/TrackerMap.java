@@ -22,10 +22,13 @@ import com.google.android.maps.OverlayItem;
 public class TrackerMap extends MapActivity {
 
 	private MyItemizedOverlay itemizedoverlay;
+	private int mid;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trackermap);
+        
+        mid = getIntent().getIntExtra("mid", -1);
         
         MapView mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
@@ -44,6 +47,7 @@ public class TrackerMap extends MapActivity {
         mc.setCenter(itemizedoverlay.getCenter());
         
         Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
+        intent.putExtra("mid", mid);
         startService(intent);
         
         

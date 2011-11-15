@@ -17,8 +17,8 @@ public class MeetingInstance {
 	private int meetingLat;
 	private int meetingLon;
 	private String meetingTitle;
-	private String meetingDescription; 
 	private String meetingAddress;
+	private String meetingDescription;
 	private String meetingDate;
 	private String meetingStartTime;
 	private String meetingEndTime;
@@ -48,6 +48,21 @@ public class MeetingInstance {
 	// to be deleted, for testing
 	public MeetingInstance(String meetingTitle){
 		this.meetingTitle = meetingTitle;
+	}
+	
+	public MeetingInstance(){
+		this.meetingID = -1;
+		this.meetingLat = -1;
+		this.meetingLon = -1;
+		this.meetingTitle = "invalid";
+		this.meetingDescription = "invalid";
+		this.meetingAddress = "invalid";
+		this.meetingDate = "invalid";
+		this.meetingStartTime = "invalid";
+		this.meetingEndTime = "invalid";
+		this.meetingTrackTime = -1;
+		this.meetingInitiatorID = -1;
+		this.attendees = new HashMap<Integer, UserInstance>();
 	}
 	
 	public MeetingInstance(int meetingID, int meetingLat, int meetingLon, String meetingTitle, String meetingDescription,

@@ -101,10 +101,39 @@
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:layout_marginTop="50dip">
+		
+		<ImageView
+		   android:src="@drawable/nextmeeting"
+		   android:paddingBottom="0dip" android:layout_width="225dip" android:layout_height="50dp"/>
 		<TextView
-		   android:layout_width="fill_parent"
+		   android:id="@+id/mtitle"
+		   android:layout_width="wrap_content"
 		   android:layout_height="wrap_content"
-		   android:text="Info about next meeting goes here" />
+		   android:textAppearance="?android:attr/textAppearanceMedium"
+		   android:layout_marginTop="5dip"
+		   android:text="Meeting title" />
+		<TextView
+		   android:id="@+id/mwhen"
+		   android:layout_width="wrap_content"
+		   android:layout_height="wrap_content"
+		   android:textAppearance="?android:attr/textAppearanceSmall"
+		   android:layout_marginTop="5dip"
+		   android:text="Date, time details" />
+		<TextView
+		   android:id="@+id/mdesc"
+		   android:layout_width="wrap_content"
+		   android:layout_height="wrap_content"
+		   android:textAppearance="?android:attr/textAppearanceSmall"
+		   android:layout_marginTop="5dip"
+		   android:text="description here" />
+		<Button
+		   android:id="@+id/mtrack_button"
+		   android:layout_width="wrap_content"
+		   android:layout_height="wrap_content"
+		   android:layout_marginTop="5dip"
+		   android:text="Track this meeting"
+		   android:onClick="track" />
+		   
 	</LinearLayout>
 	
 	</LinearLayout>

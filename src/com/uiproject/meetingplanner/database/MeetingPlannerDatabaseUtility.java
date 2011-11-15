@@ -1,9 +1,13 @@
 package com.uiproject.meetingplanner.database;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.json.JSONException;
+
+import android.util.Log;
 
 import com.uiproject.meetingplanner.Communicator;
 import com.uiproject.meetingplanner.MeetingInstance;
@@ -11,6 +15,7 @@ import com.uiproject.meetingplanner.UserInstance;
 
 public class MeetingPlannerDatabaseUtility {
 
+	public static final String dbUtilityTag = "MeetingPlannerDatabaseUtility";
 	public MeetingPlannerDatabaseUtility(){
 		
 	}
@@ -33,9 +38,20 @@ public class MeetingPlannerDatabaseUtility {
 
     	// 2-2. Update Meetings
     	for (MeetingInstance meetingObj : meetingsMap.values()) {
+    		
+    		// convert start time into unix timestamp
+    		String mstartdatetime = meetingObj.getMeetingDate() + " " + meetingObj.getMeetingStartTime();
+    		Log.v(dbUtilityTag, " mstartdatetime = " + mstartdatetime);
+    		
+    		SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+    		Date date = (Date)formatter.parse(mstartdatetime); 
+    		int timestampInt = (int) (date.getTime() / 1000L);
+    		Log.v(dbUtilityTag, " create meeting: meetingID = " + meetingObj.getMeetingID() + ", timestamp = " + timestampInt);
+    		
     		db.createMeeting(meetingObj.getMeetingID(), meetingObj.getMeetingTitle(), meetingObj.getMeetingLat(), meetingObj.getMeetingLon(),
     						meetingObj.getMeetingDescription(), meetingObj.getMeetingAddress(), meetingObj.getMeetingDate(), 
-    						meetingObj.getMeetingStartTime(), meetingObj.getMeetingEndTime(), meetingObj.getMeetingTrackTime(), meetingObj.getMeetingInitiatorID());
+    						meetingObj.getMeetingStartTime(), meetingObj.getMeetingEndTime(), meetingObj.getMeetingTrackTime(), 
+    						meetingObj.getMeetingInitiatorID(), timestampInt);
     	
     		// 2-3. Update Meeting Users
     		HashMap<Integer, UserInstance> meetingUsers = meetingObj.getMeetingAttendees();
