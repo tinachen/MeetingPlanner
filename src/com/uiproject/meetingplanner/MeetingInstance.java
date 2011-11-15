@@ -17,8 +17,8 @@ public class MeetingInstance {
 	private int meetingLat;
 	private int meetingLon;
 	private String meetingTitle;
-	private String meetingDescription; 
 	private String meetingAddress;
+	private String meetingDescription;
 	private String meetingDate;
 	private String meetingStartTime;
 	private String meetingEndTime;

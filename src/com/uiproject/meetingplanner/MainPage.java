@@ -1,7 +1,6 @@
 package com.uiproject.meetingplanner;
 
-import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
-import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,13 +11,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 public class MainPage extends Activity {
     /** Called when the activity is first created. */
 
-	TextView name;
+	TextView name, mtitle, mwhen, mdesc;
+	Button track_button;
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	public static final String mainPageTag = "MainPage";
 	private MeetingPlannerDatabaseManager db;
@@ -53,6 +56,36 @@ public class MainPage extends Activity {
 	    MeetingInstance m = db.getNextUpcomingMeeting(uid);
 	    Log.v(mainPageTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
 	    db.close();
+	    
+	    mtitle = (TextView) findViewById(R.id.mtitle);
+	    mwhen = (TextView) findViewById(R.id.mwhen);
+	    mdesc = (TextView) findViewById(R.id.mdesc);
+	    track_button = (Button) findViewById(R.id.mtrack_button);
+	    
+	    int mid = m.getMeetingID();
+	    if(mid < 0){
+	    	mtitle.setText("You have no upcoming meetings");
+	    	mwhen.setVisibility(View.GONE);
+	    	mdesc.setVisibility(View.GONE);
+	    	track_button.setVisibility(View.GONE);
+	    }else{
+	    	mtitle.setText(m.getMeetingTitle());
+	    	String when = m.getMeetingDate() + ", " + m.getMeetingStartTime() + "-" + m.getMeetingEndTime();
+	    	mwhen.setText(when);
+	    	mdesc.setText(m.getMeetingDescription());
+	    	track_button.setTag(mid);
+	        final Calendar c = Calendar.getInstance();
+	        int currenth = Calendar.HOUR_OF_DAY;
+	        int currentm = Calendar.MINUTE;
+	    	String start = m.getMeetingStartTime();
+	    	int starth = Integer.parseInt(start.substring(0, 2));
+	    	int startm = Integer.parseInt(start.substring(3));
+	    	int tracktime = m.getMeetingTrackTime();
+	    	int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
+	    	if (minutes_before > tracktime){
+		    	track_button.setVisibility(View.GONE);
+	    	}
+	    }
     }
 
     public void gotoMyMeetings(View button){
@@ -66,6 +99,14 @@ public class MainPage extends Activity {
 		Intent intent = new Intent(MainPage.this, CreateMeetingWhat.class);
 		startActivity(intent);
 
+    }
+    
+    public void track(View button){
+    	int mid = Integer.parseInt((String)button.getTag());
+		Intent intent = new Intent(MainPage.this, TrackerMap.class);
+		intent.putExtra("mid", mid);
+		startActivity(intent);
+    	
     }
     
     // menu 
