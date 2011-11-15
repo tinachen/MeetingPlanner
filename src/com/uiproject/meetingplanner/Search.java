@@ -3,6 +3,9 @@ package com.uiproject.meetingplanner;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
@@ -28,6 +31,7 @@ public class Search extends Activity implements OnItemClickListener {
     protected Vector<String> contactList;
     protected ArrayList<String> checkedNames;
     protected ArrayList<String> checkedPhoneNumbers;
+    private MeetingPlannerDatabaseManager db;
     // TODO change to list of user id's
 
     /** Called when the activity is first created. */
@@ -36,10 +40,15 @@ public class Search extends Activity implements OnItemClickListener {
 	    super.onCreate(savedInstanceState);
 	    //setContentView(R.layout.search);
 	    
+	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    currentSearchList = new Vector<String>();
 	    contactList = new Vector<String>();
 	    checkedNames = new ArrayList<String>();
 	    checkedPhoneNumbers = new ArrayList<String>();
+	    
+	    db.open();
+	    ArrayList<UserInstance> usersArray = db.getAllUsers();
+	    db.close();
 	}
 	
 	public void init() {
