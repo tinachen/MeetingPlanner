@@ -55,6 +55,7 @@ public class MainPage extends Activity {
 	    db.open();
 	    MeetingInstance m = db.getNextUpcomingMeeting(uid);
 	    Log.v(mainPageTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
+	    db.getAllUsers();
 	    db.close();
 	    
 	    mtitle = (TextView) findViewById(R.id.mtitle);

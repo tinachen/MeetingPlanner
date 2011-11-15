@@ -41,7 +41,8 @@ public class MeetingPlannerDatabaseUtility {
     		
     		// convert start time into unix timestamp
     		String mstartdatetime = meetingObj.getMeetingDate() + " " + meetingObj.getMeetingStartTime();
-
+    		Log.v(dbUtilityTag, " mstartdatetime = " + mstartdatetime);
+    		
     		SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
     		Date date = (Date)formatter.parse(mstartdatetime); 
     		int timestampInt = (int) (date.getTime() / 1000L);
