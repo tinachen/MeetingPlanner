@@ -50,6 +50,21 @@ public class MeetingInstance {
 		this.meetingTitle = meetingTitle;
 	}
 	
+	public MeetingInstance(){
+		this.meetingID = -1;
+		this.meetingLat = -1;
+		this.meetingLon = -1;
+		this.meetingTitle = "invalid";
+		this.meetingDescription = "invalid";
+		this.meetingAddress = "invalid";
+		this.meetingDate = "invalid";
+		this.meetingStartTime = "invalid";
+		this.meetingEndTime = "invalid";
+		this.meetingTrackTime = -1;
+		this.meetingInitiatorID = -1;
+		this.attendees = new HashMap<Integer, UserInstance>();
+	}
+	
 	public MeetingInstance(int meetingID, int meetingLat, int meetingLon, String meetingTitle, String meetingDescription,
 			String meetingAddress, String meetingDate, String meetingStartTime, String meetingEndTime, int meetingTrackTime, int meetingInitiatorID){
 		this.meetingID = meetingID;

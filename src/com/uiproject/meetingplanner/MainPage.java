@@ -1,9 +1,13 @@
 package com.uiproject.meetingplanner;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +20,8 @@ public class MainPage extends Activity {
 
 	TextView name;
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+	public static final String mainPageTag = "MainPage";
+	private MeetingPlannerDatabaseManager db;
 	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +43,16 @@ public class MainPage extends Activity {
     	}else{
     		name.setText(username);
     	}
-        
-        
+
+    	// Hook up with database
+	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+	    
+	    //test get next meeting works
+	    int uid = settings.getInt("uid", -1);
+	    db.open();
+	    MeetingInstance m = db.getNextUpcomingMeeting(uid);
+	    Log.v(mainPageTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
+	    db.close();
     }
 
     public void gotoMyMeetings(View button){

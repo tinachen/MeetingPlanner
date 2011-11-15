@@ -1,6 +1,10 @@
 package com.uiproject.meetingplanner;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
@@ -9,6 +13,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +29,7 @@ public class CreateMeetingConfirm extends Activity {
 	private String mtitle, mdesc, maddr, mdate, mstarttime, mendtime, mattendeeids, mnames;
 	private int mtracktime, mlon, mlat, uid;
 	private ArrayList<Integer> attendessIdsArray;
+	public static final String createMeetingConfirmTag = "CreateMeetingConfirm";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,11 +100,10 @@ public class CreateMeetingConfirm extends Activity {
     	
     	// Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
-	    db.open();
 	    
-	    ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
+	    /*ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
 	    String s = "meeting size:" + meetings.size();
-    	Toast.makeText(CreateMeetingConfirm.this, s, Toast.LENGTH_SHORT).show();
+    	Toast.makeText(CreateMeetingConfirm.this, s, Toast.LENGTH_SHORT).show();*/
     }
 
 	public void back(View Button){
@@ -119,7 +124,7 @@ public class CreateMeetingConfirm extends Activity {
     	
     }
     
-    public void confirm(View button){
+    public void confirm(View button) throws ParseException{
     	
     	//save meeting data into the db, send to server
 
@@ -128,8 +133,19 @@ public class CreateMeetingConfirm extends Activity {
 
     	int initiatorID = uid;
     	
-    	// Add meeting users to internal db
-    	db.createMeeting(mid, mtitle, mlat, mlon, mdesc, maddr, mdate, mstarttime, mendtime, mtracktime, initiatorID); 
+    	// create meeting start time unix timestamp //TODO
+    	// Get current unix timestamp
+		long currentUnixTime = System.currentTimeMillis() / 1000L;// TODO
+    	
+    	String mstartdatetime = mdate + " " + mstarttime;
+    	SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+		Date date = (Date)formatter.parse(mstartdatetime);
+		int timestampInt = (int) (date.getTime() / 1000L);
+		Log.v(createMeetingConfirmTag, " create meeting: meetingID = " + mid + "date.gettime = " + date.getTime() + ", timestamp = " + timestampInt + ", current timestamp = " + currentUnixTime);
+    	
+    	// Add meeting & meeting users to internal db
+		db.open();
+    	db.createMeeting(mid, mtitle, mlat, mlon, mdesc, maddr, mdate, mstarttime, mendtime, mtracktime, initiatorID, timestampInt); 
     	db.createMeetingUser(mid, uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");	// initiator
     	for(int i=0; i<attendessIdsArray.size(); i++){
     		db.createMeetingUser(mid, attendessIdsArray.get(i), MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING, "0"); 	// other attendees other than initiator

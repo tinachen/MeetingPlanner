@@ -5,12 +5,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 
 	private final static String DATABASE_NAME = "MeetingPlanner";
-	public final static int DATABASE_VERSION = 6;
+	public final static int DATABASE_VERSION = 1;
 	public final static String dbHelperTag = "MeetingPlannerDatabaseHelper";
 	
 	// Meetings Table
@@ -26,6 +25,7 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 	public final String MEETING_ENDTIME = "MeetingEndTime";
 	public final String MEETING_TRACKTIME = "MeetingTrackTime";
 	public final String MEETING_INITIATOR_ID = "MeetingInitiatorID";
+	public final String MEETING_STARTTIMESTAMP = "MeetingStartTimestamp";
 	
 	// Users Table
 	public final String USER_TABLE = "Users";
@@ -73,7 +73,8 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 										MEETING_STARTTIME + " TEXT NOT NULL," +
 										MEETING_ENDTIME + " TEXT NOT NULL," +
 										MEETING_TRACKTIME + " INTEGER NOT NULL," +	// minutes
-										MEETING_INITIATOR_ID + " INTEGER NOT NULL" + //TODO commas redo
+										MEETING_INITIATOR_ID + " INTEGER NOT NULL," + //TODO commas redo
+										MEETING_STARTTIMESTAMP + " INTEGER NOT NULL " +
 										//"FOREIGN KEY (" + MEETING_INITIATOR_ID + ") REFERENCES " + USER_TABLE + "(" + USER_ID + ")" +
 									");";
 		
