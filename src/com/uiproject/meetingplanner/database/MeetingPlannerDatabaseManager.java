@@ -762,7 +762,8 @@ public class MeetingPlannerDatabaseManager {
 				+ " FROM " + dbHelper.MEETINGUSER_TABLE 
 				+ " LEFT JOIN " + dbHelper.USER_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=" + dbHelper.USER_TABLE + "." + dbHelper.USER_ID
 				+ " LEFT JOIN " + dbHelper.ATTENDINGSTATUS_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=" + dbHelper.ATTENDINGSTATUS_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID
-				+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=?";
+				+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=?"
+				+ " ORDER BY " + dbHelper.USER_TABLE + "." + dbHelper.USER_LASTNAME + " ASC";
 			
 			// Do the query
 			cursor = db.rawQuery(query, new String[]{String.valueOf(meetingID)});
@@ -807,12 +808,84 @@ public class MeetingPlannerDatabaseManager {
 		return meetingUsersArray;
 	}
 	
+	public ArrayList<UserInstance> getAllUsers(){
+		
+		/*
+		 * meetingUsersArray - used for storing meeting's users info
+		 * cursor - used for storing query result 
+		 */
+		ArrayList<UserInstance> usersArray = new ArrayList<UserInstance>();
+		Cursor cursor;
+		
+		try{
+			
+			// Do the query
+			cursor = db.query(
+					dbHelper.USER_TABLE,
+					new String[]{dbHelper.USER_FIRSTNAME, dbHelper.USER_LASTNAME, dbHelper.USER_EMAIL, dbHelper.USER_PHONE,
+							dbHelper.USER_LOCATIONLAT, dbHelper.USER_LOCATIONLON},
+					null, null, null, null, dbHelper.USER_LASTNAME + " ASC"
+			);
+			
+			
+			// move the cursor's pointer to position zero.
+			cursor.moveToFirst();
+ 
+			// if there is data after the current cursor position, add it
+			// to the ArrayList.
+			if (!cursor.isAfterLast())
+			{
+				do
+				{
+					int userID = cursor.getInt(0);
+					String userFirstName = cursor.getString(1);
+					String userLastName = cursor.getString(2);
+					String userEmail = cursor.getString(3);
+					String userPhone = cursor.getString(4);
+					int userLocationLon = cursor.getInt(5);
+					int userLocationLat = cursor.getInt(6);
+					String userEta = cursor.getString(7);
+					String userAttendingStatus = cursor.getString(8);
+					
+					Log.v(dbManagerTag, "getAllUsers: " + " userID = " + userID
+														+ ", userFirstName = " + userFirstName
+														+ ", userLastName = " + userLastName
+														+ ", userEmail = " + userEmail
+														+ ", userPhone = " + userPhone
+														+ ", userLocationLon = " + userLocationLat
+														+ ", userEta = " + userEta
+														+ ", userAttendingStatus = " + userAttendingStatus);
+					
+					UserInstance u = new UserInstance(userID, userFirstName, userLastName, 
+														userEmail, userPhone, userLocationLon, 
+														userLocationLat, userEta, userAttendingStatus);
+					
+					usersArray.add(u);
+					
+				}
+				// move the cursor's pointer up one position.
+				while (cursor.moveToNext());
+			}
+			
+			cursor.close();
+		}catch(SQLException e) 
+		{
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+		
+
+		Log.v(dbManagerTag, "getAllUsers user size: " + usersArray.size());
+		return usersArray;
+	}
 	
 	public UserInstance getUser(int userID){
 		Cursor cursor;
 		UserInstance user = new UserInstance(userID);
 
 		try{
+			
+			
 			// Do the query
 			cursor = db.query(
 					dbHelper.USER_TABLE,
@@ -821,8 +894,7 @@ public class MeetingPlannerDatabaseManager {
 					dbHelper.USER_ID + "=?", new String[]{Integer.toString(userID)}, null, null, null
 			);
 			
-			String tag = "MeetingPlannerDb";
-			Log.v(tag, "getUser");
+			Log.v(dbManagerTag, "getUser");
 			
 			// move the cursor's pointer to position zero.
 			cursor.moveToFirst();
