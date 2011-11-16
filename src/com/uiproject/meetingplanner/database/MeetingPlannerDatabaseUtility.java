@@ -44,7 +44,7 @@ public class MeetingPlannerDatabaseUtility {
     		String mstartdatetime = meetingObj.getMeetingDate() + " " + meetingObj.getMeetingStartTime();
     		Log.d(dbUtilityTag, " mstartdatetime = " + mstartdatetime);
     		
-    		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    		SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
     		Date date = (Date)formatter.parse(mstartdatetime); 
     		int timestampInt = (int) (date.getTime() / 1000L);
     		Log.d(dbUtilityTag, " create meeting: meetingID = " + meetingObj.getMeetingID() + ", timestamp = " + timestampInt);
