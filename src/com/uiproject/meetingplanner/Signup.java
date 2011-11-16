@@ -1,5 +1,6 @@
 package com.uiproject.meetingplanner;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 
 import org.json.JSONException;
@@ -59,7 +60,7 @@ public class Signup extends Activity {
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	}
 
-	public void submit(View button) throws JSONException, ParseException{
+	public void submit(View button) throws JSONException, ParseException, UnsupportedEncodingException{
 
         //error checking here
         

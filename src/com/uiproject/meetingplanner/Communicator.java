@@ -44,18 +44,30 @@ public class Communicator {
 		return responseResult;
 	}
 
-	public static int createUser(long phoneNumber, String firstName, String lastName, String email, String password) throws UnsupportedEncodingException {
-		firstName = URLEncoder.encode(firstName, "utf-8");
-		lastName = URLEncoder.encode(lastName,"utf-8");
-		email = URLEncoder.encode(email,"utf-8");
-		password = URLEncoder.encode(password,"utf-8");
+	public static int createUser(long phoneNumber, String firstName, String lastName, String email, String password) {
+		try {
+			firstName = URLEncoder.encode(firstName, "utf-8");
+			lastName = URLEncoder.encode(lastName,"utf-8");
+			email = URLEncoder.encode(email,"utf-8");
+			password = URLEncoder.encode(password,"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			Log.d("Communicator URLEncoder Error", "createUser");
+			e.printStackTrace();
+		}
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/mycreateuser?phoneNumber=" + phoneNumber + "&firstName=" + firstName
 				+ "&lastName=" + lastName + "&email=" + email + "&password=" + password;
 		String result = getResponseResult(urlStr);
+		Log.d(communicatorTag, urlStr);
 		return Integer.valueOf(result);
 	}
 
 	public static int logIn(long phoneNumber, String password) {
+		try {
+			password = URLEncoder.encode(password,"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			Log.d("Communicator URLEncoder Error", "logIn");
+			e.printStackTrace();
+		}
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myverifyuser?phoneNumber=" + phoneNumber + "&password=" + password;
 		String result = getResponseResult(urlStr);
 
@@ -68,6 +80,18 @@ public class Communicator {
 
 	public static int createMeeting(int userId, String name, String description, int meetingLat, int meetingLon, String meetingAddress,
 			String meetingDate, String meetingStartTime, String meetingEndTime, int meetingTrackTime, String people) {
+		try {
+			name = URLEncoder.encode(name, "utf-8");
+			description = URLEncoder.encode(description,"utf-8");
+			meetingAddress = URLEncoder.encode(meetingAddress,"utf-8");
+			meetingDate = URLEncoder.encode(meetingDate,"utf-8");
+			meetingStartTime = URLEncoder.encode(meetingStartTime, "utf-8");
+			meetingEndTime = URLEncoder.encode(meetingEndTime,"utf-8");
+			people = URLEncoder.encode(people,"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			Log.d("Communicator URLEncoder Error", "createMeeting");
+			e.printStackTrace();
+		}
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/mycreatemeeting?userId=" + userId + "&name=" + name + "&description="
 				+ description + "&meetingLat=" + meetingLat + "&meetingLon=" + meetingLon + "&meetingAddress=" + meetingAddress + "&meetingDate="
 				+ meetingDate + "&meetingStartTime=" + meetingStartTime + "&meetingEndTime=" + meetingEndTime + "&meetingTrackTime="
@@ -156,6 +180,18 @@ public class Communicator {
 
 	public static int updateMeeting(int meetingId, int userId, String name, String description, int meetingLat, int meetingLon,
 			String meetingAddress, String meetingDate, String meetingStartTime, String meetingEndTime, int meetingTrackTime, String people) {
+		try {
+			name = URLEncoder.encode(name, "utf-8");
+			description = URLEncoder.encode(description,"utf-8");
+			meetingAddress = URLEncoder.encode(meetingAddress,"utf-8");
+			meetingDate = URLEncoder.encode(meetingDate,"utf-8");
+			meetingStartTime = URLEncoder.encode(meetingStartTime, "utf-8");
+			meetingEndTime = URLEncoder.encode(meetingEndTime,"utf-8");
+			people = URLEncoder.encode(people,"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			Log.d("Communicator URLEncoder Error", "updateMeeting");
+			e.printStackTrace();
+		}
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatemeeting?meetingId=" + meetingId + "&userId=" + userId + "&name="
 				+ name + "&description=" + description + "&meetingLat=" + meetingLat + "&meetingLon=" + meetingLon + "&meetingAddress="
 				+ meetingAddress + "&meetingDate=" + meetingDate + "&meetingStartTime=" + meetingStartTime + "&meetingEndTime=" + meetingEndTime
@@ -166,12 +202,27 @@ public class Communicator {
 	}
 	
 	public static int updateUser(int userId, long phoneNumber, String firstName, String lastName, String email, String password){
+		try {
+			firstName = URLEncoder.encode(firstName, "utf-8");
+			lastName = URLEncoder.encode(lastName,"utf-8");
+			email = URLEncoder.encode(email,"utf-8");
+			password = URLEncoder.encode(password,"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			Log.d("Communicator URLEncoder Error", "updateUser");
+			e.printStackTrace();
+		}
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdateuser?userId="+userId+"&phoneNumber="+phoneNumber+"&firstName="+firstName+"&lastName="+lastName+"&email="+email+"&password="+password;;
 		String result = getResponseResult(urlStr);
 		return Integer.valueOf(result);
 	}
 	
 	public static Map<String,Object> updateLocation (int userId, int meetingId, int lat, int lon, String eta) throws JSONException {
+		try {
+			eta = URLEncoder.encode(eta, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			Log.d("Communicator URLEncoder Error", "updateLocation");
+			e.printStackTrace();
+		}
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId="+userId+"&meetingId="+meetingId+"&lat="+lat+"&lon="+lon+"&eta="+eta;
 		String result = getResponseResult(urlStr);
 		Map<String,Object> msg =new HashMap<String,Object> ();
