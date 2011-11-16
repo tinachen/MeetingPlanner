@@ -113,7 +113,7 @@ public class Login extends Activity {
         if(remember_me.isChecked()){ 
         	editor.putBoolean("remember", true);
         	editor.putString("userPassword", userPassword);
-            Toast.makeText(getBaseContext(), "remembering you", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(), "remembering you", Toast.LENGTH_SHORT).show();
         }else{
         	editor.putBoolean("remember", false);
         }

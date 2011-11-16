@@ -620,7 +620,7 @@ public class MeetingPlannerDatabaseManager {
 						+ " AND " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + ">" + (int)currentUnixTime 
 						+ " ORDER BY " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " ASC";
 			
-			Log.d(dbManagerTag, "getRecentMeeting query: " + query);
+			Log.d(dbManagerTag, "getNextUpcomingMeeting query: " + query);
 			
 			// Do the query
 			cursor = db.rawQuery(query, new String[]{String.valueOf(userID)});
@@ -647,7 +647,7 @@ public class MeetingPlannerDatabaseManager {
 					int meetingInitiatorID = cursor.getInt(10);
 					int meetingStarttimestamp = cursor.getInt(11);
 
-					Log.d(dbManagerTag, "getRecentMeeting result: " + "meetingID = " + meetingID 
+					Log.d(dbManagerTag, "getNextUpcomingMeeting result: " + "meetingID = " + meetingID 
 																	+ ", meetingTitle = " + meetingTitle
 																	+ ", meetingDate = " + meetingDate
 																	+ ", meetingStartTime = " + meetingStartTime
@@ -757,13 +757,20 @@ public class MeetingPlannerDatabaseManager {
 		try{
 			
 			//String MY_QUERY = "SELECT * FROM table_a a INNER JOIN table_b b ON a.id=b.other_id WHERE b.property_id=?";
-			String query = "SELECT " + dbHelper.USER_ID + "," + dbHelper.USER_FIRSTNAME  + "," + dbHelper.USER_LASTNAME+ "," + dbHelper.USER_EMAIL + "," 
-				+ dbHelper.USER_PHONE + "," + dbHelper.USER_LOCATIONLON + "," + dbHelper.USER_LOCATIONLAT + "," + dbHelper.MEETINGUSER_ETA + "," + dbHelper.ATTENDINGSTATUS_NAME 
-				+ " FROM " + dbHelper.MEETINGUSER_TABLE 
-				+ " LEFT JOIN " + dbHelper.USER_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=" + dbHelper.USER_TABLE + "." + dbHelper.USER_ID
-				+ " LEFT JOIN " + dbHelper.ATTENDINGSTATUS_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=" + dbHelper.ATTENDINGSTATUS_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID
-				+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=?"
-				+ " ORDER BY " + dbHelper.USER_TABLE + "." + dbHelper.USER_LASTNAME + " ASC";
+			String query = "SELECT " + dbHelper.USER_TABLE + "." + dbHelper.USER_ID + "," 
+									+ dbHelper.USER_TABLE + "." + dbHelper.USER_FIRSTNAME  + "," 
+									+ dbHelper.USER_TABLE + "." + dbHelper.USER_LASTNAME+ "," 
+									+ dbHelper.USER_TABLE + "." + dbHelper.USER_EMAIL + "," 
+									+ dbHelper.USER_TABLE + "." + dbHelper.USER_PHONE + "," 
+									+ dbHelper.USER_TABLE + "." + dbHelper.USER_LOCATIONLON + "," 
+									+ dbHelper.USER_TABLE + "." + dbHelper.USER_LOCATIONLAT + ","
+									+ dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETINGUSER_ETA + "," 
+									+ dbHelper.ATTENDINGSTATUS_TABLE + "." + dbHelper.ATTENDINGSTATUS_NAME 
+						+ " FROM " + dbHelper.MEETINGUSER_TABLE 
+						+ " LEFT JOIN " + dbHelper.USER_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=" + dbHelper.USER_TABLE + "." + dbHelper.USER_ID
+						+ " LEFT JOIN " + dbHelper.ATTENDINGSTATUS_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=" + dbHelper.ATTENDINGSTATUS_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID
+						+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=?"
+						+ " ORDER BY " + dbHelper.USER_TABLE + "." + dbHelper.USER_LASTNAME + " ASC";
 			
 			// Do the query
 			cursor = db.rawQuery(query, new String[]{String.valueOf(meetingID)});
@@ -805,6 +812,7 @@ public class MeetingPlannerDatabaseManager {
 			e.printStackTrace();
 		}
 		
+		Log.d(dbManagerTag, "getMeetingUsersArray array size = " + meetingUsersArray.size());
 		return meetingUsersArray;
 	}
 	

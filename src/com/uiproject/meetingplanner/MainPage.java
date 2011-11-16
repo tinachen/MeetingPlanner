@@ -1,5 +1,6 @@
 package com.uiproject.meetingplanner;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.app.Activity;
@@ -32,6 +33,7 @@ public class MainPage extends Activity {
         name = (TextView) findViewById(R.id.name);
 
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	SharedPreferences.Editor editor = settings.edit();
     	String username = settings.getString("userFirstName", "") + " " + settings.getString("userLastName", "");
     	if (username.length() == 1){
     		name.setText("Add your name");
@@ -57,6 +59,8 @@ public class MainPage extends Activity {
 	    Log.d(mainPageTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
 	    //ArrayList<UserInstance> userarray = db.getAllUsers();
 	    //Log.d(mainPageTag, "getallusers: " + "size = " + userarray.size());
+	    ArrayList<UserInstance> userarray = db.getMeetingUsersArray(m.getMeetingID());
+	    Log.d(mainPageTag, "getallusers: " + "size = " + userarray.size());
 	    db.close();
 	    
 	    mtitle = (TextView) findViewById(R.id.mtitle);
@@ -70,6 +74,9 @@ public class MainPage extends Activity {
 	    	mwhen.setVisibility(View.GONE);
 	    	mdesc.setVisibility(View.GONE);
 	    	track_button.setVisibility(View.GONE);
+	    	
+	    	// Set sharedpreferences
+	    	editor.putInt("currentTrackingMid", -1);
 	    }else{
 	    	mtitle.setText(m.getMeetingTitle());
 	    	String when = m.getMeetingDate() + ", " + m.getMeetingStartTime() + "-" + m.getMeetingEndTime();
@@ -87,7 +94,12 @@ public class MainPage extends Activity {
 	    	if (minutes_before > tracktime){
 		    	track_button.setVisibility(View.GONE);
 	    	}
+	    	
+	    	// Set sharedpreferences
+	    	editor.putInt("currentTrackingMid", mid);
 	    }
+	    
+	    editor.commit(); 
     }
 
     public void gotoMyMeetings(View button){

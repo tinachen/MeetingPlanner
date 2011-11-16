@@ -18,6 +18,7 @@ public class Logout {
     	editor.remove("userLastName");
     	editor.remove("userEmail");
     	editor.remove("remember");
+    	editor.remove("currentTrackingMid");
     	editor.commit();
 
         Intent intent = new Intent(context, Login.class);
