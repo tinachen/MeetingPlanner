@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -12,14 +16,24 @@ import android.widget.ListView;
 
 public class TrackerEtaList extends Activity {
 
+	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	private ListView attendeesList;
 	private ArrayList<UserInstance> attendees;
 	private ArrayAdapter<UserInstance> adapter; 
+    private MeetingPlannerDatabaseManager db;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trackeretalist);
+        
+        db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+        SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+        int mid = settings.getInt("currentTrackingMid", -1);
+        
+        db.open();
+        db.getMeetingUsersArray(mid);
+        db.close();
         
         attendeesList =  (ListView) findViewById(R.id.attendeesList);
         attendees = new ArrayList<UserInstance>();
