@@ -139,7 +139,7 @@ public class CreateMeetingConfirm extends Activity {
 		long currentUnixTime = System.currentTimeMillis() / 1000L;// TODO
     	
     	String mstartdatetime = mdate + " " + mstarttime;
-    	SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+    	SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		Date date = (Date)formatter.parse(mstartdatetime);
 		int timestampInt = (int) (date.getTime() / 1000L);
 		Log.d(createMeetingConfirmTag, " create meeting: meetingID = " + mid + ", date.gettime = " + date.getTime() + ", timestamp = " + timestampInt + ", current timestamp = " + currentUnixTime);
