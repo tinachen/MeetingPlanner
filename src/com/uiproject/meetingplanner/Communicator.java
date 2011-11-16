@@ -144,6 +144,7 @@ public class Communicator {
 			allMeetings.put(meetingIds.getInt(i), new MeetingInstance(meetingID, meetingLat, meetingLon, meetingTitle, meetingDescription,
 					meetingAddress, meetingDate, meetingStartTime, meetingEndTime, meetingTrackTime, attendees, meetingInitiatorID));
 		}
+		
 		return allMeetings;
 	}
 
@@ -154,6 +155,7 @@ public class Communicator {
 				+ meetingAddress + "&meetingDate=" + meetingDate + "&meetingStartTime=" + meetingStartTime + "&meetingEndTime=" + meetingEndTime
 				+ "&meetingTrackTime=" + meetingTrackTime + "&people=" + people;
 		String result = getResponseResult(urlStr);
+		Log.d(communicatorTag, "updateMeeting url = " +urlStr);
 		return Integer.valueOf(result);
 	}
 	

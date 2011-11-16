@@ -142,6 +142,7 @@ public class MeetingListPending extends ExpandableListActivity
 
 	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	int uid = settings.getInt("uid", -1);
+    	
         Communicator.acceptMeeting(uid, meetingID);
 
         db.open();

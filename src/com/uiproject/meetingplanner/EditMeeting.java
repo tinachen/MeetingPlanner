@@ -36,7 +36,7 @@ public class EditMeeting extends Activity {
 	
 	private EditText mname, desc;
 	private Button delete;
-	private int mid;
+	private int mid, uid;
 	
 	//for date picker
 	private Button mPickDate;
@@ -110,6 +110,9 @@ public class EditMeeting extends Activity {
             finish();
             return;
         }
+
+    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	uid = settings.getInt("uid", -1);
         
         mname = (EditText) findViewById(R.id.mname_field);
         desc = (EditText) findViewById(R.id.desc);
@@ -281,13 +284,14 @@ public class EditMeeting extends Activity {
     	Toast.makeText(EditMeeting.this, "meeting saved!", Toast.LENGTH_SHORT).show();
     	
     	
-    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-    	int uid = settings.getInt("uid", 0);
     	String mtitle = mname.getText().toString();
     	String mdesc = desc.getText().toString();
     	String mdate = mMonth + "/" + mDay + "/" + mYear;
     	String mstarttime = pad(msHour) + ":" + pad(msMinute);
     	String mendtime = pad(meHour) + ":" + pad(meMinute);
+    	addr = "location test"; // TODO remove
+    	lat = 34; // TODO remove
+    	lon = -12; // TODO remove
     	Communicator.updateMeeting(mid, uid, mtitle, mdesc, lat, lon, addr, mdate, mstarttime, mendtime, (int) (trackTime * 60), uids);
     	db.open();
     	db.updateMeeting(mid, mtitle, lat, lon, mdesc, addr, mdate, mstarttime, mendtime, (int)(trackTime * 60)); 
