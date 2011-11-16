@@ -100,7 +100,7 @@ public class Login extends Activity {
         // Close db 
     	db.close();
     	
-        Log.v(LoginTag, "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName());
+        Log.d(LoginTag, "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName());
         
         // Saves user info into sharedpreferences
     	editor.putInt("uid", userID);
@@ -113,7 +113,7 @@ public class Login extends Activity {
         if(remember_me.isChecked()){ 
         	editor.putBoolean("remember", true);
         	editor.putString("userPassword", userPassword);
-            Toast.makeText(getBaseContext(), "remembering you", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(), "remembering you", Toast.LENGTH_SHORT).show();
         }else{
         	editor.putBoolean("remember", false);
         }
