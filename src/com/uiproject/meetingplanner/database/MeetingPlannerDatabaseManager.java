@@ -816,6 +816,71 @@ public class MeetingPlannerDatabaseManager {
 		return meetingUsersArray;
 	}
 	
+	public MeetingInstance getMeeting(int meetingID){
+		Cursor cursor;
+		MeetingInstance meeting = new MeetingInstance();
+		meeting.setMeetingID(meetingID);
+		
+		try{
+			
+			// Do the query
+			cursor = db.query(
+					dbHelper.MEETING_TABLE,
+					new String[]{dbHelper.MEETING_TITLE, dbHelper.MEETING_LAT, dbHelper.MEETING_LON, dbHelper.MEETING_DESCRIPTION,
+							dbHelper.MEETING_ADDRESS, dbHelper.MEETING_DATE, dbHelper.MEETING_STARTTIME, dbHelper.MEETING_ENDTIME,
+							dbHelper.MEETING_TRACKTIME, dbHelper.MEETING_INITIATOR_ID},
+					dbHelper.MEETING_ID + "=?", new String[]{Integer.toString(meetingID)}, null, null, null
+			);
+			
+			Log.d(dbManagerTag, "getMeeting");
+			
+			// move the cursor's pointer to position zero.
+			cursor.moveToFirst();
+ 
+			// if there is data after the current cursor position, add it
+			// to the ArrayList.
+			if (!cursor.isAfterLast())
+			{
+				do
+				{	
+					String meetingTitle = cursor.getString(0);
+					int meetingLat = cursor.getInt(1);
+					int meetingLon = cursor.getInt(2);
+					String meetingDescription = cursor.getString(3);
+					String meetingAddress = cursor.getString(4);
+					String meetingDate = cursor.getString(5);
+					String meetingStartTime = cursor.getString(6);
+					String meetingEndTime = cursor.getString(7);
+					int meetingTrackTime = cursor.getInt(8);
+					int meetingInitiatorID = cursor.getInt(9);
+					
+					meeting.setMeetingTitle(meetingTitle);
+					meeting.setMeetingLat(meetingLat);
+					meeting.setMeetingLon(meetingLon);
+					meeting.setMeetingDescription(meetingDescription);
+					meeting.setMeetingAddress(meetingAddress);
+					meeting.setMeetingDate(meetingDate);
+					meeting.setMeetingStartTime(meetingStartTime);
+					meeting.setMeetingEndTime(meetingEndTime);
+					meeting.setMeetingTrackTime(meetingTrackTime);
+					meeting.setMeetingInitiatorID(meetingInitiatorID);
+					
+				}
+				
+				// move the cursor's pointer up one position.
+				while (cursor.moveToNext());
+			}
+			
+			cursor.close();
+		}catch(SQLException e) 
+		{
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+		
+		return meeting;
+	}
+	
 	public ArrayList<UserInstance> getAllUsers(){
 		
 		/*
@@ -900,7 +965,6 @@ public class MeetingPlannerDatabaseManager {
 		UserInstance user = new UserInstance(userID);
 
 		try{
-			
 			
 			// Do the query
 			cursor = db.query(
