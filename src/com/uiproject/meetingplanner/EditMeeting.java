@@ -293,6 +293,7 @@ public class EditMeeting extends Activity {
     	db.updateMeeting(mid, mtitle, lat, lon, mdesc, addr, mdate, mstarttime, mendtime, (int)(trackTime * 60)); 
 
     	if (ppl_changed){ // need to update uses
+    		/*
     		// db.deleteMeetingUsers(mid)
     		int  commaIndex;
             String tempids = uids;
@@ -318,7 +319,7 @@ public class EditMeeting extends Activity {
         	}
         	//add meeting creator
     		db.createMeetingUser(mid, uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");
-    		
+    		*/
     	}
     	db.close();
     	this.finish();    	
