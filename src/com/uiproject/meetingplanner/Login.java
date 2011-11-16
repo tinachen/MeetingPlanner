@@ -48,7 +48,7 @@ public class Login extends Activity {
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	}
 
-	public void checkLogin(View button) throws JSONException, ParseException{
+	public void checkLogin(View button) throws JSONException, ParseException, NumberFormatException{
 		
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		SharedPreferences.Editor editor = settings.edit();
