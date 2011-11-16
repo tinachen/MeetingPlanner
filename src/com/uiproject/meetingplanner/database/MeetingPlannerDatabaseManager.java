@@ -251,9 +251,27 @@ public class MeetingPlannerDatabaseManager {
 		}
 	}
 	
+	/**
+	 * Delete 1 specific user for a meeting
+	 * @param meetingID
+	 * @param userID
+	 */
 	public void deleteMeetingUser(int meetingID, int userID){
 		try {
 			db.delete(dbHelper.MEETINGUSER_TABLE, dbHelper.USER_ID + "=" + userID + " AND " + dbHelper.MEETING_ID + " = " + meetingID, null);
+		}catch (Exception e){
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Delete all users for a meeting
+	 * @param meetingID
+	 */
+	public void deleteMeetingUsers(int meetingID){
+		try {
+			db.delete(dbHelper.MEETINGUSER_TABLE, dbHelper.MEETING_ID + " = " + meetingID, null);
 		}catch (Exception e){
 			Log.e("DB ERROR", e.toString());
 			e.printStackTrace();
