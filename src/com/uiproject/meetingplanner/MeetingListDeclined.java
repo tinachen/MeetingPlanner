@@ -13,6 +13,7 @@ import android.app.Dialog;
 import android.app.ExpandableListActivity;
 import android.app.ListActivity;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -139,8 +140,10 @@ public class MeetingListDeclined extends ExpandableListActivity
         Toast.makeText(getApplicationContext(), "You clicked me! " + meetingID, Toast.LENGTH_SHORT).show();
       
         vwParentRow.refreshDrawableState();  
-        
-        //ELIZABETH'S CODE HERE
+
+		Intent intent = new Intent(MeetingListDeclined.this, EditMeeting.class);
+		intent.putExtra("mid", meetingID);
+		startActivity(intent);
     }
 /**
   * Creates the group list out of the colors[] array according to

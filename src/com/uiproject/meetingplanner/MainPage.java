@@ -83,7 +83,6 @@ public class MainPage extends Activity {
 	    	mwhen.setText(when);
 	    	mdesc.setText(m.getMeetingDescription());
 	    	track_button.setTag(mid);
-	        final Calendar c = Calendar.getInstance();
 	        int currenth = Calendar.HOUR_OF_DAY;
 	        int currentm = Calendar.MINUTE;
 	    	String start = m.getMeetingStartTime();
@@ -116,7 +115,8 @@ public class MainPage extends Activity {
     }
     
     public void track(View button){
-    	int mid = Integer.parseInt((String)button.getTag());
+    	String tag = button.getTag().toString();
+    	int mid = Integer.parseInt(tag);
 		Intent intent = new Intent(MainPage.this, TrackerMap.class);
 		intent.putExtra("mid", mid);
 		startActivity(intent);
