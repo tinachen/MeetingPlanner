@@ -59,8 +59,8 @@ public class MainPage extends Activity {
 	    Log.d(mainPageTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
 	    //ArrayList<UserInstance> userarray = db.getAllUsers();
 	    //Log.d(mainPageTag, "getallusers: " + "size = " + userarray.size());
-	    ArrayList<UserInstance> userarray = db.getMeetingUsersArray(m.getMeetingID());
-	    Log.d(mainPageTag, "getallusers: " + "size = " + userarray.size());
+	    //ArrayList<UserInstance> userarray = db.getMeetingUsersArray(m.getMeetingID());
+	    //Log.d(mainPageTag, "getallusers: " + "size = " + userarray.size());
 	    db.close();
 	    
 	    mtitle = (TextView) findViewById(R.id.mtitle);
