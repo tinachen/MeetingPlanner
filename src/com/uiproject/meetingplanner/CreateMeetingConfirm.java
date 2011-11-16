@@ -61,7 +61,7 @@ public class CreateMeetingConfirm extends Activity {
     	mdate = month + "-" + day + "-" + year;
     	mstarttime = pad(sh) + ":" + pad(sm);
     	mendtime = pad(eh) + ":" + pad(em);
-    	mtracktime = (int) ((double) settings.getFloat("mtracktime", (float).5) * 60);
+    	mtracktime = (int) ((double) settings.getFloat("mtracktime", (float).5) * 60D);
     	mlon = settings.getInt("mlon", 0);
     	mlat = settings.getInt("mlat", 0);
     	//mattendeeids = settings.getString("mphones", ""); //TODO hard code it for now
@@ -147,6 +147,7 @@ public class CreateMeetingConfirm extends Activity {
 		db.open();
     	db.createMeeting(mid, mtitle, mlat, mlon, mdesc, maddr, mdate, mstarttime, mendtime, mtracktime, initiatorID, timestampInt); 
     	db.createMeetingUser(mid, uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");	// initiator
+    	Log.d(createMeetingConfirmTag, "create meeting: mtracktime = " + mtracktime);
     	Log.d(createMeetingConfirmTag, "attendee array size = " + attendessIdsArray.size());
     	for(int i=0; i<attendessIdsArray.size(); i++){
     		db.createMeetingUser(mid, attendessIdsArray.get(i), MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING, "0"); 	// other attendees other than initiator
