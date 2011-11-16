@@ -100,7 +100,7 @@ public class Login extends Activity {
         // Close db 
     	db.close();
     	
-        Log.v(LoginTag, "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName());
+        Log.d(LoginTag, "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName());
         
         // Saves user info into sharedpreferences
     	editor.putInt("uid", userID);

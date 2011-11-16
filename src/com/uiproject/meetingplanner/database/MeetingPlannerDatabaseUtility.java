@@ -36,17 +36,18 @@ public class MeetingPlannerDatabaseUtility {
     				userObj.getUserEmail(), userObj.getUserPhone(), userObj.getUserLocationLon(), userObj.getUserLocationLat());
     	}
 
+    	Log.d(dbUtilityTag, " meeting size = " + meetingsMap.size());
     	// 2-2. Update Meetings
     	for (MeetingInstance meetingObj : meetingsMap.values()) {
     		
     		// convert start time into unix timestamp
     		String mstartdatetime = meetingObj.getMeetingDate() + " " + meetingObj.getMeetingStartTime();
-    		Log.v(dbUtilityTag, " mstartdatetime = " + mstartdatetime);
+    		Log.d(dbUtilityTag, " mstartdatetime = " + mstartdatetime);
     		
     		SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
     		Date date = (Date)formatter.parse(mstartdatetime); 
     		int timestampInt = (int) (date.getTime() / 1000L);
-    		Log.v(dbUtilityTag, " create meeting: meetingID = " + meetingObj.getMeetingID() + ", timestamp = " + timestampInt);
+    		Log.d(dbUtilityTag, " create meeting: meetingID = " + meetingObj.getMeetingID() + ", timestamp = " + timestampInt);
     		
     		db.createMeeting(meetingObj.getMeetingID(), meetingObj.getMeetingTitle(), meetingObj.getMeetingLat(), meetingObj.getMeetingLon(),
     						meetingObj.getMeetingDescription(), meetingObj.getMeetingAddress(), meetingObj.getMeetingDate(), 

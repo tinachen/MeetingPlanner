@@ -67,8 +67,8 @@ public class Communicator {
 				+ meetingDate + "&meetingStartTime=" + meetingStartTime + "&meetingEndTime=" + meetingEndTime + "&meetingTrackTime="
 				+ meetingTrackTime + "&people=" + people;
 		String result = getResponseResult(urlStr);
-		Log.v(communicatorTag, "createMeeting url = " + urlStr);
-		Log.v(communicatorTag, "createMeeting return string = " + result);
+		Log.d(communicatorTag, "createMeeting url = " + urlStr);
+		Log.d(communicatorTag, "createMeeting return string = " + result);
 		return Integer.valueOf(result);
 	}
 
@@ -113,10 +113,11 @@ public class Communicator {
 		String result = getResponseResult(urlStr);
 		JSONObject meetings = new JSONObject(result);
 		JSONArray meetingIds = meetings.names();
-		if (meetingIds == null)
-			return null;
+		
 		JSONArray meetingInfos = meetings.toJSONArray(meetingIds);
 		Map<Integer, MeetingInstance> allMeetings = new HashMap<Integer, MeetingInstance>();
+		if (meetingIds == null)
+			return allMeetings;
 		for (int i = 0; i < meetingInfos.length(); i++) {
 			int meetingID = meetingIds.getInt(i);
 			int meetingLat = meetingInfos.getJSONObject(i).getInt("meetingLat");

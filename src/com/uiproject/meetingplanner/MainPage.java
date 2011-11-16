@@ -1,5 +1,7 @@
 package com.uiproject.meetingplanner;
 
+import java.util.ArrayList;
+
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
@@ -51,8 +53,9 @@ public class MainPage extends Activity {
 	    int uid = settings.getInt("uid", -1);
 	    db.open();
 	    MeetingInstance m = db.getNextUpcomingMeeting(uid);
-	    Log.v(mainPageTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
-	    db.getAllUsers();
+	    Log.d(mainPageTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
+	    //ArrayList<UserInstance> userarray = db.getAllUsers();
+	    //Log.d(mainPageTag, "getallusers: " + "size = " + userarray.size());
 	    db.close();
     }
 
