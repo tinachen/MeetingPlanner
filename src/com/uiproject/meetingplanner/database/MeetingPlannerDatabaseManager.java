@@ -69,9 +69,10 @@ public class MeetingPlannerDatabaseManager {
 			String s1 = "create meeting debug " + l;
 			//Toast.makeText(context, s1, Toast.LENGTH_SHORT).show(); //TODO
 			
-			Log.d(dbManagerTag, "createMeeting: meetingID=" + meetingID + ", meetingTitle=" + meetingTitle + 
-					", meetingDescription=" + meetingDescription + ", meetingInitiatorID=" + meetingInitiatorID + 
-					", meetingStartTimestamp" + meetingStartTimestamp);
+			Log.d(dbManagerTag, "createMeeting: meetingID = " + meetingID + ", meetingTitle = " + meetingTitle + 
+					", meetingDescription = " + meetingDescription + ", meetingInitiatorID = " + meetingInitiatorID + 
+					", meetingStartTime = " + meetingStartTime + ", meetingEndTime = " + meetingEndTime +
+					", meetingStartTimestamp = " + meetingStartTimestamp);
 		}
 		catch(Exception e)
 		{

@@ -52,6 +52,7 @@ public class Communicator {
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/mycreateuser?phoneNumber=" + phoneNumber + "&firstName=" + firstName
 				+ "&lastName=" + lastName + "&email=" + email + "&password=" + password;
 		String result = getResponseResult(urlStr);
+		Log.d(communicatorTag, urlStr);
 		return Integer.valueOf(result);
 	}
 
