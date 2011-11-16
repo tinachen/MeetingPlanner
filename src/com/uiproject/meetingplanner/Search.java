@@ -31,6 +31,7 @@ public class Search extends Activity implements OnItemClickListener {
     protected Vector<String> contactList;
     protected ArrayList<String> checkedNames;
     protected ArrayList<String> checkedPhoneNumbers;
+    protected ArrayList<UserInstance> usersArray;
     private MeetingPlannerDatabaseManager db;
     // TODO change to list of user id's
 
@@ -45,13 +46,18 @@ public class Search extends Activity implements OnItemClickListener {
 	    contactList = new Vector<String>();
 	    checkedNames = new ArrayList<String>();
 	    checkedPhoneNumbers = new ArrayList<String>();
-	    
-	    db.open();
-	    ArrayList<UserInstance> usersArray = db.getAllUsers();
-	    db.close();
+	    usersArray = new ArrayList<UserInstance>();
 	}
 	
 	public void init() {
+	    db.open();
+	    usersArray = db.getAllUsers();
+	    db.close();
+		
+		//usersArray.add(new UserInstance(1, "Cauchy", "Choi", "cauchych@usc.edu",
+		//		"4084991666", 2, 3));
+		//usersArray.add(new UserInstance(2, "Tina", "Chen", "tinac@usc.edu", "6263761106", 2, 3));
+		
 	    // Gets the contact list and saves it into contactList
 	    ContentResolver cr = getContentResolver();
 	    Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI,null, null, null, null);
@@ -59,9 +65,9 @@ public class Search extends Activity implements OnItemClickListener {
 	    	while (cursor.moveToNext()) {
 	    		// Get name from contact list
 	    	    String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-	    	    currentSearchList.add(name);
-	    	    contactList.add(name);
-	    	    Log.d("Contact List", name);
+		    	//currentSearchList.add(name);
+		    	contactList.add(name);
+		    	//Log.d("Contact List", name);
 	    	    
 	    	    // Get phone number from contact list
 	    	    String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
@@ -75,7 +81,16 @@ public class Search extends Activity implements OnItemClickListener {
 	    	    if (Boolean.parseBoolean(hasPhone)) {
 	    	    	Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ contactId,null, null);
 	    	        while (phones.moveToNext()) {
-	    	        	checkedPhoneNumbers.add(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+	    	        	String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("\\D", "");
+	    	        	//phoneNumber.replaceAll("\\D", "");
+	    	        	Log.d("TEST", phoneNumber);
+	    	        	for (int i = 0; i < usersArray.size(); i++) {
+	    	        		Log.d("TEST1", phones.getString(phones.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
+		    	        	if (usersArray.get(i).getUserPhone().equals(phoneNumber)) {
+		    	        		currentSearchList.add(phones.getString(phones.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
+		    	        	}
+	    	        	}
+	    	        	checkedPhoneNumbers.add(phoneNumber);
 	    	        }
 	    	        phones.close();
 	    	    }
@@ -85,7 +100,7 @@ public class Search extends Activity implements OnItemClickListener {
 	    // Sets up the adapter for AutoCompleteTextView
 	    textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_names);
 	    //String[] search_contacts = getResources().getStringArray(R.array.search_contacts);
-	    adapter = new ArrayAdapter<String>(this, R.layout.list_item, contactList);
+	    adapter = new ArrayAdapter<String>(this, R.layout.list_item, currentSearchList);
 	    textView.setAdapter(adapter);
 	    textView.setThreshold(1);
 	    textView.setDropDownHeight(0);
