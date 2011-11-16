@@ -1,6 +1,7 @@
 package com.uiproject.meetingplanner;
 
 import android.app.ExpandableListActivity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -128,9 +129,10 @@ public class MeetingListAccepted extends ExpandableListActivity
         Toast.makeText(getApplicationContext(), "You clicked me! " + meetingID, Toast.LENGTH_SHORT).show();
       
         vwParentRow.refreshDrawableState();  
-        
-        //ELIZABETH'S CODE HERE
-    
+
+		Intent intent = new Intent(MeetingListAccepted.this, EditMeeting.class);
+		intent.putExtra("mid", meetingID);
+		startActivity(intent);
     }
 /**
   * Creates the group list out of the colors[] array according to

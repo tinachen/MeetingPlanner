@@ -97,8 +97,7 @@ public class EditMeeting extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editmeeting);
         
-        //mid = savedInstanceState.getInt("mid");
-        mid = 0;
+        mid = getIntent().getIntExtra("mid", -1);
         mname = (EditText) findViewById(R.id.mname_field);
         desc = (EditText) findViewById(R.id.desc);
         mPickDate = (Button) findViewById(R.id.pickDate);
@@ -110,7 +109,7 @@ public class EditMeeting extends Activity {
         delete = (Button) findViewById(R.id.delete);
         delete.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
         
-        // get meeting info from db
+        // TODO get meeting info from db
         mYear = 2011;
         mMonth = 11;
         mDay = 8;

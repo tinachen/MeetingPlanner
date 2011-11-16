@@ -139,8 +139,12 @@ public class MeetingListPending extends ExpandableListActivity
         Toast.makeText(getApplicationContext(), "You accepted me! " + meetingID, Toast.LENGTH_SHORT).show();
       
         vwParentRow.refreshDrawableState();  
+
+	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	int uid = settings.getInt("uid", -1);
+        Communicator.acceptMeeting(uid, meetingID);
         
-        //ELIZABETH'S CODE HERE
+        // TODO add to tina's db
     }
     
     public void declineButtonClicked(View view)
@@ -156,8 +160,11 @@ public class MeetingListPending extends ExpandableListActivity
         Toast.makeText(getApplicationContext(), "You rejected me.. :( " + meetingID, Toast.LENGTH_SHORT).show();
       
         vwParentRow.refreshDrawableState();  
-        
-        //ELIZABETH'S CODE HERE
+
+	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	int uid = settings.getInt("uid", -1);
+        Communicator.declineMeeting(uid, meetingID);
+        //TODO tina's db code here
     }
 /**
   * Creates the group list out of the colors[] array according to
