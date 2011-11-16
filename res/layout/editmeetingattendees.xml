@@ -5,8 +5,7 @@
     android:orientation="vertical" >
 
 
-
-<LinearLayout
+<LinearLayout 
     android:orientation="vertical"
     android:layout_width="match_parent" 
     android:layout_height="wrap_content"
@@ -15,20 +14,27 @@
     <AutoCompleteTextView android:id="@+id/autocomplete_names"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginLeft="5dp"
+        android:hint="Search Names"/>
     <ListView android:layout_width="match_parent"
         android:id="@+id/contactList"
         android:layout_height="wrap_content"/>
 </LinearLayout>
 
     
-        
-
+       <LinearLayout
+       		android:orientation="vertical"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+	        
         <Button
-            android:id="@+id/next_button"
+            android:id="@+id/confirm_button"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:text="Confirm"
-            android:onClick="confirm"/>
+            android:onClick="confirm"
+             />
+
+		</LinearLayout>
 
 </LinearLayout>

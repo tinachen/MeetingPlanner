@@ -153,6 +153,8 @@ public class CreateMeetingConfirm extends Activity {
     		db.createMeetingUser(mid, attendessIdsArray.get(i), MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING, "0"); 	// other attendees other than initiator
     	}
     	
+    	// add meeting creator
+    	db.createMeetingUser(mid, uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING, "0");
     	MeetingInstance m = db.getNextUpcomingMeeting(uid);
 	    Log.d(createMeetingConfirmTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
 	    

@@ -1,6 +1,6 @@
 package com.uiproject.meetingplanner;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -27,8 +27,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+
 public class EditMeeting extends Activity {
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+    private MeetingPlannerDatabaseManager db;
 	
 	private EditText mname, desc;
 	private Button delete;
@@ -52,6 +56,7 @@ public class EditMeeting extends Activity {
     private int meMinute;
     static final int TIME_DIALOG_ID_END = 2;
     static final int DESC_DIALOG = 3;
+    private boolean ppl_changed = false;
     
     protected double trackTime;
 	
@@ -60,7 +65,8 @@ public class EditMeeting extends Activity {
     TextView location, attendees;
     int lat, lon;
     String addr, title, description;
-    String people, names;
+    String uids, names;
+    ArrayList<Integer> uidList;
     
     // set listeners
 	private DatePickerDialog.OnDateSetListener mDateSetListener =
@@ -98,6 +104,13 @@ public class EditMeeting extends Activity {
         setContentView(R.layout.editmeeting);
         
         mid = getIntent().getIntExtra("mid", -1);
+        if (mid == -1){
+
+            Toast.makeText(getApplicationContext(), "Meeting not found", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+        
         mname = (EditText) findViewById(R.id.mname_field);
         desc = (EditText) findViewById(R.id.desc);
         mPickDate = (Button) findViewById(R.id.pickDate);
@@ -109,24 +122,52 @@ public class EditMeeting extends Activity {
         delete = (Button) findViewById(R.id.delete);
         delete.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
         
-        // TODO get meeting info from db
-        mYear = 2011;
-        mMonth = 11;
-        mDay = 8;
-        msHour = 14;
-        msMinute = 30;
-        meHour = 19;
-        meMinute = 0;
-        trackTime = 1.0;
-        lat = 34019443;
-        lon = -118289440;
-        addr = "SAL";
-        title = "My meeting title";
-        description = "I have a meeting description";
+
+	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+	    db.open();
+	    MeetingInstance m = db.getMeeting(mid);
+	    db.close();
+        
+	    String date = m.getMeetingDate();
+	    String stime = m.getMeetingStartTime();
+	    String etime = m.getMeetingEndTime();
+        mYear = Integer.parseInt(date.substring(6));
+        mMonth = Integer.parseInt(date.substring(0, 2)) - 1;
+        mDay = Integer.parseInt(date.substring(3, 5));
+        int colon = stime.indexOf(':');
+        msHour = Integer.parseInt(stime.substring(0, colon));
+        msMinute = Integer.parseInt(stime.substring(colon + 1, colon + 3));
+        meHour = Integer.parseInt(etime.substring(0, colon));
+        meMinute = Integer.parseInt(etime.substring(colon + 1, colon + 3));
+        int mtrack = m.getMeetingTrackTime();
+        Toast.makeText(getApplicationContext(), "track: " + mtrack, Toast.LENGTH_SHORT).show();
+        //TODO look into tracking time
+        trackTime = (double) m.getMeetingTrackTime() / 60.0;
+        lat = m.getMeetingLat();
+        lon = m.getMeetingLon();
+        addr = m.getMeetingAddress();
+        title = m.getMeetingTitle();
+        description = m.getMeetingDescription();
+        db.open();
+        ArrayList<UserInstance> users =db.getMeetingUsersArray(mid);
+        db.close();
+        
+        names = "";
+        boolean added = false;
+        
+        for (UserInstance u : users){
+        	if (added){
+        		names+= ", ";
+        	}
+        	names = names + u.getUserFirstName() + " " + u.getUserLastName();
+        	added = true;
+        } 
         
         
         mname.setText(title);
         desc.setText(description);
+        location.setText(addr);
+        attendees.setText(names);
         
         // update date and time displays
         updateDateDisplay();
@@ -160,9 +201,10 @@ public class EditMeeting extends Activity {
 				break;
 			}case (R.string.editmeetattendees): { // people
 				 if (resultCode == Activity.RESULT_OK) { 
-					 people = data.getStringExtra("people");
+					 uids = data.getStringExtra("uids");
 					 names = data.getStringExtra("names");
-					 attendees.setText(names);					 
+					 attendees.setText(names);	
+					 ppl_changed = true;
 				} 
 				break; 
 				
@@ -237,7 +279,6 @@ public class EditMeeting extends Activity {
     
     public void saveMeeting(View button){
     	Toast.makeText(EditMeeting.this, "meeting saved!", Toast.LENGTH_SHORT).show();
-    	// TODO save in db
     	
     	
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
@@ -245,10 +286,41 @@ public class EditMeeting extends Activity {
     	String mtitle = mname.getText().toString();
     	String mdesc = desc.getText().toString();
     	String mdate = mMonth + "/" + mDay + "/" + mYear;
-    	String mstarttime = msHour + ":" + msMinute;
-    	String mendtime = meHour + ":" + meMinute;
-    	Communicator.updateMeeting(mid, uid, mtitle, mdesc, lat, lon, addr, mdate, mstarttime, mendtime, (int) (trackTime * 60), people);
+    	String mstarttime = pad(msHour) + ":" + pad(msMinute);
+    	String mendtime = pad(meHour) + ":" + pad(meMinute);
+    	Communicator.updateMeeting(mid, uid, mtitle, mdesc, lat, lon, addr, mdate, mstarttime, mendtime, (int) (trackTime * 60), uids);
+    	db.open();
+    	db.updateMeeting(mid, mtitle, lat, lon, mdesc, addr, mdate, mstarttime, mendtime, (int)(trackTime * 60)); 
 
+    	if (ppl_changed){ // need to update uses
+    		// db.deleteMeetingUsers(mid)
+    		int  commaIndex;
+            String tempids = uids;
+            String n;
+        	uidList = new ArrayList<Integer>();
+        	if (tempids.length() > 0){
+    	    	while (tempids.length() > 0){
+    	    		commaIndex = tempids.indexOf(',');
+    	    		if (commaIndex == -1){
+    	    			int meetingId = Integer.parseInt(tempids);
+    	    			uidList.add(meetingId);
+    	    			break;
+    	    		}else{
+    		    		n = tempids.substring(0, commaIndex);
+    		    		int meetingId = Integer.parseInt(n);
+    		    		uidList.add(meetingId);
+    		    		tempids = tempids.substring(commaIndex + 1);
+    	    		}
+        		}
+        	}
+        	for (Integer i : uidList){ // add all invited attendees
+        		db.createMeetingUser(mid, i, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");
+        	}
+        	//add meeting creator
+    		db.createMeetingUser(mid, uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");
+    		
+    	}
+    	db.close();
     	this.finish();    	
     }
     
