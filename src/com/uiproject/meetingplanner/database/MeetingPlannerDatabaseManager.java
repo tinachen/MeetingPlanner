@@ -67,7 +67,7 @@ public class MeetingPlannerDatabaseManager {
 			long l= db.insert(dbHelper.MEETING_TABLE, null, values);
 		
 			String s1 = "create meeting debug " + l;
-			Toast.makeText(context, s1, Toast.LENGTH_SHORT).show(); //TODO
+			//Toast.makeText(context, s1, Toast.LENGTH_SHORT).show(); //TODO
 			
 			Log.d(dbManagerTag, "createMeeting: meetingID=" + meetingID + ", meetingTitle=" + meetingTitle + 
 					", meetingDescription=" + meetingDescription + ", meetingInitiatorID=" + meetingInitiatorID + 
@@ -368,7 +368,6 @@ public class MeetingPlannerDatabaseManager {
 		return meetingsArray;
 	}
 
-	//TODO
 	public ArrayList<MeetingInstance> getAcceptedMeetings(int userID){
 		ArrayList<MeetingInstance> meetingsArray = new ArrayList<MeetingInstance>();
 		Cursor cursor;
@@ -446,7 +445,6 @@ public class MeetingPlannerDatabaseManager {
 		return meetingsArray;
 	}
 	
-	//TODO
 	public ArrayList<MeetingInstance> getDeclinedMeetings(int userID){
 		ArrayList<MeetingInstance> meetingsArray = new ArrayList<MeetingInstance>();
 		Cursor cursor;
