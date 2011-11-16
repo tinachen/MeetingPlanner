@@ -143,8 +143,10 @@ public class MeetingListPending extends ExpandableListActivity
 	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	int uid = settings.getInt("uid", -1);
         Communicator.acceptMeeting(uid, meetingID);
-        
-        // TODO add to tina's db
+
+        db.open();
+        db.updateMeetingUser(meetingID, uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");
+        db.close();
     }
     
     public void declineButtonClicked(View view)
@@ -164,7 +166,9 @@ public class MeetingListPending extends ExpandableListActivity
 	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	int uid = settings.getInt("uid", -1);
         Communicator.declineMeeting(uid, meetingID);
-        //TODO tina's db code here
+        db.open();
+        db.updateMeetingUser(meetingID, uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING, "0");
+        db.close();
     }
 /**
   * Creates the group list out of the colors[] array according to
