@@ -121,7 +121,7 @@ public class MeetingListAccepted extends ExpandableListActivity
         String meeting_info = child.getText().toString().split(": ")[1];
         int meetingID = Integer.parseInt(meeting_info.split("\\n")[0]);
         
-        Toast.makeText(getApplicationContext(), "You clicked me! " + meetingID, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "You clicked me! " + meetingID, Toast.LENGTH_SHORT).show();
       
         vwParentRow.refreshDrawableState();  
 

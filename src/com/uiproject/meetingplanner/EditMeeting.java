@@ -289,9 +289,10 @@ public class EditMeeting extends Activity {
     	String mdate = mMonth + "/" + mDay + "/" + mYear;
     	String mstarttime = pad(msHour) + ":" + pad(msMinute);
     	String mendtime = pad(meHour) + ":" + pad(meMinute);
-    	addr = "location test"; // TODO remove
+    	addr = "locationtest"; // TODO remove
     	lat = 34; // TODO remove
     	lon = -12; // TODO remove
+    	uids ="1";
     	Communicator.updateMeeting(mid, uid, mtitle, mdesc, lat, lon, addr, mdate, mstarttime, mendtime, (int) (trackTime * 60), uids);
     	db.open();
     	db.updateMeeting(mid, mtitle, lat, lon, mdesc, addr, mdate, mstarttime, mendtime, (int)(trackTime * 60)); 
