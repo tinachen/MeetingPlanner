@@ -2,8 +2,10 @@ package com.uiproject.meetingplanner;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,7 +44,11 @@ public class Communicator {
 		return responseResult;
 	}
 
-	public static int createUser(long phoneNumber, String firstName, String lastName, String email, String password) {
+	public static int createUser(long phoneNumber, String firstName, String lastName, String email, String password) throws UnsupportedEncodingException {
+		firstName = URLEncoder.encode(firstName, "utf-8");
+		lastName = URLEncoder.encode(lastName,"utf-8");
+		email = URLEncoder.encode(email,"utf-8");
+		password = URLEncoder.encode(password,"utf-8");
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/mycreateuser?phoneNumber=" + phoneNumber + "&firstName=" + firstName
 				+ "&lastName=" + lastName + "&email=" + email + "&password=" + password;
 		String result = getResponseResult(urlStr);
