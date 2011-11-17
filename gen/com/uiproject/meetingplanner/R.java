@@ -49,7 +49,7 @@ public final class R {
         public static final int address_field=0x7f08001f;
         public static final int attHeader=0x7f080043;
         public static final int attendees=0x7f080010;
-        public static final int attendeesList=0x7f080053;
+        public static final int attendeesList=0x7f080054;
         public static final int autocomplete_names=0x7f080021;
         public static final int back_button=0x7f080011;
         public static final int btnRemove=0x7f080050;
@@ -67,8 +67,8 @@ public final class R {
         public static final int delete=0x7f080027;
         public static final int desc=0x7f08000b;
         public static final int editBtn=0x7f080005;
-        public static final int editmeeting=0x7f080057;
-        public static final int editprofile=0x7f080056;
+        public static final int editmeeting=0x7f080058;
+        public static final int editprofile=0x7f080057;
         public static final int editprofile_img=0x7f080029;
         public static final int email=0x7f08002c;
         public static final int endPickTime=0x7f08001c;
@@ -82,7 +82,7 @@ public final class R {
         public static final int location=0x7f08000f;
         public static final int login=0x7f080038;
         public static final int logo=0x7f080037;
-        public static final int logout=0x7f080055;
+        public static final int logout=0x7f080056;
         public static final int mapview=0x7f08003a;
         public static final int mdesc=0x7f08003d;
         public static final int meetingDesc=0x7f080049;
@@ -121,8 +121,9 @@ public final class R {
         public static final int time=0x7f08000d;
         public static final int title=0x7f08000a;
         public static final int tracker_selector=0x7f08001e;
-        public static final int trackerlist=0x7f080052;
-        public static final int trackermap=0x7f080054;
+        public static final int trackerlist=0x7f080053;
+        public static final int trackermap=0x7f080055;
+        public static final int trackername=0x7f080052;
         public static final int tracktime=0x7f08000e;
         public static final int tvContact=0x7f08004b;
         public static final int tvMail=0x7f08004f;
