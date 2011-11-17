@@ -99,6 +99,7 @@ public class MeetingListAccepted extends ExpandableListActivity
         		}
         		
         		Button track = (Button) findViewById(R.id.trackBtn);
+        		
         		int currenth = Calendar.HOUR_OF_DAY;
         		int currentm = Calendar.MINUTE;
         		String start = m.getMeetingStartTime();
