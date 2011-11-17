@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -85,7 +86,14 @@ public class MeetingListAccepted extends ExpandableListActivity
 				R.layout.child_row,	// Layout for second-level entries
 				new String[] { "shadeName", "rgb" },	// Keys in childData maps to display
 				new int[] { R.id.childname, R.id.rgb }	// Data under the keys above go into these TextViews
-			);
+			){@Override
+            public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+                final View v = super.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
+                ((Button)v.findViewById(R.id.editBtn)).setVisibility(View.INVISIBLE);
+
+                return v;
+            }
+		};
 		setListAdapter( expListAdapter );
     }
 
