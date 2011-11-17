@@ -10,6 +10,9 @@ import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -71,6 +74,25 @@ public class TrackerEtaList extends Activity {
     
     public void toMap(View button){  	
     	TrackerEtaList.this.finish();
+    }
+    
+    // menu 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logoutonly, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:{
+            	Logout.logout(this);
+            	break;
+            }
+        }
+        return true;
     }
     
 }
