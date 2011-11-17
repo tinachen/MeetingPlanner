@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import android.app.ExpandableListActivity;
 import android.content.Intent;
@@ -92,14 +93,40 @@ public class MeetingListAccepted extends ExpandableListActivity
                 final View v = super.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
 
                 MeetingInstance m = allMeet.get(childPosition);
+                
+                //get views
                 Button edit = (Button) v.findViewById(R.id.editBtn);
+        		Button track = (Button) v.findViewById(R.id.trackBtn);
+        		TextView loc = (TextView) v.findViewById(R.id.mloc);
+        		TextView track_text = (TextView) v.findViewById(R.id.mtrack);
+        		TextView desc = (TextView) v.findViewById(R.id.mdesc);
+        		TextView attendees = (TextView) v.findViewById(R.id.mppl);
+        		
+        		//set views
+        		loc.setText(m.getMeetingAddress());
+        		track_text.setText("Track time: " + m.getMeetingTrackTime() + " minutes before");
+        		desc.setText("Description:"  + m.getMeetingDescription());
+        		HashMap<Integer, UserInstance> ppl = m.getMeetingAttendees();
+        		Set<Integer> keys = ppl.keySet();
+        		boolean added = false;
+        		String names = "";
+        		for (Integer i : keys){
+        			if (added){
+        				names += ", ";
+        			}
+        			names = names + ppl.get(i).getUserFirstName() + " " + ppl.get(i).getUserLastName();
+        		}
+        		attendees.setText("Attendees: " + names);
+        		
+        		//check to see if edit button should be visible
+                edit.setTag(m.getMeetingID());
         		int creator = m.getMeetingInitiatorID();
         		if (creator != uid){
         			edit.setVisibility(View.GONE);
-        		}
-        		
-        		Button track = (Button) v.findViewById(R.id.trackBtn);
-        		
+        		}        		
+
+        		//check to see if track button should be visible
+                track.setTag(m.getMeetingID());
         		int currenth = Calendar.HOUR_OF_DAY;
         		int currentm = Calendar.MINUTE;
         		String start = m.getMeetingStartTime();
@@ -109,8 +136,7 @@ public class MeetingListAccepted extends ExpandableListActivity
         		int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
         		if (minutes_before > tracktime){
         			track.setVisibility(View.GONE);
-        		}
-        		
+        		}        		
                 return v;
             }
 		};
@@ -141,22 +167,20 @@ public class MeetingListAccepted extends ExpandableListActivity
 
     public void editButtonClicked(View view)
     {
-        //get the row the clicked button is in
-        LinearLayout vwParentRow = (LinearLayout)view.getParent();
-         
-        TextView child = (TextView)vwParentRow.getChildAt(0);
-        Button btnChild = (Button)vwParentRow.getChildAt(2);
-        String meeting_info = child.getText().toString().split(": ")[1];
-        int meetingID = Integer.parseInt(meeting_info.split("\\n")[0]);
-        
-        //Toast.makeText(getApplicationContext(), "You clicked me! " + meetingID, Toast.LENGTH_SHORT).show();
-      
-        vwParentRow.refreshDrawableState();  
-
+    	int mid = (Integer) view.getTag();
 		Intent intent = new Intent(MeetingListAccepted.this, EditMeeting.class);
-		intent.putExtra("mid", meetingID);
+		intent.putExtra("mid", mid);
 		startActivity(intent);
     }
+    
+    public void track(View view){
+    	int mid = (Integer) view.getTag();
+		Intent intent = new Intent(MeetingListAccepted.this, TrackerMap.class);
+		intent.putExtra("mid", mid);
+		startActivity(intent);
+    	
+    }
+    
 /**
   * Creates the group list out of the colors[] array according to
   * the structure required by SimpleExpandableListAdapter. The resulting

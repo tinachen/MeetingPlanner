@@ -68,14 +68,14 @@ public class MainPage extends Activity {
 	    mtitle = (TextView) findViewById(R.id.mtitle);
 	    mwhen = (TextView) findViewById(R.id.mwhen);
 	    mdesc = (TextView) findViewById(R.id.mdesc);
-	    //track_button = (Button) findViewById(R.id.mtrack_button);
+	    track_button = (Button) findViewById(R.id.mtrack_button);
 	    
 	    int mid = m.getMeetingID();
 	    if(mid < 0){
 	    	mtitle.setText("You have no upcoming meetings");
 	    	mwhen.setVisibility(View.GONE);
 	    	mdesc.setVisibility(View.GONE);
-	    	//track_button.setVisibility(View.GONE);
+	    	track_button.setVisibility(View.GONE);
 	    	
 	    	// Set sharedpreferences
 	    	editor.putInt("currentTrackingMid", -1);
@@ -93,7 +93,7 @@ public class MainPage extends Activity {
 	    	int tracktime = m.getMeetingTrackTime();
 	    	int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
 	    	if (minutes_before > tracktime){
-		    	//track_button.setVisibility(View.GONE);
+		    	track_button.setVisibility(View.GONE);
 	    	}
 	    	
 	    	// Set sharedpreferences

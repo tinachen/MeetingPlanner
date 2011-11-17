@@ -39,7 +39,7 @@ public class Communicator {
 			}
 			in.close();
 		} catch (Exception e) {
-			System.out.println("error!");
+			System.out.println("error! exception:" + e.toString());
 		}
 		return responseResult;
 	}
@@ -74,7 +74,9 @@ public class Communicator {
 		// debug msg
 		String tag = "Communicator";
 		Log.v(tag, urlStr);
-
+		if (result.length() == 0){
+			return -1;
+		}
 		return Integer.valueOf(result);
 	}
 
