@@ -92,19 +92,19 @@ public class MeetingListAccepted extends ExpandableListActivity
                 final View v = super.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
 
                 MeetingInstance m = allMeet.get(childPosition);
-                Button edit = (Button) findViewById(R.id.editBtn);
+                Button edit = (Button) v.findViewById(R.id.editBtn);
         		int creator = m.getMeetingInitiatorID();
         		if (creator != uid){
         			edit.setVisibility(View.GONE);
         		}
         		
-        		Button track = (Button) findViewById(R.id.trackBtn);
+        		Button track = (Button) v.findViewById(R.id.trackBtn);
         		
         		int currenth = Calendar.HOUR_OF_DAY;
         		int currentm = Calendar.MINUTE;
         		String start = m.getMeetingStartTime();
-        		int starth = Integer.parseInt(start.substring(0, start.indexOf(',')));
-        		int startm = Integer.parseInt(start.substring(start.indexOf(',') + 1));
+        		int starth = Integer.parseInt(start.substring(0, start.indexOf(':')));
+        		int startm = Integer.parseInt(start.substring(start.indexOf(':') + 1));
         		int tracktime = m.getMeetingTrackTime();
         		int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
         		if (minutes_before > tracktime){
