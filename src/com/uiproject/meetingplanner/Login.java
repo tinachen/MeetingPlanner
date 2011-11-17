@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 
+//import com.facebook.android.*;
+//import com.facebook.android.Facebook.*;
 import com.uiproject.meetingplanner.database.*;
 
 import android.app.Activity;
@@ -24,12 +26,29 @@ public class Login extends Activity {
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	public static final String LoginTag = "Login";
 	private MeetingPlannerDatabaseManager db;
+	//Facebook facebook = new Facebook("294864470534799");  // FOR FACEBOOK INTEGRATION
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        
+        // FOR FACEBOOK INTEGRATION
+        /*facebook.authorize(this, new DialogListener() {
+            @Override
+            public void onComplete(Bundle values) {}
+
+            @Override
+            public void onFacebookError(FacebookError error) {}
+
+            @Override
+            public void onError(DialogError e) {}
+
+            @Override
+            public void onCancel() {}
+        });*/
+        
         phone_field = (EditText) findViewById(R.id.phone);
         pw_field = (EditText) findViewById(R.id.pw);
         remember_me = (CheckBox) findViewById(R.id.rememberme);
@@ -47,6 +66,15 @@ public class Login extends Activity {
         // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	}
+
+	// FOR FACEBOOK INTEGRATION
+	/*@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        facebook.authorizeCallback(requestCode, resultCode, data);
+    }*/
+	
 
 	public void checkLogin(View button) throws JSONException, ParseException, NumberFormatException{
 		
