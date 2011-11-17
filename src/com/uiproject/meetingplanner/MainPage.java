@@ -87,8 +87,8 @@ public class MainPage extends Activity {
 	        int currenth = Calendar.HOUR_OF_DAY;
 	        int currentm = Calendar.MINUTE;
 	    	String start = m.getMeetingStartTime();
-	    	int starth = Integer.parseInt(start.substring(0, 2));
-	    	int startm = Integer.parseInt(start.substring(3));
+			int starth = Integer.parseInt(start.substring(0, start.indexOf(',')));
+			int startm = Integer.parseInt(start.substring(start.indexOf(',') + 1));
 	    	int tracktime = m.getMeetingTrackTime();
 	    	int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
 	    	if (minutes_before > tracktime){
@@ -139,17 +139,7 @@ public class MainPage extends Activity {
                 Intent intent = new Intent(MainPage.this, EditProfile.class);
                 MainPage.this.startActivityForResult(intent, 0);
                 break;
-            }       
-            case R.id.editmeeting:{
-                Intent intent = new Intent(MainPage.this, EditMeeting.class);
-                MainPage.this.startActivity(intent);
-            	break;
-            }
-            case R.id.trackermap:{
-                Intent intent = new Intent(MainPage.this, TrackerMap.class);
-                MainPage.this.startActivity(intent);
-            	break;
-            }
+            }   
             case R.id.logout:{
             	Logout.logout(this);
             	break;
@@ -200,8 +190,8 @@ public class MainPage extends Activity {
 	        int currenth = Calendar.HOUR_OF_DAY;
 	        int currentm = Calendar.MINUTE;
 	    	String start = m.getMeetingStartTime();
-	    	int starth = Integer.parseInt(start.substring(0, 2));
-	    	int startm = Integer.parseInt(start.substring(3));
+			int starth = Integer.parseInt(start.substring(0, start.indexOf(',')));
+			int startm = Integer.parseInt(start.substring(start.indexOf(',') + 1));
 	    	int tracktime = m.getMeetingTrackTime();
 	    	int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
 	    	if (minutes_before > tracktime){
