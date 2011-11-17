@@ -67,11 +67,12 @@ public class MeetingPlannerDatabaseManager {
 			long l= db.insert(dbHelper.MEETING_TABLE, null, values);
 		
 			String s1 = "create meeting debug " + l;
-			Toast.makeText(context, s1, Toast.LENGTH_SHORT).show(); //TODO
+			//Toast.makeText(context, s1, Toast.LENGTH_SHORT).show(); //TODO
 			
-			Log.d(dbManagerTag, "createMeeting: meetingID=" + meetingID + ", meetingTitle=" + meetingTitle + 
-					", meetingDescription=" + meetingDescription + ", meetingInitiatorID=" + meetingInitiatorID + 
-					", meetingStartTimestamp" + meetingStartTimestamp);
+			Log.d(dbManagerTag, "createMeeting: meetingID = " + meetingID + ", meetingTitle = " + meetingTitle + 
+					", meetingDescription = " + meetingDescription + ", meetingInitiatorID = " + meetingInitiatorID + 
+					", meetingStartTime = " + meetingStartTime + ", meetingEndTime = " + meetingEndTime +
+					", meetingStartTimestamp = " + meetingStartTimestamp);
 		}
 		catch(Exception e)
 		{
@@ -251,9 +252,27 @@ public class MeetingPlannerDatabaseManager {
 		}
 	}
 	
+	/**
+	 * Delete 1 specific user for a meeting
+	 * @param meetingID
+	 * @param userID
+	 */
 	public void deleteMeetingUser(int meetingID, int userID){
 		try {
 			db.delete(dbHelper.MEETINGUSER_TABLE, dbHelper.USER_ID + "=" + userID + " AND " + dbHelper.MEETING_ID + " = " + meetingID, null);
+		}catch (Exception e){
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Delete all users for a meeting
+	 * @param meetingID
+	 */
+	public void deleteMeetingUsers(int meetingID){
+		try {
+			db.delete(dbHelper.MEETINGUSER_TABLE, dbHelper.MEETING_ID + " = " + meetingID, null);
 		}catch (Exception e){
 			Log.e("DB ERROR", e.toString());
 			e.printStackTrace();
@@ -350,7 +369,6 @@ public class MeetingPlannerDatabaseManager {
 		return meetingsArray;
 	}
 
-	//TODO
 	public ArrayList<MeetingInstance> getAcceptedMeetings(int userID){
 		ArrayList<MeetingInstance> meetingsArray = new ArrayList<MeetingInstance>();
 		Cursor cursor;
@@ -428,7 +446,6 @@ public class MeetingPlannerDatabaseManager {
 		return meetingsArray;
 	}
 	
-	//TODO
 	public ArrayList<MeetingInstance> getDeclinedMeetings(int userID){
 		ArrayList<MeetingInstance> meetingsArray = new ArrayList<MeetingInstance>();
 		Cursor cursor;

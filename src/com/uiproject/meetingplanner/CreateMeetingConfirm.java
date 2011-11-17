@@ -58,12 +58,13 @@ public class CreateMeetingConfirm extends Activity {
     	mtitle = settings.getString("mtitle", "Untitled");
     	mdesc = settings.getString("mdesc", "No description");
     	maddr = settings.getString("maddr", "default addr");
-    	mdate = month + "-" + day + "-" + year;
+    	mdate = month + "/" + day + "/" + year;
     	mstarttime = pad(sh) + ":" + pad(sm);
     	mendtime = pad(eh) + ":" + pad(em);
     	mtracktime = (int) ((double) settings.getFloat("mtracktime", (float).5) * 60D);
     	mlon = settings.getInt("mlon", 0);
     	mlat = settings.getInt("mlat", 0);
+    	
     	//mattendeeids = settings.getString("mphones", ""); //TODO hard code it for now
     	mattendeeids = "2,5,6";
     	mnames = settings.getString("mnames", "");
@@ -138,7 +139,7 @@ public class CreateMeetingConfirm extends Activity {
 		long currentUnixTime = System.currentTimeMillis() / 1000L;// TODO
     	
     	String mstartdatetime = mdate + " " + mstarttime;
-    	SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+    	SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		Date date = (Date)formatter.parse(mstartdatetime);
 		int timestampInt = (int) (date.getTime() / 1000L);
 		Log.d(createMeetingConfirmTag, " create meeting: meetingID = " + mid + ", date.gettime = " + date.getTime() + ", timestamp = " + timestampInt + ", current timestamp = " + currentUnixTime);
@@ -153,8 +154,6 @@ public class CreateMeetingConfirm extends Activity {
     		db.createMeetingUser(mid, attendessIdsArray.get(i), MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING, "0"); 	// other attendees other than initiator
     	}
     	
-    	// add meeting creator
-    	db.createMeetingUser(mid, uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING, "0");
     	MeetingInstance m = db.getNextUpcomingMeeting(uid);
 	    Log.d(createMeetingConfirmTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
 	    

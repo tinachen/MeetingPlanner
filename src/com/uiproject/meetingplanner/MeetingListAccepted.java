@@ -1,29 +1,25 @@
 package com.uiproject.meetingplanner;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.CheckBox;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
-
-import android.util.Log;
 
 public class MeetingListAccepted extends ExpandableListActivity
 {
@@ -47,21 +43,21 @@ public class MeetingListAccepted extends ExpandableListActivity
 	    db.open();
 
 	    //PLEASE LEAVE THIS PART UNCOMMENTED TILL THE DATABASE HAS ENTRIES
-	    db.createUser(1, "Laura", "Rodriguez", "lau.rodriguez@gmail", "3128573352", 37, -34);
+	    /*db.createUser(1, "Laura", "Rodriguez", "lau.rodriguez@gmail", "3128573352", 37, -34);
 	    db.createUser(2, "Dummy", "Joe", "tt@gmail.com", "1234567778", 32, 34);
 	    db.createMeeting(2,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5, 5);//TODO
 	    db.createMeeting(5,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5, 5);//TODO
 	    db.createMeeting(6,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5, 5);//TODO
 	    db.createMeeting(7,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5, 5);//TODO
 	    db.createMeetingUser(2, 1, 2, "Hello");
-	    db.createMeetingUser(2, 2, 1, "Hello2");
+	    db.createMeetingUser(2, 2, 1, "Hello2");*/
 	    
 	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	int uid = settings.getInt("uid", -1);
     	Log.v(LOG_TAG, "uid = " + uid);
     	allMeet = db.getAcceptedMeetings(uid);
         // Set up our adapter
-    	allMeet = db.getAllMeetings();
+    	//allMeet = db.getAllMeetings();
     	db.close();
     	
     	groups = new String[allMeet.size()];
@@ -90,7 +86,14 @@ public class MeetingListAccepted extends ExpandableListActivity
 				R.layout.child_row,	// Layout for second-level entries
 				new String[] { "shadeName", "rgb" },	// Keys in childData maps to display
 				new int[] { R.id.childname, R.id.rgb }	// Data under the keys above go into these TextViews
-			);
+			){@Override
+            public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+                final View v = super.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
+                ((Button)v.findViewById(R.id.editBtn)).setVisibility(View.INVISIBLE);
+
+                return v;
+            }
+		};
 		setListAdapter( expListAdapter );
     }
 
@@ -126,7 +129,7 @@ public class MeetingListAccepted extends ExpandableListActivity
         String meeting_info = child.getText().toString().split(": ")[1];
         int meetingID = Integer.parseInt(meeting_info.split("\\n")[0]);
         
-        Toast.makeText(getApplicationContext(), "You clicked me! " + meetingID, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "You clicked me! " + meetingID, Toast.LENGTH_SHORT).show();
       
         vwParentRow.refreshDrawableState();  
 

@@ -26,7 +26,7 @@ public class Login extends Activity {
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	public static final String LoginTag = "Login";
 	private MeetingPlannerDatabaseManager db;
-	Facebook facebook = new Facebook("294864470534799");
+	//Facebook facebook = new Facebook("294864470534799");  // FOR FACEBOOK INTEGRATION
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -34,7 +34,8 @@ public class Login extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         
-        facebook.authorize(this, new DialogListener() {
+        // FOR FACEBOOK INTEGRATION
+        /*facebook.authorize(this, new DialogListener() {
             @Override
             public void onComplete(Bundle values) {}
 
@@ -46,7 +47,7 @@ public class Login extends Activity {
 
             @Override
             public void onCancel() {}
-        });
+        });*/
         
         phone_field = (EditText) findViewById(R.id.phone);
         pw_field = (EditText) findViewById(R.id.pw);
@@ -66,14 +67,16 @@ public class Login extends Activity {
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	}
 
-	@Override
+	// FOR FACEBOOK INTEGRATION
+	/*@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         facebook.authorizeCallback(requestCode, resultCode, data);
-    }
+    }*/
 	
-	public void checkLogin(View button) throws JSONException, ParseException{
+
+	public void checkLogin(View button) throws JSONException, ParseException, NumberFormatException{
 		
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		SharedPreferences.Editor editor = settings.edit();
