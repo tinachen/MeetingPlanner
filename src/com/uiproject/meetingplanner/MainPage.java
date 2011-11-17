@@ -67,14 +67,14 @@ public class MainPage extends Activity {
 	    mtitle = (TextView) findViewById(R.id.mtitle);
 	    mwhen = (TextView) findViewById(R.id.mwhen);
 	    mdesc = (TextView) findViewById(R.id.mdesc);
-	    track_button = (Button) findViewById(R.id.mtrack_button);
+	    //track_button = (Button) findViewById(R.id.mtrack_button);
 	    
 	    int mid = m.getMeetingID();
 	    if(mid < 0){
 	    	mtitle.setText("You have no upcoming meetings");
 	    	mwhen.setVisibility(View.GONE);
 	    	mdesc.setVisibility(View.GONE);
-	    	track_button.setVisibility(View.GONE);
+	    	//track_button.setVisibility(View.GONE);
 	    	
 	    	// Set sharedpreferences
 	    	editor.putInt("currentTrackingMid", -1);
@@ -83,16 +83,16 @@ public class MainPage extends Activity {
 	    	String when = m.getMeetingDate() + ", " + m.getMeetingStartTime() + "-" + m.getMeetingEndTime();
 	    	mwhen.setText(when);
 	    	mdesc.setText(m.getMeetingDescription());
-	    	track_button.setTag(mid);
+	    	//track_button.setTag(mid);
 	        int currenth = Calendar.HOUR_OF_DAY;
 	        int currentm = Calendar.MINUTE;
 	    	String start = m.getMeetingStartTime();
-	    	int starth = Integer.parseInt(start.substring(0, 2));
-	    	int startm = Integer.parseInt(start.substring(3));
+			int starth = Integer.parseInt(start.substring(0, start.indexOf(':')));
+			int startm = Integer.parseInt(start.substring(start.indexOf(':') + 1));
 	    	int tracktime = m.getMeetingTrackTime();
 	    	int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
 	    	if (minutes_before > tracktime){
-		    	track_button.setVisibility(View.GONE);
+		    	//track_button.setVisibility(View.GONE);
 	    	}
 	    	
 	    	// Set sharedpreferences
@@ -117,7 +117,7 @@ public class MainPage extends Activity {
     
     public void track(View button){
     	String tag = button.getTag().toString();
-    	int mid = Integer.parseInt(tag);
+    	int mid = 1; // Integer.parseInt(tag);
 		Intent intent = new Intent(MainPage.this, TrackerMap.class);
 		intent.putExtra("mid", mid);
 		startActivity(intent);
@@ -139,17 +139,7 @@ public class MainPage extends Activity {
                 Intent intent = new Intent(MainPage.this, EditProfile.class);
                 MainPage.this.startActivityForResult(intent, 0);
                 break;
-            }       
-            case R.id.editmeeting:{
-                Intent intent = new Intent(MainPage.this, EditMeeting.class);
-                MainPage.this.startActivity(intent);
-            	break;
-            }
-            case R.id.trackermap:{
-                Intent intent = new Intent(MainPage.this, TrackerMap.class);
-                MainPage.this.startActivity(intent);
-            	break;
-            }
+            }   
             case R.id.logout:{
             	Logout.logout(this);
             	break;
@@ -167,7 +157,7 @@ public class MainPage extends Activity {
     		name.setText(username);
         }
     }
-    
+    /*
     public void onResume(){
     	//recheck the next upcoming meeting
     	db.open();
@@ -200,8 +190,8 @@ public class MainPage extends Activity {
 	        int currenth = Calendar.HOUR_OF_DAY;
 	        int currentm = Calendar.MINUTE;
 	    	String start = m.getMeetingStartTime();
-	    	int starth = Integer.parseInt(start.substring(0, 2));
-	    	int startm = Integer.parseInt(start.substring(3));
+			int starth = Integer.parseInt(start.substring(0, start.indexOf(',')));
+			int startm = Integer.parseInt(start.substring(start.indexOf(',') + 1));
 	    	int tracktime = m.getMeetingTrackTime();
 	    	int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
 	    	if (minutes_before > tracktime){
@@ -214,6 +204,6 @@ public class MainPage extends Activity {
 	    editor.commit(); 
     	
     }
-    
+    */
 }
 

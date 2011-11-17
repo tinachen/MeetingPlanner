@@ -1,6 +1,7 @@
 package com.uiproject.meetingplanner;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,7 +17,6 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
@@ -29,6 +29,7 @@ public class MeetingListAccepted extends ExpandableListActivity
     private String[] groups;
 	private String[][] children;
     public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+    private int uid;
 
     
     /** Called when the activity is first created. */
@@ -53,7 +54,7 @@ public class MeetingListAccepted extends ExpandableListActivity
 	    db.createMeetingUser(2, 2, 1, "Hello2");*/
 	    
 	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-    	int uid = settings.getInt("uid", -1);
+    	uid = settings.getInt("uid", -1);
     	Log.v(LOG_TAG, "uid = " + uid);
     	allMeet = db.getAcceptedMeetings(uid);
         // Set up our adapter
@@ -89,8 +90,26 @@ public class MeetingListAccepted extends ExpandableListActivity
 			){@Override
             public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
                 final View v = super.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
-                ((Button)v.findViewById(R.id.editBtn)).setVisibility(View.INVISIBLE);
 
+                MeetingInstance m = allMeet.get(childPosition);
+                Button edit = (Button) findViewById(R.id.editBtn);
+        		int creator = m.getMeetingInitiatorID();
+        		if (creator != uid){
+        			edit.setVisibility(View.GONE);
+        		}
+        		
+        		Button track = (Button) findViewById(R.id.trackBtn);
+        		int currenth = Calendar.HOUR_OF_DAY;
+        		int currentm = Calendar.MINUTE;
+        		String start = m.getMeetingStartTime();
+        		int starth = Integer.parseInt(start.substring(0, start.indexOf(',')));
+        		int startm = Integer.parseInt(start.substring(start.indexOf(',') + 1));
+        		int tracktime = m.getMeetingTrackTime();
+        		int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
+        		if (minutes_before > tracktime){
+        			track.setVisibility(View.GONE);
+        		}
+        		
                 return v;
             }
 		};

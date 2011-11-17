@@ -24,4 +24,12 @@
 			android:text="Edit" 
 			android:id="@+id/editBtn"
 			android:onClick="editButtonClicked"/>
+           
+	<Button android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:focusable="false" 
+			android:clickable="true"
+			android:text="Track" 
+			android:id="@+id/trackBtn"
+			android:onClick="trackButtonClicked"/>
 </LinearLayout>

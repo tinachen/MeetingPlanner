@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 
-import com.facebook.android.*;
-import com.facebook.android.Facebook.*;
+//import com.facebook.android.*;
+//import com.facebook.android.Facebook.*;
 import com.uiproject.meetingplanner.database.*;
 
 import android.app.Activity;

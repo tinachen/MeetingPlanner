@@ -9,6 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.maps.GeoPoint;
@@ -81,7 +84,27 @@ public class TrackerMap extends MapActivity {
 		Intent intent = new Intent(TrackerMap.this, TrackerEtaList.class);
 		TrackerMap.this.startActivityForResult(intent, 0);
     }
+
+    // menu 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logoutonly, menu);
+        return true;
+    }
     
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:{
+            	Logout.logout(this);
+            	break;
+            }
+        }
+        return true;
+    }
+    
+    //overlay class
     private class MyItemizedOverlay extends ItemizedOverlay<OverlayItem> {
     	private ArrayList<MyOverlayItem> mOverlays = new ArrayList<MyOverlayItem>();
     	private GeoPoint center;
