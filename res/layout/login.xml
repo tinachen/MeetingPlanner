@@ -69,7 +69,7 @@
 		android:layout_height="wrap_content"
 		android:text="New to MeetApp? Sign up here"
 		android:clickable="true"
-		android:onClick="signup" 
+		android:onClick="signup"
 		android:layout_marginTop="5dip"/>
 </LinearLayout>
 </LinearLayout>

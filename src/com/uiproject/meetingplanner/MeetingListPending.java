@@ -2,8 +2,10 @@ package com.uiproject.meetingplanner;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 import android.app.DatePickerDialog;
@@ -11,7 +13,7 @@ import android.app.Dialog;
 import android.app.ExpandableListActivity;
 import android.app.ListActivity;
 import android.app.TimePickerDialog;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -27,107 +29,148 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 
-public class MeetingListPending extends ListActivity {
+public class MeetingListPending extends ExpandableListActivity
+{
+    private static final String LOG_TAG = "MeetingListAccepted";
+    private MeetingPlannerDatabaseManager db;
+    public ArrayList<MeetingInstance> allMeet;
+    private String[] groups;
+	private String[][] children;
+    public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 
-	    /** Called when the activity is first created. */
-	
-		private MeetingPlannerDatabaseManager db;
-		public ArrayList<MeetingInstance> allMeet;
-	
-	    @Override
-	    public void onCreate(Bundle savedInstanceState) {
-	        super.onCreate(savedInstanceState);
-	        //setContentView(R.layout.meetingitems);
-	        // Hook up with database
-		    db = new MeetingPlannerDatabaseManager(this, 2);
-		    db.open();
-		    db.createMeeting(4,"CS588 Progress", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);
-		    allMeet = db.getAllMeetings();
-		    
-	        /*setListAdapter(new ArrayAdapter<String>(this, R.layout.meetinglist, COUNTRIES));
-	        ListView lv = getListView();
-	        //lv.setTextFilterEnabled(true);
+    
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle icicle)
+    {
+        super.onCreate(icicle);
+        setContentView(R.layout.expandable_meeting_list);
+        
+        //Hook up the database
+        db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+	    db.open();
 
-	        lv.setOnItemClickListener(new OnItemClickListener() {
-	          public void onItemClick(AdapterView<?> parent, View view,
-	              int position, long id) {
-	            // When clicked, show a toast with the TextView text
-	            Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-	                Toast.LENGTH_SHORT).show();
-	          }
-	        });
-			
-			*/
-	        ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, allMeet);
-	        setListAdapter(adapter);
-	        
-
-	        //ListView list = (ListView) findViewById(R.id.listView1);
-	        //list.setClickable(true);
-
-	        //final ArrayAdapter<MeetingInstance> listOfMeeting = new MeetingListArrayAdapter(this,allMeet);
-
-	        /*list.setOnItemClickListener(new OnItemClickListener() {
-
-	            @Override
-	            public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
-	                System.out.println("sadsfsf");
-	                showToast(listOfMeeting.get(position).getName());
-	            }
-	        });*/
-
-	        //list.setAdapter(listOfMeeting);
-
-	        
-	    }
-
-
-    private List<MeetingInstance> getMeeting(){
-    	List<MeetingInstance> list = new ArrayList<MeetingInstance>();
+	    /*db.createUser(1, "Laura", "Rodriguez", "lau.rodriguez@gmail", "3128573352", 37, -34);
+	    db.createUser(2, "Dummy", "Joe", "tt@gmail.com", "1234567778", 32, 34);
+	    db.createMeeting(2,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeeting(5,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeeting(6,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeeting(7,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeetingUser(2, 1, 2, "Hello");
+	    db.createMeetingUser(2, 2, 1, "Hello2");*/
+	    
+	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	int uid = settings.getInt("uid", -1);
+    	allMeet = db.getPendingMeetings(uid);
+        // Set up our adapter
+    	//allMeet = db.getAllMeetings();
+    	db.close();
     	
-    	//Adding a few meetings to test
+    	groups = new String[allMeet.size()];
+    	children = new String[allMeet.size()][2];
     	
-    	Date myDate = new Date(06/12/2014);
-    	String [] myPeople = {"John", "Jane"};
-    	list.add(new MeetingInstance(1,42,37,"Status Meeting",myDate, myPeople));
+    	//Log.v(TAG, "Groups is " + groups.length);
+    	//Log.v(TAG, "Children is " + children.length);
     	
-    	Date myDate2 = new Date(05/07/2013);
-    	String [] myPeople2 = {"Jennifer", "Jack"};
-    	list.add(new MeetingInstance(2,40,30,"Status Meeting 2 ",myDate2, myPeople2));
+    	for (int i = 0; i < allMeet.size(); i++)
+    	{
+    		//Log.v(TAG, "Element number " + i + " is " + allMeetings.get(i).getMeetingSubject());
+    		groups[i] = allMeet.get(i).getMeetingTitle() + "\n";
+    		//groups[i] = allMeet.get(i).getMeetingTitle() + "\n\n" + "Fixme" + "\t\t" + allMeet.get(i).getMeetingDate() + "\t" + allMeet.get(i).getMeetingStartTime();
+    		children[i][0] = allMeet.get(i).getMeetingDescription() + "\n" + allMeet.get(i).getMeetingAddress() + "\n" + allMeet.get(i).getMeetingDate() + "\n";
+    		children[i][1] = "\n" + allMeet.get(i).getMeetingStartTime() + " to " + allMeet.get(i).getMeetingEndTime();
+     	}
     	
-    	Date myDate3 = new Date(10/03/2012);
-    	String [] myPeople3 = {"Michael", "Pete"};
-    	list.add(new MeetingInstance(3,35,-37,"Status Meeting 3",myDate3, myPeople3));
-    	
-    	Date myDate4 = new Date(10/10/2012);
-    	String [] myPeople4 = {"Melissa", "Jakob"};
-    	list.add(new MeetingInstance(4,-35,-37,"Status Meeting 4",myDate4, myPeople4));
-    	
-		list.add(new MeetingInstance("RTH"));
-		list.add(new MeetingInstance("Campus Center"));
-		list.add(new MeetingInstance("Campus Center2"));
-		list.add(new MeetingInstance("Campus Center3"));
-		list.add(new MeetingInstance("Campus Center4"));
-		list.add(new MeetingInstance("Campus Center5"));
-		list.add(new MeetingInstance("RTH6"));
-		list.add(new MeetingInstance("Campus Center7"));
-		list.add(new MeetingInstance("Campus Center8"));
-		list.add(new MeetingInstance("RTH9"));
-		list.add(new MeetingInstance("Campus Center10"));
-		list.add(new MeetingInstance("Campus Center11"));
-		list.add(new MeetingInstance("Campus Center12"));
-		list.add(new MeetingInstance("Campus Center13"));
-		list.add(new MeetingInstance("Campus Center14"));
-		list.add(new MeetingInstance("Campus Center15"));
-		list.add(new MeetingInstance("Campus Center16"));
-		list.add(new MeetingInstance("Campus Center17"));
+		SimpleExpandableListAdapter expListAdapter =
+			new SimpleExpandableListAdapter(
+				this,
+				createGroupList(),	// groupData describes the first-level entries
+				R.layout.group_row,	// Layout for the first-level entries
+				new String[] { "colorName" },	// Key in the groupData maps to display
+				new int[] { R.id.childname },		// Data under "colorName" key goes into this TextView
+				createChildList(),	// childData describes second-level entries
+				R.layout.child_row_pending,	// Layout for second-level entries
+				new String[] { "shadeName", "rgb" },	// Keys in childData maps to display
+				new int[] { R.id.childname, R.id.rgb }	// Data under the keys above go into these TextViews
+			);
+		setListAdapter( expListAdapter );
+    }
+
+    public void  onContentChanged  () {
+        super.onContentChanged();
+        Log.d( LOG_TAG, "onContentChanged" );
+    }
+
+    public boolean onChildClick(
+            ExpandableListView parent, 
+            View v, 
+            int groupPosition,
+            int childPosition,
+            long id) {
+        Log.d( LOG_TAG, "onChildClick: "+childPosition );
 		
-		
-		return list;
+        //if( btn != null )
+            
+        return false;
+    }
+
+    public void  onGroupExpand  (int groupPosition) {
+        Log.d( LOG_TAG,"onGroupExpand: "+groupPosition );
+    }
+
+    public void acceptButtonClicked(View view)
+    {
+    	//ELIZABETH'S CODE HERE
+    	Toast.makeText(getApplicationContext(), "You accepted!", Toast.LENGTH_SHORT).show();
     }
     
+    public void declineButtonClicked(View view)
+    {
+    	//ELIZABETH'S CODE HERE
+    	Toast.makeText(getApplicationContext(), "You declined.. :(", Toast.LENGTH_SHORT).show();
+    }
+/**
+  * Creates the group list out of the colors[] array according to
+  * the structure required by SimpleExpandableListAdapter. The resulting
+  * List contains Maps. Each Map contains one entry with key "colorName" and
+  * value of an entry in the colors[] array.
+  */
+    private List createGroupList() {
+  	  ArrayList result = new ArrayList();
+  	  for( int i = 0 ; i < groups.length ; ++i ) {
+  		HashMap m = new HashMap();
+  	    m.put( "colorName",groups[i] );
+  		result.add( m );
+  	  }
+  	  return (List)result;
+      }
+
+/**
+  * Creates the child list out of the shades[] array according to the
+  * structure required by SimpleExpandableListAdapter. The resulting List
+  * contains one list for each group. Each such second-level group contains
+  * Maps. Each such Map contains two keys: "shadeName" is the name of the
+  * shade and "rgb" is the RGB value for the shade.
+  */
+	private List createChildList() {
+		ArrayList result = new ArrayList();
+		for( int i = 0 ; i < children.length ; ++i ) {
+			// Second-level lists
+			ArrayList secList = new ArrayList();
+			for( int n = 0 ; n < children[i].length ; n += 2 ) {
+				HashMap child = new HashMap();
+				child.put( "shadeName", children[i][n] );
+				child.put( "rgb", children[i][n+1] );
+				secList.add( child );
+			}
+			result.add( secList );
+		}
+		return result;
+	}
+
 }

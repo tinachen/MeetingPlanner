@@ -34,12 +34,13 @@ public class EditProfile extends Activity {
         oldpw_field = (EditText) findViewById(R.id.oldpw);
         pw_field = (EditText) findViewById(R.id.pw);
         pw2_field = (EditText) findViewById(R.id.pw2);
-        
+		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
+    	
         //get info from db
-        fname = "Elizabeth";
-        lname = "Deng";
-        phone = "8473221831";
-        email = "elizabethdeng@gmail.com";
+        fname = settings.getString("userFirstName", "");
+        lname = settings.getString("userLastName", "");
+        phone = settings.getString("userPhoneNumber", "");
+        email = settings.getString("userEmail", "");
         
         // set fields
         fname_field.setText(fname);
@@ -63,6 +64,7 @@ public class EditProfile extends Activity {
             Toast.makeText(getBaseContext(), "Please fill in all fields (name, phone, email)", Toast.LENGTH_SHORT).show();
         }
         
+        boolean pwchanged = false;
         if (oldpw.length() != 0 && pw.length() != 0 && pw2.length() != 0){ // if they want to change password
 	        // query db and get current pw and check
         	if(!pw.equals(pw2)){
@@ -71,15 +73,27 @@ public class EditProfile extends Activity {
 	        	
 	        }else{
 	            Toast.makeText(getBaseContext(), "Password has changed", Toast.LENGTH_SHORT).show();
-	        	pw = oldpw;
-	        	
+	            pwchanged = true;
 	        }
+        }
+        
+        if(!pwchanged){
+        	pw = oldpw;
         }
 
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		int uid = settings.getInt("uid", 0);
+		
+		SharedPreferences.Editor editor = settings.edit();
+    	editor.putString("userPhoneNumber", phone);
+    	editor.putString("userFirstName", fname);
+    	editor.putString("userLastName", lname);
+    	editor.putString("userEmail", email);
+    	editor.commit();
+    	
         Communicator.updateUser(uid, Long.parseLong(phone), fname, lname, email, pw);
-        
+
+        EditProfile.this.setResult(R.string.edited_profile);
         EditProfile.this.finish();
 	}
     // menu 

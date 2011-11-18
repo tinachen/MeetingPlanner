@@ -27,12 +27,12 @@ public class TrackerEtaList extends Activity {
         attendeesList.setAdapter(adapter);
     }
     
-    public void updateList(Map<Integer, UserInstance> map) {
+    public void updateList(Map<String, Object> map) {
     	attendees.clear();
-
-    	Set<Integer> keys = map.keySet();
+    	Map<Integer, UserInstance> map2 = (Map<Integer, UserInstance>) map.get("locations");
+    	Set<Integer> keys = map2.keySet();
     	for (Integer i : keys){
-    		attendees.add(map.get(i));
+    		attendees.add(map2.get(i));
     	}
     	adapter = new ArrayAdapter<UserInstance>(this, R.layout.tracker_list_item, attendees);
         attendeesList.setAdapter(adapter);

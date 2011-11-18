@@ -9,7 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 
@@ -123,6 +127,23 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 
         TextView tvCreator = (TextView) convertView.findViewById(R.id.creator);
         tvCreator.setText("FixMe");        
+        
+        CheckBox cb = (CheckBox) convertView.findViewById(R.id.checkBox1); 
+        cb.setOnCheckedChangeListener(new OnCheckedChangeListener() { 
+ 
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { 
+        // TODO Auto-generated method stub 
+        if (buttonView.isChecked()) { 
+        	//Toast.makeText(getBaseContext(), "Checked", Toast.LENGTH_SHORT).show(); 
+        } 
+        else 
+        { 
+        	//Toast.makeText(getBaseContext(), "UnChecked", Toast.LENGTH_SHORT).show(); 
+        } 
+
+        } 
+        }); 
+        
         return convertView;
 	}
 }

@@ -1,204 +1,159 @@
 package com.uiproject.meetingplanner;
 
-import java.util.ArrayList;
-import java.util.Date;
+import android.app.ExpandableListActivity;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.CheckBox;
+import android.widget.ExpandableListView;
+import android.widget.SimpleExpandableListAdapter;
+import android.widget.Toast;
+
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.ExpandableListActivity;
-import android.app.ListActivity;
-import android.app.TimePickerDialog;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.Gravity;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.ArrayAdapter;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.AbsListView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 
-public class MeetingListAccepted extends ExpandableListActivity {
-    
-    /** Called when the activity is first created. */
-    ExpandableListAdapter mAdapter;
+public class MeetingListAccepted extends ExpandableListActivity
+{
+    private static final String LOG_TAG = "MeetingListAccepted";
     private MeetingPlannerDatabaseManager db;
     public ArrayList<MeetingInstance> allMeet;
+    private String[] groups;
+	private String[][] children;
+    public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 
+    
+    /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // Hook up with database
-	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
-	    db.open();
-
-	    db.createMeeting(2,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
-
-	    allMeet = db.getAllMeetings();
-        // Set up our adapter
-        mAdapter = new MyExpandableListAdapter(allMeet);
-        setListAdapter(mAdapter);
-        registerForContextMenu(getExpandableListView());
-       
-        // Hook up with database
-	    db = new MeetingPlannerDatabaseManager(this, 2);
-	    db.open();
-	    
-	    ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
-	    String s = "meeting size:" + meetings.size();
-    	Toast.makeText(MeetingListAccepted.this, s, Toast.LENGTH_SHORT).show();
-    }
-
-    public ArrayList<MeetingInstance> getMeet()
+    public void onCreate(Bundle icicle)
     {
-    	String TAG = "MeetingTracker";
-    	Log.v(TAG, "Size is " + allMeet.size());
-    	return allMeet;
+        super.onCreate(icicle);
+        setContentView(R.layout.expandable_meeting_list);
+        
+        //Hook up the database
+        db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+	    db.open();
+
+	    
+	    /*db.createUser(1, "Laura", "Rodriguez", "lau.rodriguez@gmail", "3128573352", 37, -34);
+	    db.createUser(2, "Dummy", "Joe", "tt@gmail.com", "1234567778", 32, 34);
+	    db.createMeeting(2,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeeting(5,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeeting(6,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeeting(7,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeetingUser(2, 1, 2, "Hello");
+	    db.createMeetingUser(2, 2, 1, "Hello2");*/
+	    
+	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	int uid = settings.getInt("uid", -1);
+    	Log.v(LOG_TAG, "uid = " + uid);
+    	allMeet = db.getAcceptedMeetings(uid);
+        // Set up our adapter
+    	//allMeet = db.getAllMeetings();
+    	db.close();
+    	
+    	groups = new String[allMeet.size()];
+    	children = new String[allMeet.size()][2];
+    	
+    	//Log.v(TAG, "Groups is " + groups.length);
+    	//Log.v(TAG, "Children is " + children.length);
+    	
+    	for (int i = 0; i < allMeet.size(); i++)
+    	{
+    		//Log.v(TAG, "Element number " + i + " is " + allMeetings.get(i).getMeetingSubject());
+    		groups[i] = allMeet.get(i).getMeetingTitle() + "\n";
+    		//groups[i] = allMeet.get(i).getMeetingTitle() + "\n\n" + "Fixme" + "\t\t" + allMeet.get(i).getMeetingDate() + "\t" + allMeet.get(i).getMeetingStartTime();
+    		children[i][0] = allMeet.get(i).getMeetingDescription() + "\n" + allMeet.get(i).getMeetingAddress() + "\n" + allMeet.get(i).getMeetingDate() + "\n";
+    		children[i][1] = "\n" + allMeet.get(i).getMeetingStartTime() + " to " + allMeet.get(i).getMeetingEndTime();
+     	}
+    	
+		SimpleExpandableListAdapter expListAdapter =
+			new SimpleExpandableListAdapter(
+				this,
+				createGroupList(),	// groupData describes the first-level entries
+				R.layout.group_row,	// Layout for the first-level entries
+				new String[] { "colorName" },	// Key in the groupData maps to display
+				new int[] { R.id.childname },		// Data under "colorName" key goes into this TextView
+				createChildList(),	// childData describes second-level entries
+				R.layout.child_row,	// Layout for second-level entries
+				new String[] { "shadeName", "rgb" },	// Keys in childData maps to display
+				new int[] { R.id.childname, R.id.rgb }	// Data under the keys above go into these TextViews
+			);
+		setListAdapter( expListAdapter );
     }
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        menu.setHeaderTitle("Sample menu");
-        //.add(0, 0, 0, R.layout.main);
+
+    public void  onContentChanged  () {
+        super.onContentChanged();
+        Log.d( LOG_TAG, "onContentChanged" );
     }
 
-    public boolean onContextItemSelected(MenuItem item) {
-        ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) item.getMenuInfo();
-
-        String title = ((TextView) info.targetView).getText().toString();
-
-        int type = ExpandableListView.getPackedPositionType(info.packedPosition);
-        if (type == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-            int groupPos = ExpandableListView.getPackedPositionGroup(info.packedPosition); 
-            int childPos = ExpandableListView.getPackedPositionChild(info.packedPosition); 
-            Toast.makeText(this, title + ": Child " + childPos + " clicked in group " + groupPos,
-                    Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (type == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
-            int groupPos = ExpandableListView.getPackedPositionGroup(info.packedPosition); 
-            Toast.makeText(this, title + ": Group " + groupPos + " clicked", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-
+    public boolean onChildClick(
+            ExpandableListView parent, 
+            View v, 
+            int groupPosition,
+            int childPosition,
+            long id) {
+        Log.d( LOG_TAG, "onChildClick: "+childPosition );
+		
+        //if( btn != null )
+            
         return false;
     }
-    
-    public void onClick(View v) {
-    	Toast.makeText(getApplicationContext(), "You clicked!", Toast.LENGTH_SHORT).show();
+
+    public void  onGroupExpand  (int groupPosition) {
+        Log.d( LOG_TAG,"onGroupExpand: "+groupPosition );
     }
-    /*
-    
-    // add a click listener to the button
-    mSelectMeeting.setOnClickListener(new View.OnClickListener() {
-        public void onClick(View v) {
-        	//showDialog(MEETING_DIALOG_ID);
-        }});
+
+    public void editButtonClicked(View view)
+    {
+    	//ELIZABETH'S CODE HERE
+    	Toast.makeText(getApplicationContext(), "You clicked me!", Toast.LENGTH_SHORT).show();
     }
-    */
-    
-    public class MyExpandableListAdapter extends BaseExpandableListAdapter {
-        // Sample data set.  children[i] contains the children (String[]) for groups[i].
-        private String[] groups;
-    	private String[] children;
-    	private ArrayList<MeetingInstance> allMeetings;
-    	
-        public MyExpandableListAdapter(ArrayList<MeetingInstance> allMeet) {
-			// TODO Auto-generated constructor stub
-        	allMeetings = allMeet;
-        	//String TAG = "MeetingTracker";
-        	//Log.v(TAG, "Size is " + allMeetings.size());
-        	groups = new String[allMeetings.size()];
-        	children = new String[allMeetings.size()];
-        	
-        	//Log.v(TAG, "Groups is " + groups.length);
-        	//Log.v(TAG, "Children is " + children.length);
-        	
-        	for (int i = 0; i < allMeetings.size(); i++)
-        	{
-        		//Log.v(TAG, "Element number " + i + " is " + allMeetings.get(i).getMeetingSubject());
-        		groups[i] = allMeetings.get(i).getMeetingTitle() + "\n\n" + "Fixme" + "\t\t" + allMeetings.get(i).getMeetingDate() + "\t" + allMeetings.get(i).getMeetingStartTime();
-        		children[i] = allMeetings.get(i).getMeetingDescription() + "\n" +
-        									allMeetings.get(i).getMeetingAddress() + "\n" +
-        									allMeetings.get(i).getMeetingDate() + "  " + allMeetings.get(i).getMeetingStartTime() + " to " + allMeetings.get(i).getMeetingEndTime() + "\n" +
-        									allMeetings.get(i).getMeetingAttendees() + "\n";
-         	}
-        	
-        	//Log.v(TAG, "I am at the end! ");
+/**
+  * Creates the group list out of the colors[] array according to
+  * the structure required by SimpleExpandableListAdapter. The resulting
+  * List contains Maps. Each Map contains one entry with key "colorName" and
+  * value of an entry in the colors[] array.
+  */
+    private List createGroupList() {
+  	  ArrayList result = new ArrayList();
+  	  for( int i = 0 ; i < groups.length ; ++i ) {
+  		HashMap m = new HashMap();
+  	    m.put( "colorName",groups[i] );
+  		result.add( m );
+  	  }
+  	  return (List)result;
+      }
+
+/**
+  * Creates the child list out of the shades[] array according to the
+  * structure required by SimpleExpandableListAdapter. The resulting List
+  * contains one list for each group. Each such second-level group contains
+  * Maps. Each such Map contains two keys: "shadeName" is the name of the
+  * shade and "rgb" is the RGB value for the shade.
+  */
+	private List createChildList() {
+		ArrayList result = new ArrayList();
+		for( int i = 0 ; i < children.length ; ++i ) {
+			// Second-level lists
+			ArrayList secList = new ArrayList();
+			for( int n = 0 ; n < children[i].length ; n += 2 ) {
+				HashMap child = new HashMap();
+				child.put( "shadeName", children[i][n] );
+				child.put( "rgb", children[i][n+1] );
+				secList.add( child );
+			}
+			result.add( secList );
 		}
-        
-        public Object getChild(int groupPosition, int childPosition) {
-            return children[groupPosition];
-        }
+		return result;
+	}
 
-        public long getChildId(int groupPosition, int childPosition) {
-            return childPosition;
-        }
-
-        public int getChildrenCount(int groupPosition) {
-            return 1;
-        }
-
-        public TextView getGenericView() {
-            // Layout parameters for the ExpandableListView
-            AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, 100);
-
-            TextView textView = new TextView(MeetingListAccepted.this);
-            textView.setLayoutParams(lp);
-            // Center the text vertically
-            textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-            // Set the text starting position
-            textView.setPadding(80, 0, 0, 0);
-            textView.setTextSize(14);
-            return textView;
-        }
-
-        public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
-                View convertView, ViewGroup parent) {
-            TextView textView = getGenericView();
-            textView.setText(getChild(groupPosition, childPosition).toString());
-            return textView;
-        }
-
-        public Object getGroup(int groupPosition) {
-            return groups[groupPosition];
-        }
-
-        public int getGroupCount() {
-            return allMeetings.size();
-        }
-
-        public long getGroupId(int groupPosition) {
-            return groupPosition;
-        }
-
-        public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
-                ViewGroup parent) {
-            TextView textView = getGenericView();
-            textView.setText(getGroup(groupPosition).toString());
-            return textView;
-        }
-
-        public boolean isChildSelectable(int groupPosition, int childPosition) {
-            return true;
-        }
-
-        public boolean hasStableIds() {
-            return true;
-        }
-
-    }
-    
 }

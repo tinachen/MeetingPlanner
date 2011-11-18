@@ -1,7 +1,12 @@
 package com.uiproject.meetingplanner;
 
+import java.text.ParseException;
+
+import org.json.JSONException;
+
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseUtility;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -52,10 +57,9 @@ public class Signup extends Activity {
         
         // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
-	    db.open();
 	}
 
-	public void submit(View button){
+	public void submit(View button) throws JSONException, ParseException{
 
         //error checking here
         
@@ -86,15 +90,22 @@ public class Signup extends Activity {
 		
 		if(uid == -1){
 			// User has already been created, show error msg
-			Toast.makeText(getBaseContext(), "Phone number has been used before!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getBaseContext(), "Phone number has already been used by other users!", Toast.LENGTH_SHORT).show();
 			return;
 		}
-			
-		// Store user into internal db
-		db.createUser(uid, fname, lname, email, Long.toString(phonenumber), 0, 0);
-		db.close();
 		
 		// User has been created successfully
+		
+		// Open db connection
+		db.open();
+		// Get meetings info & user infos from server and update internal db
+    	MeetingPlannerDatabaseUtility.updateDatabase(db);
+		
+		// Store user into internal db
+		//db.createUser(uid, fname, lname, email, Long.toString(phonenumber), 0, 0);
+		db.close();
+		
+		
 		// Log user in
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		Editor editor = settings.edit();
@@ -110,8 +121,6 @@ public class Signup extends Activity {
 		
     	Intent intent = new Intent(Signup.this, MainPage.class);
     	Signup.this.startActivity(intent);
-		
-		
 		
 	}
 
