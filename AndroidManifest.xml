@@ -119,6 +119,11 @@
                   android:finishOnTaskLaunch="true">
 		</activity>
 		
+		<activity android:name=".CustomListActivity"
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
+		</activity>
+		
 		<activity android:name=".TrackerMap"
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
