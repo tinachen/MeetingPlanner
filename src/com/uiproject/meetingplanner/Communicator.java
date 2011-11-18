@@ -107,6 +107,9 @@ public class Communicator {
 	public static Map<Integer, UserInstance> getAllUsers() throws JSONException {
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/mygetallusers";
 		String result = getResponseResult(urlStr);
+		
+		Log.d(communicatorTag, "getAllUsers result = " + result);
+		
 		JSONObject users = new JSONObject(result);
 		JSONArray userIds = users.names();
 		JSONArray userInfos = users.toJSONArray(userIds);
