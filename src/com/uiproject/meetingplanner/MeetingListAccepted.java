@@ -123,6 +123,7 @@ public class MeetingListAccepted extends ExpandableListActivity
         		//check to see if edit button should be visible
                 edit.setTag(m.getMeetingID());
         		int creator = m.getMeetingInitiatorID();
+        		Log.d(LOG_TAG, "getChildView: creatorID = " + creator + ", userId = " + uid);
         		if (creator != uid){
         			edit.setVisibility(View.GONE);
         		}else{

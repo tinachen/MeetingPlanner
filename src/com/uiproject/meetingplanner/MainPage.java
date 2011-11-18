@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -28,6 +30,8 @@ public class MainPage extends Activity {
 	public static final String mainPageTag = "MainPage";
 	private MeetingPlannerDatabaseManager db;
 	private int uid;
+	public static GeoUpdateHandler guh;
+	private LocationManager locationManager;
 	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +104,12 @@ public class MainPage extends Activity {
 	    }
 	    
 	    editor.commit(); 
+	    
+	    guh = new GeoUpdateHandler(this);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, guh);
+		
+		Log.d(mainPageTag, "Create GeoUpdateHandler");
     }
 
     public void gotoMyMeetings(View button){

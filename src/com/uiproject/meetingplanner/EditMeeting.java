@@ -143,7 +143,7 @@ public class EditMeeting extends Activity {
         meHour = Integer.parseInt(etime.substring(0, colon));
         meMinute = Integer.parseInt(etime.substring(colon + 1, colon + 3));
         int mtrack = m.getMeetingTrackTime();
-        Toast.makeText(getApplicationContext(), "track: " + mtrack, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "track: " + mtrack, Toast.LENGTH_SHORT).show();
         //TODO look into tracking time
         trackTime = (double) m.getMeetingTrackTime() / 60.0;
         lat = m.getMeetingLat();
