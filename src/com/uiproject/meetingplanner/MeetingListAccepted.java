@@ -92,7 +92,8 @@ public class MeetingListAccepted extends ExpandableListActivity
             public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
                 final View v = super.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
 
-                MeetingInstance m = allMeet.get(childPosition);
+                Log.d(LOG_TAG, "getChildView: groupPosition = " + groupPosition + ", childPosition = " + childPosition);
+                MeetingInstance m = allMeet.get(groupPosition);
                 
                 //get views
                 Button edit = (Button) v.findViewById(R.id.editBtn);
