@@ -105,7 +105,7 @@ public class MeetingListAccepted extends ExpandableListActivity
         		//set views
         		loc.setText(m.getMeetingAddress());
         		track_text.setText("Track time: " + m.getMeetingTrackTime() + " minutes before");
-        		desc.setText("Description:"  + m.getMeetingDescription());
+        		desc.setText("Description: "  + m.getMeetingDescription());
         		HashMap<Integer, UserInstance> ppl = m.getMeetingAttendees();
         		Set<Integer> keys = ppl.keySet();
         		boolean added = false;
@@ -115,6 +115,7 @@ public class MeetingListAccepted extends ExpandableListActivity
         				names += ", ";
         			}
         			names = names + ppl.get(i).getUserFirstName() + " " + ppl.get(i).getUserLastName();
+        			added = true;
         		}
         		attendees.setText("Attendees: " + names);
         		

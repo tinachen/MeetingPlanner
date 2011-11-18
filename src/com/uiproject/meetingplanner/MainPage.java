@@ -68,8 +68,7 @@ public class MainPage extends Activity {
 	    mtitle = (TextView) findViewById(R.id.mtitle);
 	    mwhen = (TextView) findViewById(R.id.mwhen);
 	    mdesc = (TextView) findViewById(R.id.mdesc);
-	    track_button = (Button) findViewById(R.id.mtrack_button);
-	    
+	    track_button = (Button) findViewById(R.id.mtrackbutton);
 	    int mid = m.getMeetingID();
 	    if(mid < 0){
 	    	mtitle.setText("You have no upcoming meetings");
@@ -84,7 +83,7 @@ public class MainPage extends Activity {
 	    	String when = m.getMeetingDate() + ", " + m.getMeetingStartTime() + "-" + m.getMeetingEndTime();
 	    	mwhen.setText(when);
 	    	mdesc.setText(m.getMeetingDescription());
-	    	//track_button.setTag(mid);
+	    	track_button.setTag(mid);
 	        int currenth = Calendar.HOUR_OF_DAY;
 	        int currentm = Calendar.MINUTE;
 	    	String start = m.getMeetingStartTime();
