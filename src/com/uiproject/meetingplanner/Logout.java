@@ -3,6 +3,7 @@ package com.uiproject.meetingplanner;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 public class Logout {
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";

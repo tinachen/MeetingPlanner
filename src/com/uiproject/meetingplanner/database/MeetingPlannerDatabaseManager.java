@@ -72,6 +72,7 @@ public class MeetingPlannerDatabaseManager {
 			Log.d(dbManagerTag, "createMeeting: meetingID = " + meetingID + ", meetingTitle = " + meetingTitle + 
 					", meetingDescription = " + meetingDescription + ", meetingInitiatorID = " + meetingInitiatorID + 
 					", meetingStartTime = " + meetingStartTime + ", meetingEndTime = " + meetingEndTime +
+					", meetingTrackTime = " + meetingTrackTime + 
 					", meetingStartTimestamp = " + meetingStartTimestamp);
 		}
 		catch(Exception e)

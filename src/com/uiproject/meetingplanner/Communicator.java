@@ -39,7 +39,7 @@ public class Communicator {
 			}
 			in.close();
 		} catch (Exception e) {
-			System.out.println("error!");
+			System.out.println("error! exception:" + e.toString());
 		}
 		return responseResult;
 	}
@@ -74,7 +74,9 @@ public class Communicator {
 		// debug msg
 		String tag = "Communicator";
 		Log.v(tag, urlStr);
-
+		if (result.length() == 0){
+			return -1;
+		}
 		return Integer.valueOf(result);
 	}
 
@@ -105,6 +107,9 @@ public class Communicator {
 	public static Map<Integer, UserInstance> getAllUsers() throws JSONException {
 		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/mygetallusers";
 		String result = getResponseResult(urlStr);
+		
+		Log.d(communicatorTag, "getAllUsers result = " + result);
+		
 		JSONObject users = new JSONObject(result);
 		JSONArray userIds = users.names();
 		JSONArray userInfos = users.toJSONArray(userIds);

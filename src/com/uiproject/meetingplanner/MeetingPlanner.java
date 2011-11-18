@@ -23,7 +23,7 @@ public class MeetingPlanner extends Activity {
         super.onCreate(savedInstanceState);
         // used for detecting current position
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new GeoUpdateHandler());
+		//locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new GeoUpdateHandler(this,));
 		
     }
     
