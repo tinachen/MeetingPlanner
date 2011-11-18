@@ -125,7 +125,9 @@ public class MeetingListAccepted extends ExpandableListActivity
         		int creator = m.getMeetingInitiatorID();
         		if (creator != uid){
         			edit.setVisibility(View.GONE);
-        		}        		
+        		}else{
+        			edit.setVisibility(View.VISIBLE);
+        		}
 
         		//check to see if track button should be visible
                 track.setTag(m.getMeetingID());
@@ -138,7 +140,9 @@ public class MeetingListAccepted extends ExpandableListActivity
         		int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
         		if (minutes_before > tracktime){
         			track.setVisibility(View.GONE);
-        		}        		
+        		}else{
+        			track.setVisibility(View.VISIBLE);
+        		}
                 return v;
             }
 		};
