@@ -83,9 +83,9 @@ public class Search extends Activity implements OnItemClickListener {
 	    	        while (phones.moveToNext()) {
 	    	        	String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("\\D", "");
 	    	        	//phoneNumber.replaceAll("\\D", "");
-	    	        	Log.d("TEST", phoneNumber);
+	    	        	//Log.d("TEST", phoneNumber);
 	    	        	for (int i = 0; i < usersArray.size(); i++) {
-	    	        		Log.d("TEST1", phones.getString(phones.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
+	    	        		//Log.d("TEST1", phones.getString(phones.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
 		    	        	if (usersArray.get(i).getUserPhone().equals(phoneNumber)) {
 		    	        		currentSearchList.add(phones.getString(phones.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
 		    	        	}
@@ -152,7 +152,7 @@ public class Search extends Activity implements OnItemClickListener {
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// Displays the clicked name in LogCat for now
-		Log.d("TEST", parent.getItemAtPosition(position).toString());
+		//Log.d("TEST", parent.getItemAtPosition(position).toString());
 		SparseBooleanArray checked = mContactList.getCheckedItemPositions();
 		checkedNames.clear();
 		for (int i = 0; i < currentSearchList.size(); i++) {

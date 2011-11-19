@@ -1,28 +1,31 @@
 package com.uiproject.meetingplanner;
 
 import java.text.ParseException;
-import java.util.HashMap;
 
 import org.json.JSONException;
-
-//import com.facebook.android.*;
-//import com.facebook.android.Facebook.*;
-import com.uiproject.meetingplanner.database.*;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseUtility;
 
 public class Login extends Activity {
 	
 	EditText phone_field, pw_field;
 	CheckBox remember_me;
+	Button login_button;
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	public static final String LoginTag = "Login";
 	private MeetingPlannerDatabaseManager db;
@@ -52,6 +55,9 @@ public class Login extends Activity {
         phone_field = (EditText) findViewById(R.id.phone);
         pw_field = (EditText) findViewById(R.id.pw);
         remember_me = (CheckBox) findViewById(R.id.rememberme);
+
+        login_button = (Button) findViewById(R.id.loginButton);
+        login_button.getBackground().setColorFilter(Color.parseColor(this.getString(R.color.buttonblue)), PorterDuff.Mode.MULTIPLY);
         
         //check to see if user is already logged in or not
         
@@ -61,6 +67,14 @@ public class Login extends Activity {
     	if (uid != -1 && remember){ // if logged in, then go directly to main page
             Intent intent = new Intent(Login.this, MainPage.class);
         	Login.this.startActivity(intent);    		
+    	}
+    	
+    	String userPhoneNumber = settings.getString("userPhoneNumber", "invalid");
+    	String userPassword = settings.getString("userPassword", "invalid");
+    	
+    	if( (userPhoneNumber.compareTo("invalid")!=0) && (userPassword.compareTo("invalid")!=0)){
+    		phone_field.setText(userPhoneNumber);
+    		pw_field.setText(userPassword);
     	}
     	
         // Hook up with database
@@ -81,25 +95,25 @@ public class Login extends Activity {
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		SharedPreferences.Editor editor = settings.edit();
 		
-    	boolean remember = settings.getBoolean("remember", false);
-    	String userPhoneNumber = settings.getString("userPhoneNumber", "invalid");
-    	String userPassword = settings.getString("userPassword", "invalid");
+    	//boolean remember = settings.getBoolean("remember", false);
+    	//String userPhoneNumber = settings.getString("userPhoneNumber", "invalid");
+    	//String userPassword = settings.getString("userPassword", "invalid");
 
     	// if user didn't check remember password before, set user phone number & password from user inputs
-    	if(!remember || (userPhoneNumber.compareTo("invalid")==0) || (userPassword.compareTo("invalid")==0)){
+    	//if( (userPhoneNumber.compareTo("invalid")==0) || (userPassword.compareTo("invalid")==0)){
     		//Toast.makeText(getBaseContext(), "userphonecomapre " + userPhoneNumber + " " +userPhoneNumber.compareTo("invalid phone number"), Toast.LENGTH_SHORT).show();
-    		userPhoneNumber = phone_field.getText().toString();
-        	userPassword = pw_field.getText().toString();
+    		String userPhoneNumber = phone_field.getText().toString();
+        	String userPassword = pw_field.getText().toString();
         	
         	if(userPhoneNumber.length() == 0 || userPassword.length() == 0){
                 Toast.makeText(getBaseContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
             	return;        	
             }
         	
-    	}else{
+    	/*}else{
     		phone_field.setText(userPhoneNumber);
     		pw_field.setText(userPassword);
-    	}
+    	}*/
 		
     	long userPhoneNumberLong = Long.parseLong(userPhoneNumber);
     	int userID = Communicator.logIn(userPhoneNumberLong, userPassword);
@@ -136,15 +150,17 @@ public class Login extends Activity {
     	editor.putString("userFirstName", user.getUserFirstName());
     	editor.putString("userLastName", user.getUserLastName());
     	editor.putString("userEmail", user.getUserEmail());
+    	editor.putString("userPassword", userPassword);
+    	editor.putBoolean("remember", remember_me.isChecked());
     	
     	// Saves user password if he/she checked remember password
-        if(remember_me.isChecked()){ 
+        /*if(remember_me.isChecked()){ 
         	editor.putBoolean("remember", true);
-        	editor.putString("userPassword", userPassword);
+        	
             //Toast.makeText(getBaseContext(), "remembering you", Toast.LENGTH_SHORT).show();
         }else{
         	editor.putBoolean("remember", false);
-        }
+        }*/
 
         // Saves the changes in sharedpreferences
     	editor.commit(); 

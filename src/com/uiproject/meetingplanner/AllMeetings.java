@@ -13,6 +13,7 @@ public class AllMeetings extends TabActivity{
 
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.tabs);
 	    
 	    Resources res = getResources(); // Resource object to get Drawables
 	    TabHost tabHost = getTabHost();  // The activity TabHost
@@ -23,17 +24,17 @@ public class AllMeetings extends TabActivity{
 	    intent = new Intent().setClass(this, MeetingListPending.class);
 
 	    // Initialize a TabSpec for each tab and add it to the TabHost
-	    spec = tabHost.newTabSpec("pending").setIndicator("Pending")
+	    spec = tabHost.newTabSpec("pending").setIndicator("Pending", res.getDrawable(R.drawable.ic_menu_flash))
         			  .setContent(intent);
 	    tabHost.addTab(spec);
 	    
 	    intent = new Intent().setClass(this, MeetingListAccepted.class);
-	    spec = tabHost.newTabSpec("accepted").setIndicator("Accepted")
+	    spec = tabHost.newTabSpec("accepted").setIndicator("Accepted", res.getDrawable(R.drawable.ic_menu_tick))
 	                  .setContent(intent);
 	    tabHost.addTab(spec);
 	    
-	    intent = new Intent().setClass(this, MeetingListDeclined.class);
-	    spec = tabHost.newTabSpec("declined").setIndicator("Declined")
+	    intent = new Intent().setClass(this, CustomListActivity.class);
+	    spec = tabHost.newTabSpec("declined").setIndicator("Declined", res.getDrawable(R.drawable.ic_menu_stop))
         			  .setContent(intent);
 	    tabHost.addTab(spec);
 	    tabHost.setCurrentTab(1);

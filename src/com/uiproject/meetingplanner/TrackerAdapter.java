@@ -20,22 +20,19 @@ public class TrackerAdapter extends BaseAdapter {
 		this.trackerList = trackerList;
 	}
 
-	@Override
+	
 	public int getCount() {
 		return trackerList.size();
 	}
 
-	@Override
 	public Object getItem(int position) {
 		return trackerList.get(position);
 	}
 
-	@Override
 	public long getItemId(int position) {
 		return position;
 	}
 
-	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Tracker entry = trackerList.get(position);
         if (convertView == null) {

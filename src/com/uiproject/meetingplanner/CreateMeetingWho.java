@@ -21,7 +21,7 @@ public class CreateMeetingWho extends Search {
         setContentView(R.layout.createmeetingwho);
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	String names = settings.getString("mnames", "");
-    	String phones = settings.getString("mphones", "");
+    	String phones = settings.getString("mattendeeids", "");
         
         init();
         

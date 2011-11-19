@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/backgroundColor"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -10,47 +11,47 @@
     android:orientation="horizontal">
 
         <TextView
+	style="@style/CMnotselected"
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="What"
-            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444"/>
+            android:text="What"/>
 
         <TextView
+	style="@style/CMnotselected"
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="When"
-            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444"/>
+            android:text="When"/>
 
         <TextView
+	style="@style/CMselected"
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="Who"
-            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444"/>
+            android:text="Who"/>
 
         <TextView
+	style="@style/CMnotselected"
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="Where"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:text="Where"/>
 
     </LinearLayout>
 
            <View
+	style="@style/CMprogress"
         android:layout_height="2dip"
-        android:layout_width="match_parent"
-        android:background="#FF909090" />
+        android:layout_width="match_parent"/>
         
 <!-- start main content -->
 
@@ -62,7 +63,6 @@ android:layout_height="wrap_content"
 android:layout_marginTop="5dip">
 <EditText
 android:id="@+id/address_field"
-android:textSize="20px"
 android:hint="type address here...."
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
@@ -81,7 +81,7 @@ android:onClick="findAddress" />
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:apiKey="0RgOCS6zp4Eiyli1LdMoNKdPVTXDMaTe3YY81GQ"
+    android:apiKey="0igWtYee5izJvMPsSwXKbUg5K-Hv3rg-V8yHwuA"
     android:layout_weight="1"
 />
 
