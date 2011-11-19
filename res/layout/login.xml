@@ -47,29 +47,29 @@
 		android:text="Forgot password?"
 		android:clickable="true"
 		android:onClick="forgotPass" 
-		android:layout_marginTop="10dip"/>
+		android:layout_marginTop="5dip"/>
 	<CheckBox
-		style="@style/secondText"
+		style="@style/lightText"
    		android:id="@+id/rememberme"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="Remember me on this device"
 		android:textSize="15sp" 
-		android:layout_marginTop="10dip"/>		
+		android:layout_marginTop="5dip"/>		
 	<Button
 		android:id="@+id/loginButton"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:onClick="checkLogin"
 		android:text="Login"
-		android:layout_marginTop="40dip" />	
+		android:layout_marginTop="50dip" />	
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_height="wrap_content"
 		android:layout_width="fill_parent"
 			android:layout_marginTop="10dip">
 		<TextView
-			style="@style/secondText"
+			style="@style/lightText"
 			android:textSize="15sp"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

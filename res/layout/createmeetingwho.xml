@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/backgroundColor"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -10,40 +11,40 @@
     android:orientation="horizontal">
 
         <TextView
+	style="@style/CMnotselected"
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="What"
-            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444"/>
+            android:text="What"/>
 
         <TextView
+	style="@style/CMnotselected"
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="When"
-            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444"/>
+            android:text="When"/>
 
         <TextView
+	style="@style/CMselected"
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="Who"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:text="Who"/>
 
         <TextView
+	style="@style/CMnotselected"
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="Where"
-            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444"/>
+            android:text="Where"/>
 
     </LinearLayout>
 <LinearLayout
@@ -51,15 +52,15 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
            <View
+	style="@style/CMprogress"
         android:layout_height="2dip"
         android:layout_width="wrap_content"
-        android:layout_weight=".25"
-        android:background="#FF909090" />
+        android:layout_weight=".25"/>
            <View
+	style="@style/backgroundColor"
         android:layout_height="2dip"
         android:layout_width="wrap_content"
-        android:layout_weight=".75"
-        android:background="#000000" />
+        android:layout_weight=".75" />
 </LinearLayout>
 
 
@@ -74,7 +75,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:hint="Search Names"/>
-    <ListView android:layout_width="match_parent"
+    <ListView
+	style="@style/secondaryText"
+	 android:layout_width="match_parent"
         android:id="@+id/contactList"
         android:layout_height="wrap_content"/>
 </LinearLayout>

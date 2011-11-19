@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/backgroundColor"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" 
     android:orientation="vertical" 
@@ -16,11 +17,13 @@
 		android:layout_width="wrap_content"
 		android:layout_alignParentRight="true">
 		<TextView
+	style="@style/lightText"
 		   android:layout_width="wrap_content"
 		   android:layout_height="wrap_content"
 		   android:text="Logged in as: " />
 		   
 		<TextView
+	style="@style/lightText" 
 		   android:id="@+id/name"
 		   android:layout_width="wrap_content"
 		   android:layout_height="wrap_content"
@@ -63,6 +66,7 @@
 			   android:clickable="true"
 			   android:onClick="gotoMyMeetings" />
 			<TextView
+	style="@style/secondaryText"
 			   android:layout_width="wrap_content"
 			   android:layout_height="wrap_content"
 			   android:clickable="true"
@@ -85,6 +89,7 @@
 			   android:clickable="true"
 			   android:onClick="createMeeting" />
 			<TextView
+	style="@style/secondaryText"
 			   android:layout_width="wrap_content"
 			   android:layout_height="wrap_content"
 			   android:clickable="true"
@@ -106,24 +111,24 @@
 		   android:src="@drawable/nextmeeting"
 		   android:paddingBottom="0dip" android:layout_width="225dip" android:layout_height="50dp"/>
 		<TextView
+	style="@style/headerText"
 		   android:id="@+id/mtitle"
 		   android:layout_width="wrap_content"
 		   android:layout_height="wrap_content"
-		   android:textAppearance="?android:attr/textAppearanceMedium"
 		   android:layout_marginTop="5dip"
 		   android:text="Meeting title" />
 		<TextView
+	style="@style/secondaryText"
 		   android:id="@+id/mwhen"
 		   android:layout_width="wrap_content"
 		   android:layout_height="wrap_content"
-		   android:textAppearance="?android:attr/textAppearanceSmall"
 		   android:layout_marginTop="5dip"
 		   android:text="Date, time details" />
 		<TextView
+	style="@style/secondaryText"
 		   android:id="@+id/mdesc"
 		   android:layout_width="wrap_content"
 		   android:layout_height="wrap_content"
-		   android:textAppearance="?android:attr/textAppearanceSmall"
 		   android:layout_marginTop="5dip"
 		   android:text="description here" />
 		<Button

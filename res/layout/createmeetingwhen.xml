@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/backgroundColor"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -10,40 +11,40 @@
     android:orientation="horizontal">
 
         <TextView
+	style="@style/CMnotselected"
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="What"
-            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444"/>
+            android:text="What"/>
 
         <TextView
+	style="@style/CMselected"
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="When"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:text="When"/>
 
         <TextView
+	style="@style/CMnotselected"
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="Who"
-            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444"/>
+            android:text="Who"/>
 
         <TextView
+	style="@style/CMnotselected"
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="Where"
-            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ff444444"/>
+            android:text="Where"/>
 
     </LinearLayout
     >
@@ -52,15 +53,15 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
            <View
+	style="@style/CMprogress"
         android:layout_height="2dip"
         android:layout_width="wrap_content"
-        android:layout_weight=".5"
-        android:background="#FF909090" />
+        android:layout_weight=".5"/>
            <View
+	style="@style/backgroundColor"
         android:layout_height="2dip"
         android:layout_width="wrap_content"
-        android:layout_weight=".5"
-        android:background="#000000" />
+        android:layout_weight=".5"/>
 </LinearLayout>
 
 <LinearLayout
@@ -75,8 +76,9 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip">
-			<TextView android:id="@+id/date_label"
-				android:textSize="20dip"
+			<TextView
+	style="@style/secondaryText"
+			 android:id="@+id/date_label"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="Date: "
@@ -95,8 +97,9 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip">		
-	    <TextView android:id="@+id/startTime_label"
-			android:textSize="20dip"
+	    <TextView
+	style="@style/secondaryText"
+	 android:id="@+id/startTime_label"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="Start time: "
@@ -117,8 +120,9 @@
 	android:layout_height="wrap_content"
 		android:layout_marginTop="10dip">
 		
-	    <TextView android:id="@+id/endTime_label"
-			android:textSize="20dip"
+	    <TextView
+	style="@style/secondaryText"
+	android:id="@+id/endTime_label"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="End time: "
@@ -137,8 +141,9 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 		android:layout_marginTop="10dip">
-		<TextView android:id="@+id/spinner_label1"
-			android:textSize="20dip"
+		<TextView
+	style="@style/secondaryText"
+	android:id="@+id/spinner_label1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="Track time: "
