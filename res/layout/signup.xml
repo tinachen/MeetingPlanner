@@ -65,7 +65,7 @@
 		android:layout_marginTop="5dip"/>		
 	<Button
 	    android:id="@+id/submit"
-	    android:background="@drawable/button"
+	    android:background="@drawable/button_shape"
 		android:layout_width="fill_parent"
 		android:layout_height="35dip"
 		android:onClick="submit"

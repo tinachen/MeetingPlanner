@@ -1,35 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+style="@style/backgroundColor"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
-
-    <TextView android:id="@+id/childname"
-         android:paddingLeft="50px"
-         android:focusable="false"
-         android:textSize="35px"
-         android:layout_width="350px"
-         android:layout_height="wrap_content"/>
-
-    <TextView android:id="@+id/rgb"
-         android:focusable="false"
-         android:textSize="25px"
-         android:layout_width="0px"
-         android:layout_height="wrap_content"/>
-           
-	<ImageView android:id="@+id/acceptbutton"
-  		 android:src="@drawable/ic_menu_tick"
-  		 android:layout_width="80px"
-  		 android:focusable="false" 
-		 android:clickable="true"
+	<RelativeLayout
+	android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+    	android:orientation="horizontal"
   		 android:layout_height="wrap_content"
-  		 android:onClick="acceptButtonClicked"/>
-  	
-  	<ImageView android:id="@+id/declinebutton"
-  		 android:src="@drawable/ic_menu_stop"
-  		 android:layout_width="80px"
-  		 android:focusable="false" 
-		 android:clickable="true"
+  		 android:layout_width="wrap_content">
+  		 
+    <TextView
+    style="@style/secondaryText"
+     android:id="@+id/childname"
+         android:paddingLeft="5dip"
+         android:focusable="false"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="text1" />
+
+    <TextView
+    style="@style/secondaryText"
+      android:id="@+id/rgb"
+         android:focusable="false"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="5dip"
+         android:text="text2"/>
+    </LinearLayout>
+    
+    <LinearLayout
   		 android:layout_height="wrap_content"
-  		 android:onClick="declineButtonClicked"/>
+  		 android:layout_width="wrap_content"
+  		 android:layout_alignParentRight="true">
+  		 
+		<ImageView android:id="@+id/acceptbutton"
+	  		 android:src="@drawable/ic_menu_tick"
+	  		 android:layout_width="wrap_content"
+	  		 android:focusable="false" 
+			 android:clickable="true"
+	  		 android:layout_height="wrap_content"
+	  		 android:onClick="acceptButtonClicked"/>
+	  	
+	  	<ImageView android:id="@+id/declinebutton"
+	  		 android:src="@drawable/ic_menu_stop"
+	  		 android:layout_width="wrap_content"
+	  		 android:focusable="false" 
+			 android:clickable="true"
+	  		 android:layout_height="wrap_content"
+	  		 android:onClick="declineButtonClicked"/>
+  	</LinearLayout>
+  	</RelativeLayout>
 </LinearLayout>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-<drawable name="darkgray">#808080FF</drawable>
-<drawable name="white">#FFFFFFFF</drawable>
-<drawable name="black">#000033</drawable>
+<color name="darkgray">#808080FF</color>
+<color name="white">#FFFFFFFF</color>
+<color name="black">#000033</color>
 <color name="bluegrey">#BFC8E0</color>
 <color name="buttonblue">#CBCEDA</color>
+<color name="bgblue">#92CAFF</color>
 </resources>

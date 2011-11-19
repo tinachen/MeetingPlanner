@@ -44,10 +44,10 @@ public class Signup extends Activity {
         pw2_field = (EditText) findViewById(R.id.pw2);
         submit = (Button) findViewById(R.id.submit);
         
-        int colors[] = { 0xffffee66, 0xffffc941, 0xffffab23 };
+        //int colors[] = { 0xffffee66, 0xffffc941, 0xffffab23 };
 
-        GradientDrawable g = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-        submit.setBackgroundDrawable(g);
+        //GradientDrawable g = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+        //submit.setBackgroundDrawable(g);
         
         //get info from phone and input it into the fields here
         
