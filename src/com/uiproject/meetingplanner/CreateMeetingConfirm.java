@@ -67,7 +67,7 @@ public class CreateMeetingConfirm extends Activity {
     	
     	mattendeeids = "2,5,6";
     	mnames = settings.getString("mnames", "");
-    	mattendeeids = settings.getString("mattendeeids", "");
+    	//mattendeeids = settings.getString("mattendeeids", "");
     	
     	// Set the view
     	title.setText(mtitle);
