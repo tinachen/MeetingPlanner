@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/backgroundColor"
+		android:background="@drawable/shape"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -57,7 +57,6 @@
         android:layout_width="wrap_content"
         android:layout_weight=".25"/>
            <View
-	style="@style/backgroundColor"
         android:layout_height="2dip"
         android:layout_width="wrap_content"
         android:layout_weight=".75" />
@@ -79,7 +78,7 @@
 	style="@style/secondaryText"
 	 android:layout_width="match_parent"
         android:id="@+id/contactList"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" android:cacheColorHint="@color/bgblue"/>
 </LinearLayout>
 
     
