@@ -32,7 +32,7 @@ public class AllMeetings extends TabActivity{
 	                  .setContent(intent);
 	    tabHost.addTab(spec);
 	    
-	    intent = new Intent().setClass(this, MeetingListDeclined.class);
+	    intent = new Intent().setClass(this, CustomListActivity.class);
 	    spec = tabHost.newTabSpec("declined").setIndicator("Declined")
         			  .setContent(intent);
 	    tabHost.addTab(spec);
