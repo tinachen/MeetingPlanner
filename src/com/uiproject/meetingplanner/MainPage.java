@@ -1,11 +1,22 @@
 package com.uiproject.meetingplanner;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -119,11 +130,23 @@ public class MainPage extends Activity {
         MainPage.this.startActivity(intent);
     	
     }
-    
+ //**************************************************************   
+
+ //*******************************************************************
     public void createMeeting(View button){
 
-		Intent intent = new Intent(MainPage.this, CreateMeetingWhat.class);
-		startActivity(intent);
+
+    	startActivity(new Intent(MainPage.this, CreateMeetingWhat.class));
+	//	Intent intent = new Intent(MainPage.this, CommunicateService.class);
+	//	startService(intent);
+		
+		
+		
+		
+
+//		Intent intent = new Intent(MainPage.this, CreateMeetingWhat.class);
+//		startActivity(intent);
+
 
     }
     

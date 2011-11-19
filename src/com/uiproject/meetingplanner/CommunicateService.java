@@ -12,11 +12,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
+
 public class CommunicateService extends Service {
+	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+	public static int MID;
+	private int uid;
 	MultiThread thread1;
 	@Override
 	public IBinder onBind(Intent arg0) {
@@ -26,6 +33,7 @@ public class CommunicateService extends Service {
 	
 	public void onCreate(){
 		Log.d("CommunicateService","OnCreate");
+	//	getIntent().getExtra("mid");
 		super.onCreate();
 	}
 	
@@ -35,6 +43,7 @@ public class CommunicateService extends Service {
 			thread1 = new MultiThread();
 			thread1.start();
 		}
+		MID=intent.getIntExtra("mid", -1);
 		super.onStart(intent, startId);
 
 	}
@@ -50,7 +59,7 @@ public class CommunicateService extends Service {
 			while(status){
 				try{
 					displayResult();
-					Thread.sleep(1000);
+					Thread.sleep(5000);
 				}
 				catch(Exception e) {   
 					e.printStackTrace();
@@ -60,30 +69,48 @@ public class CommunicateService extends Service {
 		
 	}
 	
-	
-    public Map<String,Object> displayResult() throws JSONException
+    public void displayResult() throws JSONException
     {
-    	Random r=new Random();
-    	int ran=r.nextInt(10);
-    	int test = 10+ran;
-    	
-    	ServerMsg sm1=new ServerMsg(test);
+    	Log.d("asd","1");
+    	ServerMsg sm1=new ServerMsg(6);
+    	Log.d("asd","2");
     	String result = getResponseResult(sm1);
-    	Map<String,Object> msg =new HashMap<String,Object> ();
+    	Log.d("Show the result",result);
+   // 	Map<String,Object> msg =new HashMap<String,Object> ();
 		JSONObject message = new JSONObject(result);
 		int tag = message.getInt("tag");
-		msg.put("tag",tag);
+	//	msg.put("tag",tag);
 		JSONObject locations = message.getJSONObject("locations");
-		if(locations==null) return msg;
-		JSONArray userIds = locations.names();
-		JSONArray locationInfos = locations.toJSONArray(userIds);
-		Map<Integer,UserInstance> locs = new HashMap<Integer, UserInstance>();
-		for (int i=0; i<locationInfos.length();i++) {
-			locs.put(userIds.getInt(i), new UserInstance(userIds.getInt(i),locationInfos.getJSONObject(i).getInt("lon"),locationInfos.getJSONObject(i).getInt("lat"),locationInfos.getJSONObject(i).getString("eta")));
-		}
-		msg.put("locations", locs);
-//		Log.d("##############","Hello");
-		return msg;
+		if(locations!=null){ //return msg;           don't send message and continue
+			Log.d("##############","tttttttt");
+			JSONArray userIds = locations.names();
+			JSONArray locationInfos = locations.toJSONArray(userIds);
+			Bundle msg = new Bundle();
+			//Bundle location = new Bundle();
+			Bundle locs = new Bundle();
+	//		Map<Integer,UserInstance> locs = new HashMap<Integer, UserInstance>();
+			for (int i=0; i<locationInfos.length();i++) {
+				//locs.put(userIds.getInt(i), new UserInstance(userIds.getInt(i),locationInfos.getJSONObject(i).getInt("lon"),locationInfos.getJSONObject(i).getInt("lat"),locationInfos.getJSONObject(i).getString("eta")));
+				Bundle loc = new Bundle();
+				//	loc.putInt("userID", userIds.getInt(i));
+				loc.putInt("lon",locationInfos.getJSONObject(i).getInt("lon"));
+				loc.putInt("lat",locationInfos.getJSONObject(i).getInt("lat"));
+				//if(locationInfos.getJSONObject(i).getString)
+				loc.putString("eta",locationInfos.getJSONObject(i).getString("eta"));
+				locs.putBundle(String.valueOf(userIds.getInt(i)), loc);
+			}
+			//	msg.put("locations", locs);
+			msg.putInt("tag", tag);
+			msg.putBundle("locations", locs);
+		
+			Intent intent = new Intent();
+			intent.putExtra("message", msg);
+			intent.setAction("com.uiproject.meetingplanner");
+			sendBroadcast(intent);
+			Log.d("##############","Hello");
+			}
+			//return msg;
+		
 /*    	//HashMap<Integer, Msg> map = new HashMap<Integer, Msg>();
     	HashMap<Integer, ServerMsg> map = new HashMap<Integer, ServerMsg>();
 		JSONObject myjson = new JSONObject(data);
@@ -108,14 +135,29 @@ public class CommunicateService extends Service {
 			j++;
 		}
 */	
-    }
+    	}
     
     public String getResponseResult(ServerMsg sm) {
-    	String param1=new Integer(sm.userID).toString(); 
+    	SharedPreferences settings =getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
+    	uid = settings.getInt("uid", -1);
+    	GeoUpdateHandler geoHandler = new GeoUpdateHandler(this);
+    	String userId=new Integer(uid).toString();
+    	Log.d("Userid",userId);
+    	
+		
+		
+    	String currenctLat=new Integer(MainPage.guh.getCurrentLat()).toString(); 
+    	Log.d("CurLat",currenctLat);
+    	String currenctLng=new Integer(MainPage.guh.getCurrentLat()).toString(); 
+    	Log.d("CurLng",currenctLng);
+    	
+    	String meetingId=new Integer(MID).toString();
     //	String param2=new Integer(sm.myLat).toString();
     //	String param3=new Integer(sm.myLong).toString();
     //	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/yuwen?i="+param1;
-    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=6&meetingId=2&lat=9&lon=9&eta=9";
+    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=" + userId + "&meetingId=" + meetingId +"&lat=" + currenctLat +"&lon=" +currenctLng + "&eta=9";
+    	Log.d("urlstring",urlStr);
+    //	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=6&meetingId=2&lat=9&lon=9&eta=9";
     	String responseResult="";
     	try {
     		URL objUrl = new URL(urlStr);

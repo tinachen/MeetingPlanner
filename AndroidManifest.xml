@@ -25,8 +25,8 @@
             	<action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        
         <activity android:name=".MainPage"
                   android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
@@ -134,7 +134,13 @@
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
 		</activity>
-		
+		<!--  
+		<receiver android:name=".TestReceiver">
+			<intent-filter >
+				<action android:name="com.uiproject.meetingplanner" />
+			</intent-filter>
+		</receiver>
+         -->  		
 		<service android:name=".CommunicateService" />
 		
 
