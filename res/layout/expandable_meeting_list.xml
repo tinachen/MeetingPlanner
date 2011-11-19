@@ -7,13 +7,13 @@
          android:layout_height="fill_parent">
  
      <ExpandableListView
-	style="@style/secondaryText" 
+	style="@style/listView" 
 	android:id="@+id/android:list"
                android:layout_width="fill_parent" 
                android:layout_height="fill_parent"/>
  
      <TextView
-	style="@style/secondaryText"  android:id="@+id/android:empty"
+	style="@style/listText"  android:id="@+id/android:empty"
                android:layout_width="fill_parent" 
                android:layout_height="fill_parent"
                />

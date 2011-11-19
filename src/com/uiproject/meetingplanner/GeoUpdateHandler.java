@@ -31,9 +31,14 @@ public class GeoUpdateHandler implements LocationListener {
 		currentLng = 0;
 	}
 	
+	public GeoUpdateHandler(int initLat, int initLng){
+		this.currentLat = initLat;
+		this.currentLng = initLng;
+	}
+	
 	public GeoUpdateHandler(Context c){
-		currentLat = 0;	
-		currentLng = 0;
+		currentLat = 40;	
+		currentLng = 30;
 		context = c;
 		//mapController = mc;
 	}

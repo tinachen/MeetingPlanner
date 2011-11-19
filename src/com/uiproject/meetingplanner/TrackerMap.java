@@ -1,14 +1,18 @@
 package com.uiproject.meetingplanner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -52,7 +56,10 @@ public class TrackerMap extends MapActivity {
         Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
         intent.putExtra("mid", mid);
         startService(intent);
-        
+        TestReceiver receiver =new TestReceiver();
+		IntentFilter filter = new IntentFilter();
+		filter.addAction("com.uiproject.meetingplanner");
+		registerReceiver(receiver, filter);
         
     }
     
@@ -77,6 +84,32 @@ public class TrackerMap extends MapActivity {
     	itemizedoverlay.doPopulate();
     	
     }
+    
+    public class TestReceiver extends BroadcastReceiver { 
+    	public TestReceiver (){
+    	}
+
+        public void onReceive(Context context, Intent intent) { 
+            // TODO Auto-generated method stub       
+            Log.d ("Receiver","Success");
+            Bundle message = intent.getBundleExtra("message");
+            int tag = message.getInt("tag");
+            Bundle locations = message.getBundle("locations");
+            Map<Integer,UserInstance> userLocations = new HashMap<Integer, UserInstance>();
+            for (String i : locations.keySet()){
+            	Bundle location = locations.getBundle(i);
+            	userLocations.put(Integer.valueOf(i), new UserInstance(Integer.valueOf(i),location.getInt("lat"),location.getInt("lon"),location.getString("eta")));
+            }
+            Log.d("tag","tag: "+tag);
+            Log.d("AAA","userId: "+6);
+            Log.d("AAA","lat: "+userLocations.get(6).getUserLocationLat());
+            Log.d("AAA","lon: "+userLocations.get(6).getUserLocationLon());
+            Log.d("AAA","eta: "+userLocations.get(6).getUserEta());
+            
+        } 
+        
+    } 
+   
     
     public void toList(View button){  	
 
