@@ -14,7 +14,7 @@ public class Logout {
 		SharedPreferences settings = context.getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
 		SharedPreferences.Editor editor = settings.edit();
     	editor.remove("uid");
-    	editor.remove("userPhoneNumber");
+    	//editor.remove("userPhoneNumber");
     	editor.remove("userFirstName");
     	editor.remove("userLastName");
     	editor.remove("userEmail");

@@ -69,6 +69,14 @@ public class Login extends Activity {
         	Login.this.startActivity(intent);    		
     	}
     	
+    	String userPhoneNumber = settings.getString("userPhoneNumber", "invalid");
+    	String userPassword = settings.getString("userPassword", "invalid");
+    	
+    	if( (userPhoneNumber.compareTo("invalid")!=0) && (userPassword.compareTo("invalid")!=0)){
+    		phone_field.setText(userPhoneNumber);
+    		pw_field.setText(userPassword);
+    	}
+    	
         // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	}
@@ -87,25 +95,25 @@ public class Login extends Activity {
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		SharedPreferences.Editor editor = settings.edit();
 		
-    	boolean remember = settings.getBoolean("remember", false);
-    	String userPhoneNumber = settings.getString("userPhoneNumber", "invalid");
-    	String userPassword = settings.getString("userPassword", "invalid");
+    	//boolean remember = settings.getBoolean("remember", false);
+    	//String userPhoneNumber = settings.getString("userPhoneNumber", "invalid");
+    	//String userPassword = settings.getString("userPassword", "invalid");
 
     	// if user didn't check remember password before, set user phone number & password from user inputs
-    	if(!remember || (userPhoneNumber.compareTo("invalid")==0) || (userPassword.compareTo("invalid")==0)){
+    	//if( (userPhoneNumber.compareTo("invalid")==0) || (userPassword.compareTo("invalid")==0)){
     		//Toast.makeText(getBaseContext(), "userphonecomapre " + userPhoneNumber + " " +userPhoneNumber.compareTo("invalid phone number"), Toast.LENGTH_SHORT).show();
-    		userPhoneNumber = phone_field.getText().toString();
-        	userPassword = pw_field.getText().toString();
+    		String userPhoneNumber = phone_field.getText().toString();
+        	String userPassword = pw_field.getText().toString();
         	
         	if(userPhoneNumber.length() == 0 || userPassword.length() == 0){
                 Toast.makeText(getBaseContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
             	return;        	
             }
         	
-    	}else{
+    	/*}else{
     		phone_field.setText(userPhoneNumber);
     		pw_field.setText(userPassword);
-    	}
+    	}*/
 		
     	long userPhoneNumberLong = Long.parseLong(userPhoneNumber);
     	int userID = Communicator.logIn(userPhoneNumberLong, userPassword);
@@ -142,15 +150,17 @@ public class Login extends Activity {
     	editor.putString("userFirstName", user.getUserFirstName());
     	editor.putString("userLastName", user.getUserLastName());
     	editor.putString("userEmail", user.getUserEmail());
+    	editor.putString("userPassword", userPassword);
+    	editor.putBoolean("remember", remember_me.isChecked());
     	
     	// Saves user password if he/she checked remember password
-        if(remember_me.isChecked()){ 
+        /*if(remember_me.isChecked()){ 
         	editor.putBoolean("remember", true);
-        	editor.putString("userPassword", userPassword);
+        	
             //Toast.makeText(getBaseContext(), "remembering you", Toast.LENGTH_SHORT).show();
         }else{
         	editor.putBoolean("remember", false);
-        }
+        }*/
 
         // Saves the changes in sharedpreferences
     	editor.commit(); 
