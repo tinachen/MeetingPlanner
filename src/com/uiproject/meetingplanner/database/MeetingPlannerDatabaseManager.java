@@ -64,9 +64,9 @@ public class MeetingPlannerDatabaseManager {
 		values.put(dbHelper.MEETING_STARTTIMESTAMP, meetingStartTimestamp);
 		
 		try{
-			long l= db.insert(dbHelper.MEETING_TABLE, null, values);
+			db.insert(dbHelper.MEETING_TABLE, null, values);
 		
-			String s1 = "create meeting debug " + l;
+			//String s1 = "create meeting debug " + l;
 			//Toast.makeText(context, s1, Toast.LENGTH_SHORT).show(); //TODO
 			
 			Log.d(dbManagerTag, "createMeeting: meetingID = " + meetingID + ", meetingTitle = " + meetingTitle + 
@@ -150,7 +150,7 @@ public class MeetingPlannerDatabaseManager {
 	}
 	
 	public void updateUserProfile(int userID, String userFirstName, String userLastName, String userEmail, 
-		String userPhone, int userLocationLon, int userLocationLat){
+		String userPhone){
 		
 		ContentValues values = new ContentValues();
 		values.put(dbHelper.USER_FIRSTNAME, userFirstName);
@@ -178,6 +178,7 @@ public class MeetingPlannerDatabaseManager {
 			e.printStackTrace();
 		}
 	}
+
 	
 	public void deleteUser(int userID){
 		try {

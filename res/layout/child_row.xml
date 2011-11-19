@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/backgroundColor"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="5dip"
     android:paddingRight="5dip">
          
-    <TextView android:id="@+id/mloc"
+    <TextView
+		style="@style/secondaryText"
+		 android:id="@+id/mloc"
          android:focusable="false"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
@@ -14,7 +17,9 @@
          android:textSize="25px"
          android:layout_marginTop="5dip"/>
          
-    <TextView android:id="@+id/mtrack"
+    <TextView
+		style="@style/secondaryText"
+		  android:id="@+id/mtrack"
          android:focusable="false"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
@@ -23,7 +28,9 @@
          android:layout_marginTop="5dip"/>
          
          
-    <TextView android:id="@+id/mdesc"
+    <TextView
+		style="@style/secondaryText"
+		  android:id="@+id/mdesc"
          android:focusable="false"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
@@ -31,7 +38,9 @@
          android:textSize="25px"
          android:layout_marginTop="5dip"/>
          
-    <TextView android:id="@+id/mppl"
+    <TextView
+		style="@style/secondaryText"
+		  android:id="@+id/mppl"
          android:focusable="false"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"

@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/backgroundColor"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
 
         <TextView
+	style="@style/CMselected"
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Review and Confirm"
-            android:textAppearance="?android:attr/textAppearanceLarge"  android:layout_marginLeft="3dp"/>
+             android:layout_marginLeft="3dp"/>
 
            <View
+	style="@style/CMprogress"
         android:layout_height="2dip"
-        android:layout_width="match_parent"
-        android:background="#FF909090" />
+        android:layout_width="match_parent" />
 
 
 <LinearLayout
@@ -27,6 +29,7 @@
 	android:paddingRight="30dip">
 
 <TextView
+	style="@style/headerText"
     android:id="@+id/title"
 	android:textSize="20dip"
 	android:layout_width="fill_parent"
@@ -34,8 +37,8 @@
 	android:text="Title" />
 
 <TextView
+	style="@style/secondaryText"
     android:id="@+id/desc"
-	android:textSize="15dip"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:text="Description"
@@ -47,14 +50,14 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip" >
 		<TextView
-			android:textSize="15dip"
+	style="@style/secondaryText"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Date: " />
 		
 		<TextView
+	style="@style/secondaryText"
 		    android:id="@+id/date"
-			android:textSize="15dip"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="date goes here" />
@@ -66,14 +69,14 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip" >
 		<TextView
-			android:textSize="15dip"
+	style="@style/secondaryText"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Time: " />
 		
 		<TextView
+	style="@style/secondaryText"
 		    android:id="@+id/time"
-			android:textSize="15dip"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="time goes here" />
@@ -85,14 +88,14 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip" >
 		<TextView
-			android:textSize="15dip"
+	style="@style/secondaryText"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Tracking time: " />
 		
 		<TextView
+	style="@style/secondaryText"
 		    android:id="@+id/tracktime"
-			android:textSize="15dip"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="track time goes here" />
@@ -104,14 +107,14 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip" >
 		<TextView
-			android:textSize="15dip"
+	style="@style/secondaryText"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Location: " />
 		
 		<TextView
+	style="@style/secondaryText"
 		    android:id="@+id/location"
-			android:textSize="15dip"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="location goes here" />
@@ -123,14 +126,14 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip" >
 		<TextView
-			android:textSize="15dip"
+	style="@style/secondaryText"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Attendees: " />
 		
 		<TextView
+	style="@style/secondaryText"
 		    android:id="@+id/attendees"
-			android:textSize="15dip"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="attendees go here" />

@@ -29,6 +29,7 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.AbsListView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleExpandableListAdapter;
@@ -69,9 +70,9 @@ public class MeetingListPending extends ExpandableListActivity
 	    
 	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	int uid = settings.getInt("uid", -1);
-    	allMeet = db.getPendingMeetings(uid);
+    	//allMeet = db.getPendingMeetings(uid);
         // Set up our adapter
-    	//allMeet = db.getAllMeetings();
+    	allMeet = db.getAllMeetings();
     	db.close();
     	
     	groups = new String[allMeet.size()];
@@ -79,14 +80,18 @@ public class MeetingListPending extends ExpandableListActivity
     	
     	//Log.v(TAG, "Groups is " + groups.length);
     	//Log.v(TAG, "Children is " + children.length);
+    	SharedPreferences shared_settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	
     	for (int i = 0; i < allMeet.size(); i++)
     	{
     		//Log.v(TAG, "Element number " + i + " is " + allMeetings.get(i).getMeetingSubject());
     		groups[i] = allMeet.get(i).getMeetingTitle() + "\n";
+    		
+    		int meeting_org = allMeet.get(i).getMeetingInitiatorID();
+    		meeting_org = shared_settings.getInt("meeting_org", -1);
     		//groups[i] = allMeet.get(i).getMeetingTitle() + "\n\n" + "Fixme" + "\t\t" + allMeet.get(i).getMeetingDate() + "\t" + allMeet.get(i).getMeetingStartTime();
-    		children[i][0] = "Meeting ID: " + allMeet.get(i).getMeetingID() + "\n" + allMeet.get(i).getMeetingDescription() + "\n" + allMeet.get(i).getMeetingAddress() + "\n";
-    		children[i][1] = allMeet.get(i).getMeetingDate() + "\n" + allMeet.get(i).getMeetingStartTime() + " to " + allMeet.get(i).getMeetingEndTime();
+    		children[i][0] = allMeet.get(i).getMeetingDescription() + "\n" + allMeet.get(i).getMeetingAddress() + "\n" + allMeet.get(i).getMeetingDate() + "\n" + allMeet.get(i).getMeetingStartTime() + " to " + allMeet.get(i).getMeetingEndTime() + "\n" + "Organizer: " + meeting_org + "\n" + "Attendees: " + allMeet.get(i).getMeetingAttendees();
+    		children[i][1] = "";
      	}
     	
 		SimpleExpandableListAdapter expListAdapter =
@@ -132,7 +137,7 @@ public class MeetingListPending extends ExpandableListActivity
         LinearLayout vwParentRow = (LinearLayout)view.getParent();
          
         TextView child = (TextView)vwParentRow.getChildAt(0);
-        ImageButton btnChild = (ImageButton)vwParentRow.getChildAt(2);
+        ImageView btnChild = (ImageView)vwParentRow.getChildAt(2);
         String meeting_info = child.getText().toString().split(": ")[1];
         int meetingID = Integer.parseInt(meeting_info.split("\\n")[0]);
         
