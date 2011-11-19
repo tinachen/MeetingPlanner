@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/backgroundColor"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" 
-    android:orientation="vertical" 
-	android:paddingLeft="10dip"
-	android:paddingRight="10dip">
-
-	<RelativeLayout
+    android:orientation="vertical"
+	   android:paddingLeft="10dip" 
+	   android:paddingRight="10dip" 
+		android:background="@drawable/shape">
+		
+	   <RelativeLayout
 		android:layout_height="wrap_content"
 		android:layout_width="fill_parent" >
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
+		android:layout_marginTop="5dip"
 		android:layout_alignParentRight="true">
+		
 		<TextView
 	style="@style/lightText"
 		   android:layout_width="wrap_content"
@@ -30,28 +32,40 @@
 		   android:text="name" />
 	</LinearLayout>
 	</RelativeLayout>
+	
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_height="wrap_content"
+		android:layout_width="fill_parent"
+	   android:paddingLeft="10dip" 
+	   android:paddingRight="10dip" >
 
 	<ImageView
-	   android:id="@+id/logo"
+	   android:id="@+id/logo" 
 	   android:src="@drawable/logo"
 	   android:layout_width="wrap_content"
-	   android:paddingBottom="0dip" 
-	   android:layout_marginTop="10dip"
+	   android:layout_marginTop="5dip"
 	   android:layout_height="75dip"/>
-	   
+	   </LinearLayout>
+
+		
+		
 	<LinearLayout
 		android:orientation="vertical"
 		android:layout_height="fill_parent"
 		android:layout_width="fill_parent"
-	   android:layout_marginTop="25dip"
-		android:paddingLeft="10dip"
-		android:paddingRight="10dip" >
-
+		>
+		
+	
 		
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_height="wrap_content"
-		android:layout_width="fill_parent" >
+		android:layout_width="fill_parent"
+	   android:paddingTop="25dip"
+		android:paddingLeft="20dip"
+		android:paddingRight="20dip"
+		 >
 		
 		<LinearLayout
 			android:orientation="vertical"
