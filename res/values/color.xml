@@ -3,4 +3,6 @@
 <drawable name="darkgray">#808080FF</drawable>
 <drawable name="white">#FFFFFFFF</drawable>
 <drawable name="black">#000033</drawable>
+<color name="bluegrey">#BFC8E0</color>
+<color name="buttonblue">#CBCEDA</color>
 </resources>

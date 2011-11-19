@@ -21,15 +21,15 @@
 		<activity android:name=".Login"
 				  android:theme="@android:style/Theme.NoTitleBar"
 				  android:noHistory="true">
-				  				  			<intent-filter>
+			<intent-filter>
             	<action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        
         <activity android:name=".MainPage"
-                  android:theme="@android:style/Theme.NoTitleBar">
-
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
              
         </activity>
         
@@ -116,6 +116,11 @@
 		</activity>
 
 		<activity android:name=".CreateMeetingConfirm"
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
+		</activity>
+		
+		<activity android:name=".CustomListActivity"
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
 		</activity>
