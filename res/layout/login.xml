@@ -24,7 +24,7 @@
 		android:layout_width="fill_parent"
 		android:paddingLeft="20dip"
 		android:paddingRight="20dip"
-		android:layout_marginTop="45dip">
+		android:layout_marginTop="35dip">
 		
 	<EditText
     	android:id="@+id/phone"
@@ -38,7 +38,7 @@
 		android:layout_height="wrap_content"
 		android:password="true"
 		android:hint="Password" 
-		android:layout_marginTop="5dip"/>	
+		android:layout_marginTop="10dip"/>	
 	<TextView
 		style="@style/linkColor"
 		android:textSize="15sp"
@@ -47,7 +47,7 @@
 		android:text="Forgot password?"
 		android:clickable="true"
 		android:onClick="forgotPass" 
-		android:layout_marginTop="5dip"/>
+		android:layout_marginTop="10dip"/>
 	<CheckBox
 		style="@style/secondText"
    		android:id="@+id/rememberme"
@@ -55,27 +55,27 @@
 		android:layout_height="wrap_content"
 		android:text="Remember me on this device"
 		android:textSize="15sp" 
-		android:layout_marginTop="5dip"/>		
+		android:layout_marginTop="10dip"/>		
 	<Button
 		android:id="@+id/loginButton"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:onClick="checkLogin"
 		android:text="Login"
-		android:layout_marginTop="5dip" />	
+		android:layout_marginTop="40dip" />	
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_height="wrap_content"
-		android:layout_width="fill_parent">
+		android:layout_width="fill_parent"
+			android:layout_marginTop="10dip">
 		<TextView
-			style="@style/textColor"
+			style="@style/secondText"
 			android:textSize="15sp"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="New to MeetApp? "
 			android:clickable="true"
-			android:onClick="signup"
-			android:layout_marginTop="5dip"/>
+			android:onClick="signup"/>
 		<TextView
 			style="@style/linkColor"
 			android:textSize="15sp"
@@ -83,8 +83,7 @@
 			android:layout_height="wrap_content"
 			android:text="Sign up here"
 			android:clickable="true"
-			android:onClick="signup"
-			android:layout_marginTop="5dip"/>
+			android:onClick="signup"/>
 		</LinearLayout>
 </LinearLayout>
 </LinearLayout>
