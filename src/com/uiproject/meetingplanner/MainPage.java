@@ -36,6 +36,7 @@ public class MainPage extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainpage);
+        
         name = (TextView) findViewById(R.id.name);
 
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
@@ -110,6 +111,7 @@ public class MainPage extends Activity {
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, guh);
 		
 		Log.d(mainPageTag, "Create GeoUpdateHandler");
+		
     }
 
     public void gotoMyMeetings(View button){
