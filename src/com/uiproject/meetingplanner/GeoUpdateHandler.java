@@ -37,8 +37,8 @@ public class GeoUpdateHandler implements LocationListener {
 	}
 	
 	public GeoUpdateHandler(Context c){
-		currentLat = 40;	
-		currentLng = 30;
+		currentLat = 34115908;	
+		currentLng = -118153204;
 		context = c;
 		//mapController = mc;
 	}

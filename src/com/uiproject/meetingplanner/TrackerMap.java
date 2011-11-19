@@ -28,14 +28,20 @@ import com.google.android.maps.OverlayItem;
 
 public class TrackerMap extends MapActivity {
 
+	public static final String TAG = "TrackerMap";
+	
 	private MyItemizedOverlay itemizedoverlay;
 	private int mid;
+	private MapController mc;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trackermap);
         
         mid = getIntent().getIntExtra("mid", -1);
+        
+        Log.d(TAG, "onCreate: mid = " + mid);
         
         MapView mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
@@ -47,7 +53,7 @@ public class TrackerMap extends MapActivity {
         mapOverlays.add(itemizedoverlay);
         
         // find the area to auto zoom to
-        MapController mc = mapView.getController();
+        mc = mapView.getController();
         mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
         
         // set the center
@@ -69,6 +75,9 @@ public class TrackerMap extends MapActivity {
     }
 
     public void updateMap(Map<Integer, UserInstance> attendees){
+    	
+    	Log.d(TAG, "updateMap size = " + attendees.size());
+    	
     	itemizedoverlay.clear();
     	MyOverlayItem myoi;
     	OverlayItem oi;
@@ -77,11 +86,18 @@ public class TrackerMap extends MapActivity {
     	for (Integer i : keys){
     		a = attendees.get(i);
     		oi = new OverlayItem(new GeoPoint(a.getUserLocationLat(), a.getUserLocationLon()), "", "");
+    		Log.d(TAG, "updateMap user = " + a.getUserFirstName() + " " + a.getUserLastName() + ", lat = " + a.getUserLocationLat()
+    				+ ", lon = " + a.getUserLocationLon());
     		myoi = new MyOverlayItem(oi, a.getUserFirstName() + " " + a.getUserLastName(), a.getUserEta());
     		itemizedoverlay.addOverlay(myoi);
     	}
     	
     	itemizedoverlay.doPopulate();
+    	
+        mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
+        
+        // set the center
+        mc.setCenter(itemizedoverlay.getCenter());
     	
     }
     
@@ -100,11 +116,14 @@ public class TrackerMap extends MapActivity {
             	Bundle location = locations.getBundle(i);
             	userLocations.put(Integer.valueOf(i), new UserInstance(Integer.valueOf(i),location.getInt("lat"),location.getInt("lon"),location.getString("eta")));
             }
+            
+            Log.d("Receiver", "Map size = " + userLocations.size());
+            updateMap(userLocations);
             Log.d("tag","tag: "+tag);
             Log.d("AAA","userId: "+6);
-            Log.d("AAA","lat: "+userLocations.get(6).getUserLocationLat());
+            /*Log.d("AAA","lat: "+userLocations.get(6).getUserLocationLat());
             Log.d("AAA","lon: "+userLocations.get(6).getUserLocationLon());
-            Log.d("AAA","eta: "+userLocations.get(6).getUserEta());
+            Log.d("AAA","eta: "+userLocations.get(6).getUserEta());*/
             
         } 
         
