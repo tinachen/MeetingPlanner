@@ -66,7 +66,7 @@
 			   android:clickable="true"
 			   android:onClick="gotoMyMeetings" />
 			<TextView
-	style="@style/secondaryText"
+	style="@style/mainpageText"
 			   android:layout_width="wrap_content"
 			   android:layout_height="wrap_content"
 			   android:clickable="true"
@@ -89,7 +89,7 @@
 			   android:clickable="true"
 			   android:onClick="createMeeting" />
 			<TextView
-	style="@style/secondaryText"
+	style="@style/mainpageText"
 			   android:layout_width="wrap_content"
 			   android:layout_height="wrap_content"
 			   android:clickable="true"

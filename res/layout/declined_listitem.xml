@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/backgroundColor" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -10,18 +11,19 @@
         android:layout_height="wrap_content" >
 
         <CheckBox
+	style="@style/secondaryText"
             android:id="@+id/checkBox1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
+	style="@style/secondaryText"
             android:id="@+id/meetingTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dip"
             android:layout_weight="0.51"
-            android:text="Meeting Title"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="Meeting Title"/>
 
         <ImageView
             android:id="@+id/imageView1"
@@ -38,24 +40,24 @@
         android:layout_height="wrap_content" >
 
         <TextView
+	style="@style/secondaryText"
             android:id="@+id/creator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="51dp"
-            android:text="Creator"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:text="Creator"/>
 
         <TextView
+	style="@style/secondaryText"
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="22dp"
-            android:text="Date + Time"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:text="Date + Time"/>
 
     </RelativeLayout>
 
