@@ -29,6 +29,7 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.AbsListView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleExpandableListAdapter;
@@ -69,9 +70,9 @@ public class MeetingListPending extends ExpandableListActivity
 	    
 	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	int uid = settings.getInt("uid", -1);
-    	allMeet = db.getPendingMeetings(uid);
+    	//allMeet = db.getPendingMeetings(uid);
         // Set up our adapter
-    	//allMeet = db.getAllMeetings();
+    	allMeet = db.getAllMeetings();
     	db.close();
     	
     	groups = new String[allMeet.size()];
@@ -132,7 +133,7 @@ public class MeetingListPending extends ExpandableListActivity
         LinearLayout vwParentRow = (LinearLayout)view.getParent();
          
         TextView child = (TextView)vwParentRow.getChildAt(0);
-        ImageButton btnChild = (ImageButton)vwParentRow.getChildAt(2);
+        ImageView btnChild = (ImageView)vwParentRow.getChildAt(2);
         String meeting_info = child.getText().toString().split(": ")[1];
         int meetingID = Integer.parseInt(meeting_info.split("\\n")[0]);
         
