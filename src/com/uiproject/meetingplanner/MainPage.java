@@ -86,11 +86,15 @@ public class MainPage extends Activity {
 	    mdesc = (TextView) findViewById(R.id.mdesc);
 	    track_button = (Button) findViewById(R.id.mtrackbutton);
 	    int mid = m.getMeetingID();
+	    
+	    Log.d(mainPageTag, "track mid = " + mid);
+	    
 	    if(mid < 0){
 	    	mtitle.setText("You have no upcoming meetings");
 	    	mwhen.setVisibility(View.GONE);
 	    	mdesc.setVisibility(View.GONE);
 	    	track_button.setVisibility(View.GONE);
+	    	
 	    	
 	    	// Set sharedpreferences
 	    	editor.putInt("currentTrackingMid", -1);
@@ -152,7 +156,7 @@ public class MainPage extends Activity {
     
     public void track(View button){
     	String tag = button.getTag().toString();
-    	int mid = 1; // Integer.parseInt(tag);
+    	int mid = Integer.parseInt(tag);
 		Intent intent = new Intent(MainPage.this, TrackerMap.class);
 		intent.putExtra("mid", mid);
 		startActivity(intent);

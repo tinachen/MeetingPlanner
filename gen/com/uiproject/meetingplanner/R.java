@@ -46,7 +46,7 @@ public final class R {
         public static final int shape=0x7f020014;
         public static final int signup=0x7f020015;
         public static final int trackeretalist=0x7f020016;
-        public static final int trackmap=0x7f020017;
+        public static final int trackermap=0x7f020017;
     }
     public static final class id {
         public static final int LinearLayout01=0x7f09004e;
@@ -66,6 +66,7 @@ public final class R {
         public static final int cancel_button=0x7f090017;
         public static final int checkBox1=0x7f090029;
         public static final int childname=0x7f090009;
+        public static final int close=0x7f09005e;
         public static final int confirm_button=0x7f090034;
         public static final int contactEntryText=0x7f09000d;
         public static final int contactList=0x7f090027;
@@ -77,7 +78,7 @@ public final class R {
         public static final int delete=0x7f090033;
         public static final int desc=0x7f090010;
         public static final int editBtn=0x7f090007;
-        public static final int editprofile=0x7f09005e;
+        public static final int editprofile=0x7f090060;
         public static final int editprofile_img=0x7f090035;
         public static final int email=0x7f090038;
         public static final int endPickTime=0x7f090021;
@@ -92,7 +93,7 @@ public final class R {
         public static final int location=0x7f090014;
         public static final int loginButton=0x7f09003f;
         public static final int logo=0x7f09003d;
-        public static final int logout=0x7f09005d;
+        public static final int logout=0x7f09005f;
         public static final int mapview=0x7f090040;
         public static final int mdesc=0x7f090005;
         public static final int meetingDesc=0x7f09004d;
@@ -113,6 +114,7 @@ public final class R {
         public static final int next_button=0x7f090018;
         public static final int oldpw=0x7f09003a;
         public static final int or=0x7f090057;
+        public static final int persontracker=0x7f09005d;
         public static final int phone=0x7f090039;
         public static final int pic=0x7f090000;
         public static final int pickDate=0x7f09001d;
@@ -211,5 +213,6 @@ public final class R {
         public static final int listView=0x7f07000b;
         public static final int mainpageText=0x7f070004;
         public static final int secondaryText=0x7f070003;
+        public static final int trackerbg=0x7f07000c;
     }
 }
