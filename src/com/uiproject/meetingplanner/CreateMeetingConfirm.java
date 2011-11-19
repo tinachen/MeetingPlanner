@@ -29,6 +29,7 @@ public class CreateMeetingConfirm extends Activity {
 	private String mtitle, mdesc, maddr, mdate, mstarttime, mendtime, mattendeeids, mnames;
 	private int mtracktime, mlon, mlat, uid;
 	private ArrayList<Integer> attendessIdsArray;
+	private SharedPreferences.Editor editor;
 	public static final String createMeetingConfirmTag = "CreateMeetingConfirm";
 	
 	@Override
@@ -45,6 +46,7 @@ public class CreateMeetingConfirm extends Activity {
 
         // Get var values from sharedpreferences
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	editor = settings.edit();
     	uid = settings.getInt("uid", 0);
     	int month = settings.getInt("mdatem", 0) + 1;
     	int day = settings.getInt("mdated", 0);
@@ -56,14 +58,15 @@ public class CreateMeetingConfirm extends Activity {
     	mtitle = settings.getString("mtitle", "Untitled");
     	mdesc = settings.getString("mdesc", "No description");
     	maddr = settings.getString("maddr", "default addr");
-    	mdate = month + "-" + day + "-" + year;
+    	mdate = month + "/" + day + "/" + year;
     	mstarttime = pad(sh) + ":" + pad(sm);
     	mendtime = pad(eh) + ":" + pad(em);
-    	mtracktime = (int) ((double) settings.getFloat("mtracktime", (float).5) * 60);
+    	mtracktime = (int) ((double) settings.getFloat("mtracktime", (float).5) * 60D);
     	mlon = settings.getInt("mlon", 0);
     	mlat = settings.getInt("mlat", 0);
+    	
     	//mattendeeids = settings.getString("mphones", ""); //TODO hard code it for now
-    	mattendeeids = "1,2,4";
+    	mattendeeids = "2,5,6";
     	mnames = settings.getString("mnames", "");
     	
     	// Set the view
@@ -101,9 +104,7 @@ public class CreateMeetingConfirm extends Activity {
     	// Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    
-	    /*ArrayList<MeetingInstance>meetings =  db.getAllMeetings();
-	    String s = "meeting size:" + meetings.size();
-    	Toast.makeText(CreateMeetingConfirm.this, s, Toast.LENGTH_SHORT).show();*/
+	    
     }
 
 	public void back(View Button){
@@ -138,18 +139,35 @@ public class CreateMeetingConfirm extends Activity {
 		long currentUnixTime = System.currentTimeMillis() / 1000L;// TODO
     	
     	String mstartdatetime = mdate + " " + mstarttime;
-    	SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+    	SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		Date date = (Date)formatter.parse(mstartdatetime);
 		int timestampInt = (int) (date.getTime() / 1000L);
-		Log.v(createMeetingConfirmTag, " create meeting: meetingID = " + mid + "date.gettime = " + date.getTime() + ", timestamp = " + timestampInt + ", current timestamp = " + currentUnixTime);
+		Log.d(createMeetingConfirmTag, " create meeting: meetingID = " + mid + ", date.gettime = " + date.getTime() + ", timestamp = " + timestampInt + ", current timestamp = " + currentUnixTime);
     	
     	// Add meeting & meeting users to internal db
 		db.open();
     	db.createMeeting(mid, mtitle, mlat, mlon, mdesc, maddr, mdate, mstarttime, mendtime, mtracktime, initiatorID, timestampInt); 
     	db.createMeetingUser(mid, uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");	// initiator
+    	Log.d(createMeetingConfirmTag, "create meeting: mtracktime = " + mtracktime);
+    	Log.d(createMeetingConfirmTag, "attendee array size = " + attendessIdsArray.size());
     	for(int i=0; i<attendessIdsArray.size(); i++){
     		db.createMeetingUser(mid, attendessIdsArray.get(i), MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING, "0"); 	// other attendees other than initiator
     	}
+    	
+    	MeetingInstance m = db.getNextUpcomingMeeting(uid);
+	    Log.d(createMeetingConfirmTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
+	    
+	    // Check next upcoming meeting
+	    int nextmid = m.getMeetingID();
+	    
+	    if(nextmid < 0){
+	    	editor.putInt("currentTrackingMid", -1);
+	    }else{
+	    	editor.putInt("currentTrackingMid", mid);
+	    }
+	    
+	    editor.commit(); 
+	    
     	db.close();
 
     	clearData();

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip">
 
     <TextView android:id="@+id/childname"
          android:paddingLeft="50px"
@@ -16,12 +18,55 @@
          android:textSize="14px"
          android:layout_width="100px"
          android:layout_height="wrap_content"/>
+         
+    <TextView android:id="@+id/mloc"
+         android:focusable="false"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Location here"
+         android:layout_marginTop="5dip"/>
+         
+    <TextView android:id="@+id/mtrack"
+         android:focusable="false"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="track time here"
+         android:layout_marginTop="5dip"/>
+         
+         
+    <TextView android:id="@+id/mdesc"
+         android:focusable="false"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Description here"
+         android:layout_marginTop="5dip"/>
+         
+    <TextView android:id="@+id/mppl"
+         android:focusable="false"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Attendees here"
+         android:layout_marginTop="5dip"/>
            
-	<Button android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"
-			android:focusable="false" 
-			android:clickable="true"
-			android:text="Edit" 
-			android:id="@+id/editBtn"
-			android:onClick="editButtonClicked"/>
+    <LinearLayout
+	    android:orientation="horizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+         android:layout_marginTop="5dip">
+		<Button android:layout_width="100dip" 
+				android:layout_height="wrap_content"
+				android:focusable="false" 
+				android:clickable="true"
+				android:text="Edit" 
+				android:id="@+id/editBtn"
+				android:onClick="editButtonClicked"/>
+	           
+		<Button android:layout_width="100dip" 
+				android:layout_height="wrap_content"
+				android:focusable="false" 
+				android:clickable="true"
+				android:text="Track" 
+				android:id="@+id/trackBtn"
+				android:onClick="track"/>
+	</LinearLayout>
 </LinearLayout>

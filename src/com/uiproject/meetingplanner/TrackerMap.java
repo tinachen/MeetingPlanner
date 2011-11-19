@@ -9,6 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.maps.GeoPoint;
@@ -22,10 +25,13 @@ import com.google.android.maps.OverlayItem;
 public class TrackerMap extends MapActivity {
 
 	private MyItemizedOverlay itemizedoverlay;
+	private int mid;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trackermap);
+        
+        mid = getIntent().getIntExtra("mid", -1);
         
         MapView mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
@@ -44,6 +50,7 @@ public class TrackerMap extends MapActivity {
         mc.setCenter(itemizedoverlay.getCenter());
         
         Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
+        intent.putExtra("mid", mid);
         startService(intent);
         
         
@@ -77,7 +84,27 @@ public class TrackerMap extends MapActivity {
 		Intent intent = new Intent(TrackerMap.this, TrackerEtaList.class);
 		TrackerMap.this.startActivityForResult(intent, 0);
     }
+
+    // menu 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logoutonly, menu);
+        return true;
+    }
     
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:{
+            	Logout.logout(this);
+            	break;
+            }
+        }
+        return true;
+    }
+    
+    //overlay class
     private class MyItemizedOverlay extends ItemizedOverlay<OverlayItem> {
     	private ArrayList<MyOverlayItem> mOverlays = new ArrayList<MyOverlayItem>();
     	private GeoPoint center;

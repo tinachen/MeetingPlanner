@@ -22,6 +22,7 @@ import android.util.Log;
 
 public class CommunicateService extends Service {
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+	public static int MID;
 	private int uid;
 	MultiThread thread1;
 	@Override
@@ -42,7 +43,7 @@ public class CommunicateService extends Service {
 			thread1 = new MultiThread();
 			thread1.start();
 		}
-	//	getIntent().getExtra("mid");
+		MID=intent.getIntExtra("mid", -1);
 		super.onStart(intent, startId);
 
 	}
@@ -71,7 +72,6 @@ public class CommunicateService extends Service {
     public void displayResult() throws JSONException
     {
     	Log.d("asd","1");
-
     	ServerMsg sm1=new ServerMsg(6);
     	Log.d("asd","2");
     	String result = getResponseResult(sm1);
@@ -141,19 +141,22 @@ public class CommunicateService extends Service {
     	SharedPreferences settings =getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
     	uid = settings.getInt("uid", -1);
     	GeoUpdateHandler geoHandler = new GeoUpdateHandler(this);
-    	String Userid=new Integer(uid).toString();
-    	Log.d("Userid",Userid);
+    	String userId=new Integer(uid).toString();
+    	Log.d("Userid",userId);
     	
 		
 		
-    	String CurrenctLat=new Integer(geoHandler.getCurrentLat()).toString(); 
-    	Log.d("CurLat",CurrenctLat);
-    	String CurrenctLng=new Integer(geoHandler.getCurrentLng()).toString(); 
-    	Log.d("CurLng",CurrenctLng);
+    	String currenctLat=new Integer(MainPage.guh.getCurrentLat()).toString(); 
+    	Log.d("CurLat",currenctLat);
+    	String currenctLng=new Integer(MainPage.guh.getCurrentLat()).toString(); 
+    	Log.d("CurLng",currenctLng);
+    	
+    	String meetingId=new Integer(MID).toString();
     //	String param2=new Integer(sm.myLat).toString();
     //	String param3=new Integer(sm.myLong).toString();
     //	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/yuwen?i="+param1;
-    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=" + Userid + "&meetingId=2&lat=" + CurrenctLat +"&lon=" +CurrenctLng + "&eta=9";
+    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=" + userId + "&meetingId=" + meetingId +"&lat=" + currenctLat +"&lon=" +currenctLng + "&eta=9";
+    	Log.d("urlstring",urlStr);
     //	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=6&meetingId=2&lat=9&lon=9&eta=9";
     	String responseResult="";
     	try {

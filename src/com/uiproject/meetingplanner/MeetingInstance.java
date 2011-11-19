@@ -17,38 +17,15 @@ public class MeetingInstance {
 	private int meetingLat;
 	private int meetingLon;
 	private String meetingTitle;
-	private String meetingDescription; 
 	private String meetingAddress;
+	private String meetingDescription;
 	private String meetingDate;
 	private String meetingStartTime;
 	private String meetingEndTime;
 	private int meetingTrackTime;
 	private HashMap<Integer, UserInstance> attendees = new HashMap<Integer,UserInstance>();
 	private int meetingInitiatorID;
-	
-	
-	// to be deleted (new constructor has been created but since i don't want to get errors in display meeting, 
-	// i ll just leave it here for now - tina
-	public MeetingInstance(int meetingID, int meetingLat, int meetingLong, String meetingSubject, Date meetingDate, Object[] attendees){
-		this.meetingID = meetingID;
-		this.meetingLat = meetingLat;
-		this.meetingLon = meetingLong;
-		this.meetingTitle = meetingSubject;
-		//this.meetingDate = meetingDate;
-		//this.attendees = attendees;
 
-	}
-	
-	// to be deleted, for testing db only
-	public MeetingInstance(int meetingID, String meetingTitle){
-		this.meetingID = meetingID;
-		this.meetingTitle = meetingTitle;
-	}
-	
-	// to be deleted, for testing
-	public MeetingInstance(String meetingTitle){
-		this.meetingTitle = meetingTitle;
-	}
 	
 	public MeetingInstance(){
 		this.meetingID = -1;

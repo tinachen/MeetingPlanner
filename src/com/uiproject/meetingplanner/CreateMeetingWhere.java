@@ -1,8 +1,13 @@
 package com.uiproject.meetingplanner;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -10,11 +15,17 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
 public class CreateMeetingWhere extends SelectLocation {
 
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+	public static final String TAG = "CreateMeetingWhere";
+	
+	private LocationManager locationManager;
+	private String provider;
 	
     /** Called when the activity is first created. */
     @Override
@@ -22,10 +33,28 @@ public class CreateMeetingWhere extends SelectLocation {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createmeetingwhere);
 
-        GeoUpdateHandler guh = new GeoUpdateHandler();
-        int lat = guh.getCurrentLat();
-        int lon = guh.getCurrentLng();
-        String addr = guh.getCurrentAddr();
+        // Get Map View
+        MapView mv = (MapView)findViewById(R.id.selectlocview);
+        MapController mc = mv.getController();
+        
+        /*GeoUpdateHandler guh = new GeoUpdateHandler(this);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, guh);
+		// Define the criteria how to select the locatioin provider -> use
+		// default
+		Criteria criteria = new Criteria();
+		provider = locationManager.getBestProvider(criteria, false);
+		Location location = locationManager.getLastKnownLocation(provider);
+		
+		
+		if(location != null){
+			Log.d(TAG, "onCreate: Provider " + provider + " has been selected.");
+			Log.d(TAG, "onCreate: Lat = " + location.getLatitude() + ", Lon = " + location.getLongitude());
+		}*/
+		
+        int lat = MainPage.guh.getCurrentLat();
+        int lon = MainPage.guh.getCurrentLng();
+        String addr = MainPage.guh.getCurrentAddr();
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
         lat = settings.getInt("mlat", lat);
         lon = settings.getInt("mlon", lon);

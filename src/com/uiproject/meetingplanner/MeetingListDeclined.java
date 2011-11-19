@@ -13,6 +13,7 @@ import android.app.Dialog;
 import android.app.ExpandableListActivity;
 import android.app.ListActivity;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +29,7 @@ import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.AbsListView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
@@ -55,20 +57,21 @@ public class MeetingListDeclined extends ExpandableListActivity
         db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 
+	    //PLEASE LEAVE THIS PART UNCOMMENTED TILL THE DATABASE HAS ENTRIES
 	    /*db.createUser(1, "Laura", "Rodriguez", "lau.rodriguez@gmail", "3128573352", 37, -34);
 	    db.createUser(2, "Dummy", "Joe", "tt@gmail.com", "1234567778", 32, 34);
-	    db.createMeeting(2,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
-	    db.createMeeting(5,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
-	    db.createMeeting(6,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
-	    db.createMeeting(7,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeeting(2,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5, 5);//TODO
+	    db.createMeeting(5,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5, 5);//TODO
+	    db.createMeeting(6,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5, 5);//TODO
+	    db.createMeeting(7,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5, 5);//TODO
 	    db.createMeetingUser(2, 1, 2, "Hello");
 	    db.createMeetingUser(2, 2, 1, "Hello2");*/
 	    
 	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	int uid = settings.getInt("uid", -1);
     	Log.v(LOG_TAG, "uid = " + uid);
-    	allMeet = db.getDeclinedMeetings(uid);
         // Set up our adapter
+    	allMeet = db.getDeclinedMeetings(uid);
     	//allMeet = db.getAllMeetings();
     	db.close();
     	
@@ -83,8 +86,8 @@ public class MeetingListDeclined extends ExpandableListActivity
     		//Log.v(TAG, "Element number " + i + " is " + allMeetings.get(i).getMeetingSubject());
     		groups[i] = allMeet.get(i).getMeetingTitle() + "\n";
     		//groups[i] = allMeet.get(i).getMeetingTitle() + "\n\n" + "Fixme" + "\t\t" + allMeet.get(i).getMeetingDate() + "\t" + allMeet.get(i).getMeetingStartTime();
-    		children[i][0] = allMeet.get(i).getMeetingDescription() + "\n" + allMeet.get(i).getMeetingAddress() + "\n" + allMeet.get(i).getMeetingDate() + "\n";
-    		children[i][1] = "\n" + allMeet.get(i).getMeetingStartTime() + " to " + allMeet.get(i).getMeetingEndTime();
+    		children[i][0] = "Meeting ID: " + allMeet.get(i).getMeetingID() + "\n" +  allMeet.get(i).getMeetingDescription() + "\n" + allMeet.get(i).getMeetingAddress() + "\n";
+    		children[i][1] =  allMeet.get(i).getMeetingDate() + "\n" + allMeet.get(i).getMeetingStartTime() + " to " + allMeet.get(i).getMeetingEndTime();
      	}
     	
 		SimpleExpandableListAdapter expListAdapter =
@@ -126,8 +129,21 @@ public class MeetingListDeclined extends ExpandableListActivity
 
     public void editButtonClicked(View view)
     {
-    	//ELIZABETH'S CODE HERE
-    	Toast.makeText(getApplicationContext(), "You clicked me!", Toast.LENGTH_SHORT).show();
+    	//get the row the clicked button is in
+        LinearLayout vwParentRow = (LinearLayout)view.getParent();
+         
+        TextView child = (TextView)vwParentRow.getChildAt(0);
+        Button btnChild = (Button)vwParentRow.getChildAt(2);
+        String meeting_info = child.getText().toString().split(": ")[1];
+        int meetingID = Integer.parseInt(meeting_info.split("\\n")[0]);
+        
+        Toast.makeText(getApplicationContext(), "You clicked me! " + meetingID, Toast.LENGTH_SHORT).show();
+      
+        vwParentRow.refreshDrawableState();  
+
+		Intent intent = new Intent(MeetingListDeclined.this, EditMeeting.class);
+		intent.putExtra("mid", meetingID);
+		startActivity(intent);
     }
 /**
   * Creates the group list out of the colors[] array according to

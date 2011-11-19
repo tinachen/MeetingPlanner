@@ -1,25 +1,26 @@
 package com.uiproject.meetingplanner;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
 import android.app.ExpandableListActivity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.CheckBox;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.SimpleExpandableListAdapter;
-import android.widget.Toast;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+import android.widget.TextView;
 
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
-
-import android.util.Log;
 
 public class MeetingListAccepted extends ExpandableListActivity
 {
@@ -29,6 +30,7 @@ public class MeetingListAccepted extends ExpandableListActivity
     private String[] groups;
 	private String[][] children;
     public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+    private int uid;
 
     
     /** Called when the activity is first created. */
@@ -42,18 +44,18 @@ public class MeetingListAccepted extends ExpandableListActivity
         db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 
-	    
+	    //PLEASE LEAVE THIS PART UNCOMMENTED TILL THE DATABASE HAS ENTRIES
 	    /*db.createUser(1, "Laura", "Rodriguez", "lau.rodriguez@gmail", "3128573352", 37, -34);
 	    db.createUser(2, "Dummy", "Joe", "tt@gmail.com", "1234567778", 32, 34);
-	    db.createMeeting(2,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
-	    db.createMeeting(5,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
-	    db.createMeeting(6,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
-	    db.createMeeting(7,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5);//TODO
+	    db.createMeeting(2,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5, 5);//TODO
+	    db.createMeeting(5,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5, 5);//TODO
+	    db.createMeeting(6,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5, 5);//TODO
+	    db.createMeeting(7,"Drinking party", 32, -35, "Happy Hour Drinks", "RTCC 202", "10/31/2011", "6:30pm", "9:00pm", 5, 5, 5);//TODO
 	    db.createMeetingUser(2, 1, 2, "Hello");
 	    db.createMeetingUser(2, 2, 1, "Hello2");*/
 	    
 	    SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-    	int uid = settings.getInt("uid", -1);
+    	uid = settings.getInt("uid", -1);
     	Log.v(LOG_TAG, "uid = " + uid);
     	allMeet = db.getAcceptedMeetings(uid);
         // Set up our adapter
@@ -71,8 +73,8 @@ public class MeetingListAccepted extends ExpandableListActivity
     		//Log.v(TAG, "Element number " + i + " is " + allMeetings.get(i).getMeetingSubject());
     		groups[i] = allMeet.get(i).getMeetingTitle() + "\n";
     		//groups[i] = allMeet.get(i).getMeetingTitle() + "\n\n" + "Fixme" + "\t\t" + allMeet.get(i).getMeetingDate() + "\t" + allMeet.get(i).getMeetingStartTime();
-    		children[i][0] = allMeet.get(i).getMeetingDescription() + "\n" + allMeet.get(i).getMeetingAddress() + "\n" + allMeet.get(i).getMeetingDate() + "\n";
-    		children[i][1] = "\n" + allMeet.get(i).getMeetingStartTime() + " to " + allMeet.get(i).getMeetingEndTime();
+    		children[i][0] = "Meeting ID: " + allMeet.get(i).getMeetingID() + "\n" + allMeet.get(i).getMeetingDescription() + "\n" + allMeet.get(i).getMeetingAddress() + "\n";
+    		children[i][1] =  allMeet.get(i).getMeetingDate() + "\n" + allMeet.get(i).getMeetingStartTime() + " to " + allMeet.get(i).getMeetingEndTime();
      	}
     	
 		SimpleExpandableListAdapter expListAdapter =
@@ -86,7 +88,65 @@ public class MeetingListAccepted extends ExpandableListActivity
 				R.layout.child_row,	// Layout for second-level entries
 				new String[] { "shadeName", "rgb" },	// Keys in childData maps to display
 				new int[] { R.id.childname, R.id.rgb }	// Data under the keys above go into these TextViews
-			);
+			){@Override
+            public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+                final View v = super.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
+
+                Log.d(LOG_TAG, "getChildView: groupPosition = " + groupPosition + ", childPosition = " + childPosition);
+                MeetingInstance m = allMeet.get(groupPosition);
+                
+                //get views
+                Button edit = (Button) v.findViewById(R.id.editBtn);
+        		Button track = (Button) v.findViewById(R.id.trackBtn);
+        		TextView loc = (TextView) v.findViewById(R.id.mloc);
+        		TextView track_text = (TextView) v.findViewById(R.id.mtrack);
+        		TextView desc = (TextView) v.findViewById(R.id.mdesc);
+        		TextView attendees = (TextView) v.findViewById(R.id.mppl);
+        		
+        		//set views
+        		loc.setText(m.getMeetingAddress());
+        		track_text.setText("Track time: " + m.getMeetingTrackTime() + " minutes before");
+        		desc.setText("Description: "  + m.getMeetingDescription());
+        		HashMap<Integer, UserInstance> ppl = m.getMeetingAttendees();
+        		Set<Integer> keys = ppl.keySet();
+        		boolean added = false;
+        		String names = "";
+        		for (Integer i : keys){
+        			if (added){
+        				names += ", ";
+        			}
+        			names = names + ppl.get(i).getUserFirstName() + " " + ppl.get(i).getUserLastName();
+        			added = true;
+        		}
+        		attendees.setText("Attendees: " + names);
+        		
+        		//check to see if edit button should be visible
+                edit.setTag(m.getMeetingID());
+        		int creator = m.getMeetingInitiatorID();
+        		Log.d(LOG_TAG, "getChildView: creatorID = " + creator + ", userId = " + uid);
+        		if (creator != uid){
+        			edit.setVisibility(View.GONE);
+        		}else{
+        			edit.setVisibility(View.VISIBLE);
+        		}
+
+        		//check to see if track button should be visible
+                track.setTag(m.getMeetingID());
+        		int currenth = Calendar.HOUR_OF_DAY;
+        		int currentm = Calendar.MINUTE;
+        		String start = m.getMeetingStartTime();
+        		int starth = Integer.parseInt(start.substring(0, start.indexOf(':')));
+        		int startm = Integer.parseInt(start.substring(start.indexOf(':') + 1));
+        		int tracktime = m.getMeetingTrackTime();
+        		int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
+        		if (minutes_before > tracktime){
+        			track.setVisibility(View.GONE);
+        		}else{
+        			track.setVisibility(View.VISIBLE);
+        		}
+                return v;
+            }
+		};
 		setListAdapter( expListAdapter );
     }
 
@@ -114,9 +174,20 @@ public class MeetingListAccepted extends ExpandableListActivity
 
     public void editButtonClicked(View view)
     {
-    	//ELIZABETH'S CODE HERE
-    	Toast.makeText(getApplicationContext(), "You clicked me!", Toast.LENGTH_SHORT).show();
+    	int mid = (Integer) view.getTag();
+		Intent intent = new Intent(MeetingListAccepted.this, EditMeeting.class);
+		intent.putExtra("mid", mid);
+		startActivity(intent);
     }
+    
+    public void track(View view){
+    	int mid = (Integer) view.getTag();
+		Intent intent = new Intent(MeetingListAccepted.this, TrackerMap.class);
+		intent.putExtra("mid", mid);
+		startActivity(intent);
+    	
+    }
+    
 /**
   * Creates the group list out of the colors[] array according to
   * the structure required by SimpleExpandableListAdapter. The resulting

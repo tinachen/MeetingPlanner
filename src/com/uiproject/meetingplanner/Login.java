@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 
+//import com.facebook.android.*;
+//import com.facebook.android.Facebook.*;
 import com.uiproject.meetingplanner.database.*;
 
 import android.app.Activity;
@@ -24,12 +26,29 @@ public class Login extends Activity {
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	public static final String LoginTag = "Login";
 	private MeetingPlannerDatabaseManager db;
+	//Facebook facebook = new Facebook("294864470534799");  // FOR FACEBOOK INTEGRATION
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        
+        // FOR FACEBOOK INTEGRATION
+        /*facebook.authorize(this, new DialogListener() {
+            @Override
+            public void onComplete(Bundle values) {}
+
+            @Override
+            public void onFacebookError(FacebookError error) {}
+
+            @Override
+            public void onError(DialogError e) {}
+
+            @Override
+            public void onCancel() {}
+        });*/
+        
         phone_field = (EditText) findViewById(R.id.phone);
         pw_field = (EditText) findViewById(R.id.pw);
         remember_me = (CheckBox) findViewById(R.id.rememberme);
@@ -48,7 +67,16 @@ public class Login extends Activity {
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	}
 
-	public void checkLogin(View button) throws JSONException, ParseException{
+	// FOR FACEBOOK INTEGRATION
+	/*@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        facebook.authorizeCallback(requestCode, resultCode, data);
+    }*/
+	
+
+	public void checkLogin(View button) throws JSONException, ParseException, NumberFormatException{
 		
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		SharedPreferences.Editor editor = settings.edit();
@@ -100,7 +128,7 @@ public class Login extends Activity {
         // Close db 
     	db.close();
     	
-        Log.v(LoginTag, "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName());
+        Log.d(LoginTag, "phone=" + user.getUserPhone() + "; fn=" + user.getUserFirstName() + "; ln=" + user.getUserLastName());
         
         // Saves user info into sharedpreferences
     	editor.putInt("uid", userID);
@@ -113,7 +141,7 @@ public class Login extends Activity {
         if(remember_me.isChecked()){ 
         	editor.putBoolean("remember", true);
         	editor.putString("userPassword", userPassword);
-            Toast.makeText(getBaseContext(), "remembering you", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(), "remembering you", Toast.LENGTH_SHORT).show();
         }else{
         	editor.putBoolean("remember", false);
         }

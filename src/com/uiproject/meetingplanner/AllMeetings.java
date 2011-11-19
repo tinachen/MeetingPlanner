@@ -4,6 +4,9 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TabHost;
 
 public class AllMeetings extends TabActivity{
@@ -35,4 +38,23 @@ public class AllMeetings extends TabActivity{
 	    tabHost.addTab(spec);
 	    tabHost.setCurrentTab(1);
 	}
+	
+    // menu 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logoutonly, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:{
+            	Logout.logout(this);
+            	break;
+            }
+        }
+        return true;
+    }
 }

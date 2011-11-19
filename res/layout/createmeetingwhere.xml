@@ -81,7 +81,7 @@ android:onClick="findAddress" />
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:apiKey="0wN0oRwYCsR4VzTbYhaoRyVKyHcGtGQlmHhVcvg"
+    android:apiKey="0RgOCS6zp4Eiyli1LdMoNKdPVTXDMaTe3YY81GQ"
     android:layout_weight="1"
 />
 
