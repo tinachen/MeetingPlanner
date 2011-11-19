@@ -61,9 +61,8 @@ public class TrackerMap extends MapActivity {
         return false;
     }
 
-    public void updateMap(Map<String,Object> map){
+    public void updateMap(Map<Integer, UserInstance> attendees){
     	itemizedoverlay.clear();
-    	Map<Integer, UserInstance> attendees = (Map<Integer, UserInstance>) map.get("locations");
     	MyOverlayItem myoi;
     	OverlayItem oi;
     	Set<Integer> keys = attendees.keySet();
