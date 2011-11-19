@@ -12,6 +12,10 @@
 	   android:id="@+id/signup"
 	   android:src="@drawable/signup"
 	   android:paddingBottom="0dip" android:layout_width="200dip" android:layout_height="75dp"/>
+	<ImageView
+	    android:id="@+id/facebook"
+	    android:src="@drawable/fb-connect-large"
+	    android:paddingBottom="0dip" android:layout_width="200dip" android:layout_height="50dp"/>
 	<EditText
     	android:id="@+id/fname"
 		android:layout_width="fill_parent"
