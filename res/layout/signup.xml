@@ -8,7 +8,7 @@
 	android:paddingLeft="30dip"
 	android:paddingRight="30dip"
 	android:paddingTop="20dip"
-	style="@style/backgroundColor">
+	android:background="@drawable/shape">
 		
 	<ImageView
 	   android:id="@+id/signup"
