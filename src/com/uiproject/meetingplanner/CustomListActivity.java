@@ -44,7 +44,8 @@ public class CustomListActivity extends Activity {
     	allMeet = db.getAllMeetings();
     	db.close();
 
-        MeetingListArrayAdapter adapter = new MeetingListArrayAdapter(this, allMeet);
+      //  MeetingListArrayAdapter adapter = new MeetingListArrayAdapter(this, allMeet);
+        MeetingAdapter adapter = new MeetingAdapter(this,allMeet);
 
         list.setAdapter(adapter);
         
