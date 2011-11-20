@@ -74,6 +74,11 @@
                   android:finishOnTaskLaunch="true">
         </activity>
             	
+        <activity android:name=".ChangePassword"
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">  
+        </activity>
+        
         <activity android:name=".EditMeeting"
                   android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">  

@@ -32,8 +32,6 @@ public class EditProfile extends Activity {
         phone_field = (EditText) findViewById(R.id.phone);
         email_field = (EditText) findViewById(R.id.email);
         oldpw_field = (EditText) findViewById(R.id.oldpw);
-        pw_field = (EditText) findViewById(R.id.pw);
-        pw2_field = (EditText) findViewById(R.id.pw2);
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
     	
         //get info from db
@@ -56,30 +54,11 @@ public class EditProfile extends Activity {
         String lname = lname_field.getText().toString();
         String phone = phone_field.getText().toString();
         String email = email_field.getText().toString();
-        String oldpw = pw_field.getText().toString();
-        String pw = pw_field.getText().toString();
-        String pw2 = pw2_field.getText().toString();
         
         if (fname.length() == 0 || lname.length() == 0 || phone.length() == 0 || email.length() == 0){
             Toast.makeText(getBaseContext(), "Please fill in all fields (name, phone, email)", Toast.LENGTH_SHORT).show();
         }
         
-        boolean pwchanged = false;
-        if (oldpw.length() != 0 && pw.length() != 0 && pw2.length() != 0){ // if they want to change password
-	        // query db and get current pw and check
-        	if(!pw.equals(pw2)){
-	            Toast.makeText(getBaseContext(), "New passwords do not match", Toast.LENGTH_SHORT).show();
-	            return;
-	        	
-	        }else{
-	            Toast.makeText(getBaseContext(), "Password has changed", Toast.LENGTH_SHORT).show();
-	            pwchanged = true;
-	        }
-        }
-        
-        if(!pwchanged){
-        	pw = oldpw;
-        }
 
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		int uid = settings.getInt("uid", 0);
@@ -91,11 +70,18 @@ public class EditProfile extends Activity {
     	editor.putString("userEmail", email);
     	editor.commit();
     	
-        Communicator.updateUser(uid, Long.parseLong(phone), fname, lname, email, pw);
+        //TODO Communicator.updateUser(uid, Long.parseLong(phone), fname, lname, email, pw);
 
         EditProfile.this.setResult(R.string.edited_profile);
         EditProfile.this.finish();
 	}
+	
+	public void changepassword(View button){
+
+        Intent intent = new Intent(EditProfile.this, ChangePassword.class);
+        EditProfile.this.startActivity(intent);
+	}
+	
     // menu 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
