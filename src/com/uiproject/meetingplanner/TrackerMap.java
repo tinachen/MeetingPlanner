@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -33,6 +34,8 @@ public class TrackerMap extends MapActivity {
 	private MyItemizedOverlay itemizedoverlay;
 	private int mid;
 	private MapController mc;
+	private View persontracker;
+	private TextView name_text, eta_text;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,12 +48,25 @@ public class TrackerMap extends MapActivity {
         
         MapView mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
+        persontracker = findViewById(R.id.persontracker);
+    	persontracker.setVisibility(View.GONE);
+    	name_text = (TextView) findViewById(R.id.name);
+    	eta_text =(TextView) findViewById(R.id.eta);
         
         List<Overlay> mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
         itemizedoverlay = new MyItemizedOverlay(drawable, this);
-
+/*
         mapOverlays.add(itemizedoverlay);
+        OverlayItem oi = new OverlayItem(new GeoPoint(34019443,-118289440), "", "");
+    	MyOverlayItem myoi = new MyOverlayItem(oi, "Tina Chen", "30min");
+    	itemizedoverlay.addOverlay(myoi);
+    	oi = new OverlayItem(new GeoPoint(34150089, -118269152), "", "");
+    	myoi = new MyOverlayItem(oi, "Elizabeth Deng", "60min");
+    	itemizedoverlay.addOverlay(myoi);
+    	
+    	itemizedoverlay.doPopulate();
+    	*/
         
         // find the area to auto zoom to
         mc = mapView.getController();
@@ -99,6 +115,10 @@ public class TrackerMap extends MapActivity {
         // set the center
         mc.setCenter(itemizedoverlay.getCenter());
     	
+    }
+    
+    public void close(View button){
+    	persontracker.setVisibility(View.GONE);
     }
     
     public class TestReceiver extends BroadcastReceiver { 
@@ -188,7 +208,10 @@ public class TrackerMap extends MapActivity {
     	
     	@Override
     	protected boolean onTap(int index) {
-    	  //MyOverlayItem item = mOverlays.get(index);
+    	  MyOverlayItem item = mOverlays.get(index);
+    	  name_text.setText(item.getName());
+    	  eta_text.setText(item.getEta());
+      	  persontracker.setVisibility(View.VISIBLE);
     	  /*
     	  GeoPoint geo = item.getOverlayItem().getPoint();
     	  
@@ -218,6 +241,7 @@ public class TrackerMap extends MapActivity {
     	  dialog.show();
     	  
     	  */
+
     	  return true;
     	}
     	
