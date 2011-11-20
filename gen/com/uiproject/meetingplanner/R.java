@@ -36,21 +36,20 @@ public final class R {
         public static final int ic_menu_tick=0x7f02000a;
         public static final int icon=0x7f02000b;
         public static final int logo=0x7f02000c;
-        public static final int logo2=0x7f02000d;
-        public static final int mymeeting=0x7f02000e;
-        public static final int nextmeeting=0x7f02000f;
-        public static final int or=0x7f020010;
-        public static final int plannerart=0x7f020011;
-        public static final int plussign=0x7f020012;
-        public static final int shape=0x7f020013;
-        public static final int signup=0x7f020014;
-        public static final int tab_bg_selected=0x7f020015;
-        public static final int tab_bg_selector=0x7f020016;
-        public static final int tab_bg_unselected=0x7f020017;
-        public static final int tab_divider=0x7f020018;
-        public static final int tab_text_selector=0x7f020019;
-        public static final int trackeretalist=0x7f02001a;
-        public static final int trackermap=0x7f02001b;
+        public static final int mymeeting=0x7f02000d;
+        public static final int nextmeeting=0x7f02000e;
+        public static final int or=0x7f02000f;
+        public static final int plannerart=0x7f020010;
+        public static final int plussign=0x7f020011;
+        public static final int shape=0x7f020012;
+        public static final int signup=0x7f020013;
+        public static final int tab_bg_selected=0x7f020014;
+        public static final int tab_bg_selector=0x7f020015;
+        public static final int tab_bg_unselected=0x7f020016;
+        public static final int tab_divider=0x7f020017;
+        public static final int tab_text_selector=0x7f020018;
+        public static final int trackeretalist=0x7f020019;
+        public static final int trackermap=0x7f02001a;
     }
     public static final class id {
         public static final int LinearLayout01=0x7f090051;
