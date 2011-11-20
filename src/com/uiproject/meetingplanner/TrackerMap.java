@@ -56,10 +56,9 @@ public class TrackerMap extends MapActivity {
         List<Overlay> mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
         itemizedoverlay = new MyItemizedOverlay(drawable, this);
-
+/*
         mapOverlays.add(itemizedoverlay);
-
-/*    	OverlayItem oi = new OverlayItem(new GeoPoint(34019443,-118289440), "", "");
+        OverlayItem oi = new OverlayItem(new GeoPoint(34019443,-118289440), "", "");
     	MyOverlayItem myoi = new MyOverlayItem(oi, "Tina Chen", "30min");
     	itemizedoverlay.addOverlay(myoi);
     	oi = new OverlayItem(new GeoPoint(34150089, -118269152), "", "");

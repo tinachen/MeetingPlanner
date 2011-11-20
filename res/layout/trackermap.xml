@@ -27,6 +27,20 @@
 			android:layout_marginTop="10dip"/>
 			
 	</LinearLayout>
+	<FrameLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		>
+		
+		<com.google.android.maps.MapView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mapview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:apiKey="0wN0oRwYCsR4VzTbYhaoRyVKyHcGtGQlmHhVcvg"
+/>
+		
 		<LinearLayout
 		style="@style/trackerbg"
 		   android:id="@+id/persontracker"
@@ -35,7 +49,8 @@
 		android:layout_height="60dip"
 		android:paddingTop="10dip"
 		android:paddingLeft="10dip"
-		android:paddingRight="10dip">
+		android:paddingRight="10dip"
+    android:layout_gravity="top">
 		
 
 		<ImageView
@@ -80,12 +95,6 @@
 			
 	</LinearLayout>
 
-<com.google.android.maps.MapView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mapview"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:clickable="true"
-    android:apiKey="0wN0oRwYCsR4VzTbYhaoRyVKyHcGtGQlmHhVcvg"
-/>
+
+</FrameLayout>
 </LinearLayout>
