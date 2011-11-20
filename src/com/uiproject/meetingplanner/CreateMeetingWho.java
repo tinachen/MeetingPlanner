@@ -97,7 +97,7 @@ public class CreateMeetingWho extends Search {
     
     public void next(View button){
     	saveData();
-		Intent intent = new Intent(CreateMeetingWho.this, CreateMeetingWhere.class);
+		Intent intent = new Intent(CreateMeetingWho.this, CreateMeetingWhen.class);
 		CreateMeetingWho.this.startActivityForResult(intent, 0);
     	
     }

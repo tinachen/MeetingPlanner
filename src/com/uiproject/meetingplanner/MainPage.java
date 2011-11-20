@@ -196,7 +196,7 @@ public class MainPage extends Activity {
     		name.setText(username);
         }
     }
-    /*
+    
     public void onResume(){
     	//recheck the next upcoming meeting
     	db.open();
@@ -204,11 +204,6 @@ public class MainPage extends Activity {
 	    Log.d(mainPageTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
 	    db.close();
 	    
-	    mtitle = (TextView) findViewById(R.id.mtitle);
-	    mwhen = (TextView) findViewById(R.id.mwhen);
-	    mdesc = (TextView) findViewById(R.id.mdesc);
-	    track_button = (Button) findViewById(R.id.mtrack_button);
-
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();
 	    int mid = m.getMeetingID();
@@ -243,6 +238,6 @@ public class MainPage extends Activity {
 	    editor.commit(); 
     	
     }
-    */
+    
 }
 

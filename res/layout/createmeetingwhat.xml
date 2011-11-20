@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="When" />
+            android:text="Who" />
 
         <TextView
 	style="@style/CMnotselected"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="Who" />
+            android:text="When" />
 
         <TextView
 	style="@style/CMnotselected"
