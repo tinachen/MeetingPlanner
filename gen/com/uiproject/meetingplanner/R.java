@@ -44,8 +44,13 @@ public final class R {
         public static final int plussign=0x7f020012;
         public static final int shape=0x7f020013;
         public static final int signup=0x7f020014;
-        public static final int trackeretalist=0x7f020015;
-        public static final int trackermap=0x7f020016;
+        public static final int tab_bg_selected=0x7f020015;
+        public static final int tab_bg_selector=0x7f020016;
+        public static final int tab_bg_unselected=0x7f020017;
+        public static final int tab_divider=0x7f020018;
+        public static final int tab_text_selector=0x7f020019;
+        public static final int trackeretalist=0x7f02001a;
+        public static final int trackermap=0x7f02001b;
     }
     public static final class id {
         public static final int LinearLayout01=0x7f090051;
@@ -58,7 +63,7 @@ public final class R {
         public static final int address_field=0x7f090027;
         public static final int attHeader=0x7f09004a;
         public static final int attendees=0x7f090018;
-        public static final int attendeesList=0x7f09005e;
+        public static final int attendeesList=0x7f090060;
         public static final int autocomplete_names=0x7f090029;
         public static final int back_button=0x7f090019;
         public static final int bar=0x7f090050;
@@ -68,7 +73,7 @@ public final class R {
         public static final int cancel_button=0x7f09001a;
         public static final int checkBox1=0x7f09002c;
         public static final int childname=0x7f09000c;
-        public static final int close=0x7f090061;
+        public static final int close=0x7f090063;
         public static final int confirm_button=0x7f090039;
         public static final int contactEntryText=0x7f090010;
         public static final int contactList=0x7f09002a;
@@ -80,7 +85,7 @@ public final class R {
         public static final int delete=0x7f090038;
         public static final int desc=0x7f090013;
         public static final int editBtn=0x7f09000a;
-        public static final int editprofile=0x7f090063;
+        public static final int editprofile=0x7f090065;
         public static final int editprofile_img=0x7f09003a;
         public static final int email=0x7f09003d;
         public static final int endPickTime=0x7f090024;
@@ -95,7 +100,7 @@ public final class R {
         public static final int location=0x7f090017;
         public static final int loginButton=0x7f090041;
         public static final int logo=0x7f09003f;
-        public static final int logout=0x7f090062;
+        public static final int logout=0x7f090064;
         public static final int mapview=0x7f090042;
         public static final int mdesc=0x7f090008;
         public static final int meetingDesc=0x7f09004f;
@@ -116,7 +121,7 @@ public final class R {
         public static final int next_button=0x7f09001b;
         public static final int oldpw=0x7f090003;
         public static final int or=0x7f09005a;
-        public static final int persontracker=0x7f090060;
+        public static final int persontracker=0x7f090062;
         public static final int phone=0x7f09003e;
         public static final int pic=0x7f090000;
         public static final int pickDate=0x7f090020;
@@ -133,6 +138,8 @@ public final class R {
         public static final int startPickTime=0x7f090022;
         public static final int startTime_label=0x7f090021;
         public static final int submit=0x7f09005b;
+        public static final int tabsLayout=0x7f09005c;
+        public static final int tabsText=0x7f09005d;
         public static final int textView1=0x7f09001c;
         public static final int textView2=0x7f090011;
         public static final int textView3=0x7f09001e;
@@ -141,9 +148,9 @@ public final class R {
         public static final int title=0x7f090012;
         public static final int trackBtn=0x7f09000b;
         public static final int tracker_selector=0x7f090026;
-        public static final int trackerlist=0x7f09005d;
-        public static final int trackermap=0x7f09005f;
-        public static final int trackername=0x7f09005c;
+        public static final int trackerlist=0x7f09005f;
+        public static final int trackermap=0x7f090061;
+        public static final int trackername=0x7f09005e;
         public static final int tracktime=0x7f090016;
         public static final int tvContact=0x7f090052;
         public static final int tvMail=0x7f090056;
@@ -185,9 +192,10 @@ public final class R {
         public static final int selectlocation=0x7f030020;
         public static final int signup=0x7f030021;
         public static final int tabs=0x7f030022;
-        public static final int tracker_list_item=0x7f030023;
-        public static final int trackeretalist=0x7f030024;
-        public static final int trackermap=0x7f030025;
+        public static final int tabs_bg=0x7f030023;
+        public static final int tracker_list_item=0x7f030024;
+        public static final int trackeretalist=0x7f030025;
+        public static final int trackermap=0x7f030026;
     }
     public static final class menu {
         public static final int logoutonly=0x7f080000;
