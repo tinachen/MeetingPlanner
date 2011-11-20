@@ -3,7 +3,11 @@ package com.uiproject.meetingplanner;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,38 +20,39 @@ import android.widget.Toast;
 public class CustomListActivity extends Activity {
     /** Called when the activity is first created. */
 	static  View bar;
+	private MeetingPlannerDatabaseManager db;
+	public ArrayList<MeetingInstance> allMeet;
+	private static final String LOG_TAG = "MeetingListDeclined";
+	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.declined_meeting_custom);
 
+        db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+	    db.open();
+	    
         ListView list = (ListView) findViewById(R.id.listView1);
         list.setClickable(true);
         
-        bar = (View)findViewById(R.id.linearLayout1);
+        SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	int uid = settings.getInt("uid", -1);
+    	Log.v(LOG_TAG, "uid = " + uid);
+        // Set up our adapter
+    	//allMeet = db.getDeclinedMeetings(uid);
+    	allMeet = db.getAllMeetings();
+    	db.close();
 
-        final List<Meeting> listOfMeeting = new ArrayList<Meeting>();
-      //  listOfMeeting.add(new Meeting("Sales meeting", "description1", "Dec 1", "10:00am", "Boss"));
-      //  listOfMeeting.add(new Meeting("Play Poker", "description2", "Dec 1", "10:00am", "Friend"));
-      //  listOfMeeting.add(new Meeting("Big dinner", "description3", "Dec 1", "5:00pm", "Family"));
+        MeetingListArrayAdapter adapter = new MeetingListArrayAdapter(this, allMeet);
+
+        list.setAdapter(adapter);
         
-       
-
-        MeetingAdapter adapter = new MeetingAdapter(this, listOfMeeting);
-
-        /*list.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
-                System.out.println("sadsfsf");
-                showToast(listOfMeeting.get(position).getName());
-            }
-        });*/
+        bar = (View)findViewById(R.id.linearLayout1);
 
         list.setAdapter(adapter);
         list.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				// TODO Auto-generated method stub
 				Log.d("ITEM","ITEM_CLICKED");
