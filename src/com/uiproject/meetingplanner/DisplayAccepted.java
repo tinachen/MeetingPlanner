@@ -30,7 +30,7 @@ public class DisplayAccepted extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.createmeetingconfirm);
+        setContentView(R.layout.displayaccepted);
         title = (TextView) findViewById(R.id.title);
         desc = (TextView) findViewById(R.id.desc);
         date = (TextView) findViewById(R.id.date);
