@@ -33,7 +33,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
-            android:src="@android:drawable/stat_sys_phone_call" android:layout_marginRight="10dp"/>
+            android:src="@drawable/call" android:layout_marginRight="10dp"/>
 
     </LinearLayout>
 
