@@ -10,6 +10,14 @@
 	   android:layout_height="wrap_content"
 	   android:adjustViewBounds="true"
 	   android:scaleType="fitCenter"/>
+	<ImageView
+	    android:id="@+id/selectcircle"
+	    android:src="@drawable/greencircle"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:adjustViewBounds="true"
+	    android:scaleType="fitCenter"
+	    android:layout_gravity="center_horizontal|top"/>
 	<LinearLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
