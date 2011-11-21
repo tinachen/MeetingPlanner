@@ -41,7 +41,7 @@ public class CreateMeetingWho extends Search {
 		}
     	for (int i = 0; i < checkedUids.size(); i++)
     		Log.d("CMW uids", checkedUids.get(i).toString());
-    	//recheck();	
+    	recheck(checkedUids);	
     	
     }
 

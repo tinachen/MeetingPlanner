@@ -89,10 +89,10 @@ public class Search extends Activity implements OnItemClickListener {
 		    	        	if (usersArray.get(i).getUserPhone().equals(phoneNumber)) {
 		    	        		currentSearchList.add(phones.getString(phones.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
 		    	        		fullSearchList.add(usersArray.get(i));
+		    	        		currSearchList.add(usersArray.get(i));
 		    	        	}
 	    	        	}
 	    	        }
-	    	        currSearchList = fullSearchList;
 	    	        phones.close();
 	    	    }
 	    	}
@@ -170,8 +170,8 @@ public class Search extends Activity implements OnItemClickListener {
 		else {
 			checkedUsers.remove((UserInstance)parent.getItemAtPosition(position));
 		}
-		Log.d("TEST",currSearchList.toString());
-		Log.d("checkedU", checkedUsers.toString());
+		//Log.d("TEST",currSearchList.toString());
+		//Log.d("checkedU", checkedUsers.toString());
 		uAdapter = new UserAdapter(Search.this, currSearchList, checkedUsers);
         mContactList.setAdapter(uAdapter);
 		for (int i = 0; i < checkedUsers.size(); i++) {
@@ -179,14 +179,16 @@ public class Search extends Activity implements OnItemClickListener {
 		}
 	}
 	
-	/*public void recheck() {
-		for (int i = 0; i < currentSearchList.size(); i++) {
-			if (checkedNames.contains(currentSearchList.elementAt(i))) {
-				Log.d("TEST", currentSearchList.elementAt(i));
-				mContactList.setItemChecked(i, true);
+	public void recheck(ArrayList<Integer> userIds) {
+		for (int i = 0; i < currSearchList.size(); i++) {
+			if (userIds.contains(currSearchList.get(i).getUserID())) {
+				//Log.d("TEST", currentSearchList.elementAt(i));
+				checkedUsers.add(currSearchList.get(i));
 			}
 		}
-	}*/
+		uAdapter = new UserAdapter(Search.this, currSearchList, checkedUsers);
+        mContactList.setAdapter(uAdapter);
+	}
 	
     /**
      * Populate the contact list based on account currently selected in the account spinner.
