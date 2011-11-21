@@ -18,7 +18,7 @@
         android:layout_marginLeft="5dp"
         android:hint="Search Names"/>
     	<GridView
-	    android:id="@+id/contactList"
+	    android:id="@+id/gridview"
 	    android:layout_width="match_parent" 
 	    android:layout_height="wrap_content" 
 	    android:cacheColorHint="@color/transparent"
