@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="wrap_content">
+<LinearLayout
 		android:background="@drawable/shape"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+	android:paddingTop="20dip"
+	android:paddingLeft="20dip"
+	android:paddingRight="20dip">
 
-
-        <TextView
-	style="@style/CMselected"
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Review and Confirm"
-             android:layout_marginLeft="3dp"/>
-
-           <View
-	style="@style/CMprogress"
-        android:layout_height="2dip"
-        android:layout_width="match_parent" />
-
-
-<LinearLayout
-	android:orientation="vertical"
+<TextView
+	style="@style/headerText"
+	android:textSize="20dip"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
+	android:layout_marginLeft="10dip"
+	android:text="Review and Confirm" />
+
+<View
+	android:background="@color/darkgray"
+	android:layout_width="fill_parent"
+	android:layout_height="1dip" />
+
+<LinearLayout
+	android:background="@color/semitransparent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
 	android:paddingTop="10dip"
-	android:paddingLeft="30dip"
-	android:paddingRight="30dip">
+	android:paddingLeft="10dip"
+	android:paddingRight="10dip">
+	
 
 <TextView
 	style="@style/headerText"
@@ -44,19 +49,20 @@
 	android:text="Description"
 	android:layout_marginTop="10dip" />
 	
+	
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip" >
 		<TextView
-	style="@style/secondaryText"
-			android:layout_width="wrap_content"
+	style="@style/display1"
+			android:layout_width="125dip"
 			android:layout_height="wrap_content"
 			android:text="Date: " />
 		
 		<TextView
-	style="@style/secondaryText"
+	style="@style/display2"
 		    android:id="@+id/date"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -69,13 +75,13 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip" >
 		<TextView
-	style="@style/secondaryText"
-			android:layout_width="wrap_content"
+	style="@style/display1"
+			android:layout_width="125dip"
 			android:layout_height="wrap_content"
 			android:text="Time: " />
 		
 		<TextView
-	style="@style/secondaryText"
+	style="@style/display2"
 		    android:id="@+id/time"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -88,13 +94,13 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip" >
 		<TextView
-	style="@style/secondaryText"
-			android:layout_width="wrap_content"
+	style="@style/display1"
+			android:layout_width="125dip"
 			android:layout_height="wrap_content"
-			android:text="Tracking time: " />
+			android:text="Track time: " />
 		
 		<TextView
-	style="@style/secondaryText"
+	style="@style/display2"
 		    android:id="@+id/tracktime"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -107,13 +113,13 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip" >
 		<TextView
-	style="@style/secondaryText"
-			android:layout_width="wrap_content"
+	style="@style/display1"
+			android:layout_width="125dip"
 			android:layout_height="wrap_content"
 			android:text="Location: " />
 		
 		<TextView
-	style="@style/secondaryText"
+	style="@style/display2"
 		    android:id="@+id/location"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -126,25 +132,23 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip" >
 		<TextView
-	style="@style/secondaryText"
-			android:layout_width="wrap_content"
+	style="@style/display1"
+			android:layout_width="125dip"
 			android:layout_height="wrap_content"
 			android:text="Attendees: " />
 		
 		<TextView
-	style="@style/secondaryText"
+	style="@style/display2"
 		    android:id="@+id/attendees"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="attendees go here" />
 	</LinearLayout>
-	
-</LinearLayout>
-
+    
     
       <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content">
         
        <LinearLayout
        		android:orientation="horizontal"
@@ -181,4 +185,6 @@
 		</LinearLayout>
     </RelativeLayout>
 
+	</LinearLayout>
 </LinearLayout>
+</ScrollView>

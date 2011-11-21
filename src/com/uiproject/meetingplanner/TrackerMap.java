@@ -57,16 +57,23 @@ public class TrackerMap extends MapActivity {
         Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
         itemizedoverlay = new MyItemizedOverlay(drawable, this);
 
-        mapOverlays.add(itemizedoverlay);
-        OverlayItem oi = new OverlayItem(new GeoPoint(34019443,-118289440), "", "");
-    	MyOverlayItem myoi = new MyOverlayItem(oi, "Tina Chen", "30min");
-    	itemizedoverlay.addOverlay(myoi);
-    	oi = new OverlayItem(new GeoPoint(34150089, -118269152), "", "");
-    	myoi = new MyOverlayItem(oi, "Elizabeth Deng", "60min");
-    	itemizedoverlay.addOverlay(myoi);
-    	
-    	itemizedoverlay.doPopulate();
-    	
+
+        Map<Integer,UserInstance> userLocations = new HashMap<Integer, UserInstance>();
+        UserInstance u = new UserInstance(1);
+        u.setUserEta("30");
+        u.setUserLocationLat(34019443);
+        u.setUserLocationLon(-118289440);
+        u.setUserFirstName("Tina");
+        u.setUserLastName("Chen");
+        userLocations.put(1, u);
+        u = new UserInstance(2);
+        u.setUserEta("60");
+        u.setUserLocationLat(34150089);
+        u.setUserLocationLon(-118269152);
+        u.setUserFirstName("Elizabeth");
+        u.setUserLastName("Deng");
+        userLocations.put(2, u);
+        updateMap(userLocations);
         
         // find the area to auto zoom to
         mc = mapView.getController();
@@ -83,7 +90,8 @@ public class TrackerMap extends MapActivity {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction("com.uiproject.meetingplanner");
 		registerReceiver(receiver, filter);
-        */
+		*/
+        
     }
     
     @Override
