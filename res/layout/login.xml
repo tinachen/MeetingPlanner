@@ -59,10 +59,12 @@
 	<Button
 		android:id="@+id/loginButton"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="50dip"
 		android:onClick="checkLogin"
 		android:text="Login"
-		android:layout_marginTop="50dip" />	
+		android:textSize="20sp"
+		android:layout_marginTop="50dip" 
+		android:background="@drawable/button_shape"/>
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_height="wrap_content"

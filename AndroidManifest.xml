@@ -30,7 +30,6 @@
         <activity android:name=".MainPage"
                   android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
-             
         </activity>
         
         <activity android:name=".SelectLocation"

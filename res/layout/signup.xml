@@ -17,7 +17,7 @@
 	<ImageView
 	    android:id="@+id/facebook"
 	    android:src="@drawable/fbconnect"
-	    android:paddingBottom="0dip" android:layout_width="fill_parent" android:layout_height="50dp"/>
+	    android:paddingBottom="0dip" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
 	<ImageView
 	    android:id="@+id/or"
 	    android:src="@drawable/or"
@@ -67,10 +67,10 @@
 	    android:id="@+id/submit"
 	    android:background="@drawable/button_shape"
 		android:layout_width="fill_parent"
-		android:layout_height="35dip"
+		android:layout_height="40dip"
 		android:onClick="submit"
 		android:text="Submit"
-		android:layout_marginTop="5dip" 
+		android:layout_marginTop="25dip" 
 		android:layout_marginBottom="10dip"/>
 </LinearLayout>
 </ScrollView>
