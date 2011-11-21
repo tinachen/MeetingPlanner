@@ -56,7 +56,7 @@ public class TrackerMap extends MapActivity {
         List<Overlay> mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
         itemizedoverlay = new MyItemizedOverlay(drawable, this);
-/*
+
         mapOverlays.add(itemizedoverlay);
         OverlayItem oi = new OverlayItem(new GeoPoint(34019443,-118289440), "", "");
     	MyOverlayItem myoi = new MyOverlayItem(oi, "Tina Chen", "30min");
@@ -66,7 +66,7 @@ public class TrackerMap extends MapActivity {
     	itemizedoverlay.addOverlay(myoi);
     	
     	itemizedoverlay.doPopulate();
-    	*/
+    	
         
         // find the area to auto zoom to
         mc = mapView.getController();
@@ -74,7 +74,7 @@ public class TrackerMap extends MapActivity {
         
         // set the center
         mc.setCenter(itemizedoverlay.getCenter());
-        
+        /*
         Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
         intent.putExtra("mid", mid);
         startService(intent);
@@ -82,7 +82,7 @@ public class TrackerMap extends MapActivity {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction("com.uiproject.meetingplanner");
 		registerReceiver(receiver, filter);
-        
+        */
     }
     
     @Override

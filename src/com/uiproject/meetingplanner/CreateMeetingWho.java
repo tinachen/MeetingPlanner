@@ -28,7 +28,7 @@ public class CreateMeetingWho extends Search {
         String n;
         String p;
         int commaIndex;
-    	if (names.length() > 0){
+    	/*if (names.length() > 0){
 	    	while (names.length() > 0){
 	    		commaIndex = names.indexOf(',');
 	    		if (commaIndex == -1){
@@ -56,8 +56,8 @@ public class CreateMeetingWho extends Search {
 	    		Log.d("CMW names", checkedNames.get(i));
 	    	for (int i = 0; i < checkedPhoneNumbers.size(); i++)
 	    		Log.d("CMW phone", checkedPhoneNumbers.get(i));
-	    	recheck();	
-    	}
+	    	//recheck();	
+    	}*/
     }
 
     public void back(View button){
@@ -97,7 +97,7 @@ public class CreateMeetingWho extends Search {
     
     public void next(View button){
     	saveData();
-		Intent intent = new Intent(CreateMeetingWho.this, CreateMeetingWhere.class);
+		Intent intent = new Intent(CreateMeetingWho.this, CreateMeetingWhen.class);
 		CreateMeetingWho.this.startActivityForResult(intent, 0);
     	
     }
@@ -110,7 +110,7 @@ public class CreateMeetingWho extends Search {
     }
     
     private void saveData(){
-    	String names = "";
+    	/*String names = "";
     	boolean added = false;
     	for (String n : checkedNames){
     		if (added){
@@ -137,7 +137,7 @@ public class CreateMeetingWho extends Search {
     	editor.putString("mnames", names);
     	editor.putString("mphones", phones);
     	editor.commit();
-    	
+    	*/
     }
     
 

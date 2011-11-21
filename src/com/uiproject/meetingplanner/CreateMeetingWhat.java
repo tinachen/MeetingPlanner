@@ -82,7 +82,7 @@ public class CreateMeetingWhat extends Activity {
     	editor.putString("mdesc", mdesc);
     	editor.commit();
     	
-		Intent intent = new Intent(CreateMeetingWhat.this, CreateMeetingWhen.class);
+		Intent intent = new Intent(CreateMeetingWhat.this, CreateMeetingWho.class);
 		CreateMeetingWhat.this.startActivityForResult(intent, 0);
     	
     }
