@@ -74,11 +74,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			// Make check buttons invisible if the meetings are created by the user
 			// Change calling icon to edit button
 			viewHolder.itemIcon.setClickable(true);
-			if(uid == m.getMeetingInitiatorID() && listType == LISTTYPE_ACCEPTED){
-				m.setMeetingImageResourceID(R.drawable.edit_meeting);
-			}else{
-				m.setMeetingImageResourceID(R.drawable.call);
-			}
+			
 			
 			viewHolder.itemIcon.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
@@ -135,6 +131,12 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		} else {
 			view = convertView;
 			((ViewHolder) view.getTag()).checkbox.setTag(list.get(position));
+		}
+		
+		if(uid == m.getMeetingInitiatorID() && listType == LISTTYPE_ACCEPTED){
+			m.setMeetingImageResourceID(R.drawable.edit_meeting);
+		}else{
+			m.setMeetingImageResourceID(R.drawable.call);
 		}
 		
 		db.open();

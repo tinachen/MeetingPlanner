@@ -140,7 +140,7 @@ public class CreateMeetingConfirm extends Activity {
     	SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		Date date = (Date)formatter.parse(mstartdatetime);
 		int timestampInt = (int) (date.getTime() / 1000L);
-		Log.d(createMeetingConfirmTag, " create meeting: meetingID = " + mid + ", date.gettime = " + date.getTime() + ", timestamp = " + timestampInt + ", current timestamp = " + currentUnixTime);
+		Log.d(createMeetingConfirmTag, " create meeting: meetingID = " + mid + ", date.gettime = " + formatter.format(date.getTime()) + ", timestamp = " + timestampInt + ", current timestamp = " + currentUnixTime);
     	
     	// Add meeting & meeting users to internal db
 		db.open();
