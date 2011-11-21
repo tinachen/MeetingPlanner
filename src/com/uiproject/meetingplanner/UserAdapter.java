@@ -51,6 +51,7 @@ public class UserAdapter extends BaseAdapter {
         
         ImageView ivCircleImage = (ImageView) convertView.findViewById(R.id.selectcircle);
         if (checkedUsers.contains(entry) && ivCircleImage.getVisibility() != View.VISIBLE) {
+        	Log.d("visibility", "setting visible");
         	ivCircleImage.setVisibility(View.VISIBLE);
         	ivCircleImage.setAdjustViewBounds(true);
         }

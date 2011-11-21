@@ -81,8 +81,8 @@
 	    android:cacheColorHint="@color/bgblue"
 	    android:columnWidth="100dp"
 	    android:numColumns="2"
-	    android:verticalSpacing="1dp"
-	    android:horizontalSpacing="1dp"
+	    android:verticalSpacing="2dp"
+	    android:horizontalSpacing="2dp"
 	    android:stretchMode="columnWidth"
 	    android:gravity="center" />
 </LinearLayout>
