@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -67,13 +68,40 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			viewHolder.checkbox = (CheckBox) view.findViewById(R.id.checkbox);
 			
 			// Make check buttons invisible if the meetings are created by the user
-			// Change calling icon to edit button //TODO
+			// Change calling icon to edit button
+			ImageView image = (ImageView) view.findViewById(R.id.list_icon);
+			image.setClickable(true);
 			if(listType == LISTTYPE_ACCEPTED){
-				MeetingInstance m = list.get(position);
+				final MeetingInstance m = list.get(position);
 				Log.d(TAG, "getView: uid = " + uid + ", initiatorID = " + m.getMeetingInitiatorID());
 				if(uid == m.getMeetingInitiatorID()){
 					//viewHolder.checkbox.setVisibility(View.INVISIBLE); //TODO
+					image.setOnClickListener(new View.OnClickListener() {
+			            public void onClick(View v) {
+			            	int mid = m.getMeetingID();
+			            	Log.d(TAG, "mid = " + mid);
+			            	//TODO
+			            	// ELIZABETH'S CODE edit meeting
+			            	
+			            }});
+				}else{
+					
+					image.setOnClickListener(new View.OnClickListener() {
+			            public void onClick(View v) {
+			            	//TODO
+			            	// MENGFEI'S CODE - call
+			            	
+			            }});
 				}
+				
+			}else{
+				
+				image.setOnClickListener(new View.OnClickListener() {
+		            public void onClick(View v) {
+		            	//TODO
+		            	// MENGFEI'S CODE - call
+		            	
+		            }});
 			}
 			
 			viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -115,7 +143,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		
 		ViewHolder holder = (ViewHolder) view.getTag();
 		holder.meetingTitle.setText(list.get(position).getMeetingTitle());
-		holder.meetingInitiatorName.setText(initiatorUser.getUserFirstName() + " " + initiatorUser.getUserLastName());//TODO
+		holder.meetingInitiatorName.setText(initiatorUser.getUserFirstName() + " " + initiatorUser.getUserLastName());
 		holder.meetingTime.setText(list.get(position).getMeetingDate() + " " + list.get(position).getMeetingStartTime());
 		holder.checkbox.setChecked(list.get(position).isSelected());
 		
