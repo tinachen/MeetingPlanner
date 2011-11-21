@@ -127,6 +127,7 @@ public class DisplayMeeting extends Activity {
 	    	trackbutton.setVisibility(View.VISIBLE);    		
     	}
     	acceptbutton.setVisibility(View.GONE);
+    	alarmbutton.setVisibility(View.VISIBLE);  
 	}
 	
 	public void declineButtons(){
@@ -135,6 +136,7 @@ public class DisplayMeeting extends Activity {
 		callbutton.setVisibility(View.GONE);
 		declinebutton.setVisibility(View.GONE);
     	trackbutton.setVisibility(View.GONE);  
+    	alarmbutton.setVisibility(View.GONE);  
     	acceptbutton.setVisibility(View.VISIBLE);  		
 		
 	}
@@ -144,6 +146,7 @@ public class DisplayMeeting extends Activity {
 		camerabutton.setVisibility(View.GONE);
 		callbutton.setVisibility(View.GONE);
     	trackbutton.setVisibility(View.GONE);   
+    	alarmbutton.setVisibility(View.GONE);  
     	acceptbutton.setVisibility(View.VISIBLE);  	
     	declinebutton.setVisibility(View.VISIBLE);  	 	
 		

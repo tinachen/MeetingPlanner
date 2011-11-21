@@ -44,7 +44,7 @@
 		
 	<ImageView
 	   android:id="@+id/displaytrackbutton"
-	   android:src="@drawable/edit_meeting"
+	   android:src="@drawable/map_1"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
 	   android:clickable="true"
