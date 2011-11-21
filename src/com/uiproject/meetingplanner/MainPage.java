@@ -210,10 +210,6 @@ public class MainPage extends Activity {
     	db.open();
 	    MeetingInstance m = db.getNextUpcomingMeeting(uid);
 	    Log.d(mainPageTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
-	    //ArrayList<UserInstance> userarray = db.getAllUsers();
-	    //Log.d(mainPageTag, "getallusers: " + "size = " + userarray.size());
-	    //ArrayList<UserInstance> userarray = db.getMeetingUsersArray(m.getMeetingID());
-	    //Log.d(mainPageTag, "getallusers: " + "size = " + userarray.size());
 	    db.close();
 	    
 	    mtitle = (TextView) findViewById(R.id.mtitle);
@@ -222,7 +218,7 @@ public class MainPage extends Activity {
 	    track_button = (Button) findViewById(R.id.mtrackbutton);
 	    int mid = m.getMeetingID();
 	    
-	    Log.d(mainPageTag, "track mid = " + mid);
+	    //Log.d(mainPageTag, "track mid = " + mid);
 	    
 	    if(mid < 0){
 	    	mtitle.setText("You have no upcoming meetings");
