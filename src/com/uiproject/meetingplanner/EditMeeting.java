@@ -332,6 +332,7 @@ public class EditMeeting extends Activity {
     
     public void invite(View button){
     	Intent intent = new Intent(EditMeeting.this, EditMeetingAttendees.class);
+    	intent.putExtra("uids", uids);
     	EditMeeting.this.startActivityForResult(intent, R.string.editmeetattendees);
     }
     
