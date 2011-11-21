@@ -65,7 +65,7 @@ public final class R {
         public static final int tab_bg_unselected=0x7f020024;
         public static final int tab_divider=0x7f020025;
         public static final int tab_text_selector=0x7f020026;
-        public static final int testlogo6=0x7f020027;
+        public static final int testlogo7=0x7f020027;
         public static final int trackeretalist=0x7f020028;
         public static final int trackermap=0x7f020029;
     }
