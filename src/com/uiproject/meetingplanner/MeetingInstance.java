@@ -12,7 +12,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import android.util.Log;
+
 public class MeetingInstance {
+	
+	public static final String TAG = "MeetingInstance";
+	
 	private int meetingID;
 	private int meetingLat;
 	private int meetingLon;
@@ -25,6 +30,8 @@ public class MeetingInstance {
 	private int meetingTrackTime;
 	private HashMap<Integer, UserInstance> attendees = new HashMap<Integer,UserInstance>();
 	private int meetingInitiatorID;
+	private boolean selected;
+	private String selectedString;
 
 	
 	public MeetingInstance(){
@@ -40,6 +47,8 @@ public class MeetingInstance {
 		this.meetingTrackTime = -1;
 		this.meetingInitiatorID = -1;
 		this.attendees = new HashMap<Integer, UserInstance>();
+		this.selected = false;
+		this.selectedString = "false";
 	}
 	
 	public MeetingInstance(int meetingID, int meetingLat, int meetingLon, String meetingTitle, String meetingDescription,
@@ -56,6 +65,8 @@ public class MeetingInstance {
 		this.meetingTrackTime = meetingTrackTime;
 		this.meetingInitiatorID = meetingInitiatorID;
 		this.attendees = new HashMap<Integer, UserInstance>();
+		this.selected = false;
+		this.selectedString = "false";
 	}
 	
 	public MeetingInstance(int meetingID, int meetingLat, int meetingLon, String meetingTitle, String meetingDescription,
@@ -73,6 +84,8 @@ public class MeetingInstance {
 		this.meetingTrackTime = meetingTrackTime;
 		this.attendees = attendees;
 		this.meetingInitiatorID = meetingInitiatorID;
+		this.selected = false;
+		this.selectedString = "false";
 	}
 	
 
@@ -142,6 +155,17 @@ public class MeetingInstance {
 		this.meetingInitiatorID = meetingInitiatorID;
 	}
 	
+	public void setSelected(boolean selected){
+		if(selected){
+			this.selectedString = "true";
+			
+		}else{
+			this.selectedString = "false";
+		}
+		Log.d(TAG, "meetingID = " + meetingID + ", meetingTitle = " + meetingTitle +", setSelected = " + selectedString);
+		this.selected = selected;
+	}
+	
 	/*************************************************
 	 * 
 	 * Getters
@@ -167,10 +191,6 @@ public class MeetingInstance {
 		return this.meetingID;
 	}
 	
-	/*public String getMeetingSubject()
-	{
-		return this.meetingTitle;
-	}*/
 	
 	public String getMeetingTitle() {
 		return meetingTitle;
@@ -205,6 +225,14 @@ public class MeetingInstance {
 	
 	public String getMeetingDescription(){
 		return this.meetingDescription;
+	}
+	
+	public boolean isSelected(){
+		return this.selected;
+	}
+	
+	public String getSelectedString(){
+		return this.selectedString;
 	}
 
 }
