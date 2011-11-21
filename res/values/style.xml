@@ -46,7 +46,7 @@
 		<item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
 	</style>
 	<style name="trackerbg">
-		<item name="android:background">#66FFFFFF</item>
+		<item name="android:background">#DDFFFFFF</item>
 	</style>
 	
 </resources>

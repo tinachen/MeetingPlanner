@@ -20,22 +20,22 @@
             android:text="What"/>
 
         <TextView
-	style="@style/CMselected"
+	style="@style/CMnotselected"
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="When"/>
+            android:text="Who"/>
 
         <TextView
-	style="@style/CMnotselected"
+	style="@style/CMselected"
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="Who"/>
+            android:text="When"/>
 
         <TextView
 	style="@style/CMnotselected"
@@ -56,11 +56,11 @@
 	style="@style/CMprogress"
         android:layout_height="2dip"
         android:layout_width="wrap_content"
-        android:layout_weight=".5"/>
+        android:layout_weight=".25"/>
            <View
         android:layout_height="2dip"
         android:layout_width="wrap_content"
-        android:layout_weight=".5"/>
+        android:layout_weight=".75"/>
 </LinearLayout>
 
 <LinearLayout

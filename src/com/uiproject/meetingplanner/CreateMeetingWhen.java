@@ -169,7 +169,7 @@ public class CreateMeetingWhen extends Activity {
 	    
 	    public void next(View button){
 	    	saveData();
-			Intent intent = new Intent(CreateMeetingWhen.this, CreateMeetingWho.class);
+			Intent intent = new Intent(CreateMeetingWhen.this, CreateMeetingWhere.class);
 			CreateMeetingWhen.this.startActivityForResult(intent, 0);
 	    	
 	    }

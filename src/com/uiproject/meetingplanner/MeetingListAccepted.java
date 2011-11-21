@@ -145,6 +145,7 @@ public class MeetingListAccepted extends ExpandableListActivity
         			track.setVisibility(View.VISIBLE);
         		}
                 return v;
+                
             }
 		};
 		setListAdapter( expListAdapter );
