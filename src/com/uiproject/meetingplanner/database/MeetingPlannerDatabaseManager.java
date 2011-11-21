@@ -337,24 +337,6 @@ public class MeetingPlannerDatabaseManager {
 					
 					meetingsArray.add(m);
 					
-					// Parse the date
-					/*Date meetingDate; //TODO
-					String meetingDateString = cursor.getString(cursor.getColumnIndexOrThrow(dbHelper.MEETING_DATE));
-					DateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
-					
-					try {
-						meetingDate = iso8601Format.parse(meetingDateString);
-						
-						MeetingInstance m = new MeetingInstance(meetingID, meetingLat, meetingLon, 
-								meetingTitle, meetingDescription, meetingAddress, 
-								meetingDate,
-								meetingStartTime, meetingEndTime, meetingTrackTime);
-						
-						meetingsArray.add(m);
-						
-					} catch (ParseException e) {
-						Log.e("Parsing ISO8601 datetime failed", e.toString());
-					} */
 					
 				}
 				// move the cursor's pointer up one position.
@@ -390,6 +372,7 @@ public class MeetingPlannerDatabaseManager {
 						+ " LEFT JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
 						+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
 						+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?"
+						//+ " AND "
 						+ " ORDER BY " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " DESC";
 			
 			Log.d(dbManagerTag, "getDeclinedMeetings query1: " + query);
