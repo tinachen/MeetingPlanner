@@ -13,11 +13,6 @@
         android:layout_alignParentRight="true" 
         android:layout_weight="1">
     </ListView>
-     <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
     <LinearLayout
         android:layout_weight="0"
         android:id="@+id/linearLayout1"
@@ -31,7 +26,7 @@
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" 
+            android:text="Accept" 
             android:layout_weight="1"
             />
 
@@ -39,7 +34,7 @@
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" 
+            android:text="Decline" 
             android:layout_weight="1"/>
 
     </LinearLayout>

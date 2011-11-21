@@ -2,8 +2,13 @@ package com.uiproject.meetingplanner;
 
 import java.util.List;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,23 +22,106 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 
+	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+	public final static String TAG = "MeetingListArrayAdapter";
+	
 	private final List<MeetingInstance> list;
 	private final Activity context;
+	private int listType;
+	private int uid;
+	private MeetingPlannerDatabaseManager db;
 	
-	public MeetingListArrayAdapter(Activity context, List<MeetingInstance> list) {
-		super(context, R.layout.meetingitems, list);
+    public static int LISTTYPE_ACCEPTED = 0;
+    public static int LISTTYPE_DECLINED = 1;
+    public static int LISTTYPE_PENDING = 2;
+   
+	
+	public MeetingListArrayAdapter(Activity context, int resourceID, List<MeetingInstance> list, int listType, int uid) {
+		super(context, resourceID, list);
 		this.context = context;
 		this.list = list;
+		this.listType = listType;
+		this.uid = uid;
+		
+		db = new MeetingPlannerDatabaseManager(context, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	}
 
 	static class ViewHolder {
-		protected TextView meetingName;
-		protected TextView meetingDesc;
-		protected Button acceptBtn;
-		protected Button declineBtn;
-		
+		protected TextView meetingTitle;
+		protected TextView meetingInitiatorName;
+		protected TextView meetingTime;
+		protected CheckBox checkbox;
 	}
 
+	
+	@Override
+	public View getView(final int position, View convertView, ViewGroup parent){
+		View view = null;
+		if (convertView == null) {
+			LayoutInflater inflator = context.getLayoutInflater();
+			view = inflator.inflate(R.layout.all_list_item, null);
+			final ViewHolder viewHolder = new ViewHolder();
+			viewHolder.meetingTitle = (TextView) view.findViewById(R.id.meetingTitle);
+			viewHolder.meetingInitiatorName = (TextView) view.findViewById(R.id.meetingInitiatorName);
+			viewHolder.meetingTime = (TextView) view.findViewById(R.id.meetingTime);
+			viewHolder.checkbox = (CheckBox) view.findViewById(R.id.checkbox);
+			
+			// Make check buttons invisible if the meetings are created by the user
+			// Change calling icon to edit button //TODO
+			if(listType == LISTTYPE_ACCEPTED){
+				MeetingInstance m = list.get(position);
+				Log.d(TAG, "getView: uid = " + uid + ", initiatorID = " + m.getMeetingInitiatorID());
+				if(uid == m.getMeetingInitiatorID()){
+					//viewHolder.checkbox.setVisibility(View.INVISIBLE); //TODO
+				}
+			}
+			
+			viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+	                 // Perform action on click
+	            	 MeetingInstance meeting = (MeetingInstance) viewHolder.checkbox.getTag();
+	            	 meeting.setSelected(buttonView.isChecked());
+	            	 
+	            	 if(buttonView.isChecked()){
+	            		 if(listType == LISTTYPE_PENDING){
+	            			 Log.d(TAG, "pending - check state change; meetingTitle = " +meeting.getMeetingTitle());
+	            			 MeetingListPendingTest.showBar();
+	            		 }else if(listType == LISTTYPE_ACCEPTED){
+	            			 Log.d(TAG, "accepted - check state change; meetingTitle = " +meeting.getMeetingTitle());
+	            			 MeetingListAcceptedTest.showBar();
+	            		 }else{
+	            			 Log.d(TAG, "declined - check state change; meetingTitle = " +meeting.getMeetingTitle());
+	            			 MeetingListDeclinedTest.showBar();
+	            		 }
+	            		
+	            	 }
+	            	 
+	             }});
+			
+			
+			view.setTag(viewHolder);
+			viewHolder.checkbox.setTag(list.get(position));
+			
+		} else {
+			view = convertView;
+			((ViewHolder) view.getTag()).checkbox.setTag(list.get(position));
+		}
+		
+		db.open();
+		UserInstance initiatorUser = db.getUser(list.get(position).getMeetingInitiatorID());
+		db.close();
+		
+		ViewHolder holder = (ViewHolder) view.getTag();
+		holder.meetingTitle.setText(list.get(position).getMeetingTitle());
+		holder.meetingInitiatorName.setText(initiatorUser.getUserFirstName() + " " + initiatorUser.getUserLastName());//TODO
+		holder.meetingTime.setText(list.get(position).getMeetingDate() + " " + list.get(position).getMeetingStartTime());
+		holder.checkbox.setChecked(list.get(position).isSelected());
+		
+		return view;
+	}
+	
 	/*
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
@@ -111,6 +199,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		return position;
 	}
 
+	/*
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		MeetingInstance entry = list.get(position);
@@ -145,5 +234,5 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
         }); 
         
         return convertView;
-	}
+	}*/
 }

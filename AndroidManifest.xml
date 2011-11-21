@@ -129,6 +129,21 @@
                   android:finishOnTaskLaunch="true">
 		</activity>
 		
+		<activity android:name=".MeetingListPendingTest"
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
+		</activity>
+		
+		<activity android:name=".MeetingListAcceptedTest"
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
+		</activity>
+		
+		<activity android:name=".MeetingListDeclinedTest"
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
+		</activity>
+		
 		<activity android:name=".TrackerMap"
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
