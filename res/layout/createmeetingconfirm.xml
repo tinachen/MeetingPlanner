@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="wrap_content">
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:background="@drawable/shape"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -10,6 +8,8 @@
 	android:paddingLeft="20dip"
 	android:paddingRight="20dip">
 
+<ScrollView
+    android:layout_width="fill_parent" android:layout_height="wrap_content">
 <TextView
 	style="@style/headerText"
 	android:textSize="20dip"
@@ -26,7 +26,8 @@
 <LinearLayout
 	android:background="@color/semitransparent"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
     android:orientation="vertical"
 	android:paddingTop="10dip"
 	android:paddingLeft="10dip"
@@ -144,6 +145,9 @@
 			android:layout_height="wrap_content"
 			android:text="attendees go here" />
 	</LinearLayout>
+	
+	</LinearLayout>
+	
       <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -183,6 +187,5 @@
 		</LinearLayout>
     </RelativeLayout>
 
-	</LinearLayout>
-</LinearLayout>
 </ScrollView>
+</LinearLayout>

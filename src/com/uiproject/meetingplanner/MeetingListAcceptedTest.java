@@ -7,6 +7,7 @@ import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MeetingListAcceptedTest extends Activity{
@@ -57,9 +59,13 @@ public class MeetingListAcceptedTest extends Activity{
 				Log.d(TAG, "onCreate: ListItem Click " + position + " " + arg3);
 				Log.d(TAG, "onCreate: Meeting ID " + m.getMeetingID() + " selected ");
 				hideBar();
-				
+
+	            Toast.makeText(getBaseContext(), "clicked on accepted meeting", Toast.LENGTH_SHORT).show();
 				int mid = m.getMeetingID();
-				// ELIZABETH's CODE for displaying meeting detail
+				Intent intent = new Intent(MeetingListAcceptedTest.this, DisplayMeeting.class);
+				intent.putExtra("mid", mid);
+				intent.putExtra("status", MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING);
+				startActivity(intent);
 			}
 		});
         
