@@ -40,8 +40,13 @@ public class CreateMeetingWho extends Search {
     		}
 		}
     	for (int i = 0; i < checkedUids.size(); i++)
+<<<<<<< HEAD
     		Log.v("CMW uids", checkedUids.get(i).toString());
     	//recheck();	 
+=======
+    		Log.d("CMW uids", checkedUids.get(i).toString());
+    	recheck(checkedUids);	
+>>>>>>> 25be78bb3e17d6f2f427094b3010462567575dd9
     	
     }
 

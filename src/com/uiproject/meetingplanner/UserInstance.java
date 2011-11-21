@@ -10,6 +10,7 @@ public class UserInstance {
 	private int userLocationLat;
 	private String userEta;
 	private String userAttendingStatus;
+	private boolean selected;
 
 	
 	public UserInstance(int userID){
@@ -22,6 +23,7 @@ public class UserInstance {
 		this.userLocationLat = 0;
 		this.userEta = "0";
 		this.userAttendingStatus = "pending";
+		this.selected = false;
 	}
 	
 	public UserInstance(int userID, String userAttendingStatus) {
@@ -35,6 +37,7 @@ public class UserInstance {
 		this.userLocationLon = 0;
 		this.userLocationLat = 0;
 		this.userEta = "0";
+		this.selected = false;
 	}
 
 	public UserInstance(int userID, String userFirstName, String userLastName, String userEmail,
@@ -49,6 +52,7 @@ public class UserInstance {
 		this.userLocationLat = userLocationLat;
 		this.userEta = "0";
 		this.userAttendingStatus = "pending";
+		this.selected = false;
 	}
 
 	public UserInstance(int userID, String userFirstName, String userLastName, String userEmail,
@@ -63,6 +67,7 @@ public class UserInstance {
 	this.userLocationLat = userLocationLat;
 	this.userEta = userEta;
 	this.userAttendingStatus = userAttendingStatus;
+	this.selected = false;
 }
 	
 	public UserInstance(int userID, int userLocationLon, int userLocationLat, String userEta) {
@@ -76,6 +81,7 @@ public class UserInstance {
 		this.userEmail = "invalid";
 		this.userPhone = "invalid";
 		this.userAttendingStatus = "pending";
+		this.selected = false;
 	}
 
 	/************
@@ -118,6 +124,9 @@ public class UserInstance {
 		return this.userAttendingStatus;
 	}
 	
+	public boolean isSelected(){
+		return this.selected;
+	}
 	/************
 	 * Setters
 	 ***********/
@@ -157,5 +166,7 @@ public class UserInstance {
 		this.userAttendingStatus = userAttendingStatus;
 	}
 	
-	
+	public void setSelected(boolean selected){
+		this.selected = selected;
+	}
 }
