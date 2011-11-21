@@ -47,6 +47,7 @@
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:hint="First Name"
+			android:singleLine="true"
 			android:layout_marginTop="5dip" />	
 		
 		<EditText
@@ -54,6 +55,7 @@
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="5dip"
+			android:singleLine="true"
 			android:hint="Last Name" />	
 		
 		</LinearLayout>
@@ -64,6 +66,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="5dip"
+		android:singleLine="true"
 		android:hint="Email" />	
 	<EditText
     	android:id="@+id/phone"
@@ -71,6 +74,7 @@
 		android:layout_height="wrap_content"
 		android:phoneNumber="true"
 		android:layout_marginTop="5dip"
+		android:singleLine="true"
 		android:hint="Phone number" />	
 	<EditText
    		android:id="@+id/pw"
@@ -78,6 +82,7 @@
 		android:layout_height="wrap_content"
 		android:password="true"
 		android:hint="Password" 
+		android:singleLine="true"
 		android:layout_marginTop="5dip"/>	
 	<EditText
    		android:id="@+id/pw2"
@@ -85,6 +90,7 @@
 		android:layout_height="wrap_content"
 		android:password="true"
 		android:hint="Retype Password" 
+		android:singleLine="true"
 		android:layout_marginTop="5dip"/>		
 	<Button
 	    android:id="@+id/submit"

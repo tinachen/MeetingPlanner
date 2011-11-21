@@ -14,7 +14,8 @@
 <LinearLayout 
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+	android:paddingBottom="20dip">
 <TextView
 	style="@style/headerText"
 	android:textSize="20dip"
@@ -152,7 +153,10 @@
 	</LinearLayout>
 	
 	</LinearLayout>
+	</LinearLayout>
 	
+</ScrollView>
+
       <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -162,12 +166,17 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
        		android:weightSum="1"
-    		android:layout_alignParentBottom="true" >
+				    android:layout_marginTop="25dip"
+    		android:layout_alignParentBottom="true"
+    		android:paddingLeft="5dip"
+    		android:paddingRight="5dip"
+    		android:paddingBottom="5dip" >
 	        
         <Button
             android:id="@+id/back_button"
+		android:background="@drawable/plainbutton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="40dip"
             android:text="Back"
             android:layout_weight="0.33"
             android:onClick="back"
@@ -175,22 +184,24 @@
 
         <Button
             android:id="@+id/cancel_button"
+		android:background="@drawable/plainbutton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+				    android:layout_marginLeft="5dip"
+            android:layout_height="40dip"
             android:text="Cancel"
             android:layout_weight="0.33"
             android:onClick="cancel" />
 
         <Button
+        	android:background="@drawable/button_shape"
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+				    android:layout_marginLeft="5dip"
+            android:layout_height="40dip"
             android:text="Confirm"
             android:onClick="confirm"
             android:layout_weight="0.33" />
 
 		</LinearLayout>
     </RelativeLayout>
-</LinearLayout>
-</ScrollView>
 </LinearLayout>
