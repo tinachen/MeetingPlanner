@@ -57,6 +57,9 @@ public class MeetingPlannerDatabaseUtility {
     		// 2-3. Update Meeting Users
     		HashMap<Integer, UserInstance> meetingUsers = meetingObj.getMeetingAttendees();
     		
+    		// Add initiator
+    		db.createMeetingUser(meetingObj.getMeetingID(), meetingObj.getMeetingInitiatorID(), MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");
+    		
     		for(UserInstance meetingUserObj : meetingUsers.values()){
     			
     			int attendingStatusID = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING;

@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -28,8 +29,14 @@ import com.google.android.maps.OverlayItem;
 
 public class TrackerMap extends MapActivity {
 
+	public static final String TAG = "TrackerMap";
+	
 	private MyItemizedOverlay itemizedoverlay;
 	private int mid;
+	private MapController mc;
+	private View persontracker;
+	private TextView name_text, eta_text;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,22 +44,37 @@ public class TrackerMap extends MapActivity {
         
         mid = getIntent().getIntExtra("mid", -1);
         
+        Log.d(TAG, "onCreate: mid = " + mid);
+        
         MapView mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
+        persontracker = findViewById(R.id.persontracker);
+    	persontracker.setVisibility(View.GONE);
+    	name_text = (TextView) findViewById(R.id.name);
+    	eta_text =(TextView) findViewById(R.id.eta);
         
         List<Overlay> mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
         itemizedoverlay = new MyItemizedOverlay(drawable, this);
 
         mapOverlays.add(itemizedoverlay);
+        OverlayItem oi = new OverlayItem(new GeoPoint(34019443,-118289440), "", "");
+    	MyOverlayItem myoi = new MyOverlayItem(oi, "Tina Chen", "30min");
+    	itemizedoverlay.addOverlay(myoi);
+    	oi = new OverlayItem(new GeoPoint(34150089, -118269152), "", "");
+    	myoi = new MyOverlayItem(oi, "Elizabeth Deng", "60min");
+    	itemizedoverlay.addOverlay(myoi);
+    	
+    	itemizedoverlay.doPopulate();
+    	
         
         // find the area to auto zoom to
-        MapController mc = mapView.getController();
+        mc = mapView.getController();
         mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
         
         // set the center
         mc.setCenter(itemizedoverlay.getCenter());
-        
+        /*
         Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
         intent.putExtra("mid", mid);
         startService(intent);
@@ -61,7 +83,7 @@ public class TrackerMap extends MapActivity {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction("com.uiproject.meetingplanner");
 		registerReceiver(receiver, filter);
-        
+        */
     }
     
     @Override
@@ -69,9 +91,11 @@ public class TrackerMap extends MapActivity {
         return false;
     }
 
-    public void updateMap(Map<String,Object> map){
+    public void updateMap(Map<Integer, UserInstance> attendees){
+    	
+    	Log.d(TAG, "updateMap size = " + attendees.size());
+    	
     	itemizedoverlay.clear();
-    	Map<Integer, UserInstance> attendees = (Map<Integer, UserInstance>) map.get("locations");
     	MyOverlayItem myoi;
     	OverlayItem oi;
     	Set<Integer> keys = attendees.keySet();
@@ -79,12 +103,23 @@ public class TrackerMap extends MapActivity {
     	for (Integer i : keys){
     		a = attendees.get(i);
     		oi = new OverlayItem(new GeoPoint(a.getUserLocationLat(), a.getUserLocationLon()), "", "");
+    		Log.d(TAG, "updateMap user = " + a.getUserFirstName() + " " + a.getUserLastName() + ", lat = " + a.getUserLocationLat()
+    				+ ", lon = " + a.getUserLocationLon());
     		myoi = new MyOverlayItem(oi, a.getUserFirstName() + " " + a.getUserLastName(), a.getUserEta());
     		itemizedoverlay.addOverlay(myoi);
     	}
     	
     	itemizedoverlay.doPopulate();
     	
+        mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
+        
+        // set the center
+        mc.setCenter(itemizedoverlay.getCenter());
+    	
+    }
+    
+    public void close(View button){
+    	persontracker.setVisibility(View.GONE);
     }
     
     public class TestReceiver extends BroadcastReceiver { 
@@ -102,11 +137,14 @@ public class TrackerMap extends MapActivity {
             	Bundle location = locations.getBundle(i);
             	userLocations.put(Integer.valueOf(i), new UserInstance(Integer.valueOf(i),location.getInt("lat"),location.getInt("lon"),location.getString("eta")));
             }
+            
+            Log.d("Receiver", "Map size = " + userLocations.size());
+            updateMap(userLocations);
             Log.d("tag","tag: "+tag);
             Log.d("AAA","userId: "+6);
-            Log.d("AAA","lat: "+userLocations.get(6).getUserLocationLat());
+            /*Log.d("AAA","lat: "+userLocations.get(6).getUserLocationLat());
             Log.d("AAA","lon: "+userLocations.get(6).getUserLocationLon());
-            Log.d("AAA","eta: "+userLocations.get(6).getUserEta());
+            Log.d("AAA","eta: "+userLocations.get(6).getUserEta());*/
             
         } 
         
@@ -171,7 +209,10 @@ public class TrackerMap extends MapActivity {
     	
     	@Override
     	protected boolean onTap(int index) {
-    	  //MyOverlayItem item = mOverlays.get(index);
+    	  MyOverlayItem item = mOverlays.get(index);
+    	  name_text.setText(item.getName());
+    	  eta_text.setText(item.getEta());
+      	  persontracker.setVisibility(View.VISIBLE);
     	  /*
     	  GeoPoint geo = item.getOverlayItem().getPoint();
     	  
@@ -201,6 +242,7 @@ public class TrackerMap extends MapActivity {
     	  dialog.show();
     	  
     	  */
+
     	  return true;
     	}
     	

@@ -24,6 +24,8 @@ import android.util.Log;
 
 
 public class CommunicateService extends Service {
+	
+	public static final String TAG = "CommunicateService";
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	public static int MID;
 	private int uid;
@@ -47,6 +49,7 @@ public class CommunicateService extends Service {
 			thread1.start();
 		}
 		MID=intent.getIntExtra("mid", -1);
+		Log.d(TAG, "onCreate mid = " + MID);
 		super.onStart(intent, startId);
 
 	}

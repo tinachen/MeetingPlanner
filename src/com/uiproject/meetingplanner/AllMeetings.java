@@ -1,22 +1,30 @@
 package com.uiproject.meetingplanner;
 
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TabHost;
+import android.widget.TextView
+;import android.widget.TabHost.TabContentFactory;
+import android.widget.TabHost.TabSpec;
 
 public class AllMeetings extends TabActivity{
 
+	TabHost tabHost;
+	
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.tabs);
 	    
-	    Resources res = getResources(); // Resource object to get Drawables
-	    TabHost tabHost = getTabHost();  // The activity TabHost
+	    /*Resources res = getResources(); // Resource object to get Drawables
+	    tabHost = getTabHost();  // The activity TabHost
 	    TabHost.TabSpec spec;  // Resusable TabSpec for each tab
 	    Intent intent;  // Reusable Intent for each tab
 
@@ -37,7 +45,16 @@ public class AllMeetings extends TabActivity{
 	    spec = tabHost.newTabSpec("declined").setIndicator("Declined", res.getDrawable(R.drawable.ic_menu_stop))
         			  .setContent(intent);
 	    tabHost.addTab(spec);
-	    tabHost.setCurrentTab(1);
+	    tabHost.setCurrentTab(1);*/
+	    
+	    
+	    tabHost = (TabHost) findViewById(android.R.id.tabhost);
+	    tabHost.setup();
+	    //tabHost.getTabWidget().setDividerDrawable(R.drawable.tab_divider);
+	    setupTab(new TextView(this), "Pending");
+		setupTab(new TextView(this), "Accepted");
+		setupTab(new TextView(this), "Declined");
+		tabHost.setCurrentTab(1);
 	}
 	
     // menu 
@@ -57,5 +74,28 @@ public class AllMeetings extends TabActivity{
             }
         }
         return true;
+    }
+    
+    private void setupTab(final View view, final String tag) {
+    	Intent intent;
+    	if (tag.compareTo("Accepted") == 0){
+    		intent = new Intent().setClass(this, MeetingListAccepted.class);
+    	}else if(tag.compareTo("Declined") == 0){
+    		intent = new Intent().setClass(this, CustomListActivity.class);
+    	}else{
+    		intent = new Intent().setClass(this, MeetingListPending.class);
+    	}
+    		
+    	
+    	View tabview = createTabView(tabHost.getContext(), tag);
+    		TabSpec setContent = tabHost.newTabSpec(tag).setIndicator(tabview).setContent(intent);
+        tabHost.addTab(setContent);
+    }
+    
+    private static View createTabView(final Context context, final String text) {
+    	View view = LayoutInflater.from(context).inflate(R.layout.tabs_bg, null);
+    	TextView tv = (TextView) view.findViewById(R.id.tabsText);
+    	tv.setText(text);
+    	return view;
     }
 }

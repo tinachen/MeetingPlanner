@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/backgroundColor"
+style="@style/backgroundColor"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
     <TextView
-	style="@style/listText" android:id="@+id/childname"
+	style="@style/secondaryText" android:id="@+id/childname"
          android:paddingLeft="70px"
-         android:textSize="40px"
          android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"/>
 

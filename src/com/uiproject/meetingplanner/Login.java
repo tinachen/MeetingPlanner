@@ -57,7 +57,7 @@ public class Login extends Activity {
         remember_me = (CheckBox) findViewById(R.id.rememberme);
 
         login_button = (Button) findViewById(R.id.loginButton);
-        login_button.getBackground().setColorFilter(Color.parseColor(this.getString(R.color.buttonblue)), PorterDuff.Mode.MULTIPLY);
+        //login_button.getBackground().setColorFilter(Color.parseColor(this.getString(R.color.buttonblue)), PorterDuff.Mode.MULTIPLY);
         
         //check to see if user is already logged in or not
         

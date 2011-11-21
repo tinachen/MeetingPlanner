@@ -17,23 +17,22 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 
 public class Search extends Activity implements OnItemClickListener {
     public static final String LOG_TAG = "Search";
 
-    protected ListView mContactList;
+    protected GridView mContactList;
     protected AutoCompleteTextView textView;
     protected ArrayAdapter<String> adapter;
     protected Vector<String> currentSearchList;
     protected Vector<String> contactList;
-    protected ArrayList<String> checkedNames;
-    protected ArrayList<String> checkedPhoneNumbers;
     protected ArrayList<UserInstance> usersArray;
     private MeetingPlannerDatabaseManager db;
-    // TODO change to list of user id's
+    protected ArrayList<UserInstance> fullSearchList;
+    protected ArrayList<UserInstance> currSearchList;
+    protected ArrayList<UserInstance> checkedUsers;
 
     /** Called when the activity is first created. */
 	@Override
@@ -44,9 +43,10 @@ public class Search extends Activity implements OnItemClickListener {
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    currentSearchList = new Vector<String>();
 	    contactList = new Vector<String>();
-	    checkedNames = new ArrayList<String>();
-	    checkedPhoneNumbers = new ArrayList<String>();
 	    usersArray = new ArrayList<UserInstance>();
+	    fullSearchList = new ArrayList<UserInstance>();
+	    currSearchList = new ArrayList<UserInstance>();
+	    checkedUsers = new ArrayList<UserInstance>();
 	}
 	
 	public void init() {
@@ -82,15 +82,14 @@ public class Search extends Activity implements OnItemClickListener {
 	    	    	Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ contactId,null, null);
 	    	        while (phones.moveToNext()) {
 	    	        	String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("\\D", "");
-	    	        	//phoneNumber.replaceAll("\\D", "");
 	    	        	//Log.d("TEST", phoneNumber);
 	    	        	for (int i = 0; i < usersArray.size(); i++) {
 	    	        		//Log.d("TEST1", phones.getString(phones.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
 		    	        	if (usersArray.get(i).getUserPhone().equals(phoneNumber)) {
 		    	        		currentSearchList.add(phones.getString(phones.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
+		    	        		fullSearchList.add(usersArray.get(i));
 		    	        	}
 	    	        	}
-	    	        	checkedPhoneNumbers.add(phoneNumber);
 	    	        }
 	    	        phones.close();
 	    	    }
@@ -99,82 +98,90 @@ public class Search extends Activity implements OnItemClickListener {
 	    
 	    // Sets up the adapter for AutoCompleteTextView
 	    textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_names);
-	    //String[] search_contacts = getResources().getStringArray(R.array.search_contacts);
-	    adapter = new ArrayAdapter<String>(this, R.layout.list_item, currentSearchList);
+	    adapter = new ArrayAdapter<String>(this, R.layout.search, currentSearchList);
 	    textView.setAdapter(adapter);
 	    textView.setThreshold(1);
 	    textView.setDropDownHeight(0);
 	    
 	    // Sets the current contact list 
-	    mContactList = (ListView) findViewById(R.id.contactList);
-        ArrayAdapter<String> searchUpdateAdapter = new ArrayAdapter<String>(Search.this, R.layout.list_item, currentSearchList);
-        mContactList.setAdapter(searchUpdateAdapter);
-	    mContactList.setOnItemClickListener(this);
-	    mContactList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-	    //mContactList.setSelector(R.layout.rowselector);
-	    
-	    adapter.registerDataSetObserver(new DataSetObserver() {
-	    	// Updates the current search list
-	        @Override
-	        public void onChanged() {
-	            super.onChanged();
-	            Log.d(LOG_TAG, "dataset changed");
-	            currentSearchList.clear();
-	            for (int i = 0; i < adapter.getCount(); i++) {
+        mContactList = (GridView) findViewById(R.id.gridview);
+        UserAdapter uAdapter = new UserAdapter(this, fullSearchList, checkedUsers);
+        mContactList.setAdapter(uAdapter);
+        mContactList.setFocusable(true);
+        mContactList.setClickable(true);
+        mContactList.setOnItemClickListener(this);
+        
+
+        /*mContactList.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+            	Log.d("itemClick", "item clicked");
+            	if (!checkedUsers.contains(parent.getItemAtPosition(position))) {
+        			checkedUsers.add((UserInstance)parent.getItemAtPosition(position));
+        		}
+        		else {
+        			checkedUsers.remove((UserInstance)parent.getItemAtPosition(position));
+        		}
+        		for (int i = 0; i < checkedUsers.size(); i++) {
+        			Log.d("checkedUsers", checkedUsers.get(i).getUserFirstName() + " " + checkedUsers.get(i).getUserLastName());
+        		}
+                Toast.makeText(Search.this, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });*/
+        
+        adapter.registerDataSetObserver(new DataSetObserver() {
+        	@Override
+        	public void onChanged() {
+        		currSearchList.clear();
+        		currentSearchList.clear();
+        		for (int i = 0; i < fullSearchList.size(); i++) {
+        			if (textView.getText().toString().toLowerCase().equals(fullSearchList.get(i).getUserFirstName().substring(0,textView.getText().toString().length()).toLowerCase()) || textView.getText().toString().toLowerCase().equals(fullSearchList.get(i).getUserLastName().substring(0,textView.getText().toString().length()).toLowerCase())) {
+        				currSearchList.add(fullSearchList.get(i));
+        				Log.d("TEST", fullSearchList.get(i).getUserFirstName() + " " + fullSearchList.get(i).getUserLastName());
+        			}
+        		}
+        		for (int i = 0; i < adapter.getCount(); i++) {
 		            Object item = adapter.getItem(i);
 		            currentSearchList.add(item.toString());
-		            	if (checkedNames.contains(item)) {
-		            		Log.d("Search checkedNames", item.toString());
-		            		mContactList.setItemChecked(i, true);
-		            	}
-		            
-		            Log.d(LOG_TAG, "item.toString "+ item.toString());
-	            }
-	            ArrayAdapter<String> searchUpdateAdapter = new ArrayAdapter<String>(Search.this, R.layout.list_item, currentSearchList);
-	            mContactList.setAdapter(searchUpdateAdapter);
-	            for (int i =  0; i < currentSearchList.size(); i++) {
-	            	if (checkedNames.contains(currentSearchList.get(i))) {
-	            		mContactList.setItemChecked(i, true);
-	            	}
-	            }
-	        }
-	        
-	        // Clears the search list when input is not in the list
-	        @Override
+        		}
+                UserAdapter uAdapter = new UserAdapter(Search.this, currSearchList, checkedUsers);
+                mContactList.setAdapter(uAdapter);
+        	}
+            
+        	@Override
 	        public void onInvalidated() {
 	        	Log.d("OnInvalidated", "invalid data");
 	        	currentSearchList.clear();
-	            ArrayAdapter<String> searchUpdateAdapter = new ArrayAdapter<String>(Search.this, R.layout.list_item, currentSearchList);
-	            mContactList.setAdapter(searchUpdateAdapter);
+	        	currSearchList.clear();
+	        	
+                UserAdapter uAdapter = new UserAdapter(Search.this, currSearchList, checkedUsers);
+                mContactList.setAdapter(uAdapter);
 	        }
-	    });
+        });
 	}
 
+	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// Displays the clicked name in LogCat for now
-		//Log.d("TEST", parent.getItemAtPosition(position).toString());
-		SparseBooleanArray checked = mContactList.getCheckedItemPositions();
-		checkedNames.clear();
-		for (int i = 0; i < currentSearchList.size(); i++) {
-			if (checked.get(i)) {
-				checkedNames.add(currentSearchList.elementAt(i));
-			}
-			else if (!checked.get(i)) {
-				checkedNames.remove(currentSearchList.elementAt(i));
-			}
+		if (!checkedUsers.contains(parent.getItemAtPosition(position))) {
+			checkedUsers.add((UserInstance)parent.getItemAtPosition(position));
 		}
-		Log.d("checkedNames", checkedNames.toString());
-		//view.setSelected(true);
+		else {
+			checkedUsers.remove((UserInstance)parent.getItemAtPosition(position));
+		}
+		for (int i = 0; i < checkedUsers.size(); i++) {
+			Log.d("checkedUsers", checkedUsers.get(i).getUserFirstName() + " " + checkedUsers.get(i).getUserLastName());
+		}
 	}
 	
-	public void recheck() {
+	/*public void recheck() {
 		for (int i = 0; i < currentSearchList.size(); i++) {
 			if (checkedNames.contains(currentSearchList.elementAt(i))) {
 				Log.d("TEST", currentSearchList.elementAt(i));
 				mContactList.setItemChecked(i, true);
 			}
 		}
-	}
+	}*/
+	
     /**
      * Populate the contact list based on account currently selected in the account spinner.
      */

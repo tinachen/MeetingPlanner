@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/backgroundColor"
+		android:background="@drawable/shape"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -26,19 +26,19 @@
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="When"/>
+            android:text="Who"/>
 
         <TextView
-	style="@style/CMselected"
+	style="@style/CMnotselected"
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
             android:gravity="center_horizontal"
-            android:text="Who"/>
+            android:text="When"/>
 
         <TextView
-	style="@style/CMnotselected"
+	style="@style/CMselected"
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

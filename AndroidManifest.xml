@@ -21,16 +21,15 @@
 		<activity android:name=".Login"
 				  android:theme="@android:style/Theme.NoTitleBar"
 				  android:noHistory="true">
-			<intent-filter>
-            	<action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+		<intent-filter>
+            		<action android:name="android.intent.action.MAIN" />
+                	<category android:name="android.intent.category.LAUNCHER" />
+            	</intent-filter>
         </activity>
         
         <activity android:name=".MainPage"
                   android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
-             
         </activity>
         
         <activity android:name=".SelectLocation"
@@ -74,6 +73,11 @@
                   android:finishOnTaskLaunch="true">
         </activity>
             	
+        <activity android:name=".ChangePassword"
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">  
+        </activity>
+        
         <activity android:name=".EditMeeting"
                   android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">  
