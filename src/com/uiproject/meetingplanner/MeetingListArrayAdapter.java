@@ -76,6 +76,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 				Log.d(TAG, "getView: uid = " + uid + ", initiatorID = " + m.getMeetingInitiatorID());
 				if(uid == m.getMeetingInitiatorID()){
 					//viewHolder.checkbox.setVisibility(View.INVISIBLE); //TODO
+					image.setImageResource(R.drawable.edit_meeting);
 					image.setOnClickListener(new View.OnClickListener() {
 			            public void onClick(View v) {
 			            	int mid = m.getMeetingID();

@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
@@ -22,7 +22,7 @@ public class DisplayMeeting extends Activity {
 
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	TextView title, desc, date, time, tracktime, attendees, location, status;
-	Button trackbutton, callbutton, editbutton, alarmbutton, camerabutton, acceptbutton, declinebutton;
+	ImageView trackbutton, callbutton, editbutton, alarmbutton, camerabutton, acceptbutton, declinebutton;
 	MeetingInstance meeting;
 	private MeetingPlannerDatabaseManager db;
 	private int uid, statusid;
@@ -31,7 +31,7 @@ public class DisplayMeeting extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.displayaccepted);
+        setContentView(R.layout.displaymeeting);
         title = (TextView) findViewById(R.id.title);
         desc = (TextView) findViewById(R.id.desc);
         date = (TextView) findViewById(R.id.date);
@@ -40,19 +40,19 @@ public class DisplayMeeting extends Activity {
         attendees = (TextView) findViewById(R.id.attendees);
         location = (TextView) findViewById(R.id.location);
         status = (TextView) findViewById(R.id.status);
-        trackbutton = (Button) findViewById(R.id.trackbutton);
-        callbutton = (Button) findViewById(R.id.callbutton);
-        editbutton = (Button) findViewById(R.id.editbutton);
-        alarmbutton = (Button) findViewById(R.id.alarmbutton);
-        camerabutton = (Button) findViewById(R.id.camerabutton);
-        acceptbutton = (Button) findViewById(R.id.acceptbutton);
-        declinebutton = (Button) findViewById(R.id.declinebutton);
+        trackbutton = (ImageView) findViewById(R.id.displaytrackbutton);
+        callbutton = (ImageView) findViewById(R.id.displaycallbutton);
+        editbutton = (ImageView) findViewById(R.id.displayeditbutton);
+        alarmbutton = (ImageView) findViewById(R.id.displayalarmbutton);
+        camerabutton = (ImageView) findViewById(R.id.displaycamerabutton);
+        acceptbutton = (ImageView) findViewById(R.id.displayacceptbutton);
+        declinebutton = (ImageView) findViewById(R.id.displaydeclinebutton);
 
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	uid = settings.getInt("uid", -1);
 
         int mid = getIntent().getIntExtra("mid", -1);
-        int statusid = getIntent().getIntExtra("status", -1);
+        statusid = getIntent().getIntExtra("status", -1);
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 	    meeting = db.getMeeting(mid);

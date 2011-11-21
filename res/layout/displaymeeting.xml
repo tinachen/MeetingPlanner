@@ -43,7 +43,7 @@
 		android:layout_alignParentRight="true">
 		
 	<ImageView
-	   android:id="@+id/trackbutton"
+	   android:id="@+id/displaytrackbutton"
 	   android:src="@drawable/edit_meeting"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
@@ -52,7 +52,7 @@
 	   />
 	   
 	<ImageView
-	   android:id="@+id/callbutton"
+	   android:id="@+id/displaycallbutton"
 	   android:src="@drawable/call"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
@@ -61,7 +61,7 @@
 	   />
 		
 	<ImageView
-	   android:id="@+id/editbutton"
+	   android:id="@+id/displayeditbutton"
 	   android:src="@drawable/edit_meeting"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
@@ -69,7 +69,7 @@
 	   android:onClick="edit"/>
 	   
 	<ImageView
-	   android:id="@+id/alarmbutton"
+	   android:id="@+id/displayalarmbutton"
 	   android:src="@drawable/edit_meeting"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
@@ -79,7 +79,7 @@
 	   
 	
      <ImageView
-      android:id="@+id/camerabutton"
+      android:id="@+id/displaycamerabutton"
 	  android:src="@drawable/camera"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
@@ -87,7 +87,7 @@
       android:onClick="takepic"
       />
 	<ImageView
-	   android:id="@+id/acceptbutton"
+	   android:id="@+id/displayacceptbutton"
 	   android:src="@drawable/acceptbutton"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
@@ -95,7 +95,7 @@
 	   android:onClick="accept"/>
 	   
 	<ImageView
-	   android:id="@+id/declinebutton"
+	   android:id="@+id/displaydeclinebutton"
 	   android:src="@drawable/declinebutton"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
