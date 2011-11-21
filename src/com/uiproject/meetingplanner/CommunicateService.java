@@ -65,7 +65,7 @@ public class CommunicateService extends Service {
 			while(status){
 				try{
 					displayResult();
-					Thread.sleep(20000);
+					Thread.sleep(60000);
 				}
 				catch(Exception e) {   
 					e.printStackTrace();

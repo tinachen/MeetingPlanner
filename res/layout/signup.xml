@@ -32,7 +32,9 @@
 	<ImageView
 	   android:src="@drawable/camera" 
 	   android:layout_width="100dip" 
-	   android:layout_height="100dp"/>
+	   android:layout_height="100dp"
+	   android:clickable="true"
+	   android:onClick="takepic"/>
 		
 		
 		<LinearLayout 
