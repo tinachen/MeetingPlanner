@@ -42,50 +42,6 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentRight="true">
 		
-	<ImageView
-	   android:id="@+id/trackbutton"
-	   android:src="@drawable/edit_meeting"
-	   android:layout_width="40dip"
-	   android:layout_height="40dip"
-	   android:clickable="true"
-	   android:onClick="track"
-	   />
-	   
-	<ImageView
-	   android:id="@+id/callbutton"
-	   android:src="@drawable/call"
-	   android:layout_width="40dip"
-	   android:layout_height="40dip"
-	   android:clickable="true"
-	   android:onClick="call"
-	   />
-		
-	<ImageView
-	   android:id="@+id/editbutton"
-	   android:src="@drawable/edit_meeting"
-	   android:layout_width="40dip"
-	   android:layout_height="40dip"
-	   android:clickable="true"
-	   android:onClick="edit"/>
-	   
-	<ImageView
-	   android:id="@+id/alarmbutton"
-	   android:src="@drawable/edit_meeting"
-	   android:layout_width="40dip"
-	   android:layout_height="40dip"
-	   android:clickable="true"
-	   android:onClick="setalarm"
-	   />
-	   
-	
-     <ImageView
-      android:id="@+id/camerabutton"
-	  android:src="@drawable/camera"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:text="take picture loc"
-      android:onClick="takepic"
-      />
 	   
 	<ImageView
 	   android:id="@+id/declinebutton"
@@ -93,7 +49,7 @@
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
 	   android:clickable="true"
-	   android:onClick="decline"/>
+	   android:onClick="accept"/>
 	</LinearLayout>
 	
 	</RelativeLayout>

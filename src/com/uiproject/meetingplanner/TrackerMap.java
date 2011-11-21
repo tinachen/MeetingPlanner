@@ -64,7 +64,9 @@ public class TrackerMap extends MapActivity {
         mapOverlays.add(itemizedoverlay);
         /*
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+	    db.open();
         MeetingInstance m = db.getMeeting(mid);
+        db.close();
         GeoPoint meetingloc = new GeoPoint(m.getMeetingLat(), m.getMeetingLon());
         itemizedoverlay.setMeetingloc(meetingloc);
         */
