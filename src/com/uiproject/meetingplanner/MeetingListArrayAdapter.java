@@ -52,6 +52,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		protected TextView meetingInitiatorName;
 		protected TextView meetingTime;
 		protected CheckBox checkbox;
+		protected ImageView itemIcon;
 	}
 
 	
@@ -66,6 +67,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			viewHolder.meetingInitiatorName = (TextView) view.findViewById(R.id.meetingInitiatorName);
 			viewHolder.meetingTime = (TextView) view.findViewById(R.id.meetingTime);
 			viewHolder.checkbox = (CheckBox) view.findViewById(R.id.checkbox);
+			viewHolder.itemIcon = (ImageView) view.findViewById(R.id.list_icon);
 			
 			// Make check buttons invisible if the meetings are created by the user
 			// Change calling icon to edit button
@@ -147,6 +149,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		holder.meetingInitiatorName.setText(initiatorUser.getUserFirstName() + " " + initiatorUser.getUserLastName());
 		holder.meetingTime.setText(list.get(position).getMeetingDate() + " " + list.get(position).getMeetingStartTime());
 		holder.checkbox.setChecked(list.get(position).isSelected());
+		//holder.itemIcon.setImageResource(); //TODO
 		
 		return view;
 	}
