@@ -63,23 +63,6 @@ public class Login extends Activity {
 
         login_button = (Button) findViewById(R.id.loginButton);
         
-        
-        phone_field.setOnEditorActionListener(new OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView v, int actionId,
-                    KeyEvent event) {
-                if (event != null&& (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    in.hideSoftInputFromWindow(phone_field
-                            .getApplicationWindowToken(),
-                            InputMethodManager.HIDE_NOT_ALWAYS);
-                   //userValidateEntry();
-                }
-                return false;
-            }
-        });
-        
         //login_button.getBackground().setColorFilter(Color.parseColor(this.getString(R.color.buttonblue)), PorterDuff.Mode.MULTIPLY);
         
         //check to see if user is already logged in or not

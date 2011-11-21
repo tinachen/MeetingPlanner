@@ -73,6 +73,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
+        android:singleLine="true"
         android:hint="Search Names"/>
 	<GridView
 	    android:id="@+id/gridview"

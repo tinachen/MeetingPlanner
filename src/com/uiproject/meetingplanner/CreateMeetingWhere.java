@@ -8,10 +8,15 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -19,13 +24,14 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
-public class CreateMeetingWhere extends SelectLocation {
+public class CreateMeetingWhere extends SelectLocation implements OnEditorActionListener {
 
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	public static final String TAG = "CreateMeetingWhere";
 	
 	private LocationManager locationManager;
 	private String provider;
+	private EditText searchBar;
 	
     /** Called when the activity is first created. */
     @Override
@@ -33,6 +39,9 @@ public class CreateMeetingWhere extends SelectLocation {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createmeetingwhere);
 
+        searchBar = (EditText) findViewById(R.id.address_field);
+        searchBar.setOnEditorActionListener(this);
+        
         // Get Map View
         MapView mv = (MapView)findViewById(R.id.selectlocview);
         MapController mc = mv.getController();
@@ -177,6 +186,18 @@ public class CreateMeetingWhere extends SelectLocation {
 	            }
 	        }
 	        return true;
+	    }
+
+	    @Override
+	    public boolean onEditorAction(TextView v, int actionId,
+	            KeyEvent event) {
+	        if (event != null&& (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+	            InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+	            in.hideSoftInputFromWindow(v
+	                    .getApplicationWindowToken(),
+	                    InputMethodManager.HIDE_NOT_ALWAYS);
+	        }
+	        return false;
 	    }
     
 }
