@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -55,6 +56,7 @@ public class DisplayMeeting extends Activity {
 
         mid = getIntent().getIntExtra("mid", -1);
         statusid = getIntent().getIntExtra("status", -1);
+        Log.v("DisplayMeeting", "status id: " + statusid);
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 
     }
@@ -110,7 +112,7 @@ public class DisplayMeeting extends Activity {
 	
 	public void attendingButtons(){
 
-		status.setText("Attending");
+		status.setText("Attending"); 
     	if (meeting.getMeetingInitiatorID() != uid){
     		editbutton.setVisibility(View.GONE);
     		camerabutton.setVisibility(View.GONE);
@@ -158,8 +160,7 @@ public class DisplayMeeting extends Activity {
     	trackbutton.setVisibility(View.GONE);   
     	alarmbutton.setVisibility(View.GONE);  
     	acceptbutton.setVisibility(View.VISIBLE);  	
-    	declinebutton.setVisibility(View.VISIBLE);  	 	
-		
+    	declinebutton.setVisibility(View.VISIBLE);  		
 	}
 	
 

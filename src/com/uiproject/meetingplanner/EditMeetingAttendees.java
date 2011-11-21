@@ -33,10 +33,22 @@ public class EditMeetingAttendees extends Search {
     
     private void saveData(){
 
-    	//save data in shared preferences
+    	String names = "";
+    	String uids = "";
+    	boolean added = false;
+    	for (UserInstance u : checkedUsers){
+    		if (added){
+    			names += ", ";
+    			uids += ",";
+    		}
+    		names = names + u.getUserFirstName() + " " + u.getUserLastName();
+    		uids += u.getUserID();
+    		added = true;
+    	}
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	SharedPreferences.Editor editor = settings.edit();
-    	//save stuff here
+    	editor.putString("mnames", names);
+    	editor.putString("mattendeeids", uids);
     	editor.commit();
     	
     }

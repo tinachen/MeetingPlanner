@@ -21,7 +21,10 @@
 	android:background="@color/darkgray"
 	android:layout_width="fill_parent"
 	android:layout_height="1dip" />
-
+<ScrollView
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	>
 <LinearLayout
 	android:background="@color/semitransparent"
     android:layout_width="fill_parent"
@@ -29,7 +32,8 @@
     android:orientation="vertical"
     android:layout_marginTop="2dip"
 	android:paddingLeft="10dip"
-	android:paddingRight="10dip">
+	android:paddingRight="10dip"
+	android:paddingBottom="10dip">
 	
 	
 	<RelativeLayout 	
@@ -102,7 +106,6 @@
 	   android:clickable="true"
 	   android:onClick="decline"/>
 	</LinearLayout>
-	
 	</RelativeLayout>
 <TextView
 	style="@style/display3"
@@ -225,4 +228,6 @@
 			android:text="attendees go here" />
 	</LinearLayout>
 </LinearLayout>
+	
+	</ScrollView>
 </LinearLayout>

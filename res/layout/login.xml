@@ -12,7 +12,7 @@
 	
 	<ImageView
 	   android:id="@+id/logo"
-	   android:src="@drawable/meetapp"
+	   android:src="@drawable/logo"
 	   android:layout_width="wrap_content"
 	   android:paddingBottom="0dip" 
 	   android:layout_marginTop="30dip"

@@ -29,7 +29,8 @@
 		android:id="@+id/mname_field"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:hint="Meeting Title"/>	
+		android:hint="Meeting Title"
+		android:layout_marginTop="10dip"/>	
 
     <EditText
 	style="@style/secondaryText"
@@ -38,14 +39,15 @@
         android:layout_height="wrap_content"
 		android:lines="4"
 		android:gravity="top"
-		android:hint="Description" />
+		android:hint="Description"
+		android:layout_marginTop="10dip" />
 	
 	
 	<RelativeLayout
 		android:orientation="horizontal"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="3dip">
+		android:layout_marginTop="10dip">
 			<TextView
 	style="@style/secondaryText" android:id="@+id/date_label"
 				android:textSize="20dip"
@@ -66,7 +68,7 @@
 		android:orientation="horizontal"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="3dip">		
+		android:layout_marginTop="10dip">		
 	    <TextView
 	style="@style/secondaryText" android:id="@+id/startTime_label"
 			android:textSize="20dip"
@@ -88,7 +90,7 @@
 	android:orientation="horizontal"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-		android:layout_marginTop="3dip">
+		android:layout_marginTop="10dip">
 		
 	    <TextView 
 	style="@style/secondaryText" android:id="@+id/endTime_label"
@@ -110,7 +112,7 @@
 	android:orientation="horizontal"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-		android:layout_marginTop="3dip">
+		android:layout_marginTop="10dip">
 		<TextView
 	style="@style/secondaryText" android:id="@+id/spinner_label1"
 			android:textSize="20dip"
@@ -136,7 +138,8 @@
 		<LinearLayout
 			android:orientation="horizontal"
 			android:layout_width="fill_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+		android:layout_marginTop="10dip">
 				<TextView
 	style="@style/secondaryText"
 					android:textSize="20dip"
@@ -153,7 +156,8 @@
 	     
 		 <Button android:id="@+id/selectLocation"
 		android:background="@drawable/plainbutton"
-				    android:layout_height="50dip"
+				    android:layout_height="40dip"
+		android:layout_marginTop="10dip"
 		        android:layout_width="fill_parent"
 		        android:text="Change location"
 				android:onClick="selectLocation"
@@ -163,7 +167,8 @@
 		<LinearLayout
 			android:orientation="horizontal"
 			android:layout_width="fill_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+		android:layout_marginTop="10dip">
 			<TextView
 	style="@style/secondaryText"
 				android:textSize="20dip"
@@ -195,22 +200,23 @@
 				android:layout_marginTop="10dip"
 			    >
 		
-		     <Button android:id="@+id/save"
-		android:background="@drawable/button_shape"
-				    android:layout_width="wrap_content"
-				    android:layout_height="40dip"
-				    android:onClick="saveMeeting"
-				    android:layout_weight=".5"
-				    android:text="Save"/>
-					
 		     <Button android:id="@+id/delete"
 		android:background="@drawable/deletebutton"
 				    android:layout_width="wrap_content"
 				    android:layout_height="40dip"
-				    android:layout_marginLeft="5dip"
 				    android:onClick="deleteMeeting"
 				    android:layout_weight=".5"
 				    android:text="Delete"/>
+				    
+		     <Button android:id="@+id/save"
+		android:background="@drawable/button_shape"
+				    android:layout_width="wrap_content"
+				    android:layout_height="40dip"
+				    android:layout_marginLeft="5dip"
+				    android:onClick="saveMeeting"
+				    android:layout_weight=".5"
+				    android:text="Save"/>
+					
 		</LinearLayout>
 	</LinearLayout>
 </LinearLayout>

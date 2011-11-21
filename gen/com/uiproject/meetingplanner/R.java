@@ -65,9 +65,8 @@ public final class R {
         public static final int tab_bg_unselected=0x7f020024;
         public static final int tab_divider=0x7f020025;
         public static final int tab_text_selector=0x7f020026;
-        public static final int testlogo7=0x7f020027;
-        public static final int trackeretalist=0x7f020028;
-        public static final int trackermap=0x7f020029;
+        public static final int trackeretalist=0x7f020027;
+        public static final int trackermap=0x7f020028;
     }
     public static final class id {
         public static final int LinearLayout01=0x7f090069;
@@ -106,7 +105,7 @@ public final class R {
         public static final int declineBtn=0x7f090062;
         public static final int declinebutton=0x7f090019;
         public static final int declinedAcceptBtn=0x7f090037;
-        public static final int delete=0x7f09004a;
+        public static final int delete=0x7f090049;
         public static final int desc=0x7f09001c;
         public static final int displayacceptbutton=0x7f090043;
         public static final int displayalarmbutton=0x7f090041;
@@ -167,7 +166,7 @@ public final class R {
         public static final int relativeLayout1=0x7f090007;
         public static final int rememberme=0x7f090056;
         public static final int rgb=0x7f090017;
-        public static final int save=0x7f090049;
+        public static final int save=0x7f09004a;
         public static final int selectLocation=0x7f090047;
         public static final int selectcircle=0x7f090053;
         public static final int selectlocview=0x7f090033;
