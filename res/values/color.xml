@@ -6,5 +6,7 @@
 <color name="bluegrey">#BFC8E0</color>
 <color name="buttonblue">#CBCEDA</color>
 <color name="bgblue">#92CAFF</color>
+<color name="lesstransparent">#99F6F6F6</color>
 <color name="semitransparent">#55F6F6F6</color>
+<color name="transparent">#00000000</color>
 </resources>
