@@ -140,13 +140,26 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 		android:layout_marginTop="10dip">
-		<TextView
+		<LinearLayout
+	android:orientation="vertical"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	>
+			<TextView
 	style="@style/secondaryText"
 	android:id="@+id/spinner_label1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="Track time: "
+	        android:text="Track time "
 		        android:layout_centerVertical="true" />
+			<TextView
+	style="@style/secondaryText"
+	android:id="@+id/spinner_label2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="(hours): "
+		        android:layout_centerVertical="true" />
+		        </LinearLayout>
 		<Spinner 
 	        android:id="@+id/tracker_selector"
 		        android:layout_width="150dp"

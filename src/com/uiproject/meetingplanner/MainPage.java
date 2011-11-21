@@ -69,9 +69,9 @@ public class MainPage extends Activity {
 
     	// Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
-	    
-	    //test get next meeting works
 	    uid = settings.getInt("uid", -1);
+	    /*
+	    //test get next meeting works
 	    db.open();
 	    MeetingInstance m = db.getNextUpcomingMeeting(uid);
 	    Log.d(mainPageTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
@@ -120,7 +120,7 @@ public class MainPage extends Activity {
 	    }
 	    
 	    editor.commit(); 
-	    
+	    */
 	    guh = new GeoUpdateHandler(this);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, guh);
@@ -196,8 +196,11 @@ public class MainPage extends Activity {
     		name.setText(username);
         }
     }
-    /*
-    public void onResume(){
+    
+    public void onStart(){
+    	super.onStart();
+	    Log.d(mainPageTag, "in onStart");
+    	
     	//recheck the next upcoming meeting
 
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
@@ -251,7 +254,7 @@ public class MainPage extends Activity {
 	    }
     	
     }
-    */
+    
     
 }
 

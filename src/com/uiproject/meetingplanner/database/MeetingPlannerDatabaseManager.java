@@ -641,6 +641,7 @@ public class MeetingPlannerDatabaseManager {
 						+ " ORDER BY " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " ASC";
 			
 			Log.d(dbManagerTag, "getNextUpcomingMeeting query: " + query);
+			Log.d(dbManagerTag, "getNextUpcomingMeeting userID: " + userID);
 			
 			// Do the query
 			cursor = db.rawQuery(query, new String[]{String.valueOf(userID)});
