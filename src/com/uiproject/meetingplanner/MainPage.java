@@ -1,5 +1,6 @@
 package com.uiproject.meetingplanner;
 
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -238,15 +239,20 @@ public class MainPage extends Activity {
 	    	mwhen.setText(when);
 	    	mdesc.setText(m.getMeetingDescription());
 	    	track_button.setTag(mid);
-	        int currenth = Calendar.HOUR_OF_DAY;
-	        int currentm = Calendar.MINUTE;
+	    	Calendar cal = new GregorianCalendar();
+	        int currenth = cal.get(Calendar.HOUR_OF_DAY);
+	        int currentm = cal.get(Calendar.MINUTE);
 	    	String start = m.getMeetingStartTime();
 			int starth = Integer.parseInt(start.substring(0, start.indexOf(':')));
 			int startm = Integer.parseInt(start.substring(start.indexOf(':') + 1));
 	    	int tracktime = m.getMeetingTrackTime();
 	    	int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
+	    	Log.d(mainPageTag, "minutes before = " + minutes_before + ", tracktime = " + tracktime 
+	    			+ ", currenth = " + currenth + ", starth = " + starth + ", currentm = " + currentm + ", startm = " + startm);
 	    	if (minutes_before > tracktime){
 		    	track_button.setVisibility(View.GONE);
+	    	}else{
+	    		track_button.setVisibility(View.VISIBLE);
 	    	}
 	    	
 	    	// Set sharedpreferences
