@@ -168,8 +168,8 @@ public class Search extends Activity implements OnItemClickListener {
 		else {
 			checkedUsers.remove((UserInstance)parent.getItemAtPosition(position));
 		}
-		//UserAdapter uAdapter = new UserAdapter(Search.this, currSearchList, checkedUsers);
-        //mContactList.setAdapter(uAdapter);
+		UserAdapter uAdapter = new UserAdapter(this, currSearchList, checkedUsers);
+        mContactList.setAdapter(uAdapter);
 		for (int i = 0; i < checkedUsers.size(); i++) {
 			Log.d("checkedUsers", checkedUsers.get(i).getUserFirstName() + " " + checkedUsers.get(i).getUserLastName());
 		}
