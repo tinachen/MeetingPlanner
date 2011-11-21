@@ -31,7 +31,7 @@ public class MeetingInstance {
 	private HashMap<Integer, UserInstance> attendees = new HashMap<Integer,UserInstance>();
 	private int meetingInitiatorID;
 	private boolean selected;
-	private String selectedString;
+	private int imageResourceID;
 
 	
 	public MeetingInstance(){
@@ -48,7 +48,7 @@ public class MeetingInstance {
 		this.meetingInitiatorID = -1;
 		this.attendees = new HashMap<Integer, UserInstance>();
 		this.selected = false;
-		this.selectedString = "false";
+		this.imageResourceID = 0;
 	}
 	
 	public MeetingInstance(int meetingID, int meetingLat, int meetingLon, String meetingTitle, String meetingDescription,
@@ -66,7 +66,7 @@ public class MeetingInstance {
 		this.meetingInitiatorID = meetingInitiatorID;
 		this.attendees = new HashMap<Integer, UserInstance>();
 		this.selected = false;
-		this.selectedString = "false";
+		this.imageResourceID = 0;
 	}
 	
 	public MeetingInstance(int meetingID, int meetingLat, int meetingLon, String meetingTitle, String meetingDescription,
@@ -85,7 +85,7 @@ public class MeetingInstance {
 		this.attendees = attendees;
 		this.meetingInitiatorID = meetingInitiatorID;
 		this.selected = false;
-		this.selectedString = "false";
+		this.imageResourceID = 0;
 	}
 	
 
@@ -115,11 +115,6 @@ public class MeetingInstance {
 	{
 		this.meetingAddress = newAddress;
 	}
-	
-	/*public void setMeetingSubject(String meetingTitle)
-	{
-		this.meetingTitle = meetingTitle;
-	}*/
 	
 	public void setMeetingTitle(String meetingTitle) {
 		this.meetingTitle = meetingTitle;
@@ -156,14 +151,11 @@ public class MeetingInstance {
 	}
 	
 	public void setSelected(boolean selected){
-		if(selected){
-			this.selectedString = "true";
-			
-		}else{
-			this.selectedString = "false";
-		}
-		Log.d(TAG, "meetingID = " + meetingID + ", meetingTitle = " + meetingTitle +", setSelected = " + selectedString);
 		this.selected = selected;
+	}
+	
+	public void setMeetingImageResourceID(int imageResourceID){
+		this.imageResourceID = imageResourceID;
 	}
 	
 	/*************************************************
@@ -231,8 +223,7 @@ public class MeetingInstance {
 		return this.selected;
 	}
 	
-	public String getSelectedString(){
-		return this.selectedString;
+	public int getMeetingImageResourceID(){
+		return this.imageResourceID;
 	}
-
 }
