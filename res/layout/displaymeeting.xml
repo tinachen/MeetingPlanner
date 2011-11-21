@@ -43,8 +43,8 @@
 		android:layout_alignParentRight="true">
 		
 	<ImageView
-	   android:id="@+id/trackbutton"
-	   android:src="@drawable/edit_meeting"
+	   android:id="@+id/displaytrackbutton"
+	   android:src="@drawable/map_1"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
 	   android:clickable="true"
@@ -52,7 +52,7 @@
 	   />
 	   
 	<ImageView
-	   android:id="@+id/callbutton"
+	   android:id="@+id/displaycallbutton"
 	   android:src="@drawable/call"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
@@ -61,7 +61,7 @@
 	   />
 		
 	<ImageView
-	   android:id="@+id/editbutton"
+	   android:id="@+id/displayeditbutton"
 	   android:src="@drawable/edit_meeting"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
@@ -69,7 +69,7 @@
 	   android:onClick="edit"/>
 	   
 	<ImageView
-	   android:id="@+id/alarmbutton"
+	   android:id="@+id/displayalarmbutton"
 	   android:src="@drawable/edit_meeting"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
@@ -79,16 +79,23 @@
 	   
 	
      <ImageView
-      android:id="@+id/camerabutton"
+      android:id="@+id/displaycamerabutton"
 	  android:src="@drawable/camera"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
       android:text="take picture loc"
       android:onClick="takepic"
       />
+	<ImageView
+	   android:id="@+id/displayacceptbutton"
+	   android:src="@drawable/acceptbutton"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	   android:clickable="true"
+	   android:onClick="accept"/>
 	   
 	<ImageView
-	   android:id="@+id/declinebutton"
+	   android:id="@+id/displaydeclinebutton"
 	   android:src="@drawable/declinebutton"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
@@ -104,6 +111,24 @@
 	android:layout_height="wrap_content"
 	android:text="Description"
 	android:layout_marginTop="20dip" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="10dip" >
+		<TextView
+	style="@style/display1"
+			android:layout_width="125dip"
+			android:layout_height="wrap_content"
+			android:text="Status: " />
+		
+		<TextView
+	style="@style/display2"
+		    android:id="@+id/status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="status" />
+	</LinearLayout>
 	
 	<LinearLayout
 		android:orientation="horizontal"

@@ -7,6 +7,7 @@ import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -58,8 +59,13 @@ public class MeetingListPendingTest extends Activity{
 				MeetingInstance m = meetings.get(position);
 				
 				int mid = m.getMeetingID();
+
+				Intent intent = new Intent(MeetingListPendingTest.this, DisplayMeeting.class);
+				intent.putExtra("mid", mid);
+				intent.putExtra("status", MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING);
+				startActivity(intent);
 				
-				//ELIZABETH'S CODE //TODO meeting description
+				//TODO meeting description
 				
 				Log.d(TAG, "onCreate: ListItem Click " + position + " " + arg3);
 				Log.d(TAG, "onCreate: Meeting ID " + m.getMeetingID() + " selected ");

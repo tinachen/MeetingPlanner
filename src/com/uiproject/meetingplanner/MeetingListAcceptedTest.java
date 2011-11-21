@@ -1,21 +1,22 @@
 package com.uiproject.meetingplanner;
 
 import java.util.ArrayList;
-import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
-import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ListActivity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
+
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 public class MeetingListAcceptedTest extends Activity{
 
@@ -107,8 +108,10 @@ public class MeetingListAcceptedTest extends Activity{
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 				MeetingInstance m = meetings.get(position);
 				int mid = m.getMeetingID();
-				
-				//ELIZABETH'S CODE //TODO
+				Intent intent = new Intent(MeetingListAcceptedTest.this, DisplayMeeting.class);
+				intent.putExtra("mid", mid);
+				intent.putExtra("status", MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING);
+				startActivity(intent);
 				
 				Log.d(TAG, "onCreate: ListItem Click " + position + " " + arg3);
 				Log.d(TAG, "onCreate: Meeting ID " + m.getMeetingID() + " selected ");

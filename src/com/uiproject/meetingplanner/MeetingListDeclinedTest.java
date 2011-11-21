@@ -7,6 +7,7 @@ import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -107,8 +108,11 @@ public class MeetingListDeclinedTest extends Activity{
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 				MeetingInstance m = meetings.get(position);
 				int mid = m.getMeetingID();
-				
-				//ELIZABETH'S CODE //TODO
+
+				Intent intent = new Intent(MeetingListDeclinedTest.this, DisplayMeeting.class);
+				intent.putExtra("mid", mid);
+				intent.putExtra("status", MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING);
+				startActivity(intent);
 				
 				Log.d(TAG, "onCreate: ListItem Click " + position + " " + arg3);
 				Log.d(TAG, "onCreate: Meeting ID " + m.getMeetingID() + " selected ");
