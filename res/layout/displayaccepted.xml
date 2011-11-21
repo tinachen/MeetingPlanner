@@ -86,6 +86,13 @@
       android:text="take picture loc"
       android:onClick="takepic"
       />
+	<ImageView
+	   android:id="@+id/acceptbutton"
+	   android:src="@drawable/acceptbutton"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	   android:clickable="true"
+	   android:onClick="accept"/>
 	   
 	<ImageView
 	   android:id="@+id/declinebutton"
@@ -104,6 +111,24 @@
 	android:layout_height="wrap_content"
 	android:text="Description"
 	android:layout_marginTop="20dip" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="10dip" >
+		<TextView
+	style="@style/display1"
+			android:layout_width="125dip"
+			android:layout_height="wrap_content"
+			android:text="Status: " />
+		
+		<TextView
+	style="@style/display2"
+		    android:id="@+id/status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="status" />
+	</LinearLayout>
 	
 	<LinearLayout
 		android:orientation="horizontal"

@@ -18,14 +18,15 @@ import android.widget.TextView;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
-public class DisplayPending extends Activity {
+public class DisplayMeeting extends Activity {
 
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
-	TextView title, desc, date, time, tracktime, attendees, location;
-	Button acceptbutton, declinebutton;
+	TextView title, desc, date, time, tracktime, attendees, location, status;
+	Button trackbutton, callbutton, editbutton, alarmbutton, camerabutton, acceptbutton, declinebutton;
 	MeetingInstance meeting;
 	private MeetingPlannerDatabaseManager db;
-	private int uid;
+	private int uid, statusid;
+	
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,12 @@ public class DisplayPending extends Activity {
         tracktime = (TextView) findViewById(R.id.tracktime);
         attendees = (TextView) findViewById(R.id.attendees);
         location = (TextView) findViewById(R.id.location);
+        status = (TextView) findViewById(R.id.status);
+        trackbutton = (Button) findViewById(R.id.trackbutton);
+        callbutton = (Button) findViewById(R.id.callbutton);
+        editbutton = (Button) findViewById(R.id.editbutton);
+        alarmbutton = (Button) findViewById(R.id.alarmbutton);
+        camerabutton = (Button) findViewById(R.id.camerabutton);
         acceptbutton = (Button) findViewById(R.id.acceptbutton);
         declinebutton = (Button) findViewById(R.id.declinebutton);
 
@@ -45,6 +52,7 @@ public class DisplayPending extends Activity {
     	uid = settings.getInt("uid", -1);
 
         int mid = getIntent().getIntExtra("mid", -1);
+        int statusid = getIntent().getIntExtra("status", -1);
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 	    meeting = db.getMeeting(mid);
@@ -77,7 +85,70 @@ public class DisplayPending extends Activity {
     	tracktime.setText(mtracktime);
     	location.setText(maddr);
     	attendees.setText(mnames);
+    	
+    	
+    	if (statusid == MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING){
+    		status.setText("Attending");
+    		attendingButtons();
+    	}else if(statusid == MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING){
+    		status.setText("Declined");
+    		declineButtons();
+    	}else{
+    		status.setText("Pending");
+    		pendingButtons();
+    	}
     }
+	
+	public void attendingButtons(){
+
+		status.setText("Attending");
+    	if (meeting.getMeetingInitiatorID() != uid){
+    		editbutton.setVisibility(View.GONE);
+    		camerabutton.setVisibility(View.GONE);
+    		callbutton.setVisibility(View.VISIBLE);
+    		declinebutton.setVisibility(View.VISIBLE);
+    	}else{
+    		callbutton.setVisibility(View.GONE);
+    		declinebutton.setVisibility(View.GONE);
+    		editbutton.setVisibility(View.VISIBLE);
+    		camerabutton.setVisibility(View.VISIBLE);
+    	}
+    	
+        int currenth = Calendar.HOUR_OF_DAY;
+        int currentm = Calendar.MINUTE;
+    	String start = meeting.getMeetingStartTime();
+		int starth = Integer.parseInt(start.substring(0, start.indexOf(':')));
+		int startm = Integer.parseInt(start.substring(start.indexOf(':') + 1));
+    	int tracktime = meeting.getMeetingTrackTime();
+    	int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
+    	if (minutes_before > tracktime){
+	    	trackbutton.setVisibility(View.GONE);
+    	}else{
+	    	trackbutton.setVisibility(View.VISIBLE);    		
+    	}
+    	acceptbutton.setVisibility(View.GONE);
+	}
+	
+	public void declineButtons(){
+		editbutton.setVisibility(View.GONE);
+		camerabutton.setVisibility(View.GONE);
+		callbutton.setVisibility(View.GONE);
+		declinebutton.setVisibility(View.GONE);
+    	trackbutton.setVisibility(View.GONE);  
+    	acceptbutton.setVisibility(View.VISIBLE);  		
+		
+	}
+	
+	public void pendingButtons(){
+		editbutton.setVisibility(View.GONE);
+		camerabutton.setVisibility(View.GONE);
+		callbutton.setVisibility(View.GONE);
+    	trackbutton.setVisibility(View.GONE);   
+    	acceptbutton.setVisibility(View.VISIBLE);  	
+    	declinebutton.setVisibility(View.VISIBLE);  	 	
+		
+	}
+	
 
 	public void back(View Button){
 		onBackPressed();
@@ -90,31 +161,50 @@ public class DisplayPending extends Activity {
     	
     }
     
+    
+    public void setalarm(View button){
+    	//TODO set alarm code here
+    	
+    
+    }
+    
+    public void takepic(View button){
+    	//TODO taking picture code here
+    }
 
+    public void call(View button){
+    	//TODO
+    }
+
+    public void edit(View Button){
+		Intent intent = new Intent(DisplayMeeting.this, EditMeeting.class);
+		intent.putExtra("mid", meeting.getMeetingID());
+		startActivity(intent);
+  
+    }
+    public void track(View Button){
+		Intent intent = new Intent(DisplayMeeting.this, TrackerMap.class);
+		intent.putExtra("mid", meeting.getMeetingID());
+		startActivity(intent);
+  
+    }
     
     public void accept(View Button){
+    	attendingButtons();
+    	status.setText("Attending");
         Communicator.acceptMeeting(uid, meeting.getMeetingID());
         db.open();
         db.updateMeetingUser(meeting.getMeetingID(), uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");
         db.close();
-		Intent intent = new Intent(DisplayPending.this, DisplayAccepted.class);
-		intent.putExtra("mid", meeting.getMeetingID());
-		startActivity(intent);
-		finish();
-  
-    }
-
-    
+    }    
     
     public void decline(View Button){
+    	declineButtons();
+    	status.setText("Declined");
         Communicator.declineMeeting(uid, meeting.getMeetingID());
         db.open();
         db.updateMeetingUser(meeting.getMeetingID(), uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING, "0");
         db.close();
-		Intent intent = new Intent(DisplayPending.this, DisplayDeclined.class);
-		intent.putExtra("mid", meeting.getMeetingID());
-		startActivity(intent);
-		finish();
   
     }
 
