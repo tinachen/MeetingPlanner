@@ -47,24 +47,16 @@ public class UserAdapter extends BaseAdapter {
         }
         
         ImageView ivUserImage = (ImageView) convertView.findViewById(R.id.userpic);
-        /*ivUserImage.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				//Log.d("itemClick", "item clicked");
-            	if (!checkedUsers.contains(entry)) {
-        			checkedUsers.add(entry);
-        		}
-        		else {
-        			checkedUsers.remove(entry);
-        		}
-        		for (int i = 0; i < checkedUsers.size(); i++) {
-        			Log.d("checkedUsers", checkedUsers.get(i).getUserFirstName() + " " + checkedUsers.get(i).getUserLastName());
-        		}
-                //Toast.makeText(Search.this, "" + position, Toast.LENGTH_SHORT).show();	
-			}
-        	
-        });*/
+        // set user image here
+        
+        ImageView ivCircleImage = (ImageView) convertView.findViewById(R.id.selectcircle);
+        if (checkedUsers.contains(entry) && ivCircleImage.getVisibility() != View.VISIBLE) {
+        	ivCircleImage.setVisibility(View.VISIBLE);
+        	ivCircleImage.setAdjustViewBounds(true);
+        }
+        else if (ivCircleImage.getVisibility() == View.VISIBLE){
+        	ivCircleImage.setVisibility(View.GONE);
+        }
         
         TextView tvUserName = (TextView) convertView.findViewById(R.id.username);
         tvUserName.setText(entry.getUserFirstName() + " " + entry.getUserLastName());
