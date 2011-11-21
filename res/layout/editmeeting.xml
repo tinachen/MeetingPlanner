@@ -181,7 +181,7 @@
 		
 	     <Button android:id="@+id/addPeople"
 		android:background="@drawable/plainbutton"
-				    android:layout_height="50dip"
+				    android:layout_height="40dip"
 			    android:layout_width="fill_parent"
 			    android:onClick="invite"
 			    android:text="Change attendees"
@@ -198,7 +198,7 @@
 		     <Button android:id="@+id/save"
 		android:background="@drawable/button_shape"
 				    android:layout_width="wrap_content"
-				    android:layout_height="50dip"
+				    android:layout_height="40dip"
 				    android:onClick="saveMeeting"
 				    android:layout_weight=".5"
 				    android:text="Save"/>
@@ -206,7 +206,7 @@
 		     <Button android:id="@+id/delete"
 		android:background="@drawable/deletebutton"
 				    android:layout_width="wrap_content"
-				    android:layout_height="50dip"
+				    android:layout_height="40dip"
 				    android:layout_marginLeft="5dip"
 				    android:onClick="deleteMeeting"
 				    android:layout_weight=".5"
