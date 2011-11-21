@@ -21,12 +21,16 @@
 		<activity android:name=".Login"
 				  android:theme="@android:style/Theme.NoTitleBar"
 				  android:noHistory="true">
+
         </activity>
         
         <activity android:name=".MainPage"
                   android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
-             
+             			<intent-filter>
+            	<action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         
         <activity android:name=".SelectLocation"
@@ -124,10 +128,6 @@
 		<activity android:name=".TrackerMap"
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
-			<intent-filter>
-            	<action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 		</activity>
 		
 		<activity android:name=".TrackerEtaList"
