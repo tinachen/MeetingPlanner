@@ -46,8 +46,9 @@ public class MeetingListPendingTest extends Activity{
 		
 		acceptBtn = (Button) findViewById(R.id.pendingAcceptBtn);
 		declineBtn = (Button) findViewById(R.id.pendingDeclineBtn);
-		//declineBtn = (Button) findViewById(R.id.declineBtn);
 		confirmBar = (View) findViewById(R.id.confirmBarPending);
+		
+		
 		ListView list = (ListView) findViewById(R.id.list);
         list.setClickable(true);
         list.setAdapter(adapter);
