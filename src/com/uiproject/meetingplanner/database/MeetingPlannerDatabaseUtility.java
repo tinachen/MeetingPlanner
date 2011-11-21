@@ -60,6 +60,7 @@ public class MeetingPlannerDatabaseUtility {
     		// Add initiator
     		db.createMeetingUser(meetingObj.getMeetingID(), meetingObj.getMeetingInitiatorID(), MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");
     		
+    		// Add attendees
     		for(UserInstance meetingUserObj : meetingUsers.values()){
     			
     			int attendingStatusID = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDING;
@@ -70,7 +71,9 @@ public class MeetingPlannerDatabaseUtility {
     				attendingStatusID = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING;
     			}
     			
-    			db.createMeetingUser(meetingObj.getMeetingID(), meetingUserObj.getUserID(), attendingStatusID, "0");
+    			if(meetingUserObj.getUserID() != meetingObj.getMeetingInitiatorID()){
+    				db.createMeetingUser(meetingObj.getMeetingID(), meetingUserObj.getUserID(), attendingStatusID, "0");
+    			}
     		}
     	}
 	}

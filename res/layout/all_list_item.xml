@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-        android:descendantFocusability="blocksDescendants">
+        android:descendantFocusability="blocksDescendants"
+        android:background="@color/lesstransparent" >
+       
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -17,6 +19,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+        style="@style/headerText"
             android:id="@+id/meetingTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,7 +33,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
-            android:src="@android:drawable/stat_sys_phone_call" android:layout_marginRight="10dp"/>
+            android:src="@drawable/call" android:layout_marginRight="10dp"/>
 
     </LinearLayout>
 
@@ -40,24 +43,24 @@
         android:layout_height="wrap_content" android:layout_marginBottom="10dp">
 
         <TextView
+        style="@style/lightishText"
             android:id="@+id/meetingInitiatorName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="51dp"
-            android:text="Creator"
-            android:textAppearance="?android:attr/textAppearanceMedium" android:textSize="13sp"/>
+            android:text="Creator"/>
 
         <TextView
+        style="@style/dateDisplayText"
             android:id="@+id/meetingTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="22dp"
-            android:text="Date + Time"
-            android:textAppearance="?android:attr/textAppearanceMedium" android:textSize="13sp"/>
+            android:text="Date + Time"/>
 
     </RelativeLayout>
 

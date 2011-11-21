@@ -20,7 +20,9 @@ public final class R {
         public static final int bluegrey=0x7f040003;
         public static final int buttonblue=0x7f040004;
         public static final int darkgray=0x7f040000;
-        public static final int semitransparent=0x7f040006;
+        public static final int lesstransparent=0x7f040006;
+        public static final int semitransparent=0x7f040007;
+        public static final int transparent=0x7f040008;
         public static final int white=0x7f040001;
     }
     public static final class drawable {
@@ -59,13 +61,14 @@ public final class R {
         public static final int plussign=0x7f020020;
         public static final int shape=0x7f020021;
         public static final int signup=0x7f020022;
-        public static final int tab_bg_selected=0x7f020023;
-        public static final int tab_bg_selector=0x7f020024;
-        public static final int tab_bg_unselected=0x7f020025;
-        public static final int tab_divider=0x7f020026;
-        public static final int tab_text_selector=0x7f020027;
-        public static final int trackeretalist=0x7f020028;
-        public static final int trackermap=0x7f020029;
+        public static final int tab_bg_pressed=0x7f020023;
+        public static final int tab_bg_selected=0x7f020024;
+        public static final int tab_bg_selector=0x7f020025;
+        public static final int tab_bg_unselected=0x7f020026;
+        public static final int tab_divider=0x7f020027;
+        public static final int tab_text_selector=0x7f020028;
+        public static final int trackeretalist=0x7f020029;
+        public static final int trackermap=0x7f02002a;
     }
     public static final class id {
         public static final int LinearLayout01=0x7f090069;
@@ -122,6 +125,7 @@ public final class R {
         public static final int eta=0x7f09000c;
         public static final int facebook=0x7f090072;
         public static final int fname=0x7f09004e;
+        public static final int gotomeetingbutton=0x7f09005a;
         public static final int gridview=0x7f090035;
         public static final int imageView1=0x7f090039;
         public static final int linearLayout1=0x7f090003;
@@ -148,8 +152,7 @@ public final class R {
         public static final int mppl=0x7f090013;
         public static final int mtitle=0x7f090059;
         public static final int mtrack=0x7f090011;
-        public static final int mtrackbutton=0x7f09005b;
-        public static final int mwhen=0x7f09005a;
+        public static final int mwhen=0x7f09005b;
         public static final int name=0x7f09000b;
         public static final int next_button=0x7f090024;
         public static final int oldpw=0x7f09000d;
@@ -259,20 +262,22 @@ public final class R {
     }
     public static final class style {
         public static final int AttendeeDialogTheme=0x7f070000;
-        public static final int CMnotselected=0x7f070008;
-        public static final int CMprogress=0x7f070009;
-        public static final int CMselected=0x7f070007;
+        public static final int CMnotselected=0x7f07000a;
+        public static final int CMprogress=0x7f07000b;
+        public static final int CMselected=0x7f070009;
         public static final int backgroundColor=0x7f070001;
-        public static final int display1=0x7f07000d;
-        public static final int display2=0x7f07000e;
-        public static final int display3=0x7f07000f;
+        public static final int dateDisplayText=0x7f070004;
+        public static final int display1=0x7f07000f;
+        public static final int display2=0x7f070010;
+        public static final int display3=0x7f070011;
         public static final int headerText=0x7f070002;
-        public static final int lightText=0x7f070006;
-        public static final int linkColor=0x7f070005;
-        public static final int listText=0x7f07000a;
-        public static final int listView=0x7f07000b;
-        public static final int mainpageText=0x7f070004;
+        public static final int lightText=0x7f070007;
+        public static final int lightishText=0x7f070008;
+        public static final int linkColor=0x7f070006;
+        public static final int listText=0x7f07000c;
+        public static final int listView=0x7f07000d;
+        public static final int mainpageText=0x7f070005;
         public static final int secondaryText=0x7f070003;
-        public static final int trackerbg=0x7f07000c;
+        public static final int trackerbg=0x7f07000e;
     }
 }

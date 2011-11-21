@@ -65,9 +65,9 @@ public class CreateMeetingConfirm extends Activity {
     	mlon = settings.getInt("mlon", 0);
     	mlat = settings.getInt("mlat", 0);
     	
-    	//mattendeeids = "5,6";
     	mnames = settings.getString("mnames", "");
     	mattendeeids = settings.getString("mattendeeids", "");
+    	mattendeeids = "5,6";
 
     	String n;
         int commaIndex;

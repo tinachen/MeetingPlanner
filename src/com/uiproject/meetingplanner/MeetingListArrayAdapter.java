@@ -52,12 +52,15 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		protected TextView meetingInitiatorName;
 		protected TextView meetingTime;
 		protected CheckBox checkbox;
+		protected ImageView itemIcon;
 	}
 
 	
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent){
 		View view = null;
+		MeetingInstance m = list.get(position);
+		
 		if (convertView == null) {
 			LayoutInflater inflator = context.getLayoutInflater();
 			view = inflator.inflate(R.layout.all_list_item, null);
@@ -66,45 +69,40 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			viewHolder.meetingInitiatorName = (TextView) view.findViewById(R.id.meetingInitiatorName);
 			viewHolder.meetingTime = (TextView) view.findViewById(R.id.meetingTime);
 			viewHolder.checkbox = (CheckBox) view.findViewById(R.id.checkbox);
+			viewHolder.itemIcon = (ImageView) view.findViewById(R.id.list_icon);
 			
 			// Make check buttons invisible if the meetings are created by the user
 			// Change calling icon to edit button
-			ImageView image = (ImageView) view.findViewById(R.id.list_icon);
-			image.setClickable(true);
-			if(listType == LISTTYPE_ACCEPTED){
-				final MeetingInstance m = list.get(position);
-				Log.d(TAG, "getView: uid = " + uid + ", initiatorID = " + m.getMeetingInitiatorID());
-				if(uid == m.getMeetingInitiatorID()){
-					//viewHolder.checkbox.setVisibility(View.INVISIBLE); //TODO
-					image.setImageResource(R.drawable.edit_meeting);
-					image.setOnClickListener(new View.OnClickListener() {
-			            public void onClick(View v) {
-			            	int mid = m.getMeetingID();
-			            	Log.d(TAG, "mid = " + mid);
-			            	//TODO
-			            	// ELIZABETH'S CODE edit meeting
-			            	
-			            }});
-				}else{
-					
-					image.setOnClickListener(new View.OnClickListener() {
-			            public void onClick(View v) {
-			            	//TODO
-			            	// MENGFEI'S CODE - call
-			            	
-			            }});
-				}
-				
+			viewHolder.itemIcon.setClickable(true);
+			if(uid == m.getMeetingInitiatorID() && listType == LISTTYPE_ACCEPTED){
+				m.setMeetingImageResourceID(R.drawable.edit_meeting);
 			}else{
-				
-				image.setOnClickListener(new View.OnClickListener() {
-		            public void onClick(View v) {
-		            	//TODO
-		            	// MENGFEI'S CODE - call
-		            	
-		            }});
+				m.setMeetingImageResourceID(R.drawable.call);
 			}
 			
+			viewHolder.itemIcon.setOnClickListener(new View.OnClickListener() {
+	            public void onClick(View v) {
+	            	MeetingInstance meeting = (MeetingInstance) viewHolder.itemIcon.getTag();
+	            	if(meeting.getMeetingImageResourceID() == R.drawable.edit_meeting){
+	            		// Display edit meeting page
+	            		
+	            		// ELIZABETH'S CODE GOES HERE - TODO
+	            		int mid = meeting.getMeetingID();
+	            		
+	            	}else{
+	            		// Call the initiator's phone number
+	            		db.open();
+	            		UserInstance u = db.getUser(meeting.getMeetingInitiatorID());
+	            		db.close();
+	            		
+	            		String phonenumber = u.getUserPhone();
+	            		
+	            		// MENGFEI'S CODE GOES HERE - TODO
+	            		
+	            	}
+	            	
+	            }});
+
 			viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
 				@Override
@@ -131,6 +129,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			
 			
 			view.setTag(viewHolder);
+			viewHolder.itemIcon.setTag(list.get(position));
 			viewHolder.checkbox.setTag(list.get(position));
 			
 		} else {
@@ -147,6 +146,12 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		holder.meetingInitiatorName.setText(initiatorUser.getUserFirstName() + " " + initiatorUser.getUserLastName());
 		holder.meetingTime.setText(list.get(position).getMeetingDate() + " " + list.get(position).getMeetingStartTime());
 		holder.checkbox.setChecked(list.get(position).isSelected());
+		holder.itemIcon.setImageResource(list.get(position).getMeetingImageResourceID());
+		if(uid == m.getMeetingInitiatorID() && listType == LISTTYPE_ACCEPTED){
+			holder.checkbox.setVisibility(View.INVISIBLE);
+		}else{
+			holder.checkbox.setVisibility(View.VISIBLE);
+		}
 		
 		return view;
 	}

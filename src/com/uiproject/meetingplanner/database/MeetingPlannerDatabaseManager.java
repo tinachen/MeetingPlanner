@@ -65,9 +65,6 @@ public class MeetingPlannerDatabaseManager {
 		
 		try{
 			db.insert(dbHelper.MEETING_TABLE, null, values);
-		
-			//String s1 = "create meeting debug " + l;
-			//Toast.makeText(context, s1, Toast.LENGTH_SHORT).show(); //TODO
 			
 			Log.d(dbManagerTag, "createMeeting: meetingID = " + meetingID + ", meetingTitle = " + meetingTitle + 
 					", meetingDescription = " + meetingDescription + ", meetingInitiatorID = " + meetingInitiatorID + 

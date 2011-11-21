@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
@@ -25,7 +26,7 @@ public class DisplayMeeting extends Activity {
 	ImageView trackbutton, callbutton, editbutton, alarmbutton, camerabutton, acceptbutton, declinebutton;
 	MeetingInstance meeting;
 	private MeetingPlannerDatabaseManager db;
-	private int uid, statusid;
+	private int uid, statusid, mid;
 	
 	
 	@Override
@@ -51,9 +52,15 @@ public class DisplayMeeting extends Activity {
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	uid = settings.getInt("uid", -1);
 
-        int mid = getIntent().getIntExtra("mid", -1);
+        mid = getIntent().getIntExtra("mid", -1);
         statusid = getIntent().getIntExtra("status", -1);
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+
+    }
+	
+	public void onStart(){
+		super.onStart();
+		
 	    db.open();
 	    meeting = db.getMeeting(mid);
 	    db.close();
@@ -97,7 +104,8 @@ public class DisplayMeeting extends Activity {
     		status.setText("Pending");
     		pendingButtons();
     	}
-    }
+		
+	}
 	
 	public void attendingButtons(){
 
@@ -167,16 +175,19 @@ public class DisplayMeeting extends Activity {
     
     public void setalarm(View button){
     	//TODO set alarm code here
+        Toast.makeText(getBaseContext(), "Setting alarm", Toast.LENGTH_SHORT).show();
     	
     
     }
     
     public void takepic(View button){
     	//TODO taking picture code here
+        Toast.makeText(getBaseContext(), "taking a picture", Toast.LENGTH_SHORT).show();
     }
 
     public void call(View button){
     	//TODO
+        Toast.makeText(getBaseContext(), "calling initiator", Toast.LENGTH_SHORT).show();
     }
 
     public void edit(View Button){

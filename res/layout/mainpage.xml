@@ -119,18 +119,58 @@
 		android:orientation="vertical"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
-		android:layout_marginTop="50dip">
+		android:layout_marginTop="50dip"
+		>
 		
 		<ImageView
 		   android:src="@drawable/nextmeeting"
 		   android:paddingBottom="0dip" android:layout_width="225dip" android:layout_height="50dp"/>
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_marginLeft="20dip"
+		>
+		
+			<LinearLayout
+		android:orientation="horizontal"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		>
+		
 		<TextView
 	style="@style/headerText"
 		   android:id="@+id/mtitle"
 		   android:layout_width="wrap_content"
 		   android:layout_height="wrap_content"
 		   android:layout_marginTop="5dip"
-		   android:text="Meeting title" />
+		   android:layout_marginRight="5dip"
+		   android:layout_gravity="bottom"
+		   android:text="Meeting title"
+            android:layout_weight="0.51"/>
+		   
+
+	 	<ImageView
+		   android:id="@+id/gotomeetingbutton"
+		   android:src="@drawable/icon"
+		   android:layout_width="40dip"
+		   android:layout_height="40dip"
+		   android:clickable="true"
+		   android:layout_gravity="top"
+		   android:onClick="gotomeeting"
+		   />
+		   
+	    <ImageView
+		   android:id="@+id/displaytrackbutton"
+		   android:src="@drawable/map_1"
+		   android:layout_width="40dip"
+		   android:layout_height="40dip"
+		   android:clickable="true"
+		   android:layout_gravity="top"
+		   android:onClick="track"
+		   />
+		   
+		   </LinearLayout>
 		<TextView
 	style="@style/secondaryText"
 		   android:id="@+id/mwhen"
@@ -145,14 +185,7 @@
 		   android:layout_height="wrap_content"
 		   android:layout_marginTop="5dip"
 		   android:text="description here" />
-		<Button
-		   android:id="@+id/mtrackbutton"
-		   android:layout_width="wrap_content"
-		   android:layout_height="wrap_content"
-		   android:layout_marginTop="5dip"
-		   android:text="Track this meeting"
-		   android:onClick="track" />
-		   
+		   </LinearLayout>
 	</LinearLayout>
 	
 	</LinearLayout>

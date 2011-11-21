@@ -70,7 +70,7 @@
 	   
 	<ImageView
 	   android:id="@+id/displayalarmbutton"
-	   android:src="@drawable/edit_meeting"
+	   android:src="@drawable/icon"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
 	   android:clickable="true"
