@@ -1,6 +1,7 @@
 package com.uiproject.meetingplanner;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -122,8 +123,9 @@ public class DisplayMeeting extends Activity {
     		camerabutton.setVisibility(View.VISIBLE);
     	}
     	
-        int currenth = Calendar.HOUR_OF_DAY;
-        int currentm = Calendar.MINUTE;
+    	Calendar cal = new GregorianCalendar();
+        int currenth = cal.get(Calendar.HOUR_OF_DAY);
+        int currentm = cal.get(Calendar.MINUTE);
     	String start = meeting.getMeetingStartTime();
 		int starth = Integer.parseInt(start.substring(0, start.indexOf(':')));
 		int startm = Integer.parseInt(start.substring(start.indexOf(':') + 1));
