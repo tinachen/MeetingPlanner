@@ -32,23 +32,20 @@ public class MeetingAdapter extends BaseAdapter{
 		this.db = new MeetingPlannerDatabaseManager(context, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	}
 
-	@Override
 	public int getCount() {
 		return listMeeting.size();
 	}
 
-	@Override
 	public Object getItem(int position) {
 		return listMeeting.get(position);
 	}
 
-	@Override
 	public long getItemId(int position) {
 		return position;
 	}
 
-	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		convertView = null;
 		db.open();
 		MeetingInstance entry = listMeeting.get(position);
         if (convertView == null) {
@@ -67,16 +64,31 @@ public class MeetingAdapter extends BaseAdapter{
         tvCreator.setText(user.getUserFirstName()+" "+user.getUserLastName());     
         CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox1);
         db.close();
+        
+        /*
         checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
-			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				
 				// TODO Auto-generated method stub
-				CustomListActivity.showBar();
-				Log.d("check","CHECK STATUS CHANGED");
+				if (buttonView.isChecked())
+				{
+					CustomListActivity.showBar();
+					Log.d("check","ITEM CHECKED");
+					Toast.makeText(buttonView.getContext(), "Checked", 
+					        Toast.LENGTH_SHORT).show(); 
+				}
+				else
+				{
+					CustomListActivity.hideBar();
+					Log.d("check","ITEM NOT CHECKED");
+					Toast.makeText(buttonView.getContext(), "Not Checked", 
+					        Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
+		*/
+		
         return convertView;
 	}
 
