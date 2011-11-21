@@ -109,7 +109,7 @@ public class CreateMeetingWhere extends SelectLocation implements OnEditorAction
     	editor.remove("mlat");
     	editor.remove("mlon");
     	editor.remove("mnames");
-    	editor.remove("mphones");
+    	editor.remove("mattendeeids");
     	editor.commit();
     	
     }
