@@ -1,6 +1,10 @@
 package com.uiproject.meetingplanner.database;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import com.uiproject.meetingplanner.MeetingInstance;
@@ -356,6 +360,16 @@ public class MeetingPlannerDatabaseManager {
 		Cursor cursor;
 		
 		try{
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+			GregorianCalendar gc = new GregorianCalendar();
+			gc.setTime(new Date());
+			Date date1 = gc.getTime();
+			int ctimestamp1 = (int) (date1.getTime() / 1000L);
+			
+			gc.roll(Calendar.HOUR, -6);	// 6 hours grace period
+			Date date = gc.getTime();
+			int ctimestamp = (int) (date.getTime() / 1000L);
+			Log.d(dbManagerTag, " currentTimestamp = " + sdf.format(date1) + " " + ctimestamp1 + ", 6 hour before = " + sdf.format(date) + " " + ctimestamp);
 			
 			String query = "SELECT " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID + "," 
 									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TITLE  + "," 
@@ -372,7 +386,7 @@ public class MeetingPlannerDatabaseManager {
 						+ " LEFT JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
 						+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
 						+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?"
-						//+ " AND "
+						//+ " AND " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " > " + ctimestamp //TODO
 						+ " ORDER BY " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " DESC";
 			
 			Log.d(dbManagerTag, "getDeclinedMeetings query1: " + query);
