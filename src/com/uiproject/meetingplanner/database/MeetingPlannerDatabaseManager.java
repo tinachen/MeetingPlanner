@@ -362,11 +362,30 @@ public class MeetingPlannerDatabaseManager {
 		try{
 			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 			GregorianCalendar gc = new GregorianCalendar();
+			
 			gc.setTime(new Date());
 			Date date1 = gc.getTime();
 			int ctimestamp1 = (int) (date1.getTime() / 1000L);
 			
-			gc.roll(Calendar.HOUR, -6);	// 6 hours grace period
+			int hourBefore = gc.get(Calendar.HOUR_OF_DAY);
+			gc.roll(Calendar.HOUR_OF_DAY, -6);	// 6 hours grace period
+			int hourAfter = gc.get(Calendar.HOUR_OF_DAY);
+			if(hourAfter > hourBefore){
+				int dayBefore = gc.get(Calendar.DAY_OF_MONTH);
+				gc.roll(Calendar.DAY_OF_MONTH, -1);
+				int dayAfter = gc.get(Calendar.DAY_OF_MONTH);
+				
+				if(dayAfter > dayBefore){
+					int monthBefore = gc.get(Calendar.MONTH);
+					gc.roll(Calendar.MONTH, -1);
+					int monthAfter = gc.get(Calendar.MONTH);
+					
+					if(monthAfter > monthBefore){
+						gc.roll(Calendar.YEAR, -1);
+					}
+				}
+			}
+			gc.get(Calendar.DATE);
 			Date date = gc.getTime();
 			int ctimestamp = (int) (date.getTime() / 1000L);
 			Log.d(dbManagerTag, " currentTimestamp = " + sdf.format(date1) + " " + ctimestamp1 + ", 6 hour before = " + sdf.format(date) + " " + ctimestamp);
@@ -386,7 +405,7 @@ public class MeetingPlannerDatabaseManager {
 						+ " LEFT JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
 						+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
 						+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?"
-						//+ " AND " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " > " + ctimestamp //TODO
+						+ " AND " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " > " + ctimestamp
 						+ " ORDER BY " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " DESC";
 			
 			Log.d(dbManagerTag, "getDeclinedMeetings query1: " + query);
@@ -446,6 +465,8 @@ public class MeetingPlannerDatabaseManager {
 	public ArrayList<MeetingInstance> getDeclinedMeetings(int userID){
 		ArrayList<MeetingInstance> meetingsArray = new ArrayList<MeetingInstance>();
 		Cursor cursor;
+
+		int ctimestamp = getTimeStamp();
 		
 		try{
 			
@@ -464,6 +485,7 @@ public class MeetingPlannerDatabaseManager {
 				+ " LEFT JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
 				+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
 				+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?"
+				+ " AND " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " > " + ctimestamp
 				+ " ORDER BY " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " DESC";
 			
 			Log.d(dbManagerTag, "getDeclinedMeetings query1: " + query);
@@ -520,10 +542,11 @@ public class MeetingPlannerDatabaseManager {
 		return meetingsArray;
 	}
 	
-	//Done - need testing
 	public ArrayList<MeetingInstance> getPendingMeetings(int userID){
 		ArrayList<MeetingInstance> meetingsArray = new ArrayList<MeetingInstance>();
 		Cursor cursor;
+		
+		int ctimestamp = getTimeStamp();
 		
 		try{
 			
@@ -542,6 +565,7 @@ public class MeetingPlannerDatabaseManager {
 						+ " JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
 						+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
 						+ " AND " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.ATTENDINGSTATUS_ID + "=?"
+						+ " AND " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " > " + ctimestamp
 						+ " ORDER BY " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " DESC";
 			
 			Log.d(dbManagerTag, "getPendingMeetings query1: " + query);
@@ -600,6 +624,88 @@ public class MeetingPlannerDatabaseManager {
 		Log.d(dbManagerTag, "getPendingMeetings: meetingsArray size = " + meetingsArray.size());
 		return meetingsArray;
 	}
+	
+	public ArrayList<MeetingInstance> getPastMeetings(int userID){
+		ArrayList<MeetingInstance> meetingsArray = new ArrayList<MeetingInstance>();
+		Cursor cursor;
+		
+		int ctimestamp = getTimeStamp();
+		
+		try{
+			
+			String query = "SELECT " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TITLE  + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LAT+ "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_LON + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DESCRIPTION + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ADDRESS + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_DATE + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ENDTIME + "," 
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TRACKTIME + ","
+									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_INITIATOR_ID
+						+ " FROM " + dbHelper.MEETINGUSER_TABLE
+						+ " JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
+						+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
+						+ " AND " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " < " + ctimestamp
+						+ " ORDER BY " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " DESC";
+			
+			Log.d(dbManagerTag, "getPastMeetings query1: " + query);
+			
+			// Do the query
+			cursor = db.rawQuery(query, new String[]{String.valueOf(userID)});
+			
+			Log.d(dbManagerTag, "getPastMeetings cursor row count= " + cursor.getCount());
+			
+			// move the cursor's pointer to position zero.
+			cursor.moveToFirst();
+ 
+			// if there is data after the current cursor position, add it
+			// to the ArrayList.
+			if (!cursor.isAfterLast())
+			{
+				do
+				{
+					int meetingID = cursor.getInt(0);
+					String meetingTitle = cursor.getString(1);
+					int meetingLat = cursor.getInt(2);
+					int meetingLon = cursor.getInt(3);
+					String meetingDescription = cursor.getString(4);
+					String meetingAddress = cursor.getString(5);
+					String meetingDate = cursor.getString(6);
+					String meetingStartTime = cursor.getString(7);
+					String meetingEndTime = cursor.getString(8);
+					int meetingTrackTime = cursor.getInt(9);
+					int meetingInitiatorID = cursor.getInt(10);
+
+					MeetingInstance m = new MeetingInstance(meetingID, meetingLat, meetingLon, 
+							meetingTitle, meetingDescription, meetingAddress, 
+							meetingDate, meetingStartTime, meetingEndTime, meetingTrackTime, meetingInitiatorID);
+					
+					// Do another query to get every meeting's invited users
+					HashMap<Integer, UserInstance> meetingUsersMap = getMeetingUsersMap(meetingID);
+					
+					// Add meeting users to the meeting
+					m.setMeetingAttendees(meetingUsersMap);
+					
+					// Add current meeting into meeting array
+					meetingsArray.add(m);
+					
+				}
+				// move the cursor's pointer up one position.
+				while (cursor.moveToNext());
+			}
+			cursor.close();
+		}catch(SQLException e) 
+		{
+			Log.e("DB ERROR", e.toString());
+			e.printStackTrace();
+		}
+		
+		Log.d(dbManagerTag, "getPendingMeetings: meetingsArray size = " + meetingsArray.size());
+		return meetingsArray;
+	}
+	
 	
 	/**
 	 * Get the next upcoming meeting
@@ -1028,5 +1134,33 @@ public class MeetingPlannerDatabaseManager {
 		}
 		
 		return user;
+	}
+	
+	public int getTimeStamp(){
+		GregorianCalendar gc = new GregorianCalendar();
+		
+		int hourBefore = gc.get(Calendar.HOUR_OF_DAY);
+		gc.roll(Calendar.HOUR_OF_DAY, -6);	// 6 hours grace period
+		int hourAfter = gc.get(Calendar.HOUR_OF_DAY);
+		if(hourAfter > hourBefore){
+			int dayBefore = gc.get(Calendar.DAY_OF_MONTH);
+			gc.roll(Calendar.DAY_OF_MONTH, -1);
+			int dayAfter = gc.get(Calendar.DAY_OF_MONTH);
+			
+			if(dayAfter > dayBefore){
+				int monthBefore = gc.get(Calendar.MONTH);
+				gc.roll(Calendar.MONTH, -1);
+				int monthAfter = gc.get(Calendar.MONTH);
+				
+				if(monthAfter > monthBefore){
+					gc.roll(Calendar.YEAR, -1);
+				}
+			}
+		}
+		gc.get(Calendar.DATE);
+		Date date = gc.getTime();
+		int ctimestamp = (int) (date.getTime() / 1000L);
+		
+		return ctimestamp;
 	}
 }
