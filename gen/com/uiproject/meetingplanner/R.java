@@ -258,22 +258,23 @@ public final class R {
     }
     public static final class style {
         public static final int AttendeeDialogTheme=0x7f070000;
-        public static final int CMnotselected=0x7f07000a;
-        public static final int CMprogress=0x7f07000b;
-        public static final int CMselected=0x7f070009;
+        public static final int CMnotselected=0x7f07000b;
+        public static final int CMprogress=0x7f07000c;
+        public static final int CMselected=0x7f07000a;
         public static final int backgroundColor=0x7f070001;
-        public static final int dateDisplayText=0x7f070004;
-        public static final int display1=0x7f07000f;
-        public static final int display2=0x7f070010;
-        public static final int display3=0x7f070011;
+        public static final int dateDisplayText=0x7f070005;
+        public static final int display1=0x7f070010;
+        public static final int display2=0x7f070011;
+        public static final int display3=0x7f070012;
+        public static final int header2Text=0x7f070003;
         public static final int headerText=0x7f070002;
-        public static final int lightText=0x7f070007;
-        public static final int lightishText=0x7f070008;
-        public static final int linkColor=0x7f070006;
-        public static final int listText=0x7f07000c;
-        public static final int listView=0x7f07000d;
-        public static final int mainpageText=0x7f070005;
-        public static final int secondaryText=0x7f070003;
-        public static final int trackerbg=0x7f07000e;
+        public static final int lightText=0x7f070008;
+        public static final int lightishText=0x7f070009;
+        public static final int linkColor=0x7f070007;
+        public static final int listText=0x7f07000d;
+        public static final int listView=0x7f07000e;
+        public static final int mainpageText=0x7f070006;
+        public static final int secondaryText=0x7f070004;
+        public static final int trackerbg=0x7f07000f;
     }
 }

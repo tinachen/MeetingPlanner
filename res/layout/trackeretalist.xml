@@ -18,69 +18,81 @@
 		   android:layout_width="250dp" 
 		   android:layout_marginLeft="5dip" 
 		   android:layout_height="75dp"/>
+		   
+		<ImageView
+		   android:id="@+id/trackerlist"
+		   android:src="@drawable/map_1"
+		   android:layout_width="40dip" 
+		   android:layout_height="40dp"
+		   android:layout_marginLeft="15dip" 
+		   android:layout_marginRight="5dip" 
+		   android:clickable="true"
+		   android:onClick="toMap"
+			android:layout_gravity="center_vertical"
+			/>
 		
-		<Button
-			android:text="To Map" 
-			android:onClick="toMap"
-			 android:layout_height="wrap_content"
-			  android:layout_width="wrap_content"
-			android:layout_marginTop="10dip"
-			android:layout_marginLeft="10dip"/>
 	</LinearLayout>
 	    
 	    <LinearLayout
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="vertical">
-	        <!--android:background="#169100"-->
 	    <TextView
+	    	style="@style/headerText"
 	        android:id="@+id/meetingName"
 	        android:text="CSCI588 Project Meeting"
 	        android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginLeft="2dip"
-            android:padding="3dip"/>
+			android:layout_marginLeft="10dip"/>
+		<View
+			android:background="@color/darkgray"
+			android:layout_width="fill_parent"
+			android:layout_height="1dip" />
+            
 	    
 	    
 	    <LinearLayout
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:paddingLeft="3dip"
-	        android:paddingRight="3dip"
-	        android:paddingBottom="3dip"
+			android:background="@color/semitransparent"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+	        android:paddingTop="5dip"
+	        android:paddingLeft="5dip"
+	        android:paddingRight="5dip"
+		    android:paddingBottom="5dip"
+		    android:orientation="horizontal"
 	        android:weightSum="1">
 			<TextView 
 			    android:id="@+id/location"
+	    	style="@style/header2Text"
 			    android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	android:textAppearance="?android:attr/textAppearanceLarge"
 			    android:layout_weight="0.33"
 			    android:gravity="center_horizontal"
 			    android:text="TCC330"/>
 			<TextView 
 			    android:id="@+id/date"
+	    	style="@style/header2Text"
 			    android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	android:textAppearance="?android:attr/textAppearanceLarge"
 			    android:layout_weight="0.34"
 			    android:gravity="center_horizontal"
 			    android:text="11/11/11"/>
 			<TextView
 			    android:id="@+id/time"
+	    	style="@style/header2Text"
 			    android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	android:textAppearance="?android:attr/textAppearanceLarge"
 			    android:layout_weight="0.33"
 			    android:gravity="center_horizontal"
 			    android:text="1:00pm"/>
 		</LinearLayout>
 	    
 		<ListView
-		android:id="@+id/attendeesList"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"/>
+			android:id="@+id/attendeesList"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+	 		android:cacheColorHint="@color/transparent" 
+	 		android:background="@color/transparent"/>
 		</LinearLayout>
 
 </LinearLayout>
