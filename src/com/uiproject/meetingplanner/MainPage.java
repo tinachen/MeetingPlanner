@@ -1,22 +1,10 @@
 package com.uiproject.meetingplanner;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
-import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
-
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.app.Activity;
-
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -26,8 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
@@ -36,7 +24,7 @@ public class MainPage extends Activity {
     /** Called when the activity is first created. */
 
 	TextView name, mtitle, mwhen, mdesc;
-	Button track_button;
+	ImageView trackbutton, gotomeetingbutton;
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	public static final String mainPageTag = "MainPage";
 	private MeetingPlannerDatabaseManager db;
@@ -67,60 +55,17 @@ public class MainPage extends Activity {
     		name.setText(username);
     	}
 
-    	// Hook up with database
-	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
-	    uid = settings.getInt("uid", -1);
-	    /*
-	    //test get next meeting works
-	    db.open();
-	    MeetingInstance m = db.getNextUpcomingMeeting(uid);
-	    Log.d(mainPageTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
-	    //ArrayList<UserInstance> userarray = db.getAllUsers();
-	    //Log.d(mainPageTag, "getallusers: " + "size = " + userarray.size());
-	    //ArrayList<UserInstance> userarray = db.getMeetingUsersArray(m.getMeetingID());
-	    //Log.d(mainPageTag, "getallusers: " + "size = " + userarray.size());
-	    db.close();
-	    
+
 	    mtitle = (TextView) findViewById(R.id.mtitle);
 	    mwhen = (TextView) findViewById(R.id.mwhen);
 	    mdesc = (TextView) findViewById(R.id.mdesc);
-	    track_button = (Button) findViewById(R.id.mtrackbutton);
-	    int mid = m.getMeetingID();
+	    trackbutton = (ImageView) findViewById(R.id.displaytrackbutton);
+	    gotomeetingbutton = (ImageView) findViewById(R.id.gotomeetingbutton);
+    	
+    	// Hook up with database
+	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+	    uid = settings.getInt("uid", -1);
 	    
-	    Log.d(mainPageTag, "track mid = " + mid);
-	    
-	    if(mid < 0){
-	    	mtitle.setText("You have no upcoming meetings");
-	    	mwhen.setVisibility(View.GONE);
-	    	mdesc.setVisibility(View.GONE);
-	    	track_button.setVisibility(View.GONE);
-	    	
-	    	
-	    	// Set sharedpreferences
-	    	editor.putInt("currentTrackingMid", -1);
-	    }else{
-	    	mtitle.setText(m.getMeetingTitle());
-	    	String when = m.getMeetingDate() + ", " + m.getMeetingStartTime() + "-" + m.getMeetingEndTime();
-	    	mwhen.setText(when);
-	    	mdesc.setText(m.getMeetingDescription());
-	    	track_button.setTag(mid);
-	        int currenth = Calendar.HOUR_OF_DAY;
-	        int currentm = Calendar.MINUTE;
-	    	String start = m.getMeetingStartTime();
-			int starth = Integer.parseInt(start.substring(0, start.indexOf(':')));
-			int startm = Integer.parseInt(start.substring(start.indexOf(':') + 1));
-	    	int tracktime = m.getMeetingTrackTime();
-	    	int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
-	    	if (minutes_before > tracktime){
-		    	track_button.setVisibility(View.GONE);
-	    	}
-	    	
-	    	// Set sharedpreferences
-	    	editor.putInt("currentTrackingMid", mid);
-	    }
-	    
-	    editor.commit(); 
-	    */
 	    guh = new GeoUpdateHandler(this);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, guh);
@@ -132,6 +77,15 @@ public class MainPage extends Activity {
     public void gotoMyMeetings(View button){
         Intent intent = new Intent(MainPage.this, AllMeetings.class);
         MainPage.this.startActivity(intent);
+    	
+    }
+    
+    public void gotomeeting(View button){
+		int mid = (Integer) button.getTag();
+		Intent intent = new Intent(MainPage.this, DisplayMeeting.class);
+		intent.putExtra("mid", mid);
+		intent.putExtra("status", MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING);
+		startActivity(intent);
     	
     }
  //**************************************************************   
@@ -215,20 +169,16 @@ public class MainPage extends Activity {
 	    //Log.d(mainPageTag, "getallusers: " + "size = " + userarray.size());
 	    db.close();
 	    
-	    mtitle = (TextView) findViewById(R.id.mtitle);
-	    mwhen = (TextView) findViewById(R.id.mwhen);
-	    mdesc = (TextView) findViewById(R.id.mdesc);
-	    track_button = (Button) findViewById(R.id.mtrackbutton);
 	    int mid = m.getMeetingID();
 	    
 	    Log.d(mainPageTag, "track mid = " + mid);
 	    
 	    if(mid < 0){
-	    	mtitle.setText("You have no upcoming meetings");
+	    	mtitle.setText("You have no upcoming meetings"); 
 	    	mwhen.setVisibility(View.GONE);
 	    	mdesc.setVisibility(View.GONE);
-	    	track_button.setVisibility(View.GONE);
-	    	
+	    	trackbutton.setVisibility(View.GONE);
+	    	gotomeetingbutton.setVisibility(View.GONE);    	
 	    	
 	    	// Set sharedpreferences
 	    	editor.putInt("currentTrackingMid", -1);
@@ -237,7 +187,7 @@ public class MainPage extends Activity {
 	    	String when = m.getMeetingDate() + ", " + m.getMeetingStartTime() + "-" + m.getMeetingEndTime();
 	    	mwhen.setText(when);
 	    	mdesc.setText(m.getMeetingDescription());
-	    	track_button.setTag(mid);
+	    	trackbutton.setTag(mid);
 	        int currenth = Calendar.HOUR_OF_DAY;
 	        int currentm = Calendar.MINUTE;
 	    	String start = m.getMeetingStartTime();
@@ -246,8 +196,16 @@ public class MainPage extends Activity {
 	    	int tracktime = m.getMeetingTrackTime();
 	    	int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
 	    	if (minutes_before > tracktime){
-		    	track_button.setVisibility(View.GONE);
+	    		trackbutton.setVisibility(View.GONE);
+	    	}else{
+	    		trackbutton.setVisibility(View.VISIBLE);
 	    	}
+
+	    	gotomeetingbutton.setTag(mid);
+	    	gotomeetingbutton.setVisibility(View.VISIBLE);
+
+	    	mwhen.setVisibility(View.VISIBLE);
+	    	mdesc.setVisibility(View.VISIBLE);
 	    	
 	    	// Set sharedpreferences
 	    	editor.putInt("currentTrackingMid", mid);
