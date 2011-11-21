@@ -19,19 +19,10 @@
 	    
 		<TextView
 		    android:id="@+id/username"
-	    	android:layout_width="wrap_content"
+	    	android:layout_width="fill_parent"
 	    	android:layout_height="wrap_content" 
 	    	android:textColor="#ffffffff"
-	    	android:gravity="center"
-	    	android:paddingLeft="5dip"/>
-		
-		<CheckBox 
-		    android:id="@+id/selectuser"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:gravity="center"
-		    android:layout_alignParentRight="true"
-		    android:paddingLeft="20dip"/>
+	    	android:gravity="center"/>
 		
 	</LinearLayout>
 </FrameLayout>

@@ -5,7 +5,7 @@
     
 <!-- the main container -->
 <LinearLayout
-	style="@style/backgroundColor"
+		android:background="@drawable/shape"
   xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
@@ -152,8 +152,9 @@
 	     </LinearLayout>
 	     
 		 <Button android:id="@+id/selectLocation"
+		android:background="@drawable/plainbutton"
+				    android:layout_height="50dip"
 		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
 		        android:text="Change location"
 				android:onClick="selectLocation"
 		android:layout_marginTop="3dip" />
@@ -179,8 +180,9 @@
 		</LinearLayout>
 		
 	     <Button android:id="@+id/addPeople"
+		android:background="@drawable/plainbutton"
+				    android:layout_height="50dip"
 			    android:layout_width="fill_parent"
-			    android:layout_height="wrap_content"
 			    android:onClick="invite"
 			    android:text="Change attendees"
 				android:layout_marginTop="10dip"/>
@@ -194,15 +196,18 @@
 			    >
 		
 		     <Button android:id="@+id/save"
+		android:background="@drawable/button_shape"
 				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
+				    android:layout_height="50dip"
 				    android:onClick="saveMeeting"
 				    android:layout_weight=".5"
 				    android:text="Save"/>
 					
 		     <Button android:id="@+id/delete"
+		android:background="@drawable/deletebutton"
 				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
+				    android:layout_height="50dip"
+				    android:layout_marginLeft="5dip"
 				    android:onClick="deleteMeeting"
 				    android:layout_weight=".5"
 				    android:text="Delete"/>
