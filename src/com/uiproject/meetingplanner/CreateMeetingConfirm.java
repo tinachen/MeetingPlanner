@@ -182,6 +182,16 @@ public class CreateMeetingConfirm extends Activity {
             return "0" + String.valueOf(c);
     }
     
+    
+    public void setalarm(View button){
+    	//TODO set alarm code here
+    	
+    
+    }
+    
+    public void takepic(View button){
+    	//TODO taking picture code here
+    }
 
 
 	 // menu 

@@ -146,7 +146,7 @@ public class UserInstance {
 	}
 	
 	public void setUserLocationLon(int userLocationLon){
-		this.userLocationLon = userLocationLat;
+		this.userLocationLon = userLocationLon;
 	}
 	
 	public void setUserEta(String userEta){
