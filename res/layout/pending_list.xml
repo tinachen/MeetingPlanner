@@ -5,25 +5,28 @@
     android:orientation="vertical" >
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true" 
-        android:layout_weight="1">
+        android:layout_weight="1" 
+        android:cacheColorHint="@color/transparent" 
+        android:background="@color/transparent">
     </ListView>
     <LinearLayout
         android:layout_weight="0"
-        android:id="@+id/linearLayout1"
+        android:id="@+id/confirmBarPending"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:gravity="center">
+        
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/pendingAcceptBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Accept" 
@@ -31,7 +34,7 @@
             />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/pendingDeclineBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Decline" 

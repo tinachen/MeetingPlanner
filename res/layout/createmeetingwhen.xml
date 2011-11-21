@@ -180,12 +180,16 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
        		android:weightSum="1"
-    		android:layout_alignParentBottom="true" >
+    		android:layout_alignParentBottom="true" 
+    		android:paddingLeft="5dip"
+    		android:paddingRight="5dip"
+    		android:paddingBottom="5dip">
 	        
         <Button
             android:id="@+id/back_button"
+		android:background="@drawable/plainbutton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="40dip"
             android:text="Back"
             android:layout_weight="0.33"
             android:onClick="back"
@@ -193,16 +197,20 @@
 
         <Button
             android:id="@+id/cancel_button"
+		android:background="@drawable/plainbutton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="40dip"
+				    android:layout_marginLeft="5dip"
             android:text="Cancel"
             android:layout_weight="0.33"
             android:onClick="cancel" />
 
         <Button
             android:id="@+id/next_button"
+        	android:background="@drawable/button_shape"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="40dip"
+				    android:layout_marginLeft="5dip"
             android:text="Next"
             android:onClick="next"
             android:layout_weight="0.33" />

@@ -27,17 +27,108 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-	android:paddingTop="10dip"
+    android:layout_marginTop="2dip"
 	android:paddingLeft="10dip"
 	android:paddingRight="10dip">
 	
+	
+	<RelativeLayout 	
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+	
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true">
+		
+	<ImageView
+	   android:id="@+id/displaytrackbutton"
+	   android:src="@drawable/map_1"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	   android:clickable="true"
+	   android:onClick="track"
+	   />
+	   
+	<ImageView
+	   android:id="@+id/displaycallbutton"
+	   android:src="@drawable/call"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	   android:clickable="true"
+	   android:onClick="call"
+	   />
+		
+	<ImageView
+	   android:id="@+id/displayeditbutton"
+	   android:src="@drawable/edit_meeting"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	   android:clickable="true"
+	   android:onClick="edit"/>
+	   
+	<ImageView
+	   android:id="@+id/displayalarmbutton"
+	   android:src="@drawable/icon"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	   android:clickable="true"
+	   android:onClick="setalarm"
+	   />
+	   
+	
+     <ImageView
+      android:id="@+id/displaycamerabutton"
+	  android:src="@drawable/camera"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:text="take picture loc"
+      android:onClick="takepic"
+      />
+	<ImageView
+	   android:id="@+id/displayacceptbutton"
+	   android:src="@drawable/acceptbutton"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	   android:clickable="true"
+	   android:onClick="accept"/>
+	   
+	<ImageView
+	   android:id="@+id/displaydeclinebutton"
+	   android:src="@drawable/declinebutton"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	   android:clickable="true"
+	   android:onClick="decline"/>
+	</LinearLayout>
+	
+	</RelativeLayout>
 <TextView
 	style="@style/display3"
     android:id="@+id/desc"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:text="Description"
-	android:layout_marginTop="10dip" />
+	android:layout_marginTop="20dip" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="10dip" >
+		<TextView
+	style="@style/display1"
+			android:layout_width="125dip"
+			android:layout_height="wrap_content"
+			android:text="Status: " />
+		
+		<TextView
+	style="@style/display2"
+		    android:id="@+id/status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="status" />
+	</LinearLayout>
 	
 	<LinearLayout
 		android:orientation="horizontal"
@@ -133,6 +224,5 @@
 			android:layout_height="wrap_content"
 			android:text="attendees go here" />
 	</LinearLayout>
-	
 </LinearLayout>
 </LinearLayout>

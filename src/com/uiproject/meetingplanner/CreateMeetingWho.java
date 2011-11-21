@@ -36,13 +36,12 @@ public class CreateMeetingWho extends Search {
     		}else{
 	    		u = uids.substring(0, commaIndex);
 	    		checkedUids.add(Integer.parseInt(u));
-	    		uids = uids.substring(commaIndex + 2);
+	    		uids = uids.substring(commaIndex + 1);
     		}
 		}
     	for (int i = 0; i < checkedUids.size(); i++)
     		Log.d("CMW uids", checkedUids.get(i).toString());
-    	//recheck();	
-    	
+    	recheck(checkedUids);	
     }
 
     public void back(View button){

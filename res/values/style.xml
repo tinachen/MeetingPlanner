@@ -11,9 +11,17 @@
 		<item name="android:textColor">#23233C</item>
 		<item name="android:textSize">20sp</item>
 	</style>
+	<style name="header2Text">
+		<item name="android:textColor">#46527B</item>
+		<item name="android:textSize">17sp</item>
+	</style>
 	<style name="secondaryText">
 		<item name="android:textColor">#414151</item>
 		<item name="android:textSize">15sp</item>
+	</style>
+	<style name="dateDisplayText">
+		<item name="android:textColor">#414151</item>
+		<item name="android:textSize">14sp</item>
 	</style>
 	<style name="mainpageText">
 		<item name="android:textColor">#000000</item>
@@ -24,6 +32,11 @@
 	</style>
 	<style name="lightText">
 		<item name="android:textColor">#757575</item>
+		<item name="android:textSize">15sp</item>
+	</style>
+	<style name="lightishText">
+		<item name="android:textColor">#6C6C6C</item>
+		<item name="android:textSize">13sp</item>
 	</style>
 	<style name="CMselected">
 		<item name="android:textColor">#454545</item>
@@ -60,5 +73,4 @@
 		<item name="android:textColor">#454545</item>
 		<item name="android:textSize">16sp</item>
 	</style>
-	
 </resources>

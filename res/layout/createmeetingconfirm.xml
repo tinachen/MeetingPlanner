@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="wrap_content">
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:background="@drawable/shape"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -10,6 +8,14 @@
 	android:paddingLeft="20dip"
 	android:paddingRight="20dip">
 
+<ScrollView
+    android:layout_width="fill_parent" android:layout_height="wrap_content">
+    
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+	android:paddingBottom="20dip">
 <TextView
 	style="@style/headerText"
 	android:textSize="20dip"
@@ -26,7 +32,8 @@
 <LinearLayout
 	android:background="@color/semitransparent"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
     android:orientation="vertical"
 	android:paddingTop="10dip"
 	android:paddingLeft="10dip"
@@ -144,23 +151,12 @@
 			android:layout_height="wrap_content"
 			android:text="attendees go here" />
 	</LinearLayout>
-    
-            <Button
-            android:id="@+id/alarm_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Set alarm"
-            android:onClick="setalarm"
-             />
-    
-            <Button
-            android:id="@+id/pic_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="take picture  loc"
-            android:onClick="takepic"
-             />
-    
+	
+	</LinearLayout>
+	</LinearLayout>
+	
+</ScrollView>
+
       <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -170,12 +166,17 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
        		android:weightSum="1"
-    		android:layout_alignParentBottom="true" >
+				    android:layout_marginTop="25dip"
+    		android:layout_alignParentBottom="true"
+    		android:paddingLeft="5dip"
+    		android:paddingRight="5dip"
+    		android:paddingBottom="5dip" >
 	        
         <Button
             android:id="@+id/back_button"
+		android:background="@drawable/plainbutton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="40dip"
             android:text="Back"
             android:layout_weight="0.33"
             android:onClick="back"
@@ -183,23 +184,24 @@
 
         <Button
             android:id="@+id/cancel_button"
+		android:background="@drawable/plainbutton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+				    android:layout_marginLeft="5dip"
+            android:layout_height="40dip"
             android:text="Cancel"
             android:layout_weight="0.33"
             android:onClick="cancel" />
 
         <Button
+        	android:background="@drawable/button_shape"
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+				    android:layout_marginLeft="5dip"
+            android:layout_height="40dip"
             android:text="Confirm"
             android:onClick="confirm"
             android:layout_weight="0.33" />
 
 		</LinearLayout>
     </RelativeLayout>
-
-	</LinearLayout>
 </LinearLayout>
-</ScrollView>

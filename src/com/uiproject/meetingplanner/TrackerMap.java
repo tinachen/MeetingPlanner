@@ -40,6 +40,7 @@ public class TrackerMap extends MapActivity {
 	protected View persontracker;
 	protected TextView name_text, eta_text;
 	private MeetingPlannerDatabaseManager db;
+	boolean zoom = false;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,17 +61,16 @@ public class TrackerMap extends MapActivity {
         List<Overlay> mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
         itemizedoverlay = new MyItemizedOverlay(drawable, this);
-
-/*
+        mapOverlays.add(itemizedoverlay);
+        /*
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
-        MeetingInstance m = new MeetingInstance();
-        m.setMeetingLat(34021132);
-        m.setMeetingLon(-118292820);
-        //db.getMeeting(mid);
+	    db.open();
+        MeetingInstance m = db.getMeeting(mid);
+        db.close();
         GeoPoint meetingloc = new GeoPoint(m.getMeetingLat(), m.getMeetingLon());
         itemizedoverlay.setMeetingloc(meetingloc);
-  */      
-        
+        */
+        /*
         Map<Integer,UserInstance> userLocations = new HashMap<Integer, UserInstance>();
         UserInstance u = new UserInstance(1);
         u.setUserEta("30");
@@ -87,13 +87,8 @@ public class TrackerMap extends MapActivity {
         u2.setUserLastName("Deng");
         userLocations.put(2, u2);
         updateMap(userLocations);
+        */
         
-        // find the area to auto zoom to
-        mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
-        
-        // set the center
-        mc.setCenter(itemizedoverlay.getCenter());
-        /*
         Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
         intent.putExtra("mid", mid);
         startService(intent);
@@ -101,9 +96,7 @@ public class TrackerMap extends MapActivity {
         TestReceiver receiver =new TestReceiver();
 		IntentFilter filter = new IntentFilter();
 		filter.addAction("com.uiproject.meetingplanner");
-		registerReceiver(receiver, filter);
-		*/
-        
+		registerReceiver(receiver, filter);       
     }
     
     @Override
@@ -116,6 +109,7 @@ public class TrackerMap extends MapActivity {
     	Log.d(TAG, "updateMap size = " + attendees.size());
     	
     	itemizedoverlay.clear();
+    	//itemizedoverlay.addMeetingLoc();
     	MyOverlayItem myoi;
     	OverlayItem oi;
     	Set<Integer> keys = attendees.keySet();
@@ -130,10 +124,13 @@ public class TrackerMap extends MapActivity {
     	}
     	
     	itemizedoverlay.doPopulate();
-        mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
-        
-        // set the center
-        mc.setCenter(itemizedoverlay.getCenter());
+    	if (!zoom){
+	        mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
+	        
+	        // set the center
+	        mc.setCenter(itemizedoverlay.getCenter());
+	        zoom = true;
+    	}
     	
     }
     
@@ -244,8 +241,13 @@ public class TrackerMap extends MapActivity {
     	  return true;
     	}
     	
+    	public void addMeetingLoc(){
+    		addOverlay(meetingloc);
+    	}
+    	
     	public void addOverlay(MyOverlayItem overlay) {
     	    mOverlays.add(overlay);
+
     	    //calculate the new center point
     	    GeoPoint p = overlay.getOverlayItem().getPoint();
     	    int size = mOverlays.size();

@@ -79,11 +79,11 @@ public class AllMeetings extends TabActivity{
     private void setupTab(final View view, final String tag) {
     	Intent intent;
     	if (tag.compareTo("Accepted") == 0){
-    		intent = new Intent().setClass(this, MeetingListAccepted.class);
+    		intent = new Intent().setClass(this, MeetingListAcceptedTest.class);
     	}else if(tag.compareTo("Declined") == 0){
-    		intent = new Intent().setClass(this, CustomListActivity.class);
+    		intent = new Intent().setClass(this, MeetingListDeclinedTest.class);
     	}else{
-    		intent = new Intent().setClass(this, MeetingListPending.class);
+    		intent = new Intent().setClass(this, MeetingListPendingTest.class);
     	}
     		
     	

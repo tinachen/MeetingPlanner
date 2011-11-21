@@ -66,13 +66,11 @@ android:id="@+id/address_field"
 android:hint="type address here...."
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
-android:layout_weight=".3" />
-<Button
-android:text="search"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:layout_weight=".7"
-android:onClick="findAddress" />
+android:singleLine="true"
+android:layout_weight="1" />
+
+    
+    
 </LinearLayout>
 
 <com.google.android.maps.MapView
@@ -90,12 +88,16 @@ android:onClick="findAddress" />
         android:orientation="horizontal"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
-        android:weightSum="1" >
+        android:weightSum="1" 
+    		android:paddingLeft="5dip"
+    		android:paddingRight="5dip"
+    		android:paddingBottom="5dip">
 
         <Button
             android:id="@+id/back_button"
+		android:background="@drawable/plainbutton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="40dip"
             android:text="Back"
             android:layout_weight="0.33"
             android:onClick="back"
@@ -103,16 +105,20 @@ android:layout_height="wrap_content"
 
         <Button
             android:id="@+id/cancel_button"
+		android:background="@drawable/plainbutton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+				    android:layout_marginLeft="5dip"
+            android:layout_height="40dip"
             android:text="Cancel"
             android:layout_weight="0.33"
             android:onClick="cancel" />
 
         <Button
             android:id="@+id/next_button"
+        	android:background="@drawable/button_shape"
+				    android:layout_marginLeft="5dip"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="40dip"
             android:text="Next"
             android:onClick="next"
             android:layout_weight="0.33" />

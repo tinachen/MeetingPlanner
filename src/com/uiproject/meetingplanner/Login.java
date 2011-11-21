@@ -5,16 +5,21 @@ import java.text.ParseException;
 import org.json.JSONException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
@@ -57,6 +62,7 @@ public class Login extends Activity {
         remember_me = (CheckBox) findViewById(R.id.rememberme);
 
         login_button = (Button) findViewById(R.id.loginButton);
+        
         //login_button.getBackground().setColorFilter(Color.parseColor(this.getString(R.color.buttonblue)), PorterDuff.Mode.MULTIPLY);
         
         //check to see if user is already logged in or not

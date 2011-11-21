@@ -6,7 +6,7 @@
         android:angle="90"
         android:centerX=".1"
         android:centerY=".1"
-        android:startColor="#F6F6F6"
+		android:startColor="#F6F6F6"
         android:centerColor="#D9EAFB"
         android:endColor="#92CAFF"
         android:type="linear" />
