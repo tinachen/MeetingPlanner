@@ -26,28 +26,32 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 public class TrackerMap extends MapActivity {
 
 	public static final String TAG = "TrackerMap";
 	
-	private MyItemizedOverlay itemizedoverlay;
-	private int mid;
-	private MapController mc;
-	private View persontracker;
-	private TextView name_text, eta_text;
+	protected MyItemizedOverlay itemizedoverlay;
+	protected MapView mapView;
+	protected int mid;
+	protected MapController mc;
+	protected View persontracker;
+	protected TextView name_text, eta_text;
+	private MeetingPlannerDatabaseManager db;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trackermap);
-        
+
         mid = getIntent().getIntExtra("mid", -1);
-        
         Log.d(TAG, "onCreate: mid = " + mid);
         
-        MapView mapView = (MapView) findViewById(R.id.mapview);
+        mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
+        mc = mapView.getController();
         persontracker = findViewById(R.id.persontracker);
     	persontracker.setVisibility(View.GONE);
     	name_text = (TextView) findViewById(R.id.name);
@@ -57,7 +61,16 @@ public class TrackerMap extends MapActivity {
         Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
         itemizedoverlay = new MyItemizedOverlay(drawable, this);
 
-
+/*
+	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+        MeetingInstance m = new MeetingInstance();
+        m.setMeetingLat(34021132);
+        m.setMeetingLon(-118292820);
+        //db.getMeeting(mid);
+        GeoPoint meetingloc = new GeoPoint(m.getMeetingLat(), m.getMeetingLon());
+        itemizedoverlay.setMeetingloc(meetingloc);
+  */      
+        
         Map<Integer,UserInstance> userLocations = new HashMap<Integer, UserInstance>();
         UserInstance u = new UserInstance(1);
         u.setUserEta("30");
@@ -66,17 +79,16 @@ public class TrackerMap extends MapActivity {
         u.setUserFirstName("Tina");
         u.setUserLastName("Chen");
         userLocations.put(1, u);
-        u = new UserInstance(2);
-        u.setUserEta("60");
-        u.setUserLocationLat(34150089);
-        u.setUserLocationLon(-118269152);
-        u.setUserFirstName("Elizabeth");
-        u.setUserLastName("Deng");
-        userLocations.put(2, u);
+        UserInstance u2 = new UserInstance(2);
+        u2.setUserEta("60");
+        u2.setUserLocationLat(34150089);
+        u2.setUserLocationLon(-118269152);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
         updateMap(userLocations);
         
         // find the area to auto zoom to
-        mc = mapView.getController();
         mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
         
         // set the center
@@ -118,7 +130,6 @@ public class TrackerMap extends MapActivity {
     	}
     	
     	itemizedoverlay.doPopulate();
-    	
         mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
         
         // set the center
@@ -189,6 +200,7 @@ public class TrackerMap extends MapActivity {
     	private ArrayList<MyOverlayItem> mOverlays = new ArrayList<MyOverlayItem>();
     	private GeoPoint center;
     	private Context mContext;
+    	private MyOverlayItem meetingloc;
         
     	public MyItemizedOverlay(Drawable defaultMarker) {
     		super(boundCenterBottom(defaultMarker));
@@ -200,6 +212,13 @@ public class TrackerMap extends MapActivity {
     	  center = new GeoPoint(0, 0);
     	}
 
+    	public void setMeetingloc(GeoPoint p){
+    		OverlayItem oi = new OverlayItem(p, "", "");
+    		MyOverlayItem myoi = new MyOverlayItem(oi, "Meeting Location", "");
+    		meetingloc = myoi;
+    		addOverlay(myoi);
+    	}
+    	
     	@Override
     	protected OverlayItem createItem(int i) {
     	  return mOverlays.get(i).getOverlayItem();
@@ -221,35 +240,6 @@ public class TrackerMap extends MapActivity {
     	  name_text.setText(item.getName());
     	  eta_text.setText(item.getEta());
       	  persontracker.setVisibility(View.VISIBLE);
-    	  /*
-    	  GeoPoint geo = item.getOverlayItem().getPoint();
-    	  
-    	  Projection projection = mapview.getProjection();
-    	  Point p = projection.toPixels(geo, null);
-    	  
-    	  PopupWindow popup = new PopupWindow(mContext);
-    	  
-    	  
-    	  popup.showAtLocation(mapview, Gravity.BOTTOM, p.x, p.y);
-    	  
-    	  
-    	  //create new dialog and set the styles
-    	  Dialog dialog = new Dialog(mContext, R.style.AttendeeDialogTheme);
-    	  dialog.setContentView(R.layout.attendeedialog);
-    	  
-    	  
-    	  //set info accordingly
-    	  ImageView pic = (ImageView) dialog.findViewById(R.id.pic);
-    	  pic.setImageResource(R.drawable.androidmarker);
-    	  TextView name = (TextView) dialog.findViewById(R.id.name);
-    	  //name.setText(item.getName());
-    	  TextView eta = (TextView) dialog.findViewById(R.id.eta);
-    	  //eta.setText((item.getEta() / 60) + "min, " + (item.getEta() % 60) + " sec");
-    	  
-    	  //show the dialog with person's info
-    	  dialog.show();
-    	  
-    	  */
 
     	  return true;
     	}
@@ -269,6 +259,7 @@ public class TrackerMap extends MapActivity {
     	    
     	    //set the new center point
     	    center = c;
+        	Log.d(TAG, "add to itemized overlay: " + overlay.toString());
     	    
     	}
     	
@@ -304,6 +295,10 @@ public class TrackerMap extends MapActivity {
     	
     	public OverlayItem getOverlayItem(){
     		return oi;
+    	}
+    	
+    	public String toString(){
+    		return name + "; eta: " + eta + "; current pos: " + oi.getPoint().toString();
     	}
     }
 

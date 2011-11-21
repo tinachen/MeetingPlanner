@@ -30,8 +30,7 @@
 	android:layout_width="fill_parent">
 		
 	<ImageView
-	   android:id="@+id/signup"
-	   android:src="@drawable/signup" 
+	   android:src="@drawable/camera" 
 	   android:layout_width="100dip" 
 	   android:layout_height="100dp"/>
 		
@@ -39,7 +38,8 @@
 		<LinearLayout 
 		android:orientation="vertical"
 		android:layout_height="wrap_content"
-		android:layout_width="fill_parent"		>
+		android:layout_width="fill_parent"
+		android:layout_marginLeft="5dip">
 		<EditText
 	    	android:id="@+id/fname"
 			android:layout_width="fill_parent"
