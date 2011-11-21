@@ -1,8 +1,17 @@
 package com.uiproject.meetingplanner;
 
+
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ArrayList;
+
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,8 +26,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
-import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 public class MainPage extends Activity {
     /** Called when the activity is first created. */
@@ -163,15 +170,11 @@ public class MainPage extends Activity {
     	db.open();
 	    MeetingInstance m = db.getNextUpcomingMeeting(uid);
 	    Log.d(mainPageTag, "getNextUpcomingMeeting: " + "meetingID = " + m.getMeetingID());
-	    //ArrayList<UserInstance> userarray = db.getAllUsers();
-	    //Log.d(mainPageTag, "getallusers: " + "size = " + userarray.size());
-	    //ArrayList<UserInstance> userarray = db.getMeetingUsersArray(m.getMeetingID());
-	    //Log.d(mainPageTag, "getallusers: " + "size = " + userarray.size());
 	    db.close();
 	    
 	    int mid = m.getMeetingID();
 	    
-	    Log.d(mainPageTag, "track mid = " + mid);
+	    //Log.d(mainPageTag, "track mid = " + mid);
 	    
 	    if(mid < 0){
 	    	mtitle.setText("You have no upcoming meetings"); 
@@ -188,17 +191,22 @@ public class MainPage extends Activity {
 	    	mwhen.setText(when);
 	    	mdesc.setText(m.getMeetingDescription());
 	    	trackbutton.setTag(mid);
-	        int currenth = Calendar.HOUR_OF_DAY;
-	        int currentm = Calendar.MINUTE;
+	    	Calendar cal = new GregorianCalendar();
+	        int currenth = cal.get(Calendar.HOUR_OF_DAY);
+	        int currentm = cal.get(Calendar.MINUTE);
+
 	    	String start = m.getMeetingStartTime();
 			int starth = Integer.parseInt(start.substring(0, start.indexOf(':')));
 			int startm = Integer.parseInt(start.substring(start.indexOf(':') + 1));
 	    	int tracktime = m.getMeetingTrackTime();
 	    	int minutes_before = ((currenth - starth) * 60) + (currentm - startm);
+	    	Log.d(mainPageTag, "minutes before = " + minutes_before + ", tracktime = " + tracktime 
+	    			+ ", currenth = " + currenth + ", starth = " + starth + ", currentm = " + currentm + ", startm = " + startm);
 	    	if (minutes_before > tracktime){
 	    		trackbutton.setVisibility(View.GONE);
 	    	}else{
 	    		trackbutton.setVisibility(View.VISIBLE);
+
 	    	}
 
 	    	gotomeetingbutton.setTag(mid);
