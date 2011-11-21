@@ -33,7 +33,7 @@ public class Search extends Activity implements OnItemClickListener {
     protected ArrayList<UserInstance> fullSearchList;
     protected ArrayList<UserInstance> currSearchList;
     protected ArrayList<UserInstance> checkedUsers;
-    protected UserAdapter uAdapter;
+    protected SearchAdapter uAdapter;
 
     /** Called when the activity is first created. */
 	@Override
@@ -107,7 +107,7 @@ public class Search extends Activity implements OnItemClickListener {
 	    
 	    // Sets the current contact list 
         mContactList = (GridView) findViewById(R.id.gridview);
-        uAdapter = new UserAdapter(this, fullSearchList, checkedUsers);
+        uAdapter = new SearchAdapter(this, fullSearchList, checkedUsers);
         mContactList.setAdapter(uAdapter);
         mContactList.setFocusable(true);
         mContactList.setClickable(true);
@@ -145,7 +145,7 @@ public class Search extends Activity implements OnItemClickListener {
 		            Object item = adapter.getItem(i);
 		            currentSearchList.add(item.toString());
         		}
-                uAdapter = new UserAdapter(Search.this, currSearchList, checkedUsers);
+                uAdapter = new SearchAdapter(Search.this, currSearchList, checkedUsers);
                 mContactList.setAdapter(uAdapter);
         	}
             
@@ -155,7 +155,7 @@ public class Search extends Activity implements OnItemClickListener {
 	        	currentSearchList.clear();
 	        	currSearchList.clear();
 	        	
-                uAdapter = new UserAdapter(Search.this, currSearchList, checkedUsers);
+                uAdapter = new SearchAdapter(Search.this, currSearchList, checkedUsers);
                 mContactList.setAdapter(uAdapter);
 	        }
         });
@@ -172,7 +172,7 @@ public class Search extends Activity implements OnItemClickListener {
 		}
 		//Log.d("TEST",currSearchList.toString());
 		//Log.d("checkedU", checkedUsers.toString());
-		uAdapter = new UserAdapter(Search.this, currSearchList, checkedUsers);
+		uAdapter = new SearchAdapter(Search.this, currSearchList, checkedUsers);
         mContactList.setAdapter(uAdapter);
 		for (int i = 0; i < checkedUsers.size(); i++) {
 			Log.d("checkedUsers", checkedUsers.get(i).getUserFirstName() + " " + checkedUsers.get(i).getUserLastName());
@@ -186,7 +186,7 @@ public class Search extends Activity implements OnItemClickListener {
 				checkedUsers.add(currSearchList.get(i));
 			}
 		}
-		uAdapter = new UserAdapter(Search.this, currSearchList, checkedUsers);
+		uAdapter = new SearchAdapter(Search.this, currSearchList, checkedUsers);
         mContactList.setAdapter(uAdapter);
 	}
 	

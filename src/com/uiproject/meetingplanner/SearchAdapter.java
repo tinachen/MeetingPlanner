@@ -12,13 +12,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class UserAdapter extends BaseAdapter {
+public class SearchAdapter extends BaseAdapter {
 	private Context context;
     private List<UserInstance> userList;
     private List<UserInstance> checkedUsers;
     private UserInstance entry;
     
-	public UserAdapter(Context context, List<UserInstance> userList, List<UserInstance> checkedList) {
+	public SearchAdapter(Context context, List<UserInstance> userList, List<UserInstance> checkedList) {
 		super();
 		this.context = context;
 		this.userList = userList;
