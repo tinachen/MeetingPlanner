@@ -56,6 +56,7 @@ public class TrackerMap extends MapActivity {
         Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
         intent.putExtra("mid", mid);
         startService(intent);
+        
         TestReceiver receiver =new TestReceiver();
 		IntentFilter filter = new IntentFilter();
 		filter.addAction("com.uiproject.meetingplanner");
