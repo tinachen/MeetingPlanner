@@ -68,6 +68,26 @@ public class CreateMeetingConfirm extends Activity {
     	//mattendeeids = "5,6";
     	mnames = settings.getString("mnames", "");
     	mattendeeids = settings.getString("mattendeeids", "");
+
+    	String n;
+        int commaIndex;
+        String tempids = mattendeeids;
+    	attendessIdsArray = new ArrayList<Integer>();
+    	if (tempids.length() > 0){
+	    	while (tempids.length() > 0){
+	    		commaIndex = tempids.indexOf(',');
+	    		if (commaIndex == -1){
+	    			int meetingId = Integer.parseInt(tempids);
+	    			attendessIdsArray.add(meetingId);
+	    			break;
+	    		}else{
+		    		n = tempids.substring(0, commaIndex);
+		    		int meetingId = Integer.parseInt(n);
+		    		attendessIdsArray.add(meetingId);
+		    		tempids = tempids.substring(commaIndex + 1);
+	    		}
+    		}
+    	}
     	
     	// Set the view
     	title.setText(mtitle);
@@ -182,6 +202,16 @@ public class CreateMeetingConfirm extends Activity {
             return "0" + String.valueOf(c);
     }
     
+    
+    public void setalarm(View button){
+    	//TODO set alarm code here
+    	
+    
+    }
+    
+    public void takepic(View button){
+    	//TODO taking picture code here
+    }
 
 
 	 // menu 

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-<color name="darkgray">#808080FF</color>
+<color name="darkgray">#DD393939</color>
 <color name="white">#FFFFFFFF</color>
 <color name="black">#000033</color>
 <color name="bluegrey">#BFC8E0</color>
 <color name="buttonblue">#CBCEDA</color>
 <color name="bgblue">#92CAFF</color>
+<color name="semitransparent">#55F6F6F6</color>
 </resources>

@@ -234,6 +234,7 @@ public class MeetingPlannerDatabaseManager {
 		ContentValues values = new ContentValues();
 		values.put(dbHelper.ATTENDINGSTATUS_ID, attendingStatusID);
 		
+		Log.d(dbManagerTag,"updateMeetingUserAttendingStatus: meetingID = " + meetingID + ", userID = " + userID + ", attendingStatusID = " + attendingStatusID);
 		try {
 			db.update(dbHelper.MEETINGUSER_TABLE, values, dbHelper.USER_ID + "=" + userID + " AND " + dbHelper.MEETING_ID + "=" + meetingID, null);}
 		catch (Exception e)	{

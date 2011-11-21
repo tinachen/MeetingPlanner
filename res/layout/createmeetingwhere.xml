@@ -66,13 +66,10 @@ android:id="@+id/address_field"
 android:hint="type address here...."
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
-android:layout_weight=".3" />
-<Button
-android:text="search"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:layout_weight=".7"
-android:onClick="findAddress" />
+android:layout_weight="1" />
+
+    
+    
 </LinearLayout>
 
 <com.google.android.maps.MapView

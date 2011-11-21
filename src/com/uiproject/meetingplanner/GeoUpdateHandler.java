@@ -21,6 +21,8 @@ public class GeoUpdateHandler implements LocationListener {
 	public static final String TAG = "GeoUpdateHandler";
 	private int currentLat = 0;	// current latitude
 	private int currentLng = 0;	// current longitude
+	private double currentLatDouble = 0.0;
+	private double currentLngDouble = 0.0;
 	private String currentAddr = "";
 	private Context context;
 	private MapController mapController;
@@ -39,6 +41,8 @@ public class GeoUpdateHandler implements LocationListener {
 	public GeoUpdateHandler(Context c){
 		currentLat = 34115908;	
 		currentLng = -118153204;
+		currentLatDouble = 34.115908;
+		currentLngDouble = -118.153204;
 		context = c;
 		//mapController = mc;
 	}
@@ -46,6 +50,8 @@ public class GeoUpdateHandler implements LocationListener {
 	public void onLocationChanged(Location location) {
 		currentLat = (int) (location.getLatitude() * 1E6);
 		currentLng = (int) (location.getLongitude() * 1E6);
+		currentLatDouble = location.getLatitude();
+		currentLngDouble = location.getLongitude();
 		Log.d(TAG, "onLocationChanged: currentLat = " + currentLat + ", currentLon = " + currentLng);
 		
 		// animate to current loc
@@ -103,5 +109,12 @@ public class GeoUpdateHandler implements LocationListener {
 		return currentAddr;
 	}
 
+	public double getCurrentLatDouble(){
+		return currentLatDouble;
+	}
+	
+	public double getCurrentLngDouble(){
+		return currentLngDouble;
+	}
 	
 }
