@@ -91,6 +91,11 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            		
 	            	}else{
 	            		// Call the initiator's phone number
+	            		db.open();
+	            		UserInstance u = db.getUser(meeting.getMeetingInitiatorID());
+	            		db.close();
+	            		
+	            		String phonenumber = u.getUserPhone();
 	            		
 	            		// MENGFEI'S CODE GOES HERE - TODO
 	            		
