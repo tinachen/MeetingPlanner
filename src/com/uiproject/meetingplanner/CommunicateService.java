@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -75,7 +76,7 @@ public class CommunicateService extends Service {
 		
 	}
 	
-    public void displayResult() throws JSONException
+    public void displayResult() throws JSONException, ParseException
     {
     	Log.d("asd","1");
     	ServerMsg sm1=new ServerMsg(6);
@@ -142,11 +143,16 @@ public class CommunicateService extends Service {
 		}
 */	
     	}
-    
-    public String getResponseResult(ServerMsg sm) {
+    Object origin;
+	Object destination;
+	String mode;
+	String language;
+	boolean sensor;
+		
+    public String getResponseResult(ServerMsg sm) throws ParseException, JSONException {
     	SharedPreferences settings =getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
     	uid = settings.getInt("uid", -1);
-    	GeoUpdateHandler geoHandler = new GeoUpdateHandler(this);
+  //  	GeoUpdateHandler geoHandler = new GeoUpdateHandler(this);
     	String userId=new Integer(uid).toString();
     	Log.d("Userid",userId);
     	
@@ -156,12 +162,32 @@ public class CommunicateService extends Service {
     	Log.d("CurLat",currenctLat);
     	String currenctLng=new Integer(MainPage.guh.getCurrentLng()).toString(); 
     	Log.d("CurLng",currenctLng);
+    	String originLoc=currenctLng +"," +currenctLat;
+    	
+    	String destinationLat;
+    	String destinationLng;
+    	
+    	Map<Integer,MeetingInstance> allMeetingMap=new HashMap<Integer,MeetingInstance>();
+    	allMeetingMap=Communicator.getAllMeetings();
+    	destinationLat = new Integer(allMeetingMap.get(MID).getMeetingLat()).toString();
+    	destinationLng = new Integer(allMeetingMap.get(MID).getMeetingLon()).toString();
+    	String destinationLoc=destinationLng +"," + destinationLat;
+    	
+    	
+    	{  
+    	 this.origin = originLoc;
+    	 this.destination = destinationLoc;
+    	 this.mode="driving";
+    	 this.language="en=US";
+    	 this.sensor=false;}
+    	
+    	String etaValue = getEta(this.origin,this.destination,this.mode);
     	
     	String meetingId=new Integer(MID).toString();
     //	String param2=new Integer(sm.myLat).toString();
     //	String param3=new Integer(sm.myLong).toString();
     //	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/yuwen?i="+param1;
-    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=" + userId + "&meetingId=" + meetingId +"&lat=" + currenctLat +"&lon=" +currenctLng + "&eta=9";
+    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=" + userId + "&meetingId=" + meetingId +"&lat=" + currenctLat +"&lon=" +currenctLng + "&eta=" + etaValue;
     	Log.d("urlstring",urlStr);
     //	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=6&meetingId=2&lat=9&lon=9&eta=9";
     	String responseResult="";
@@ -187,17 +213,7 @@ public class CommunicateService extends Service {
     
     private static final String TAG = "MeetingTracker";
     
-    Object origin;
-	Object destination;
-	String mode;
-	String language;
-	boolean sensor;{
-    
-    this.origin = "Chicago+IL";
-    this.destination = "Madison+WI";
-    this.mode="driving";
-    this.language="en=US";
-    this.sensor=false;}
+   
 	
     protected String getEta(Object origin, Object destination, String mode)
     {
