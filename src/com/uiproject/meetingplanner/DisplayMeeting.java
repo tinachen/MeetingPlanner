@@ -130,6 +130,8 @@ public class DisplayMeeting extends Activity {
     		mnames = mnames + users.get(i).getUserFirstName() + users.get(i).getUserLastName();
     		added = true;    		
     	}
+    	Log.v("DisplayMeeting", "key set size:" + keys.size());
+    	Log.v("DisplayMeeting", mnames);
     	
     	// Set the view
     	title.setText(mtitle);

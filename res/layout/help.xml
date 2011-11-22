@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:background="@drawable/shape"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+	android:paddingTop="20dip"
+	android:paddingLeft="20dip"
+	android:paddingRight="20dip">
+<ScrollView
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	>
+<LinearLayout
+	android:background="@color/semitransparent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+	android:paddingTop="10dip"
+	android:paddingLeft="10dip"
+	android:paddingRight="10dip"
+	android:paddingBottom="10dip">
+	
+			
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+	android:paddingBottom="10dip">
+		
+	<ImageView
+	   android:id="@+id/displaytrackbutton"
+	   android:src="@drawable/map_1"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	    android:layout_gravity="top"
+	   />
+	   
+	   
+	<TextView
+		style="@style/headerText"
+        android:layout_width="75dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="5dip"
+        android:text="Track"
+	    android:layout_gravity="top"/>
+	        
+	        
+	<TextView
+		style="@style/helpText" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="View the tracker map during meeting track period."
+	    android:layout_gravity="top" />
+	   
+	</LinearLayout>
+	   
+	   
+	   
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+	android:paddingBottom="10dip">
+	<ImageView
+	   android:id="@+id/displaycallbutton"
+	   android:src="@drawable/call"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	    android:layout_gravity="top"
+	   />
+	   
+	   
+	<TextView
+		style="@style/headerText"
+        android:layout_width="75dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="5dip"
+        android:text="Call"
+	    android:layout_gravity="top"/>
+	        
+	        
+	<TextView
+		style="@style/helpText" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Call the meeting creator."
+	    android:layout_gravity="top" />
+	   
+	</LinearLayout>
+	   
+	   
+	   
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+	android:paddingBottom="10dip">
+		
+	<ImageView
+	   android:id="@+id/displayeditbutton"
+	   android:src="@drawable/edit_meeting"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	    android:layout_gravity="top"
+	   />
+	   
+	   
+	<TextView
+		style="@style/headerText"
+        android:layout_width="75dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="5dip"
+        android:text="Edit"
+	    android:layout_gravity="top"/>
+	        
+	        
+	<TextView
+		style="@style/helpText" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit a meeting you created."
+	    android:layout_gravity="top" />
+	   
+	</LinearLayout>
+	   
+	   
+	   
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+	android:paddingBottom="10dip">
+	   
+	<ImageView
+	   android:id="@+id/displayalarmbutton"
+	   android:src="@drawable/alarm"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	    android:layout_gravity="top"
+	   />
+	   
+	   
+	<TextView
+		style="@style/headerText"
+        android:layout_width="75dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="5dip"
+        android:text="Alarm"
+	    android:layout_gravity="top"/>
+	        
+	        
+	<TextView
+		style="@style/helpText" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Set an alarm for a meeting you are attending."
+	    android:layout_gravity="top" />
+	   
+	</LinearLayout>
+	   
+	   
+	   
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+	android:paddingBottom="10dip">
+	   
+	
+     <ImageView
+      android:id="@+id/displaycamerabutton"
+	  android:src="@drawable/camera"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	    android:layout_gravity="top"
+	   />
+	   
+	   
+	<TextView
+		style="@style/headerText"
+        android:layout_width="75dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="5dip"
+        android:text="Camera"
+	    android:layout_gravity="top"/>
+	        
+	        
+	<TextView
+		style="@style/helpText" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Take a picture of the your created meeting location"
+	    android:layout_gravity="top" />
+	   
+	</LinearLayout>
+	   
+	   
+	   
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+	android:paddingBottom="10dip">
+	<ImageView
+	   android:id="@+id/displayacceptbutton"
+	   android:src="@drawable/acceptbutton"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	    android:layout_gravity="top"
+	   />
+	   
+	   
+	<TextView
+		style="@style/headerText"
+        android:layout_width="75dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="5dip"
+        android:text="Accept"
+	    android:layout_gravity="top"/>
+	        
+	        
+	<TextView
+		style="@style/helpText" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Accept a meeting invitation"
+	    android:layout_gravity="top" />
+	   
+	</LinearLayout>
+	   
+	   
+	   
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+	android:paddingBottom="10dip">
+	   
+	<ImageView
+	   android:id="@+id/displaydeclinebutton"
+	   android:src="@drawable/declinebutton"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
+	    android:layout_gravity="top"
+	   />
+	   
+	   
+	<TextView
+		style="@style/headerText"
+        android:layout_width="75dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="5dip"
+        android:text="Decline"
+	    android:layout_gravity="top"/>
+	        
+	        
+	<TextView
+		style="@style/helpText" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Decline a meeting invitation."
+	    android:layout_gravity="top" />
+	   
+	</LinearLayout>
+	   
+	   
+	
+	</LinearLayout>
+	</ScrollView>
+</LinearLayout>

@@ -74,7 +74,7 @@
 	   
 	<ImageView
 	   android:id="@+id/displayalarmbutton"
-	   android:src="@drawable/icon"
+	   android:src="@drawable/alarm"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
 	   android:clickable="true"
