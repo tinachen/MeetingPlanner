@@ -79,7 +79,7 @@ android:layout_weight="1" />
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:apiKey="0igWtYee5izJvMPsSwXKbUg5K-Hv3rg-V8yHwuA"
+    android:apiKey="0RgOCS6zp4Eiyli1LdMoNKdPVTXDMaTe3YY81GQ"
     android:layout_weight="1"
 />
 
