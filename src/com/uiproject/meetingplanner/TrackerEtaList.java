@@ -42,11 +42,11 @@ public class TrackerEtaList extends Activity {
         
         db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
         SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-        int mid = settings.getInt("currentTrackingMid", -1);
+        int uid = settings.getInt("uid", -1);
         
         db.open();
-        meetingInfo = db.getMeeting(mid);
-        meetingUsers = db.getMeetingUsersArray(mid);
+        meetingInfo = db.getNextUpcomingMeeting(uid);
+        meetingUsers = db.getMeetingUsersArray(meetingInfo.getMeetingID());
         db.close();
         
         TextView tvMeetingName = (TextView) findViewById(R.id.meetingName);
