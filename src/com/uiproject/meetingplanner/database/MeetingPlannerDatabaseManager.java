@@ -1,5 +1,6 @@
 package com.uiproject.meetingplanner.database;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -86,7 +87,7 @@ public class MeetingPlannerDatabaseManager {
 	
 	public void updateMeeting(int meetingID, String meetingTitle, int meetingLat, int meetingLon,
 		String meetingDescription, String meetingAddress, String meetingDate, String meetingStartTime,
-		String meetingEndTime, int meetingTrackTime){
+		String meetingEndTime, int meetingTrackTime) throws ParseException{
 		
 		ContentValues values = new ContentValues();
 		values.put(dbHelper.MEETING_TITLE, meetingTitle);
@@ -98,6 +99,13 @@ public class MeetingPlannerDatabaseManager {
 		values.put(dbHelper.MEETING_STARTTIME, meetingStartTime);
 		values.put(dbHelper.MEETING_ENDTIME, meetingEndTime);
 		values.put(dbHelper.MEETING_TRACKTIME, meetingTrackTime);
+		
+		String mstartdatetime = meetingDate + " " + meetingStartTime;
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+		Date date = (Date)formatter.parse(mstartdatetime); 
+		int meetingTimeStamp = (int) (date.getTime() / 1000L);
+		
+		values.put(dbHelper.MEETING_STARTTIMESTAMP, meetingTimeStamp);
 		
 		try {
 			db.update(dbHelper.MEETING_TABLE, values, dbHelper.MEETING_ID + "=" + meetingID, null);}
@@ -720,7 +728,8 @@ public class MeetingPlannerDatabaseManager {
 		
 		try{
 			// Get current unix timestamp
-			long currentUnixTime = System.currentTimeMillis() / 1000L;
+			//long currentUnixTime = System.currentTimeMillis() / 1000L;
+			int ctimestamp = getTimeStampForNextMeeting();
 			
 			String query = "SELECT " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID + "," 
 									+ dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_TITLE  + "," 
@@ -737,7 +746,7 @@ public class MeetingPlannerDatabaseManager {
 						+ " FROM " + dbHelper.MEETINGUSER_TABLE 
 						+ " LEFT JOIN " + dbHelper.MEETING_TABLE + " ON " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.MEETING_ID + "=" + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_ID
 						+ " WHERE " + dbHelper.MEETINGUSER_TABLE + "." + dbHelper.USER_ID + "=?"
-						+ " AND " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + ">" + (int)currentUnixTime 
+						+ " AND " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + ">" + ctimestamp 
 						+ " ORDER BY " + dbHelper.MEETING_TABLE + "." + dbHelper.MEETING_STARTTIMESTAMP + " ASC";
 			
 			Log.d(dbManagerTag, "getNextUpcomingMeeting query: " + query);
@@ -1095,7 +1104,7 @@ public class MeetingPlannerDatabaseManager {
 					dbHelper.USER_ID + "=?", new String[]{Integer.toString(userID)}, null, null, null
 			);
 			
-			Log.d(dbManagerTag, "getUser");
+			//Log.d(dbManagerTag, "getUser");
 			
 			// move the cursor's pointer to position zero.
 			cursor.moveToFirst();
@@ -1138,21 +1147,24 @@ public class MeetingPlannerDatabaseManager {
 	
 	public int getTimeStamp(){
 		GregorianCalendar gc = new GregorianCalendar();
-		
+		gc.setTime(new Date());
 		int hourBefore = gc.get(Calendar.HOUR_OF_DAY);
 		gc.roll(Calendar.HOUR_OF_DAY, -6);	// 6 hours grace period
 		int hourAfter = gc.get(Calendar.HOUR_OF_DAY);
 		if(hourAfter > hourBefore){
+			Log.d (dbManagerTag, " hour after > hour before");
 			int dayBefore = gc.get(Calendar.DAY_OF_MONTH);
 			gc.roll(Calendar.DAY_OF_MONTH, -1);
 			int dayAfter = gc.get(Calendar.DAY_OF_MONTH);
 			
 			if(dayAfter > dayBefore){
+				Log.d (dbManagerTag, "  dayAfter > dayBefore");
 				int monthBefore = gc.get(Calendar.MONTH);
 				gc.roll(Calendar.MONTH, -1);
 				int monthAfter = gc.get(Calendar.MONTH);
 				
 				if(monthAfter > monthBefore){
+					Log.d (dbManagerTag, "  monthAfter > monthBefore");
 					gc.roll(Calendar.YEAR, -1);
 				}
 			}
@@ -1161,6 +1173,55 @@ public class MeetingPlannerDatabaseManager {
 		Date date = gc.getTime();
 		int ctimestamp = (int) (date.getTime() / 1000L);
 		
+		return ctimestamp;
+	}
+	
+	public int getTimeStampForNextMeeting(){
+		
+		SimpleDateFormat date_format = new SimpleDateFormat("yyyy/MM/dd");
+		
+		GregorianCalendar gc = new GregorianCalendar();
+		gc.setTime(new Date());
+		
+		Log.d(dbManagerTag, " 0 current time " + date_format.format(gc.getTime()));
+		Log.d(dbManagerTag, " 1 hr = " + gc.get(Calendar.HOUR_OF_DAY) + ", min = " + gc.get(Calendar.MINUTE) + ", day = " + gc.get(Calendar.DAY_OF_MONTH) + ", month = " + gc.get(Calendar.MONTH));
+		int minBefore = gc.get(Calendar.MINUTE);
+		gc.roll(Calendar.MINUTE, -15);
+		Log.d(dbManagerTag, " 2 hr = " + gc.get(Calendar.HOUR_OF_DAY) + ", min = " + gc.get(Calendar.MINUTE) + ", day = " + gc.get(Calendar.DAY_OF_MONTH) + ", month = " + gc.get(Calendar.MONTH));
+
+		int minAfter = gc.get(Calendar.MINUTE);
+		if(minAfter > minBefore){
+			int hourBefore = gc.get(Calendar.HOUR_OF_DAY);
+			gc.roll(Calendar.HOUR_OF_DAY, -1);	
+			int hourAfter = gc.get(Calendar.HOUR_OF_DAY);
+			if(hourAfter > hourBefore){
+				Log.d (dbManagerTag, " hour after > hour before");
+				int dayBefore = gc.get(Calendar.DAY_OF_MONTH);
+				gc.roll(Calendar.DAY_OF_MONTH, -1);
+				int dayAfter = gc.get(Calendar.DAY_OF_MONTH);
+				
+				if(dayAfter > dayBefore){
+					Log.d (dbManagerTag, "  dayAfter > dayBefore");
+					int monthBefore = gc.get(Calendar.MONTH);
+					gc.roll(Calendar.MONTH, -1);
+					int monthAfter = gc.get(Calendar.MONTH);
+					
+					if(monthAfter > monthBefore){
+						Log.d (dbManagerTag, "  monthAfter > monthBefore");
+						gc.roll(Calendar.YEAR, -1);
+					}
+				}
+			}
+		}
+		
+		gc.get(Calendar.DATE);
+		Date date = gc.getTime();
+		
+		Log.d(dbManagerTag, " 5 hr = " + gc.get(Calendar.HOUR_OF_DAY) + ", min = " + gc.get(Calendar.MINUTE) + ", day = " + gc.get(Calendar.DAY_OF_MONTH) + ", month = " + gc.get(Calendar.MONTH));
+
+		int ctimestamp = (int) (date.getTime() / 1000L);
+		
+		Log.d(dbManagerTag, " ctimestamp = " + ctimestamp);
 		return ctimestamp;
 	}
 }

@@ -57,7 +57,7 @@ public class MeetingPlannerDatabaseHelper extends SQLiteOpenHelper{
 	public MeetingPlannerDatabaseHelper(Context context, int version){
 		
 		super(context, DATABASE_NAME, null, version);
-		Log.v(dbHelperTag, "Current Version = " + version);
+		//Log.v(dbHelperTag, "Current Version = " + version);
 	}
 	
 	private void createTables(SQLiteDatabase db){
