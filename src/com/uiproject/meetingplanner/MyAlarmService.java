@@ -18,7 +18,7 @@ public class MyAlarmService extends Service {
 
 		// TODO Auto-generated method stub
 
-		Toast.makeText(this, "MyAlarmService.onCreate()", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this, "MyAlarmService.onCreate()", Toast.LENGTH_LONG).show();
 		
 
 	}
@@ -28,7 +28,7 @@ public class MyAlarmService extends Service {
 
 		// TODO Auto-generated method stub
 
-		Toast.makeText(this, "MyAlarmService.onBind()", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this, "MyAlarmService.onBind()", Toast.LENGTH_LONG).show();
 
 		return null;
 

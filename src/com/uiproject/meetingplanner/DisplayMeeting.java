@@ -90,7 +90,7 @@ public class DisplayMeeting extends Activity {
 
 				alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
-				Toast.makeText(DisplayMeeting.this, "Start Alarm", Toast.LENGTH_LONG).show();
+			//	Toast.makeText(DisplayMeeting.this, "Start Alarm", Toast.LENGTH_LONG).show();
 			}
 		});
 
