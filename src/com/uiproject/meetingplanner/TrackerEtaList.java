@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.uiproject.meetingplanner.TrackerMap.TestReceiver;
+
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
@@ -110,7 +110,7 @@ public class TrackerEtaList extends Activity {
 
         public void onReceive(Context context, Intent intent) { 
             // TODO Auto-generated method stub       
-            Log.d ("Receiver","Success");
+            Log.d ("Receiver","Success2");
             Bundle message = intent.getBundleExtra("message");
             int tag = message.getInt("tag");
             Bundle locations = message.getBundle("locations");
