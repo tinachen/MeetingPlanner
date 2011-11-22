@@ -290,7 +290,7 @@ public class EditMeeting extends Activity {
     	
     	String mtitle = mname.getText().toString();
     	String mdesc = desc.getText().toString();
-    	String mdate = mMonth + "/" + mDay + "/" + mYear;
+    	String mdate = (mMonth + 1) + "/" + mDay + "/" + mYear;
     	String mstarttime = pad(msHour) + ":" + pad(msMinute);
     	String mendtime = pad(meHour) + ":" + pad(meMinute);
     	addr = "locationtest"; // TODO remove
