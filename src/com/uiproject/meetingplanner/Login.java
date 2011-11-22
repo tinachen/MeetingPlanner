@@ -5,6 +5,7 @@ import java.text.ParseException;
 import org.json.JSONException;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,6 +36,7 @@ public class Login extends Activity {
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	public static final String LoginTag = "Login";
 	private MeetingPlannerDatabaseManager db;
+	private ProgressDialog pd = null;
 	//Facebook facebook = new Facebook("294864470534799");  // FOR FACEBOOK INTEGRATION
 	
 	@Override
@@ -99,6 +101,9 @@ public class Login extends Activity {
 
 	public void checkLogin(View button) throws JSONException, ParseException, NumberFormatException{
 		
+		// Show the ProgressDialog on this thread
+        this.pd = ProgressDialog.show(this, "Please wait..", "Authenticating...", true, false);
+        
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
 		SharedPreferences.Editor editor = settings.edit();
 		

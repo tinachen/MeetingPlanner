@@ -108,7 +108,6 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 
 			viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 	                 // Perform action on click
 	            	 MeetingInstance meeting = (MeetingInstance) viewHolder.checkbox.getTag();
