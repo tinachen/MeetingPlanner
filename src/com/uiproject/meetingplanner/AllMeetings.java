@@ -1,5 +1,7 @@
 package com.uiproject.meetingplanner;
 
+import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
+
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView
-;import android.widget.TabHost.TabContentFactory;
+;import android.widget.Toast;
+import android.widget.TabHost.TabContentFactory;
 import android.widget.TabHost.TabSpec;
 
 public class AllMeetings extends TabActivity{
@@ -61,17 +64,28 @@ public class AllMeetings extends TabActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.logoutonly, menu);
+        inflater.inflate(R.menu.meetinglistmenu, menu);
         return true;
     }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.logout:{
-            	Logout.logout(this);
-            	break;
-            }
+	        case R.id.logout:{
+	        	Logout.logout(this);
+	        	break;
+	        }
+	        case R.id.help:{
+				Intent intent = new Intent(AllMeetings.this, HelpPage.class);
+				startActivity(intent);
+	        	break;
+	        }
+	        case R.id.oldmeeting:{
+
+				Intent intent = new Intent(AllMeetings.this, MeetingListOld.class);
+				startActivity(intent);
+	        	break;
+	        }
         }
         return true;
     }

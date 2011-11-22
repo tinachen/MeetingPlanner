@@ -181,8 +181,8 @@ public class EditMeeting extends Activity {
         // set tracking time
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.tracker_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                this, R.array.tracker_array, R.layout.spinner_textview);
+        adapter.setDropDownViewResource(R.layout.spinner_textview);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
         int spinnerPosition = adapter.getPosition(trackTime + "");

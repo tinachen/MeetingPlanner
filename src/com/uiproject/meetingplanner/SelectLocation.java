@@ -47,6 +47,7 @@ public class SelectLocation extends MapActivity {
    
         // set the center
         mc.setCenter(new GeoPoint(lat,lon));
+        mc.setZoom(17); 
         
 	}
 	

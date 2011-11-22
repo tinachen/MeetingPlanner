@@ -188,7 +188,6 @@ public class CreateMeetingWhere extends SelectLocation implements OnEditorAction
 	        return true;
 	    }
 
-	    @Override
 	    public boolean onEditorAction(TextView v, int actionId,
 	            KeyEvent event) {
 	        if (event != null&& (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
