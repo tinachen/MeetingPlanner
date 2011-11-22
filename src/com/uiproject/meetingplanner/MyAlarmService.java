@@ -51,12 +51,12 @@ public class MyAlarmService extends Service {
 		String ns = Context.NOTIFICATION_SERVICE;
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
 		int icon = R.drawable.call;
-		CharSequence tickerText = "Hello";
+		CharSequence tickerText = "New Meeting";
 		long when = System.currentTimeMillis();
 		Notification notification = new Notification(icon, tickerText, when);
 		Context context = getApplicationContext();
-		CharSequence contentTitle = "My notification";
-		CharSequence contentText = "Hello World!";
+		CharSequence contentTitle = "New Meeting Approaching";
+		CharSequence contentText = "Project Discussion";
 		Intent notificationIntent = new Intent(this, DisplayMeeting.class);
 		notificationIntent.putExtra("mid", intent.getIntExtra("mid", 2) );
 		Toast.makeText(this, String.valueOf(intent.getIntExtra("mid", 2)), Toast.LENGTH_LONG).show();
