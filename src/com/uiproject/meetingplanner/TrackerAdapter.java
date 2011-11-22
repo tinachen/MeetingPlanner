@@ -13,11 +13,13 @@ import android.widget.TextView;
 public class TrackerAdapter extends BaseAdapter {
 	private Context context;
     private List<UserInstance> trackerList;
+    private List<UserInstance> meetingUsers;
     
-	public TrackerAdapter(Context context, List<UserInstance> trackerList) {
+	public TrackerAdapter(Context context, List<UserInstance> trackerList, List<UserInstance> meetingUsers) {
 		super();
 		this.context = context;
 		this.trackerList = trackerList;
+		this.meetingUsers = meetingUsers;
 	}
 
 	
@@ -42,8 +44,12 @@ public class TrackerAdapter extends BaseAdapter {
         }
         
         TextView tvTrackerName = (TextView) convertView.findViewById(R.id.trackername);
-        tvTrackerName.setText(entry.getUserFirstName() + " " + entry.getUserLastName());
-        
+        for (int i = 0; i < meetingUsers.size(); i++) {
+        	if (entry.getUserID() == meetingUsers.get(i).getUserID()) {
+        		tvTrackerName.setText(meetingUsers.get(i).getUserFirstName() + " " + meetingUsers.get(i).getUserLastName());
+        	}
+        }
+        	
         TextView tvEta = (TextView) convertView.findViewById(R.id.eta);
         tvEta.setText(entry.getUserEta());
         tvEta.setTextColor(Color.RED);

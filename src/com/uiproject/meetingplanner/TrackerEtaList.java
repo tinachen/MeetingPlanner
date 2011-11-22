@@ -27,24 +27,25 @@ import android.widget.TextView;
 
 public class TrackerEtaList extends Activity {
 
-	//public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	private ListView attendeesList;
 	private ArrayList<UserInstance> attendees;
 	private TrackerAdapter adapter;
-    //private MeetingPlannerDatabaseManager db;
+    private MeetingPlannerDatabaseManager db;
+    private ArrayList<UserInstance> meetingUsers;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trackeretalist);
         
-        /*db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+        db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
         SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
         int mid = settings.getInt("currentTrackingMid", -1);
         
         db.open();
-        db.getMeetingUsersArray(mid);
-        db.close();*/
+        meetingUsers = db.getMeetingUsersArray(mid);
+        db.close();
         
         attendeesList =  (ListView) findViewById(R.id.attendeesList);
         attendeesList.setClickable(false);
@@ -54,7 +55,7 @@ public class TrackerEtaList extends Activity {
 		//trackerList.add(new Tracker("Cauchy Choi", "3:00pm"));
 		//trackerList.add(new Tracker("Tina Chen", "4:00pm"));
         
-		adapter = new TrackerAdapter(this, attendees);
+		adapter = new TrackerAdapter(this, attendees, meetingUsers);
 		attendeesList.setAdapter(adapter);
 		
 		TestReceiver receiver = new TestReceiver();
@@ -70,14 +71,13 @@ public class TrackerEtaList extends Activity {
     
     public void updateList(Map<Integer, UserInstance> map) {
     	attendees.clear();
-    	Map<Integer, UserInstance> map2 = (Map<Integer, UserInstance>) map.get("locations");
-    	Set<Integer> keys = map2.keySet();
+    	Set<Integer> keys = map.keySet();
     	for (Integer i : keys){
-    		attendees.add(map2.get(i));
-    		Log.d("updateList", map2.get(i).getUserEta());
+    		attendees.add(map.get(i));
+    		Log.d("map size", ""+map.size());
     		//attendeeNames.add(map2.get(i).getUserFirstName() + " " + map2.get(i).getUserLastName());
     	}
-    	adapter = new TrackerAdapter(this, attendees);
+    	adapter = new TrackerAdapter(this, attendees, meetingUsers);
         attendeesList.setAdapter(adapter);
     }
     
@@ -122,9 +122,9 @@ public class TrackerEtaList extends Activity {
             updateList(userLocations);
             Log.d("tag","tag: "+tag);
             Log.d("AAA","userId: "+6);
-            Log.d("AAA","lat: "+userLocations.get(6).getUserLocationLat());
-            Log.d("AAA","lon: "+userLocations.get(6).getUserLocationLon());
-            Log.d("AAA","eta: "+userLocations.get(6).getUserEta());
+            Log.d("AAA","lat: "+userLocations.get(1).getUserLocationLat());
+            Log.d("AAA","lon: "+userLocations.get(1).getUserLocationLon());
+            Log.d("AAA","eta: "+userLocations.get(1).getUserEta());
             
         } 
         
