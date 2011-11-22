@@ -54,18 +54,7 @@ public class TrackerAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.tracker_list_item, null);
         }
         
-        TextView tvMeetingName = (TextView) convertView.findViewById(R.id.meetingName);
-        Log.d("TEST", meetingInfo.getMeetingTitle());
-        tvMeetingName.setText(meetingInfo.getMeetingTitle());
-        
-        TextView tvMeetingLocation = (TextView) convertView.findViewById(R.id.location);
-        tvMeetingLocation.setText(meetingInfo.getMeetingAddress());
-        
-        TextView tvMeetingDate = (TextView) convertView.findViewById(R.id.date);
-        tvMeetingDate.setText(meetingInfo.getMeetingDate());
-        
-        TextView tvMeetingTime = (TextView) convertView.findViewById(R.id.time);
-        tvMeetingTime.setText(meetingInfo.getMeetingStartTime());
+
         
         TextView tvTrackerName = (TextView) convertView.findViewById(R.id.trackername);
         for (int i = 0; i < meetingUsers.size(); i++) {

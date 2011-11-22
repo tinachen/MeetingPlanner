@@ -49,7 +49,17 @@ public class TrackerEtaList extends Activity {
         meetingUsers = db.getMeetingUsersArray(mid);
         db.close();
         
-        Log.d("meetingInfo", meetingInfo.getMeetingTitle());
+        TextView tvMeetingName = (TextView) findViewById(R.id.meetingName);
+        tvMeetingName.setText(meetingInfo.getMeetingTitle());
+        
+        TextView tvMeetingLocation = (TextView) findViewById(R.id.location);
+        tvMeetingLocation.setText(meetingInfo.getMeetingAddress());
+        
+        TextView tvMeetingDate = (TextView) findViewById(R.id.date);
+        tvMeetingDate.setText(meetingInfo.getMeetingDate());
+        
+        TextView tvMeetingTime = (TextView) findViewById(R.id.time);
+        tvMeetingTime.setText(meetingInfo.getMeetingStartTime());
         
         attendeesList =  (ListView) findViewById(R.id.attendeesList);
         attendeesList.setClickable(false);
