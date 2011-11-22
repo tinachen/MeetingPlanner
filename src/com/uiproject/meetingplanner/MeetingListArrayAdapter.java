@@ -7,7 +7,9 @@ import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,7 +96,9 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            		String phonenumber = u.getUserPhone();
 	            		
 	            		// MENGFEI'S CODE GOES HERE - TODO
-	            		
+	            		Intent intent = new Intent(Intent.ACTION_CALL);
+	            		intent.setData(Uri.parse("tel:" + phonenumber));
+	            		context.startActivity(intent);
 	            	}
 	            	
 	            }});

@@ -1,19 +1,29 @@
 package com.uiproject.meetingplanner;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Set;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +39,9 @@ public class DisplayMeeting extends Activity {
 	MeetingInstance meeting;
 	private MeetingPlannerDatabaseManager db;
 	private int uid, statusid, mid;
+	
+	Calendar calendar = Calendar.getInstance();
+	private PendingIntent pendingIntent;
 	
 	
 	@Override
@@ -50,6 +63,37 @@ public class DisplayMeeting extends Activity {
         camerabutton = (ImageView) findViewById(R.id.displaycamerabutton);
         acceptbutton = (ImageView) findViewById(R.id.displayacceptbutton);
         declinebutton = (ImageView) findViewById(R.id.displaydeclinebutton);
+        
+        camerabutton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				takePhoto(v);
+			}
+		});
+        alarmbutton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent myIntent = new Intent(DisplayMeeting.this, MyAlarmService.class);
+				myIntent.putExtra("mid", mid);
+
+				pendingIntent = PendingIntent.getService(DisplayMeeting.this, 0, myIntent, 0);
+
+				AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+				calendar = Calendar.getInstance();
+
+				calendar.setTimeInMillis(System.currentTimeMillis());
+
+				calendar.add(Calendar.SECOND, 5);
+
+				alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+				Toast.makeText(DisplayMeeting.this, "Start Alarm", Toast.LENGTH_LONG).show();
+			}
+		});
 
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
     	uid = settings.getInt("uid", -1);
@@ -247,5 +291,44 @@ public class DisplayMeeting extends Activity {
 	    private void logout(){
           this.setResult(R.string.logout);
           this.finish();
+	    }
+	    
+	    private Uri imageUri;
+	    private static final int TAKE_PICTURE = 9;
+
+	    public void takePhoto(View view) {
+	        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");  
+	        File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+	        intent.putExtra(MediaStore.EXTRA_OUTPUT,
+	                Uri.fromFile(photo));
+	        imageUri = Uri.fromFile(photo);
+	        startActivityForResult(intent, TAKE_PICTURE);
+	    }
+	    
+	    @Override
+	    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	        super.onActivityResult(requestCode, resultCode, data);
+	        switch (requestCode) {
+	        case TAKE_PICTURE:
+	            if (resultCode == Activity.RESULT_OK) {
+	                Uri selectedImage = imageUri;
+	                getContentResolver().notifyChange(selectedImage, null);
+	                ImageView imageView = (ImageView) findViewById(R.id.displaycamerabutton);
+	                ContentResolver cr = getContentResolver();
+	                Bitmap bitmap;
+	                try {
+	                     bitmap = android.provider.MediaStore.Images.Media
+	                     .getBitmap(cr, selectedImage);
+
+	                    imageView.setImageBitmap(bitmap);
+	                    Toast.makeText(this, selectedImage.toString(),
+	                            Toast.LENGTH_LONG).show();
+	                } catch (Exception e) {
+	                    Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT)
+	                            .show();
+	                    Log.e("Camera", e.toString());
+	                }
+	            }
+	        }
 	    }
 }
