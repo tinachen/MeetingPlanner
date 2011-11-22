@@ -83,9 +83,10 @@
 		        android:text="Date: "
 		        android:layout_centerVertical="true"/>
 		    <Button android:id="@+id/pickDate"
-		        android:layout_height="wrap_content"
+		    	android:background="@drawable/when_button"
 		        android:text="Change date"
 		         android:layout_width="150dp"
+		         android:layout_height="40dip"
             	android:layout_alignParentRight="true"
             	android:onClick="changeDate"/>
 	</RelativeLayout>
@@ -105,7 +106,8 @@
 		    android:layout_centerVertical="true" />
 	    <Button android:id="@+id/startPickTime"
 		        android:layout_width="150dp"
-	        android:layout_height="wrap_content"
+		         android:layout_height="40dip"
+		        android:background="@drawable/when_button"
 	        android:text="Change start time"
             	android:layout_alignParentRight="true"
             	android:onClick="changeStart"/>
@@ -128,7 +130,8 @@
 		        android:layout_centerVertical="true" />
 	    <Button android:id="@+id/endPickTime"
 		        android:layout_width="150dp"
-		        android:layout_height="wrap_content"
+		         android:layout_height="40dip"
+		        android:background="@drawable/when_button"
 		        android:text="Change end time"
             	android:layout_alignParentRight="true"
             	android:onClick="changeEnd"/>
@@ -163,10 +166,11 @@
 		<Spinner 
 	        android:id="@+id/tracker_selector"
 		        android:layout_width="150dp"
-	        android:layout_height="wrap_content"
+		         android:layout_height="40dip"
 	        android:prompt="@string/tracker_prompt"
             	android:layout_alignParentRight="true"
 		        android:layout_centerVertical="true"
+		        android:background="@drawable/when_button"
 	    />
 	</RelativeLayout>
 </LinearLayout>

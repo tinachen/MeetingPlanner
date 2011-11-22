@@ -161,6 +161,7 @@ public class TrackerMap extends MapActivity {
             /*Log.d("AAA","lat: "+userLocations.get(6).getUserLocationLat());
             Log.d("AAA","lon: "+userLocations.get(6).getUserLocationLon());
             Log.d("AAA","eta: "+userLocations.get(6).getUserEta());*/
+          
             
         } 
         

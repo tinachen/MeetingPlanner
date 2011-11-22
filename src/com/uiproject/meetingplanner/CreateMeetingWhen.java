@@ -119,8 +119,9 @@ public class CreateMeetingWhen extends Activity {
 
 	        
 	        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-	                this, R.array.tracker_array, android.R.layout.simple_spinner_item);
-	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	                this, R.array.tracker_array, R.layout.spinner_textview);
+	        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	        adapter.setDropDownViewResource(R.layout.spinner_textview);
 	        spinner.setAdapter(adapter);
 	        spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
 	        trackTime = (double) settings.getFloat("mtracktime", (float) .5);
@@ -218,7 +219,7 @@ public class CreateMeetingWhen extends Activity {
 	    
 	    public void changeDate(View button){
 
-            Toast.makeText(getBaseContext(), "trying to change date", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(), "trying to change date", Toast.LENGTH_SHORT).show();
             showDialog(DATE_DIALOG_ID);
 	    }
 	    public void changeStart(View button){
