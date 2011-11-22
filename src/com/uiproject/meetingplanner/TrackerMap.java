@@ -336,7 +336,7 @@ public class TrackerMap extends MapActivity {
         u = new UserInstance(1);
         u.setUserEta("14");
         u.setUserLocationLat(34045406);
-        u.setUserLocationLon(-118270226);
+        u.setUserLocationLon(-118270226); 
         u.setUserFirstName("Tina");
         u.setUserLastName("Chen");
         userLocations.put(1, u);
