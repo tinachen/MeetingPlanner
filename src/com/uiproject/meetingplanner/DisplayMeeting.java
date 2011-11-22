@@ -329,7 +329,7 @@ public class DisplayMeeting extends Activity {
 	            if (resultCode == Activity.RESULT_OK) {
 	                Uri selectedImage = imageUri;
 	                getContentResolver().notifyChange(selectedImage, null);
-	                ImageView imageView = (ImageView) findViewById(R.id.displaycamerabutton);
+	                ImageView imageView = (ImageView) findViewById(R.id.meetingpicture);
 	                ContentResolver cr = getContentResolver();
 	                Bitmap bitmap;
 	                try {
@@ -337,6 +337,7 @@ public class DisplayMeeting extends Activity {
 	                     .getBitmap(cr, selectedImage);
 
 	                    imageView.setImageBitmap(bitmap);
+	                    imageView.setVisibility(View.VISIBLE);
 	                    Toast.makeText(this, selectedImage.toString(),
 	                            Toast.LENGTH_LONG).show();
 	                } catch (Exception e) {

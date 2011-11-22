@@ -75,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:hint="Meeting Title" />
+        android:hint="Meeting Title (required)" />
 
     <EditText
         android:id="@+id/desc"
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
 		android:lines="10"
 		android:gravity="top"
-		android:hint="Description" 
+		android:hint="Description (optional)" 
 		android:layout_marginTop="10dip" />
 </LinearLayout>
     <RelativeLayout
