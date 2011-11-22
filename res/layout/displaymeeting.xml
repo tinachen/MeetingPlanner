@@ -74,7 +74,7 @@
 	   
 	<ImageView
 	   android:id="@+id/displayalarmbutton"
-	   android:src="@drawable/icon"
+	   android:src="@drawable/alarm"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
 	   android:clickable="true"
@@ -85,8 +85,8 @@
      <ImageView
       android:id="@+id/displaycamerabutton"
 	  android:src="@drawable/camera"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
+	   android:layout_width="40dip"
+	   android:layout_height="40dip"
       android:text="take picture loc"
       android:onClick="takepic"
       />
@@ -213,7 +213,8 @@
 		android:orientation="horizontal"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="10dip" >
+		android:layout_marginTop="10dip" 
+		android:paddingBottom="10dip">
 		<TextView
 	style="@style/display1"
 			android:layout_width="125dip"

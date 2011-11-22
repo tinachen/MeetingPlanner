@@ -85,8 +85,11 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            	if(meeting.getMeetingImageResourceID() == R.drawable.edit_meeting){
 	            		// Display edit meeting page
 	            		
-	            		// ELIZABETH'S CODE GOES HERE - TODO
 	            		int mid = meeting.getMeetingID();
+	            		Intent intent = new Intent(context, EditMeeting.class);
+	            		intent.putExtra("mid", mid);
+	            		context.startActivity(intent);
+	            		
 	            		
 	            	}else{
 	            		// Call the initiator's phone number
