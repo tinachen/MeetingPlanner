@@ -46,7 +46,7 @@
 		android:hint="Phone number" />	
 	<Button
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="40dip"
 		android:onClick="submit"
 		android:text="Submit"
 		android:background="@drawable/button_shape"
