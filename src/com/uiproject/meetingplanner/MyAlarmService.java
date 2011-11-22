@@ -59,7 +59,7 @@ public class MyAlarmService extends Service {
 		CharSequence contentText = "Project Discussion";
 		Intent notificationIntent = new Intent(this, DisplayMeeting.class);
 		notificationIntent.putExtra("mid", intent.getIntExtra("mid", 2) );
-		Toast.makeText(this, String.valueOf(intent.getIntExtra("mid", 2)), Toast.LENGTH_LONG).show();
+		//Toast.makeText(this, String.valueOf(intent.getIntExtra("mid", 2)), Toast.LENGTH_LONG).show();
 		notificationIntent.putExtra("status",MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 		notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
