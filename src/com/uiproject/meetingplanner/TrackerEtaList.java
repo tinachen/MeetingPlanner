@@ -29,11 +29,8 @@ public class TrackerEtaList extends Activity {
 
 	//public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	private ListView attendeesList;
-	private TextView eta;
-	private TextView trackerName;
 	private ArrayList<UserInstance> attendees;
 	private TrackerAdapter adapter;
-	private ArrayList<Tracker> trackerList;
     //private MeetingPlannerDatabaseManager db;
 	
     @Override
@@ -53,15 +50,14 @@ public class TrackerEtaList extends Activity {
         attendeesList.setClickable(false);
         
         attendees = new ArrayList<UserInstance>();
-        trackerList = new ArrayList<Tracker>();
         
-		trackerList.add(new Tracker("Cauchy Choi", "3:00pm"));
-		trackerList.add(new Tracker("Tina Chen", "4:00pm"));
+		//trackerList.add(new Tracker("Cauchy Choi", "3:00pm"));
+		//trackerList.add(new Tracker("Tina Chen", "4:00pm"));
         
-		adapter = new TrackerAdapter(this, trackerList);
+		adapter = new TrackerAdapter(this, attendees);
 		attendeesList.setAdapter(adapter);
 		
-		TestReceiver receiver =new TestReceiver();
+		TestReceiver receiver = new TestReceiver();
 		IntentFilter filter = new IntentFilter();
 		filter.addAction("com.uiproject.meetingplanner");
 		registerReceiver(receiver, filter);
@@ -72,15 +68,16 @@ public class TrackerEtaList extends Activity {
 //		}
     }
     
-    public void updateList(Map<String, Object> map) {
+    public void updateList(Map<Integer, UserInstance> map) {
     	attendees.clear();
     	Map<Integer, UserInstance> map2 = (Map<Integer, UserInstance>) map.get("locations");
     	Set<Integer> keys = map2.keySet();
     	for (Integer i : keys){
     		attendees.add(map2.get(i));
+    		Log.d("updateList", map2.get(i).getUserEta());
     		//attendeeNames.add(map2.get(i).getUserFirstName() + " " + map2.get(i).getUserLastName());
     	}
-    	adapter = new TrackerAdapter(this, trackerList);
+    	adapter = new TrackerAdapter(this, attendees);
         attendeesList.setAdapter(adapter);
     }
     
@@ -122,6 +119,7 @@ public class TrackerEtaList extends Activity {
             	Bundle location = locations.getBundle(i);
             	userLocations.put(Integer.valueOf(i), new UserInstance(Integer.valueOf(i),location.getInt("lat"),location.getInt("lon"),location.getString("eta")));
             }
+            updateList(userLocations);
             Log.d("tag","tag: "+tag);
             Log.d("AAA","userId: "+6);
             Log.d("AAA","lat: "+userLocations.get(6).getUserLocationLat());

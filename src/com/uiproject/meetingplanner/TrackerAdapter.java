@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 public class TrackerAdapter extends BaseAdapter {
 	private Context context;
-    private List<Tracker> trackerList;
+    private List<UserInstance> trackerList;
     
-	public TrackerAdapter(Context context, List<Tracker> trackerList) {
+	public TrackerAdapter(Context context, List<UserInstance> trackerList) {
 		super();
 		this.context = context;
 		this.trackerList = trackerList;
@@ -34,7 +34,7 @@ public class TrackerAdapter extends BaseAdapter {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Tracker entry = trackerList.get(position);
+		UserInstance entry = trackerList.get(position);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -42,10 +42,10 @@ public class TrackerAdapter extends BaseAdapter {
         }
         
         TextView tvTrackerName = (TextView) convertView.findViewById(R.id.trackername);
-        tvTrackerName.setText(entry.getName());
+        tvTrackerName.setText(entry.getUserFirstName() + " " + entry.getUserLastName());
         
         TextView tvEta = (TextView) convertView.findViewById(R.id.eta);
-        tvEta.setText(entry.getEta());
+        tvEta.setText(entry.getUserEta());
         tvEta.setTextColor(Color.RED);
                 
         return convertView;
