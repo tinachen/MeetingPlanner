@@ -41,6 +41,7 @@ public class TrackerMap extends MapActivity {
 	protected TextView name_text, eta_text;
 	private MeetingPlannerDatabaseManager db;
 	boolean zoom = false;
+	private List<Overlay> mapOverlays;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,12 +59,16 @@ public class TrackerMap extends MapActivity {
     	name_text = (TextView) findViewById(R.id.name);
     	eta_text =(TextView) findViewById(R.id.eta);
         
-        List<Overlay> mapOverlays = mapView.getOverlays();
+        mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
         itemizedoverlay = new MyItemizedOverlay(drawable, this);
         mapOverlays.add(itemizedoverlay);
-        /*
+        
+
+		// Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+        
+        /*
 	    db.open();
         MeetingInstance m = db.getMeeting(mid);
         db.close();
@@ -96,7 +101,8 @@ public class TrackerMap extends MapActivity {
         TestReceiver2 receiver2 =new TestReceiver2();
 		IntentFilter filter2 = new IntentFilter();
 		filter2.addAction("com.uiproject.meetingplanner");
-		registerReceiver(receiver2, filter2);       
+		registerReceiver(receiver2, filter2); 
+		
     }
     
     @Override
@@ -114,16 +120,20 @@ public class TrackerMap extends MapActivity {
     	OverlayItem oi;
     	Set<Integer> keys = attendees.keySet();
     	UserInstance a;
+    	db.open();
     	for (Integer i : keys){
     		a = attendees.get(i);
     		oi = new OverlayItem(new GeoPoint(a.getUserLocationLat(), a.getUserLocationLon()), "", "");
-    		Log.d(TAG, "updateMap user = " + a.getUserFirstName() + " " + a.getUserLastName() + ", lat = " + a.getUserLocationLat()
+    		UserInstance user = db.getUser(a.getUserID());
+    		Log.d(TAG, "updateMap uid = " + a.getUserID() + ", user name= " + user.getUserFirstName() + " " + user.getUserLastName() + ", lat = " + a.getUserLocationLat()
     				+ ", lon = " + a.getUserLocationLon());
-    		myoi = new MyOverlayItem(oi, a.getUserFirstName() + " " + a.getUserLastName(), a.getUserEta());
+    		myoi = new MyOverlayItem(oi, user.getUserFirstName() + " " + user.getUserLastName(), a.getUserEta());
     		itemizedoverlay.addOverlay(myoi);
+    		mapOverlays.add(itemizedoverlay);
+    		itemizedoverlay.doPopulate();
     	}
+    	db.close();
     	
-    	itemizedoverlay.doPopulate();
     	if (!zoom){
 	        mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
 	        
