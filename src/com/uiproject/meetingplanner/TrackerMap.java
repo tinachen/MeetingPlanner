@@ -481,7 +481,7 @@ public class TrackerMap extends MapActivity {
 
     	public void setMeetingloc(GeoPoint p){
     		OverlayItem oi = new OverlayItem(p, "", "");
-    		//oi.setMarker(mContext.getResources().getDrawable(R.drawable.goal_marker));
+    		//oi.setMarker(mContext.getResources().getDrawable(R.drawable.goal_marker));//TODO
     		MyOverlayItem myoi = new MyOverlayItem(oi, "588 Group meeting", "");
     		meetingloc = myoi;
     		addOverlay(myoi);

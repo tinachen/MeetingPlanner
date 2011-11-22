@@ -38,7 +38,6 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
     public static int LISTTYPE_DECLINED = 1;
     public static int LISTTYPE_PENDING = 2;
     public static int LISTTYPE_OLD = 3;
-   
 	
 	public MeetingListArrayAdapter(Activity context, int resourceID, List<MeetingInstance> list, int listType, int uid) {
 		super(context, resourceID, list);
@@ -64,6 +63,13 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		View view = null;
 		MeetingInstance m = list.get(position);
 		
+		Log.d(TAG, TAG + " position = " + position + " uid = " + uid + " iniId = " + m.getMeetingInitiatorID() + " listtype = " + listType + " mtitle= " + m.getMeetingTitle() + " size = " + list.size());
+		if(uid == m.getMeetingInitiatorID() && listType == LISTTYPE_ACCEPTED){
+			m.setMeetingImageResourceID(R.drawable.edit_meeting);
+		}else{
+			m.setMeetingImageResourceID(R.drawable.call);
+		}
+		
 		if (convertView == null) {
 			LayoutInflater inflator = context.getLayoutInflater();
 			view = inflator.inflate(R.layout.all_list_item, null);
@@ -77,8 +83,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			// Make check buttons invisible if the meetings are created by the user
 			// Change calling icon to edit button
 			viewHolder.itemIcon.setClickable(true);
-			
-			
+
 			viewHolder.itemIcon.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
 	            	MeetingInstance meeting = (MeetingInstance) viewHolder.itemIcon.getTag();
@@ -90,6 +95,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            		intent.putExtra("mid", mid);
 	            		context.startActivity(intent);
 	            		
+	            		Log.d(TAG, TAG + "edit");
 	            		
 	            	}else{
 	            		// Call the initiator's phone number
@@ -102,6 +108,8 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            		Intent intent = new Intent(Intent.ACTION_CALL);
 	            		intent.setData(Uri.parse("tel:" + phonenumber));
 	            		context.startActivity(intent);
+	            		
+	            		Log.d(TAG, TAG + "call");
 	            	}
 	            	
 	            }});
@@ -136,14 +144,11 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			
 		} else {
 			view = convertView;
+			((ViewHolder) view.getTag()).itemIcon.setTag(list.get(position));
 			((ViewHolder) view.getTag()).checkbox.setTag(list.get(position));
 		}
 		
-		if(uid == m.getMeetingInitiatorID() && listType == LISTTYPE_ACCEPTED){
-			m.setMeetingImageResourceID(R.drawable.edit_meeting);
-		}else{
-			m.setMeetingImageResourceID(R.drawable.call);
-		}
+		
 		
 		db.open();
 		UserInstance initiatorUser = db.getUser(list.get(position).getMeetingInitiatorID());
