@@ -1,5 +1,6 @@
 package com.uiproject.meetingplanner;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -280,7 +281,7 @@ public class EditMeeting extends Activity {
     }
     
     
-    public void saveMeeting(View button){
+    public void saveMeeting(View button) throws ParseException{
     	Toast.makeText(EditMeeting.this, "meeting saved!", Toast.LENGTH_SHORT).show();
     	
     	
