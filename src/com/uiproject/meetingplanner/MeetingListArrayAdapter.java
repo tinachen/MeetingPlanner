@@ -63,7 +63,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		View view = null;
 		MeetingInstance m = list.get(position);
 		
-		Log.d(TAG, TAG + " position = " + position + " uid = " + uid + " iniId = " + m.getMeetingInitiatorID() + " listtype = " + listType + " mtitle= " + m.getMeetingTitle() + " size = " + list.size());
+		//Log.d(TAG, TAG + " position = " + position + " uid = " + uid + " iniId = " + m.getMeetingInitiatorID() + " listtype = " + listType + " mtitle= " + m.getMeetingTitle() + " size = " + list.size());
 		if(uid == m.getMeetingInitiatorID() && listType == LISTTYPE_ACCEPTED){
 			m.setMeetingImageResourceID(R.drawable.edit_meeting);
 		}else{
@@ -95,8 +95,6 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            		intent.putExtra("mid", mid);
 	            		context.startActivity(intent);
 	            		
-	            		Log.d(TAG, TAG + "edit");
-	            		
 	            	}else{
 	            		// Call the initiator's phone number
 	            		db.open();
@@ -108,8 +106,6 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            		Intent intent = new Intent(Intent.ACTION_CALL);
 	            		intent.setData(Uri.parse("tel:" + phonenumber));
 	            		context.startActivity(intent);
-	            		
-	            		Log.d(TAG, TAG + "call");
 	            	}
 	            	
 	            }});
@@ -123,13 +119,13 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            	 
 	            	 if(buttonView.isChecked()){
 	            		 if(listType == LISTTYPE_PENDING){
-	            			 Log.d(TAG, "pending - check state change; meetingTitle = " +meeting.getMeetingTitle());
+	            			 //Log.d(TAG, "pending - check state change; meetingTitle = " +meeting.getMeetingTitle());
 	            			 MeetingListPendingTest.showBar();
 	            		 }else if(listType == LISTTYPE_ACCEPTED){
-	            			 Log.d(TAG, "accepted - check state change; meetingTitle = " +meeting.getMeetingTitle());
+	            			 //Log.d(TAG, "accepted - check state change; meetingTitle = " +meeting.getMeetingTitle());
 	            			 MeetingListAcceptedTest.showBar();
 	            		 }else{
-	            			 Log.d(TAG, "declined - check state change; meetingTitle = " +meeting.getMeetingTitle());
+	            			 //Log.d(TAG, "declined - check state change; meetingTitle = " +meeting.getMeetingTitle());
 	            			 MeetingListDeclinedTest.showBar();
 	            		 }
 	            		
@@ -272,7 +268,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
         cb.setOnCheckedChangeListener(new OnCheckedChangeListener() { 
  
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { 
-        // TODO Auto-generated method stub 
+        
         if (buttonView.isChecked()) { 
         	//Toast.makeText(getBaseContext(), "Checked", Toast.LENGTH_SHORT).show(); 
         } 

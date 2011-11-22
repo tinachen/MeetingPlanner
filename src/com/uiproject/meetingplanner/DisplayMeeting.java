@@ -168,6 +168,7 @@ public class DisplayMeeting extends Activity {
     		camerabutton.setVisibility(View.VISIBLE);
     	}
     	
+    	
     	Calendar cal = new GregorianCalendar();
         int currenth = cal.get(Calendar.HOUR_OF_DAY);
         int currentm = cal.get(Calendar.MINUTE);
@@ -256,6 +257,7 @@ public class DisplayMeeting extends Activity {
         db.open();
         db.updateMeetingUser(meeting.getMeetingID(), uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");
         db.close();
+        Toast.makeText(this, "meeting accepted", Toast.LENGTH_SHORT).show();
     }    
     
     public void decline(View Button){
@@ -265,7 +267,7 @@ public class DisplayMeeting extends Activity {
         db.open();
         db.updateMeetingUser(meeting.getMeetingID(), uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING, "0");
         db.close();
-  
+        Toast.makeText(this, "meeting declined", Toast.LENGTH_SHORT).show();
     }
    
 
