@@ -70,6 +70,13 @@
 	android:paddingTop="50dip"
 	android:paddingLeft="30dip"
 	android:paddingRight="30dip">
+    <Button android:text="Select Time From Calendar" android:layout_width="fill_parent" android:background="@drawable/when_button" android:id="@+id/calendarTimePicker" android:layout_height="40dip"></Button>
+	<ImageView
+	    android:id="@+id/or"
+	    android:src="@drawable/or"
+	    android:layout_marginTop="10dip"
+	    android:paddingBottom="0dip" android:layout_width="fill_parent" android:layout_height="25dp"/>
+	
 	<RelativeLayout
 		android:orientation="horizontal"
 		android:layout_width="fill_parent"
