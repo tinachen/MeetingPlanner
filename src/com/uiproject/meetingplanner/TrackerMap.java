@@ -107,7 +107,7 @@ public class TrackerMap extends MapActivity {
     
     public void fakeit(){
     	GeoPoint p = new GeoPoint(34019941, -118289108);
-    	itemizedoverlay.setMeetingloc(p, this.getResources().getDrawable(R.drawable.goal_marker));
+    	itemizedoverlay.setMeetingloc(p);
     	list= new ArrayList<Map<Integer,UserInstance>>();
         Map<Integer,UserInstance> userLocations = new HashMap<Integer, UserInstance>();
         UserInstance u = new UserInstance(1);
@@ -479,9 +479,9 @@ public class TrackerMap extends MapActivity {
     	  center = new GeoPoint(0, 0);
     	}
 
-    	public void setMeetingloc(GeoPoint p, Drawable drawable){
+    	public void setMeetingloc(GeoPoint p){
     		OverlayItem oi = new OverlayItem(p, "", "");
-    		oi.setMarker(drawable);
+    		//oi.setMarker(mContext.getResources().getDrawable(R.drawable.goal_marker));
     		MyOverlayItem myoi = new MyOverlayItem(oi, "588 Group meeting", "");
     		meetingloc = myoi;
     		addOverlay(myoi);
