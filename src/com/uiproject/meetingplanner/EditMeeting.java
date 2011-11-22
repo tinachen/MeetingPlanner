@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,7 +33,6 @@ import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 public class EditMeeting extends Activity {
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
-	public static final String TAG = "EditMeeting";
     private MeetingPlannerDatabaseManager db;
 	
 	private EditText mname, desc;
@@ -78,10 +76,9 @@ public class EditMeeting extends Activity {
                 public void onDateSet(DatePicker view, int year, 
                                       int monthOfYear, int dayOfMonth) {
                     mYear = year;
+                    mMonth = monthOfYear;
                     mDay = dayOfMonth;
                     updateDateDisplay();
-                    mMonth = monthOfYear + 1;
-                    Log.d(TAG, "month update = " + mMonth);
                 }
             };
             
@@ -139,7 +136,7 @@ public class EditMeeting extends Activity {
 	    String stime = m.getMeetingStartTime();
 	    String etime = m.getMeetingEndTime();
         mYear = Integer.parseInt(date.substring(6));
-        mMonth = Integer.parseInt(date.substring(0, 2));
+        mMonth = Integer.parseInt(date.substring(0, 2)) - 1;
         mDay = Integer.parseInt(date.substring(3, 5));
         int colon = stime.indexOf(':');
         msHour = Integer.parseInt(stime.substring(0, colon));
@@ -238,7 +235,7 @@ public class EditMeeting extends Activity {
        case DATE_DIALOG_ID:
            return new DatePickerDialog(this,
                        mDateSetListener,
-                       mYear, mMonth-1, mDay);
+                       mYear, mMonth, mDay);
        case TIME_DIALOG_ID_START:
            return new TimePickerDialog(this,
                    msTimeSetListener, msHour, msMinute, false);
@@ -257,7 +254,7 @@ public class EditMeeting extends Activity {
      mPickDate.setText(
          new StringBuilder()
                  // Month is 0 based so add 1
-                 .append(mMonth).append("/")
+                 .append(mMonth + 1).append("/")
                  .append(mDay).append("/")
                  .append(mYear).append(" "));
    }

@@ -1183,12 +1183,8 @@ public class MeetingPlannerDatabaseManager {
 		GregorianCalendar gc = new GregorianCalendar();
 		gc.setTime(new Date());
 		
-		Log.d(dbManagerTag, " 0 current time " + date_format.format(gc.getTime()));
-		Log.d(dbManagerTag, " 1 hr = " + gc.get(Calendar.HOUR_OF_DAY) + ", min = " + gc.get(Calendar.MINUTE) + ", day = " + gc.get(Calendar.DAY_OF_MONTH) + ", month = " + gc.get(Calendar.MONTH));
 		int minBefore = gc.get(Calendar.MINUTE);
 		gc.roll(Calendar.MINUTE, -15);
-		Log.d(dbManagerTag, " 2 hr = " + gc.get(Calendar.HOUR_OF_DAY) + ", min = " + gc.get(Calendar.MINUTE) + ", day = " + gc.get(Calendar.DAY_OF_MONTH) + ", month = " + gc.get(Calendar.MONTH));
-
 		int minAfter = gc.get(Calendar.MINUTE);
 		if(minAfter > minBefore){
 			int hourBefore = gc.get(Calendar.HOUR_OF_DAY);
@@ -1217,11 +1213,9 @@ public class MeetingPlannerDatabaseManager {
 		gc.get(Calendar.DATE);
 		Date date = gc.getTime();
 		
-		Log.d(dbManagerTag, " 5 hr = " + gc.get(Calendar.HOUR_OF_DAY) + ", min = " + gc.get(Calendar.MINUTE) + ", day = " + gc.get(Calendar.DAY_OF_MONTH) + ", month = " + gc.get(Calendar.MONTH));
+		//Log.d(dbManagerTag, " 5 hr = " + gc.get(Calendar.HOUR_OF_DAY) + ", min = " + gc.get(Calendar.MINUTE) + ", day = " + gc.get(Calendar.DAY_OF_MONTH) + ", month = " + gc.get(Calendar.MONTH));
 
 		int ctimestamp = (int) (date.getTime() / 1000L);
-		
-		Log.d(dbManagerTag, " ctimestamp = " + ctimestamp);
 		return ctimestamp;
 	}
 }

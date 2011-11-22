@@ -193,7 +193,7 @@ public class MainPage extends Activity {
 	    	if(m.getMeetingDescription().length() < 100){
 	    		shortDes = m.getMeetingDescription().substring(0, m.getMeetingDescription().length());
 	    	}else{
-	    		shortDes = m.getMeetingDescription().substring(0, 100);
+	    		shortDes = m.getMeetingDescription().substring(0, 100) + " ...";
 	    	}
 	    	
 	    	mdesc.setText(shortDes);
