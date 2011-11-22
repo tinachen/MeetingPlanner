@@ -70,7 +70,24 @@ public class TrackerMap extends MapActivity {
         GeoPoint meetingloc = new GeoPoint(m.getMeetingLat(), m.getMeetingLon());
         itemizedoverlay.setMeetingloc(meetingloc);
         */
+
+        
         /*
+        
+        Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
+        intent.putExtra("mid", mid);
+        startService(intent);
+        
+        TestReceiver2 receiver2 =new TestReceiver2();
+		IntentFilter filter2 = new IntentFilter();
+		filter2.addAction("com.uiproject.meetingplanner");
+		registerReceiver(receiver2, filter2); 
+		*/
+        
+        fakeit();
+    }
+    
+    public void fakeit(){        
         Map<Integer,UserInstance> userLocations = new HashMap<Integer, UserInstance>();
         UserInstance u = new UserInstance(1);
         u.setUserEta("30");
@@ -87,16 +104,16 @@ public class TrackerMap extends MapActivity {
         u2.setUserLastName("Deng");
         userLocations.put(2, u2);
         updateMap(userLocations);
-        */
+        UserInstance u3 = new UserInstance(3);
+        u2.setUserEta("60");
+        u2.setUserLocationLat(34150089);
+        u2.setUserLocationLon(-118269152);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
+        updateMap(userLocations);
         
-        Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
-        intent.putExtra("mid", mid);
-        startService(intent);
         
-        TestReceiver2 receiver2 =new TestReceiver2();
-		IntentFilter filter2 = new IntentFilter();
-		filter2.addAction("com.uiproject.meetingplanner");
-		registerReceiver(receiver2, filter2);       
     }
     
     @Override
