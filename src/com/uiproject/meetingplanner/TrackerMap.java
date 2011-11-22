@@ -443,7 +443,8 @@ public class TrackerMap extends MapActivity {
     
     public void toList(View button){  	
 
-		Intent intent = new Intent(TrackerMap.this, TrackerEtaList.class);
+    	Intent intent = new Intent(TrackerMap.this, TrackerEtaList.class);
+		intent.putExtra("mid", mid);
 		TrackerMap.this.startActivityForResult(intent, 0);
     }
 
