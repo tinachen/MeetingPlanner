@@ -190,10 +190,10 @@ public class MainPage extends Activity {
 	    	String when = m.getMeetingDate() + ", " + m.getMeetingStartTime() + "-" + m.getMeetingEndTime();
 	    	mwhen.setText(when);
 	    	String shortDes = "";
-	    	if(m.getMeetingDescription().length() < 100){
+	    	if(m.getMeetingDescription().length() < 75){
 	    		shortDes = m.getMeetingDescription().substring(0, m.getMeetingDescription().length());
 	    	}else{
-	    		shortDes = m.getMeetingDescription().substring(0, 100) + " ...";
+	    		shortDes = m.getMeetingDescription().substring(0, 75) + "...";
 	    	}
 	    	
 	    	mdesc.setText(shortDes);
