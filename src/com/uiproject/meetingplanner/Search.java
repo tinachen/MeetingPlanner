@@ -161,7 +161,6 @@ public class Search extends Activity implements OnItemClickListener {
         });
 	}
 
-	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// Displays the clicked name in LogCat for now
 		if (!checkedUsers.contains(parent.getItemAtPosition(position))) {

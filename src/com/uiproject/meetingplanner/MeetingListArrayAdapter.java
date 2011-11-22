@@ -99,7 +99,6 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            		
 	            		String phonenumber = u.getUserPhone();
 	            		
-	            		// MENGFEI'S CODE GOES HERE - TODO
 	            		Intent intent = new Intent(Intent.ACTION_CALL);
 	            		intent.setData(Uri.parse("tel:" + phonenumber));
 	            		context.startActivity(intent);
@@ -109,7 +108,6 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 
 			viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 	                 // Perform action on click
 	            	 MeetingInstance meeting = (MeetingInstance) viewHolder.checkbox.getTag();
@@ -157,7 +155,11 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		holder.meetingTime.setText(list.get(position).getMeetingDate() + " " + list.get(position).getMeetingStartTime());
 		holder.checkbox.setChecked(list.get(position).isSelected());
 		holder.itemIcon.setImageResource(list.get(position).getMeetingImageResourceID());
-		if(uid == m.getMeetingInitiatorID() && listType == LISTTYPE_ACCEPTED){
+		
+		if(listType == LISTTYPE_OLD){
+			holder.checkbox.setVisibility(View.GONE);
+			holder.itemIcon.setVisibility(View.GONE);
+		}else if(uid == m.getMeetingInitiatorID() && listType == LISTTYPE_ACCEPTED){
 			holder.checkbox.setVisibility(View.INVISIBLE);
 		}else{
 			holder.checkbox.setVisibility(View.VISIBLE);

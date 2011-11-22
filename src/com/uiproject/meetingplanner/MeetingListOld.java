@@ -53,7 +53,7 @@ public class MeetingListOld extends Activity{
 	    meetings = db.getOldMeetings(uid);
 		db.close();
 		
-		adapter = new MeetingListArrayAdapter(this, R.layout.all_list_item, meetings, MeetingListArrayAdapter.LISTTYPE_ACCEPTED, uid);
+		adapter = new MeetingListArrayAdapter(this, R.layout.all_list_item, meetings, MeetingListArrayAdapter.LISTTYPE_OLD, uid);
 		
 		list.setAdapter(adapter);
         list.setOnItemClickListener(new OnItemClickListener() {
