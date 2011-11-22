@@ -9,4 +9,5 @@
 <color name="lesstransparent">#99F6F6F6</color>
 <color name="semitransparent">#55F6F6F6</color>
 <color name="transparent">#00000000</color>
+<color name="orange">#FFA800</color>
 </resources>
