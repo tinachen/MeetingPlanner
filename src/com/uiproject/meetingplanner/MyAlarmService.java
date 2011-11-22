@@ -50,7 +50,7 @@ public class MyAlarmService extends Service {
 		// TODO Auto-generated method stub
 		String ns = Context.NOTIFICATION_SERVICE;
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
-		int icon = R.drawable.call;
+		int icon = R.drawable.icon2;
 		CharSequence tickerText = "New Meeting";
 		long when = System.currentTimeMillis();
 		Notification notification = new Notification(icon, tickerText, when);
