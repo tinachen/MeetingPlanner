@@ -1,7 +1,10 @@
 package com.uiproject.meetingplanner;
 
+import java.util.ArrayList;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +20,26 @@ public class EditMeetingAttendees extends Search {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editmeetingattendees);
         init();
+        
+        String uids = getIntent().getStringExtra("uids");
+        
+        ArrayList<Integer> checkedUids = new ArrayList<Integer>();
+        int commaIndex;
+        String u = "";
+    	while (uids.length() > 0){
+    		commaIndex = uids.indexOf(',');
+    		if (commaIndex == -1){
+    			checkedUids.add(Integer.parseInt(uids));
+    			break;
+    		}else{
+	    		u = uids.substring(0, commaIndex);
+	    		checkedUids.add(Integer.parseInt(u));
+	    		uids = uids.substring(commaIndex + 1);
+    		}
+		}
+    	for (int i = 0; i < checkedUids.size(); i++)
+    		Log.d("CMW uids", checkedUids.get(i).toString());
+    	recheck(checkedUids);	
     }
 
     public void confirm(View button){
