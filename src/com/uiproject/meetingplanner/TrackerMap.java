@@ -41,7 +41,6 @@ public class TrackerMap extends MapActivity {
 	protected TextView name_text, eta_text;
 	private MeetingPlannerDatabaseManager db;
 	boolean zoom = false;
-	private List<Overlay> mapOverlays;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,23 +58,36 @@ public class TrackerMap extends MapActivity {
     	name_text = (TextView) findViewById(R.id.name);
     	eta_text =(TextView) findViewById(R.id.eta);
         
-        mapOverlays = mapView.getOverlays();
+        List<Overlay> mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
         itemizedoverlay = new MyItemizedOverlay(drawable, this);
         mapOverlays.add(itemizedoverlay);
-        
-
-		// Hook up with database
-	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
-        
         /*
+	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
         MeetingInstance m = db.getMeeting(mid);
         db.close();
         GeoPoint meetingloc = new GeoPoint(m.getMeetingLat(), m.getMeetingLon());
         itemizedoverlay.setMeetingloc(meetingloc);
         */
+
+        
         /*
+        
+        Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
+        intent.putExtra("mid", mid);
+        startService(intent);
+        
+        TestReceiver2 receiver2 =new TestReceiver2();
+		IntentFilter filter2 = new IntentFilter();
+		filter2.addAction("com.uiproject.meetingplanner");
+		registerReceiver(receiver2, filter2); 
+		*/
+        
+        fakeit();
+    }
+    
+    public void fakeit(){        
         Map<Integer,UserInstance> userLocations = new HashMap<Integer, UserInstance>();
         UserInstance u = new UserInstance(1);
         u.setUserEta("30");
@@ -92,17 +104,16 @@ public class TrackerMap extends MapActivity {
         u2.setUserLastName("Deng");
         userLocations.put(2, u2);
         updateMap(userLocations);
-        */
+        UserInstance u3 = new UserInstance(3);
+        u2.setUserEta("60");
+        u2.setUserLocationLat(34150089);
+        u2.setUserLocationLon(-118269152);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
+        updateMap(userLocations);
         
-        Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
-        intent.putExtra("mid", mid);
-        startService(intent);
         
-        TestReceiver2 receiver2 =new TestReceiver2();
-		IntentFilter filter2 = new IntentFilter();
-		filter2.addAction("com.uiproject.meetingplanner");
-		registerReceiver(receiver2, filter2); 
-		
     }
     
     @Override
@@ -120,20 +131,16 @@ public class TrackerMap extends MapActivity {
     	OverlayItem oi;
     	Set<Integer> keys = attendees.keySet();
     	UserInstance a;
-    	db.open();
     	for (Integer i : keys){
     		a = attendees.get(i);
     		oi = new OverlayItem(new GeoPoint(a.getUserLocationLat(), a.getUserLocationLon()), "", "");
-    		UserInstance user = db.getUser(a.getUserID());
-    		Log.d(TAG, "updateMap uid = " + a.getUserID() + ", user name= " + user.getUserFirstName() + " " + user.getUserLastName() + ", lat = " + a.getUserLocationLat()
+    		Log.d(TAG, "updateMap user = " + a.getUserFirstName() + " " + a.getUserLastName() + ", lat = " + a.getUserLocationLat()
     				+ ", lon = " + a.getUserLocationLon());
-    		myoi = new MyOverlayItem(oi, user.getUserFirstName() + " " + user.getUserLastName(), a.getUserEta());
+    		myoi = new MyOverlayItem(oi, a.getUserFirstName() + " " + a.getUserLastName(), a.getUserEta());
     		itemizedoverlay.addOverlay(myoi);
-    		mapOverlays.add(itemizedoverlay);
-    		itemizedoverlay.doPopulate();
     	}
-    	db.close();
     	
+    	itemizedoverlay.doPopulate();
     	if (!zoom){
 	        mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
 	        
