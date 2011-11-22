@@ -60,7 +60,7 @@ public class TrackerMap extends MapActivity {
     	eta_text =(TextView) findViewById(R.id.eta);
         
         List<Overlay> mapOverlays = mapView.getOverlays();
-        Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
+        Drawable drawable = this.getResources().getDrawable(R.drawable.marker);
         itemizedoverlay = new MyItemizedOverlay(drawable, this);
         mapOverlays.add(itemizedoverlay);
         /*
@@ -106,6 +106,8 @@ public class TrackerMap extends MapActivity {
     }
     
     public void fakeit(){
+    	GeoPoint p = new GeoPoint(34019941, -118289108);
+    	itemizedoverlay.setMeetingloc(p);
     	list= new ArrayList<Map<Integer,UserInstance>>();
         Map<Integer,UserInstance> userLocations = new HashMap<Integer, UserInstance>();
         UserInstance u = new UserInstance(1);
@@ -375,7 +377,7 @@ public class TrackerMap extends MapActivity {
     	Log.d(TAG, "updateMap size = " + attendees.size());
     	
     	itemizedoverlay.clear();
-    	//itemizedoverlay.addMeetingLoc();
+    	itemizedoverlay.addMeetingLoc();
     	MyOverlayItem myoi;
     	OverlayItem oi;
     	Set<Integer> keys = attendees.keySet();
@@ -479,7 +481,7 @@ public class TrackerMap extends MapActivity {
 
     	public void setMeetingloc(GeoPoint p){
     		OverlayItem oi = new OverlayItem(p, "", "");
-    		MyOverlayItem myoi = new MyOverlayItem(oi, "Meeting Location", "");
+    		MyOverlayItem myoi = new MyOverlayItem(oi, "588 Group meeting", "");
     		meetingloc = myoi;
     		addOverlay(myoi);
     	}
