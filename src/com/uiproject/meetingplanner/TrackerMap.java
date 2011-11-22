@@ -34,7 +34,7 @@ public class TrackerMap extends MapActivity {
 	public static final String TAG = "TrackerMap";
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	
-	protected MyItemizedOverlay itemizedoverlay;
+	protected MyItemizedOverlay itemizedoverlay, itemizedoverlay2;
 	protected MapView mapView;
 	protected int mid;
 	protected MapController mc;
@@ -62,7 +62,9 @@ public class TrackerMap extends MapActivity {
         List<Overlay> mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(R.drawable.marker);
         itemizedoverlay = new MyItemizedOverlay(drawable, this);
+        itemizedoverlay2 = new MyItemizedOverlay(this.getResources().getDrawable(R.drawable.goal_marker), this);
         mapOverlays.add(itemizedoverlay);
+        mapOverlays.add(itemizedoverlay2);
         /*
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
@@ -107,7 +109,10 @@ public class TrackerMap extends MapActivity {
     
     public void fakeit(){
     	GeoPoint p = new GeoPoint(34019941, -118289108);
-    	itemizedoverlay.setMeetingloc(p, this.getResources().getDrawable(R.drawable.goal_marker));
+    	itemizedoverlay2.setMeetingloc(p);
+    	itemizedoverlay2.addMeetingLoc();
+    	itemizedoverlay2.doPopulate();
+    	
     	list= new ArrayList<Map<Integer,UserInstance>>();
         Map<Integer,UserInstance> userLocations = new HashMap<Integer, UserInstance>();
         UserInstance u = new UserInstance(1);
@@ -377,7 +382,6 @@ public class TrackerMap extends MapActivity {
     	Log.d(TAG, "updateMap size = " + attendees.size());
     	
     	itemizedoverlay.clear();
-    	itemizedoverlay.addMeetingLoc();
     	MyOverlayItem myoi;
     	OverlayItem oi;
     	Set<Integer> keys = attendees.keySet();
@@ -479,9 +483,9 @@ public class TrackerMap extends MapActivity {
     	  center = new GeoPoint(0, 0);
     	}
 
-    	public void setMeetingloc(GeoPoint p, Drawable drawable){
+    	public void setMeetingloc(GeoPoint p){
     		OverlayItem oi = new OverlayItem(p, "", "");
-    		oi.setMarker(drawable);
+    		//oi.setMarker(mContext.getResources().getDrawable(R.drawable.goal_marker));
     		MyOverlayItem myoi = new MyOverlayItem(oi, "588 Group meeting", "");
     		meetingloc = myoi;
     		addOverlay(myoi);
