@@ -32,6 +32,7 @@ import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 public class DisplayMeeting extends Activity {
 
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+	public static final String TAG = "DisplayMeeting";
 	TextView title, desc, date, time, tracktime, attendees, location, status;
 	ImageView trackbutton, callbutton, editbutton, alarmbutton, camerabutton, acceptbutton, declinebutton;
 	MeetingInstance meeting;
@@ -45,6 +46,8 @@ public class DisplayMeeting extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Log.d(TAG, TAG + "onCreate ");
         setContentView(R.layout.displaymeeting);
         title = (TextView) findViewById(R.id.title);
         desc = (TextView) findViewById(R.id.desc);
@@ -104,6 +107,8 @@ public class DisplayMeeting extends Activity {
 	public void onStart(){
 		super.onStart();
 		
+		Log.d(TAG, TAG + "onStart ");
+		
 	    db.open();
 	    meeting = db.getMeeting(mid);
 	   	    
@@ -138,19 +143,26 @@ public class DisplayMeeting extends Activity {
     	
     	if (statusid == MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING){
     		status.setText("Attending");
-    		attendingButtons();
+    		//attendingButtons();
+    		
+    		Log.d(TAG, TAG + " attending ");
     	}else if(statusid == MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING){
     		status.setText("Declined");
-    		declineButtons();
+    		//declineButtons();
+    		
+    		Log.d(TAG, TAG + " declined ");
     	}else{
     		status.setText("Pending");
     		pendingButtons();
+    		
+    		Log.d(TAG, TAG + " pending ");
     	}
 		
+    	
 	}
 	
 	public void attendingButtons(){
-
+		Log.d(TAG, TAG + " in attending Btns");
 		status.setText("Attending"); 
     	if (meeting.getMeetingInitiatorID() != uid){
     		editbutton.setVisibility(View.GONE);
@@ -182,6 +194,7 @@ public class DisplayMeeting extends Activity {
 	}
 	
 	public void declineButtons(){
+		Log.d(TAG, TAG + " in decline Btns");
 		editbutton.setVisibility(View.GONE);
 		camerabutton.setVisibility(View.GONE);
 		callbutton.setVisibility(View.GONE);
@@ -193,6 +206,8 @@ public class DisplayMeeting extends Activity {
 	}
 	
 	public void pendingButtons(){
+		
+		Log.d(TAG, TAG + " in pending Btns");
 		editbutton.setVisibility(View.GONE);
 		camerabutton.setVisibility(View.GONE);
 		callbutton.setVisibility(View.GONE);
