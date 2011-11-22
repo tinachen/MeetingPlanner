@@ -93,10 +93,10 @@ public class TrackerMap extends MapActivity {
         intent.putExtra("mid", mid);
         startService(intent);
         
-        TestReceiver receiver =new TestReceiver();
-		IntentFilter filter = new IntentFilter();
-		filter.addAction("com.uiproject.meetingplanner");
-		registerReceiver(receiver, filter);       
+        TestReceiver2 receiver2 =new TestReceiver2();
+		IntentFilter filter2 = new IntentFilter();
+		filter2.addAction("com.uiproject.meetingplanner");
+		registerReceiver(receiver2, filter2);       
     }
     
     @Override
@@ -138,8 +138,9 @@ public class TrackerMap extends MapActivity {
     	persontracker.setVisibility(View.GONE);
     }
     
-    public class TestReceiver extends BroadcastReceiver { 
-    	public TestReceiver (){
+    
+    public class TestReceiver2 extends BroadcastReceiver { 
+    	public TestReceiver2 (){
     	}
 
         public void onReceive(Context context, Intent intent) { 

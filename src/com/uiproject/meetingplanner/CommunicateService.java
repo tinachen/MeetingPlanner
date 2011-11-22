@@ -109,7 +109,6 @@ public class CommunicateService extends Service {
 			//	msg.put("locations", locs);
 			msg.putInt("tag", tag);
 			msg.putBundle("locations", locs);
-		
 			Intent intent = new Intent();
 			intent.putExtra("message", msg);
 			intent.setAction("com.uiproject.meetingplanner");
@@ -162,8 +161,8 @@ public class CommunicateService extends Service {
     	Log.d("CurLat",currenctLat);
     	String currenctLng=new Integer(MainPage.guh.getCurrentLng()).toString(); 
     	Log.d("CurLng",currenctLng);
-    	String originLoc=currenctLng +"," +currenctLat;
-    	
+    	String originLoc=currenctLat +"," + currenctLng;
+    	Log.d("originLoc",originLoc);
     	String destinationLat;
     	String destinationLng;
     	
@@ -171,7 +170,8 @@ public class CommunicateService extends Service {
     	allMeetingMap=Communicator.getAllMeetings();
     	destinationLat = new Integer(allMeetingMap.get(MID).getMeetingLat()).toString();
     	destinationLng = new Integer(allMeetingMap.get(MID).getMeetingLon()).toString();
-    	String destinationLoc=destinationLng +"," + destinationLat;
+    	String destinationLoc=destinationLat +"," + destinationLng ;
+    	Log.d("destinationLoc",destinationLoc);
     	
     	
     	{  
@@ -181,13 +181,13 @@ public class CommunicateService extends Service {
     	 this.language="en=US";
     	 this.sensor=false;}
     	
-    	String etaValue = getEta(this.origin,this.destination,this.mode);
+    //	String etaValue = getEta(this.origin,this.destination,this.mode);
     	
     	String meetingId=new Integer(MID).toString();
     //	String param2=new Integer(sm.myLat).toString();
     //	String param3=new Integer(sm.myLong).toString();
     //	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/yuwen?i="+param1;
-    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=" + userId + "&meetingId=" + meetingId +"&lat=" + currenctLat +"&lon=" +currenctLng + "&eta=" + etaValue;
+    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=" + userId + "&meetingId=" + meetingId +"&lat=" + currenctLat +"&lon=" +currenctLng + "&eta=9";
     	Log.d("urlstring",urlStr);
     //	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=6&meetingId=2&lat=9&lon=9&eta=9";
     	String responseResult="";
