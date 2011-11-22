@@ -37,6 +37,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
     public static int LISTTYPE_ACCEPTED = 0;
     public static int LISTTYPE_DECLINED = 1;
     public static int LISTTYPE_PENDING = 2;
+    public static int LISTTYPE_OLD = 3;
    
 	
 	public MeetingListArrayAdapter(Activity context, int resourceID, List<MeetingInstance> list, int listType, int uid) {

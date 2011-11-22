@@ -122,7 +122,7 @@ public class DisplayMeeting extends Activity {
     		if (added){
     			mnames += ", ";
     		}
-    		mnames = mnames + u.getUserFirstName() + u.getUserLastName();
+    		mnames = mnames + u.getUserFirstName() + " " + u.getUserLastName();
     		added = true;    		
     	}
     	
@@ -263,12 +263,13 @@ public class DisplayMeeting extends Activity {
         db.close();
   
     }
+   
 
 	 // menu 
 	    @Override
 	    public boolean onCreateOptionsMenu(Menu menu) {
 	        MenuInflater inflater = getMenuInflater();
-	        inflater.inflate(R.menu.logoutonly, menu);
+	        inflater.inflate(R.menu.logouthelpmenu, menu);
 	        return true;
 	    }
 	    
@@ -279,6 +280,11 @@ public class DisplayMeeting extends Activity {
 	            	logout();
 	            	break;
 	            }
+		        case R.id.help:{
+					Intent intent = new Intent(DisplayMeeting.this, HelpPage.class);
+					startActivity(intent);
+		        	break;
+		        }
 	        }
 	        return true;
 	    }

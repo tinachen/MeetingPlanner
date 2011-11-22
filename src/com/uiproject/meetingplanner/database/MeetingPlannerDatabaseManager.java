@@ -633,7 +633,7 @@ public class MeetingPlannerDatabaseManager {
 		return meetingsArray;
 	}
 	
-	public ArrayList<MeetingInstance> getPastMeetings(int userID){
+	public ArrayList<MeetingInstance> getOldMeetings(int userID){
 		ArrayList<MeetingInstance> meetingsArray = new ArrayList<MeetingInstance>();
 		Cursor cursor;
 		

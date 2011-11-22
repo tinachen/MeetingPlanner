@@ -140,6 +140,11 @@ public class MainPage extends Activity {
                 MainPage.this.startActivityForResult(intent, 0);
                 break;
             }   
+	        case R.id.help:{
+				Intent intent = new Intent(MainPage.this, HelpPage.class);
+				startActivity(intent);
+	        	break;
+	        }
             case R.id.logout:{
             	Logout.logout(this);
             	break;

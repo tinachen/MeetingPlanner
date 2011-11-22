@@ -147,6 +147,11 @@
                   android:finishOnTaskLaunch="true">
 		</activity>
 		
+		<activity android:name=".MeetingListOld"
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
+		</activity>
+		
 		<activity android:name=".TrackerMap"
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
@@ -156,6 +161,12 @@
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
 		</activity>
+		
+		<activity android:name=".HelpPage"
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
+		</activity>
+		
 		<!--  
 		<receiver android:name=".TestReceiver">
 			<intent-filter >
