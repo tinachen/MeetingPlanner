@@ -140,29 +140,21 @@ public class DisplayMeeting extends Activity {
     	location.setText(maddr);
     	attendees.setText(mnames);
     	
-    	
     	if (statusid == MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING){
     		status.setText("Attending");
-    		//attendingButtons();
-    		
-    		Log.d(TAG, TAG + " attending ");
+    		attendingButtons();
     	}else if(statusid == MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING){
     		status.setText("Declined");
-    		//declineButtons();
-    		
-    		Log.d(TAG, TAG + " declined ");
+    		declineButtons();
     	}else{
     		status.setText("Pending");
     		pendingButtons();
-    		
-    		Log.d(TAG, TAG + " pending ");
     	}
 		
     	
 	}
 	
 	public void attendingButtons(){
-		Log.d(TAG, TAG + " in attending Btns");
 		status.setText("Attending"); 
     	if (meeting.getMeetingInitiatorID() != uid){
     		editbutton.setVisibility(View.GONE);
@@ -194,25 +186,22 @@ public class DisplayMeeting extends Activity {
 	}
 	
 	public void declineButtons(){
-		Log.d(TAG, TAG + " in decline Btns");
 		editbutton.setVisibility(View.GONE);
 		camerabutton.setVisibility(View.GONE);
 		callbutton.setVisibility(View.GONE);
 		declinebutton.setVisibility(View.GONE);
     	trackbutton.setVisibility(View.GONE);  
     	alarmbutton.setVisibility(View.GONE);  
-    	acceptbutton.setVisibility(View.VISIBLE);  		
+    	acceptbutton.setVisibility(View.VISIBLE);  
 		
 	}
 	
 	public void pendingButtons(){
-		
-		Log.d(TAG, TAG + " in pending Btns");
 		editbutton.setVisibility(View.GONE);
 		camerabutton.setVisibility(View.GONE);
 		callbutton.setVisibility(View.GONE);
     	trackbutton.setVisibility(View.GONE);   
-    	alarmbutton.setVisibility(View.GONE);  
+    	alarmbutton.setVisibility(View.GONE); 
     	acceptbutton.setVisibility(View.VISIBLE);  	
     	declinebutton.setVisibility(View.VISIBLE);  		
 	}

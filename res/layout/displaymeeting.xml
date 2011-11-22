@@ -92,7 +92,7 @@
                         android:layout_height="40dip"
                         android:clickable="true"
                         android:onClick="accept"
-                        android:src="@drawable/acceptbutton" />
+                        android:src="@drawable/acceptbutton2" />
 
                     <ImageView
                         android:id="@+id/displaydeclinebutton"
