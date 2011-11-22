@@ -1,10 +1,9 @@
 package com.uiproject.meetingplanner;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Set;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -23,7 +22,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -110,7 +108,6 @@ public class DisplayMeeting extends Activity {
 		
 	    db.open();
 	    meeting = db.getMeeting(mid);
-	    db.close();
 	   	    
     	String mtitle = meeting.getMeetingTitle();
     	String mdesc = meeting.getMeetingDescription();
@@ -118,16 +115,16 @@ public class DisplayMeeting extends Activity {
     	String mdate = meeting.getMeetingDate();
     	String mtime = meeting.getMeetingStartTime() + "-" + meeting.getMeetingEndTime();
     	String mtracktime = meeting.getMeetingTrackTime() + " minutes";
-    	HashMap<Integer, UserInstance> users = meeting.getMeetingAttendees();
+    	ArrayList<UserInstance> users = db.getMeetingUsersArray(meeting.getMeetingID());
+	    db.close();
     	
     	String mnames = "";
     	boolean added = false;
-    	Set<Integer> keys = users.keySet();
-    	for (Integer i : keys){
+    	for (UserInstance u : users){
     		if (added){
     			mnames += ", ";
     		}
-    		mnames = mnames + users.get(i).getUserFirstName() + users.get(i).getUserLastName();
+    		mnames = mnames + u.getUserFirstName() + u.getUserLastName();
     		added = true;    		
     	}
     	

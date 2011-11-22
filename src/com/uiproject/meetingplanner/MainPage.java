@@ -189,7 +189,14 @@ public class MainPage extends Activity {
 	    	mtitle.setText(m.getMeetingTitle());
 	    	String when = m.getMeetingDate() + ", " + m.getMeetingStartTime() + "-" + m.getMeetingEndTime();
 	    	mwhen.setText(when);
-	    	mdesc.setText(m.getMeetingDescription());
+	    	String shortDes = "";
+	    	if(m.getMeetingDescription().length() < 75){
+	    		shortDes = m.getMeetingDescription().substring(0, m.getMeetingDescription().length());
+	    	}else{
+	    		shortDes = m.getMeetingDescription().substring(0, 75) + "...";
+	    	}
+	    	
+	    	mdesc.setText(shortDes);
 	    	trackbutton.setTag(mid);
 	    	Calendar cal = new GregorianCalendar();
 	        int currenth = cal.get(Calendar.HOUR_OF_DAY);
