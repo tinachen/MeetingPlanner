@@ -1,5 +1,6 @@
 package com.uiproject.meetingplanner;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -280,13 +281,13 @@ public class EditMeeting extends Activity {
     }
     
     
-    public void saveMeeting(View button){
+    public void saveMeeting(View button) throws ParseException{
     	Toast.makeText(EditMeeting.this, "meeting saved!", Toast.LENGTH_SHORT).show();
     	
     	
     	String mtitle = mname.getText().toString();
     	String mdesc = desc.getText().toString();
-    	String mdate = mMonth + "/" + mDay + "/" + mYear;
+    	String mdate = (mMonth + 1) + "/" + mDay + "/" + mYear;
     	String mstarttime = pad(msHour) + ":" + pad(msMinute);
     	String mendtime = pad(meHour) + ":" + pad(meMinute);
     	addr = "locationtest"; // TODO remove
