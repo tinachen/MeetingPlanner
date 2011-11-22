@@ -30,8 +30,9 @@ import android.widget.TextView;
 public class MainPage extends Activity {
     /** Called when the activity is first created. */
 
-	TextView name, mtitle, mwhen, mdesc;
-	ImageView trackbutton, gotomeetingbutton;
+	TextView name, mtitle, mdate, mtime, mcreator;
+	ImageView trackbutton;
+	View nextmeeting;
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	public static final String mainPageTag = "MainPage";
 	private MeetingPlannerDatabaseManager db;
@@ -46,8 +47,8 @@ public class MainPage extends Activity {
         name = (TextView) findViewById(R.id.name);
 
     	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-    	SharedPreferences.Editor editor = settings.edit();
     	String username = settings.getString("userFirstName", "") + " " + settings.getString("userLastName", "");
+    	
     	if (username.length() == 1){
     		name.setText("Add your name");
     		name.setClickable(true);
@@ -63,12 +64,12 @@ public class MainPage extends Activity {
     	}
 
 
-	    mtitle = (TextView) findViewById(R.id.mtitle);
-	    mwhen = (TextView) findViewById(R.id.mwhen);
-	    mdesc = (TextView) findViewById(R.id.mdesc);
+	    mtitle = (TextView) findViewById(R.id.mnexttitle);
+	    mdate = (TextView) findViewById(R.id.mdate);
+	    mtime = (TextView) findViewById(R.id.mtime);
+	    mcreator = (TextView) findViewById(R.id.mcreator);
 	    trackbutton = (ImageView) findViewById(R.id.displaytrackbutton);
-	    gotomeetingbutton = (ImageView) findViewById(R.id.gotomeetingbutton);
-    	
+    	nextmeeting = findViewById(R.id.nextmeetingview);
     	// Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    uid = settings.getInt("uid", -1);
@@ -87,8 +88,8 @@ public class MainPage extends Activity {
     	
     }
     
-    public void gotomeeting(View button){
-		int mid = (Integer) button.getTag();
+    public void gotomeeting(View view){
+		int mid = (Integer) view.getTag();
 		Intent intent = new Intent(MainPage.this, DisplayMeeting.class);
 		intent.putExtra("mid", mid);
 		intent.putExtra("status", MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING);
@@ -183,25 +184,29 @@ public class MainPage extends Activity {
 	    
 	    if(mid < 0){
 	    	mtitle.setText("You have no upcoming meetings"); 
-	    	mwhen.setVisibility(View.GONE);
-	    	mdesc.setVisibility(View.GONE);
-	    	trackbutton.setVisibility(View.GONE);
-	    	gotomeetingbutton.setVisibility(View.GONE);    	
+	    	mtime.setVisibility(View.GONE);
+	    	mdate.setVisibility(View.GONE);
+	    	mcreator.setVisibility(View.GONE);
+	    	trackbutton.setVisibility(View.GONE);	
 	    	
 	    	// Set sharedpreferences
 	    	editor.putInt("currentTrackingMid", -1);
 	    }else{
-	    	mtitle.setText(m.getMeetingTitle());
-	    	String when = m.getMeetingDate() + ", " + m.getMeetingStartTime() + "-" + m.getMeetingEndTime();
-	    	mwhen.setText(when);
-	    	String shortDes = "";
-	    	if(m.getMeetingDescription().length() < 75){
-	    		shortDes = m.getMeetingDescription().substring(0, m.getMeetingDescription().length());
+	    	mdate.setText(m.getMeetingDate());
+	    	mtime.setText( m.getMeetingStartTime() + "-" + m.getMeetingEndTime());
+	    	int creatorid = m.getMeetingInitiatorID();
+	    	db.open();
+	    	UserInstance u = db.getUser(creatorid);
+	    	db.close();
+	    	mcreator.setText(u.getUserFirstName() + " " + u.getUserLastName());
+	    	String shortTitle = "";
+	    	if(m.getMeetingTitle().length() < 25){
+	    		shortTitle = m.getMeetingTitle().substring(0, m.getMeetingTitle().length());
 	    	}else{
-	    		shortDes = m.getMeetingDescription().substring(0, 75) + "...";
+	    		shortTitle = m.getMeetingTitle().substring(0, 25) + "...";
 	    	}
 	    	
-	    	mdesc.setText(shortDes);
+	    	mtitle.setText(shortTitle);
 	    	trackbutton.setTag(mid);
 	    	Calendar cal = new GregorianCalendar();
 	        int currenth = cal.get(Calendar.HOUR_OF_DAY);
@@ -221,11 +226,11 @@ public class MainPage extends Activity {
 
 	    	}
 
-	    	gotomeetingbutton.setTag(mid);
-	    	gotomeetingbutton.setVisibility(View.VISIBLE);
+	    	nextmeeting.setTag(mid);
 
-	    	mwhen.setVisibility(View.VISIBLE);
-	    	mdesc.setVisibility(View.VISIBLE);
+	    	mtime.setVisibility(View.VISIBLE);
+	    	mdate.setVisibility(View.VISIBLE);
+	    	mcreator.setVisibility(View.VISIBLE);
 	    	
 	    	// Set sharedpreferences
 	    	editor.putInt("currentTrackingMid", mid);
