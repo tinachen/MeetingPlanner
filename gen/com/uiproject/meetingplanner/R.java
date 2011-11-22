@@ -84,18 +84,19 @@ public final class R {
         public static final int plannerart=0x7f020036;
         public static final int plussign=0x7f020037;
         public static final int search=0x7f020038;
-        public static final int shape=0x7f020039;
-        public static final int signup=0x7f02003a;
-        public static final int tab_bg_pressed=0x7f02003b;
-        public static final int tab_bg_selected=0x7f02003c;
-        public static final int tab_bg_selector=0x7f02003d;
-        public static final int tab_bg_unselected=0x7f02003e;
-        public static final int tab_divider=0x7f02003f;
-        public static final int tab_text_selector=0x7f020040;
-        public static final int testlogo8=0x7f020041;
-        public static final int trackeretalist=0x7f020042;
-        public static final int trackermap=0x7f020043;
-        public static final int when_button=0x7f020044;
+        public static final int search_icon=0x7f020039;
+        public static final int shape=0x7f02003a;
+        public static final int signup=0x7f02003b;
+        public static final int tab_bg_pressed=0x7f02003c;
+        public static final int tab_bg_selected=0x7f02003d;
+        public static final int tab_bg_selector=0x7f02003e;
+        public static final int tab_bg_unselected=0x7f02003f;
+        public static final int tab_divider=0x7f020040;
+        public static final int tab_text_selector=0x7f020041;
+        public static final int testlogo8=0x7f020042;
+        public static final int trackeretalist=0x7f020043;
+        public static final int trackermap=0x7f020044;
+        public static final int when_button=0x7f020045;
     }
     public static final class id {
         public static final int LinearLayout01=0x7f09006e;
