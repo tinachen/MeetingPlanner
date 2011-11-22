@@ -64,14 +64,12 @@ public class DisplayMeeting extends Activity {
         
         camerabutton.setOnClickListener(new OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				takePhoto(v);
 			}
 		});
         alarmbutton.setOnClickListener(new OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent myIntent = new Intent(DisplayMeeting.this, MyAlarmService.class);
