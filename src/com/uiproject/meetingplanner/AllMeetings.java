@@ -82,7 +82,8 @@ public class AllMeetings extends TabActivity{
 	        }
 	        case R.id.oldmeeting:{
 
-	            Toast.makeText(getBaseContext(), "Go to old meetings", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(AllMeetings.this, MeetingListOld.class);
+				startActivity(intent);
 	        	break;
 	        }
         }

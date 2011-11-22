@@ -3,9 +3,11 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +68,7 @@ public class CommunicateService extends Service {
 			while(status){
 				try{
 					displayResult();
-					Thread.sleep(60000);
+					Thread.sleep(5000);
 				}
 				catch(Exception e) {   
 					e.printStackTrace();
@@ -158,18 +160,20 @@ public class CommunicateService extends Service {
 		
 		
     	String currenctLat=new Integer(MainPage.guh.getCurrentLat()).toString(); 
+    	String etaLat=new Double(MainPage.guh.getCurrentLatDouble()).toString();
     	Log.d("CurLat",currenctLat);
-    	String currenctLng=new Integer(MainPage.guh.getCurrentLng()).toString(); 
+    	String currenctLng=new Integer(MainPage.guh.getCurrentLng()).toString();
+    	String etaLng=new Double(MainPage.guh.getCurrentLngDouble()).toString();
     	Log.d("CurLng",currenctLng);
-    	String originLoc=currenctLat +"," + currenctLng;
+    	String originLoc=etaLat +"," + etaLng;
     	Log.d("originLoc",originLoc);
     	String destinationLat;
     	String destinationLng;
     	
     	Map<Integer,MeetingInstance> allMeetingMap=new HashMap<Integer,MeetingInstance>();
     	allMeetingMap=Communicator.getAllMeetings();
-    	destinationLat = new Integer(allMeetingMap.get(MID).getMeetingLat()).toString();
-    	destinationLng = new Integer(allMeetingMap.get(MID).getMeetingLon()).toString();
+    	destinationLat = new Double(allMeetingMap.get(MID).getMeetingLat()*0.000001).toString();
+    	destinationLng = new Double(allMeetingMap.get(MID).getMeetingLon()*0.000001).toString();
     	String destinationLoc=destinationLat +"," + destinationLng ;
     	Log.d("destinationLoc",destinationLoc);
     	
@@ -181,13 +185,20 @@ public class CommunicateService extends Service {
     	 this.language="en=US";
     	 this.sensor=false;}
     	
-    //	String etaValue = getEta(this.origin,this.destination,this.mode);
-    	
+    	String etaValue = getEta(this.origin,this.destination,this.mode);
+    	Log.d("eta value before encode",etaValue);
+    	try {
+			etaValue = URLEncoder.encode(etaValue,"utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	Log.d("eta value",etaValue);
     	String meetingId=new Integer(MID).toString();
     //	String param2=new Integer(sm.myLat).toString();
     //	String param3=new Integer(sm.myLong).toString();
     //	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/yuwen?i="+param1;
-    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=" + userId + "&meetingId=" + meetingId +"&lat=" + currenctLat +"&lon=" +currenctLng + "&eta=9";
+    	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=" + userId + "&meetingId=" + meetingId +"&lat=" + currenctLat +"&lon=" +currenctLng + "&eta=" + etaValue;
     	Log.d("urlstring",urlStr);
     //	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=6&meetingId=2&lat=9&lon=9&eta=9";
     	String responseResult="";

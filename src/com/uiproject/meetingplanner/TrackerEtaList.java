@@ -122,9 +122,11 @@ public class TrackerEtaList extends Activity {
             updateList(userLocations);
             Log.d("tag","tag: "+tag);
             Log.d("AAA","userId: "+6);
+
             Log.d("AAA","lat: "+userLocations.get(1).getUserLocationLat());
             Log.d("AAA","lon: "+userLocations.get(1).getUserLocationLon());
             Log.d("AAA","eta: "+userLocations.get(1).getUserEta());
+
             
         } 
         
