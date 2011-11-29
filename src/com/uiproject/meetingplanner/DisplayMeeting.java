@@ -77,6 +77,7 @@ public class DisplayMeeting extends Activity {
 				// TODO Auto-generated method stub
 				Intent myIntent = new Intent(DisplayMeeting.this, MyAlarmService.class);
 				myIntent.putExtra("mid", mid);
+				myIntent.putExtra("test", "test");
 
 				pendingIntent = PendingIntent.getService(DisplayMeeting.this, 0, myIntent, 0);
 
