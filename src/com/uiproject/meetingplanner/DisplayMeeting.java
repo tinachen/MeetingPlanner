@@ -127,8 +127,10 @@ public class DisplayMeeting extends Activity {
     		if (added){
     			mnames += ", ";
     		}
-    		mnames = mnames + u.getUserFirstName() + " " + u.getUserLastName();
-    		added = true;    		
+    		if (u.getUserAttendingStatus() == MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDINGSTRING){
+	    		mnames = mnames + u.getUserFirstName() + " " + u.getUserLastName();
+	    		added = true;
+    		}
     	}
     	
     	// Set the view
