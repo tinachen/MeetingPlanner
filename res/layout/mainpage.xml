@@ -172,6 +172,12 @@
 			   android:paddingBottom="5dip"
 			   
 				>
+			<TextView
+				style="@style/headerText"
+			   android:id="@+id/nomeeting"
+			   android:layout_width="wrap_content"
+			   android:layout_height="wrap_content"
+			   android:text="You have no upcoming meetings"/>
 			
 			<TextView
 				style="@style/headerText"
