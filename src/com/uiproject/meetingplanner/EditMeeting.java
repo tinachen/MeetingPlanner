@@ -127,7 +127,13 @@ public class EditMeeting extends Activity {
         delete.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
         
 
-	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+	   
+		
+	}
+	
+	public void onStart(){
+		super.onStart();
+		db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 	    MeetingInstance m = db.getMeeting(mid);
 	    db.close();
@@ -190,7 +196,6 @@ public class EditMeeting extends Activity {
         spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
         int spinnerPosition = adapter.getPosition(trackTime + "");
         spinner.setSelection(spinnerPosition);
-		
 	}
 	
 	@Override // this is called when we come back from child activity
@@ -302,7 +307,7 @@ public class EditMeeting extends Activity {
     	db.updateMeeting(mid, mtitle, lat, lon, mdesc, addr, mdate, mstarttime, mendtime, (int)(trackTime * 60)); 
 
     	if (ppl_changed){ // need to update uses
-    		/*
+    		
     		// db.deleteMeetingUsers(mid)
     		int  commaIndex;
             String tempids = uids;
@@ -328,7 +333,7 @@ public class EditMeeting extends Activity {
         	}
         	//add meeting creator
     		db.createMeetingUser(mid, uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");
-    		*/
+    		
     	}
     	db.close();
     	this.finish();    	
