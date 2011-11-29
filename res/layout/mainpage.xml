@@ -8,6 +8,16 @@
 	   android:paddingRight="10dip" 
 		android:background="@drawable/shape">
 		
+	<ScrollView	
+		android:layout_height="wrap_content"
+		android:layout_width="fill_parent">
+	
+		
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_height="fill_parent"
+		android:layout_width="fill_parent">
+		
 	   <RelativeLayout
 		android:layout_height="wrap_content"
 		android:layout_width="fill_parent" >
@@ -209,5 +219,7 @@
 	</LinearLayout>
 	
 	</LinearLayout>
+	</LinearLayout>
+	</ScrollView>
 </LinearLayout>
 
