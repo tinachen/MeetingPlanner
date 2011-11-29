@@ -26,21 +26,24 @@
         
 
         <Button
+        	android:background="@drawable/deletebutton"
+            android:id="@+id/pendingDeclineBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:text="Decline" 
+            android:layout_weight="1"
+            android:onClick="decline"/>
+
+        <Button
+        	android:background="@drawable/button_shape"
             android:id="@+id/pendingAcceptBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dip"
+            android:layout_marginLeft="5dip"
             android:text="Accept" 
             android:layout_weight="1"
             android:onClick="accept"
             />
-
-        <Button
-            android:id="@+id/pendingDeclineBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Decline" 
-            android:layout_weight="1"
-            android:onClick="decline"/>
 
     </LinearLayout>
    
