@@ -109,8 +109,7 @@ public class Search extends Activity implements OnItemClickListener {
         mContactList = (GridView) findViewById(R.id.gridview);
         uAdapter = new SearchAdapter(this, fullSearchList, checkedUsers);
         mContactList.setAdapter(uAdapter);
-        mContactList.setFocusable(true);
-        mContactList.setClickable(true);
+        mContactList.requestFocus();
         mContactList.setOnItemClickListener(this);
         
 

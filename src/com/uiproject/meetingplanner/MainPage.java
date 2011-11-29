@@ -199,14 +199,14 @@ public class MainPage extends Activity {
 	    	UserInstance u = db.getUser(creatorid);
 	    	db.close();
 	    	mcreator.setText(u.getUserFirstName() + " " + u.getUserLastName());
-	    	String shortTitle = "";
-	    	if(m.getMeetingTitle().length() < 25){
-	    		shortTitle = m.getMeetingTitle().substring(0, m.getMeetingTitle().length());
-	    	}else{
-	    		shortTitle = m.getMeetingTitle().substring(0, 25) + "...";
-	    	}
+	    	//String shortTitle = "";
+	    	//if(m.getMeetingTitle().length() < 25){
+	    	//	shortTitle = m.getMeetingTitle().substring(0, m.getMeetingTitle().length());
+	    	//}else{
+	    	//	shortTitle = m.getMeetingTitle().substring(0, 25) + "...";
+	    	//}
 	    	
-	    	mtitle.setText(shortTitle);
+	    	mtitle.setText(m.getMeetingTitle());
 	    	trackbutton.setTag(mid);
 	    	Calendar cal = new GregorianCalendar();
 	        int currenth = cal.get(Calendar.HOUR_OF_DAY);

@@ -166,6 +166,7 @@
 			   android:id="@+id/mnexttitle"
 			   android:layout_width="180dip"
 			   android:layout_height="wrap_content"
+			   android:singleLine="true"
 			   android:text="Meeting title"/>
 	            
 			<TextView
@@ -188,6 +189,7 @@
 			   android:id="@+id/mcreator"
 			   android:layout_width="180dip"
 			   android:layout_height="wrap_content"
+			   android:singleLine="true"
 			   android:text="Creator" />
 			   
 			   
