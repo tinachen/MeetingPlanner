@@ -48,6 +48,10 @@ public class MyAlarmService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO Auto-generated method stub
+		Toast.makeText(this, "onStartCommand", Toast.LENGTH_LONG).show();
+		int mid = intent.getIntExtra("mid", 2);
+		Toast.makeText(this, String.valueOf(mid), Toast.LENGTH_LONG).show();
+	//	Toast.makeText(this, intent.getStringExtra("test"), Toast.LENGTH_LONG).show();
 		String ns = Context.NOTIFICATION_SERVICE;
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
 		int icon = R.drawable.icon2;
@@ -58,7 +62,7 @@ public class MyAlarmService extends Service {
 		CharSequence contentTitle = "New Meeting Approaching";
 		CharSequence contentText = "Project Discussion";
 		Intent notificationIntent = new Intent(this, DisplayMeeting.class);
-		notificationIntent.putExtra("mid", intent.getIntExtra("mid", 2) );
+		notificationIntent.putExtra("mid", mid);
 		//Toast.makeText(this, String.valueOf(intent.getIntExtra("mid", 2)), Toast.LENGTH_LONG).show();
 		notificationIntent.putExtra("status",MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
