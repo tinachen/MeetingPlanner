@@ -189,8 +189,8 @@ public final class R {
         public static final int oldmeeting=0x7f090084;
         public static final int oldpw=0x7f09000d;
         public static final int or=0x7f09002a;
-        public static final int pendingAcceptBtn=0x7f09006c;
-        public static final int pendingDeclineBtn=0x7f09006d;
+        public static final int pendingAcceptBtn=0x7f09006d;
+        public static final int pendingDeclineBtn=0x7f09006c;
         public static final int persontracker=0x7f09007f;
         public static final int phone=0x7f090054;
         public static final int pic=0x7f09000a;
