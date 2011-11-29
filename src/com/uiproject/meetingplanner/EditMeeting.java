@@ -157,13 +157,16 @@ public class EditMeeting extends Activity {
         db.close();
         
         names = "";
+        uids = "";
         boolean added = false;
         
         for (UserInstance u : users){
         	if (added){
         		names+= ", ";
+        		uids+=",";
         	}
         	names = names + u.getUserFirstName() + " " + u.getUserLastName();
+        	uids += u.getUserID();
         	added = true;
         } 
         
