@@ -76,7 +76,6 @@ public class Signup extends Activity {
         String fname = fname_field.getText().toString();
         String lname = lname_field.getText().toString();
         String phone = phone_field.getText().toString();
-        long phonenumber = Long.parseLong(phone);
         String email = email_field.getText().toString();
         String pw = pw_field.getText().toString();
         String pw2 = pw2_field.getText().toString();
@@ -94,6 +93,8 @@ public class Signup extends Activity {
             return;
         	
         }
+        
+        long phonenumber = Long.parseLong(phone);
         
         // Send create user request to server
 		int uid = Communicator.createUser(phonenumber, fname, lname, email, pw);
