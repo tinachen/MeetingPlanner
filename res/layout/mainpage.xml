@@ -151,6 +151,7 @@
 		android:layout_marginLeft="15dip"
 		android:clickable="true"
 		android:onClick="gotomeeting"
+		android:background="@color/lesstransparent"
 		>
 		
 			<LinearLayout
@@ -159,6 +160,7 @@
 			android:layout_width="wrap_content"
 			   android:paddingTop="5dip"
 			   android:paddingBottom="5dip"
+			   
 				>
 			
 			<TextView
