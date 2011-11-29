@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MeetingListPendingTest extends Activity{
@@ -26,6 +27,8 @@ public class MeetingListPendingTest extends Activity{
 	private Button acceptBtn, declineBtn;
 	private MeetingPlannerDatabaseManager db;
 	private ArrayList<MeetingInstance> meetings;
+	private ArrayAdapter<MeetingInstance> adapter;
+	private int uid;
 
 	/** Called when the activity is first created. */
 
@@ -34,7 +37,7 @@ public class MeetingListPendingTest extends Activity{
 		setContentView(R.layout.pending_list);
 		
 		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-    	final int uid = settings.getInt("uid", -1);
+    	uid = settings.getInt("uid", -1);
 		
 		//Hook up the database
         db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
@@ -42,7 +45,7 @@ public class MeetingListPendingTest extends Activity{
 	    meetings = db.getPendingMeetings(uid);
 		db.close();
 		// Create an array of Strings, that will be put to our ListActivity
-		final ArrayAdapter<MeetingInstance> adapter = new MeetingListArrayAdapter(this, R.layout.all_list_item, meetings, MeetingListArrayAdapter.LISTTYPE_PENDING, uid);
+		adapter = new MeetingListArrayAdapter(this, R.layout.all_list_item, meetings, MeetingListArrayAdapter.LISTTYPE_PENDING, uid);
 		
 		
 		acceptBtn = (Button) findViewById(R.id.pendingAcceptBtn);
@@ -73,7 +76,7 @@ public class MeetingListPendingTest extends Activity{
 			}
 		});
         
-        acceptBtn.setOnClickListener(new View.OnClickListener() {
+        /*acceptBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
              // Perform action on click
             	
@@ -140,10 +143,73 @@ public class MeetingListPendingTest extends Activity{
            	
            	hideBar();
            	
-            }});
-        
-        Log.d(TAG, "in onCreate");
+            }});*/
 		
+	}
+	
+	public void accept(View v){
+		ArrayList<MeetingInstance> meetingsRemove = new ArrayList<MeetingInstance>(); 	
+      	 
+      	 for(int i = 0; i < meetings.size(); i++){
+      		 MeetingInstance m = meetings.get(i);
+      		 
+      		 if(m.isSelected()){
+      			 // Update with server
+      			 Communicator.acceptMeeting(uid, m.getMeetingID());
+      			 
+      			 // Update with internal db
+      			 db.open();
+      			 db.updateMeetingUserAttendingStatus(m.getMeetingID(), uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING);
+      			 db.close();
+      			 
+      			 meetingsRemove.add(m);
+      			 
+      			 Log.d(TAG, "Accept Selected - MeetingID = " + m.getMeetingID() + ", MeetingTitle = " + m.getMeetingTitle());
+      		 }
+      	 }
+      	 
+      	for(int i = 0; i < meetingsRemove.size(); i++){
+     		MeetingInstance m = meetingsRemove.get(i);
+    		adapter.remove(m);
+      	}
+      	adapter.notifyDataSetChanged();
+      	 
+      	hideBar();
+      	
+      	Toast.makeText(this, "meeting accpeted", Toast.LENGTH_SHORT).show();
+	}
+	
+	public void decline(View v){
+		ArrayList<MeetingInstance> meetingsRemove = new ArrayList<MeetingInstance>(); 	
+    	
+      	 for(int i = 0; i < meetings.size(); i++){
+      		 MeetingInstance m = meetings.get(i);
+      		 
+      		 if(m.isSelected()){
+      			 
+      		// Update with server
+      			 Communicator.declineMeeting(uid, m.getMeetingID());
+      			 
+      			 // Update with internal db
+      			 db.open();
+      			 db.updateMeetingUserAttendingStatus(m.getMeetingID(), uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING);
+      			 db.close();
+      			 
+      			 meetingsRemove.add(m);
+      			 
+      			 Log.d(TAG, "Decline Selected - MeetingID = " + m.getMeetingID() + ", MeetingTitle = " + m.getMeetingTitle());
+      		 }
+      	 }
+      
+      	for(int i = 0; i < meetingsRemove.size(); i++){
+     		MeetingInstance m = meetingsRemove.get(i);
+    		adapter.remove(m);
+      	}
+      	adapter.notifyDataSetChanged();
+      	
+      	hideBar();
+      	
+      	Toast.makeText(this, "meeting declined", Toast.LENGTH_SHORT).show();
 	}
 	
 	public static void showBar(){

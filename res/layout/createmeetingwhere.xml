@@ -69,6 +69,18 @@ android:layout_height="wrap_content"
 android:singleLine="true"
 android:layout_weight="1" />
 
+        <ImageButton
+            android:id="@+id/searchbutton"
+        	android:background="@drawable/plainbutton"
+				    android:layout_marginLeft="5dip"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_marginRight="5dip"
+            android:src="@drawable/search_icon"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:onClick="findAddress"
+             />
     
     
 </LinearLayout>

@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MeetingListDeclinedTest extends Activity{
@@ -44,7 +45,7 @@ public class MeetingListDeclinedTest extends Activity{
 		
         repopulate();
         
-        acceptBtn.setOnClickListener(new View.OnClickListener() {
+        /*acceptBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
              // Perform action on click
            	 
@@ -79,8 +80,43 @@ public class MeetingListDeclinedTest extends Activity{
            	 
            	hideBar();
            	
-            }});
+            }});*/
 		
+	}
+	
+	public void accept(View v){
+
+		ArrayList<MeetingInstance> meetingsRemove = new ArrayList<MeetingInstance>();
+    	
+      	 for(int i = 0; i < meetings.size(); i++){
+      		 MeetingInstance m = meetings.get(i);
+      		 
+      		 if(m.isSelected()){
+      			 
+      		// Update with server
+      			 Communicator.acceptMeeting(uid, m.getMeetingID());
+      			 
+      			 // Update with internal db
+      			 db.open();
+      			 db.updateMeetingUserAttendingStatus(m.getMeetingID(), uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING);
+      			 db.close();
+      			 
+      			 meetingsRemove.add(m);
+      			 
+      			 Log.d(TAG, "Accept Selected - MeetingID = " + m.getMeetingID() + ", MeetingTitle = " + m.getMeetingTitle());
+      		 }
+      	 }
+      	
+      	 
+      	for(int i = 0; i < meetingsRemove.size(); i++){
+     		MeetingInstance m = meetingsRemove.get(i);
+    		adapter.remove(m);
+     		//Log.d(TAG,"remove title = " + m.getMeetingTitle());
+      	}
+      	adapter.notifyDataSetChanged();
+      	 
+      	hideBar();
+        Toast.makeText(this, "meeting accpeted", Toast.LENGTH_SHORT).show();
 	}
 	
 	public static void showBar(){

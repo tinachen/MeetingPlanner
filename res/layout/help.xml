@@ -222,7 +222,7 @@
 	android:paddingBottom="10dip">
 	<ImageView
 	   android:id="@+id/displayacceptbutton"
-	   android:src="@drawable/acceptbutton"
+	   android:src="@drawable/acceptbutton2"
 	   android:layout_width="40dip"
 	   android:layout_height="40dip"
 	    android:layout_gravity="top"

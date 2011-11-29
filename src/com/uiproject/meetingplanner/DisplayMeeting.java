@@ -32,6 +32,7 @@ import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 public class DisplayMeeting extends Activity {
 
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+	public static final String TAG = "DisplayMeeting";
 	TextView title, desc, date, time, tracktime, attendees, location, status;
 	ImageView trackbutton, callbutton, editbutton, alarmbutton, camerabutton, acceptbutton, declinebutton;
 	MeetingInstance meeting;
@@ -45,6 +46,8 @@ public class DisplayMeeting extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Log.d(TAG, TAG + "onCreate ");
         setContentView(R.layout.displaymeeting);
         title = (TextView) findViewById(R.id.title);
         desc = (TextView) findViewById(R.id.desc);
@@ -87,7 +90,7 @@ public class DisplayMeeting extends Activity {
 
 				alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
-				Toast.makeText(DisplayMeeting.this, "Start Alarm", Toast.LENGTH_LONG).show();
+				Toast.makeText(DisplayMeeting.this, "Alarm Set", Toast.LENGTH_LONG).show();
 			}
 		});
 
@@ -103,6 +106,8 @@ public class DisplayMeeting extends Activity {
 	
 	public void onStart(){
 		super.onStart();
+		
+		Log.d(TAG, TAG + "onStart ");
 		
 	    db.open();
 	    meeting = db.getMeeting(mid);
@@ -135,7 +140,6 @@ public class DisplayMeeting extends Activity {
     	location.setText(maddr);
     	attendees.setText(mnames);
     	
-    	
     	if (statusid == MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING){
     		status.setText("Attending");
     		attendingButtons();
@@ -147,10 +151,10 @@ public class DisplayMeeting extends Activity {
     		pendingButtons();
     	}
 		
+    	
 	}
 	
 	public void attendingButtons(){
-
 		status.setText("Attending"); 
     	if (meeting.getMeetingInitiatorID() != uid){
     		editbutton.setVisibility(View.GONE);
@@ -163,6 +167,7 @@ public class DisplayMeeting extends Activity {
     		editbutton.setVisibility(View.VISIBLE);
     		camerabutton.setVisibility(View.VISIBLE);
     	}
+    	
     	
     	Calendar cal = new GregorianCalendar();
         int currenth = cal.get(Calendar.HOUR_OF_DAY);
@@ -188,7 +193,7 @@ public class DisplayMeeting extends Activity {
 		declinebutton.setVisibility(View.GONE);
     	trackbutton.setVisibility(View.GONE);  
     	alarmbutton.setVisibility(View.GONE);  
-    	acceptbutton.setVisibility(View.VISIBLE);  		
+    	acceptbutton.setVisibility(View.VISIBLE);  
 		
 	}
 	
@@ -197,7 +202,7 @@ public class DisplayMeeting extends Activity {
 		camerabutton.setVisibility(View.GONE);
 		callbutton.setVisibility(View.GONE);
     	trackbutton.setVisibility(View.GONE);   
-    	alarmbutton.setVisibility(View.GONE);  
+    	alarmbutton.setVisibility(View.GONE); 
     	acceptbutton.setVisibility(View.VISIBLE);  	
     	declinebutton.setVisibility(View.VISIBLE);  		
 	}
@@ -252,6 +257,7 @@ public class DisplayMeeting extends Activity {
         db.open();
         db.updateMeetingUser(meeting.getMeetingID(), uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");
         db.close();
+        Toast.makeText(this, "meeting accepted", Toast.LENGTH_SHORT).show();
     }    
     
     public void decline(View Button){
@@ -261,7 +267,7 @@ public class DisplayMeeting extends Activity {
         db.open();
         db.updateMeetingUser(meeting.getMeetingID(), uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING, "0");
         db.close();
-  
+        Toast.makeText(this, "meeting declined", Toast.LENGTH_SHORT).show();
     }
    
 
@@ -314,7 +320,7 @@ public class DisplayMeeting extends Activity {
 	            if (resultCode == Activity.RESULT_OK) {
 	                Uri selectedImage = imageUri;
 	                getContentResolver().notifyChange(selectedImage, null);
-	                ImageView imageView = (ImageView) findViewById(R.id.displaycamerabutton);
+	                ImageView imageView = (ImageView) findViewById(R.id.meetingpicture);
 	                ContentResolver cr = getContentResolver();
 	                Bitmap bitmap;
 	                try {
@@ -322,6 +328,7 @@ public class DisplayMeeting extends Activity {
 	                     .getBitmap(cr, selectedImage);
 
 	                    imageView.setImageBitmap(bitmap);
+	                    imageView.setVisibility(View.VISIBLE);
 	                    Toast.makeText(this, selectedImage.toString(),
 	                            Toast.LENGTH_LONG).show();
 	                } catch (Exception e) {

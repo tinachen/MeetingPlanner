@@ -38,7 +38,6 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
     public static int LISTTYPE_DECLINED = 1;
     public static int LISTTYPE_PENDING = 2;
     public static int LISTTYPE_OLD = 3;
-   
 	
 	public MeetingListArrayAdapter(Activity context, int resourceID, List<MeetingInstance> list, int listType, int uid) {
 		super(context, resourceID, list);
@@ -64,6 +63,13 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 		View view = null;
 		MeetingInstance m = list.get(position);
 		
+		//Log.d(TAG, TAG + " position = " + position + " uid = " + uid + " iniId = " + m.getMeetingInitiatorID() + " listtype = " + listType + " mtitle= " + m.getMeetingTitle() + " size = " + list.size());
+		if(uid == m.getMeetingInitiatorID() && listType == LISTTYPE_ACCEPTED){
+			m.setMeetingImageResourceID(R.drawable.edit_meeting);
+		}else{
+			m.setMeetingImageResourceID(R.drawable.call);
+		}
+		
 		if (convertView == null) {
 			LayoutInflater inflator = context.getLayoutInflater();
 			view = inflator.inflate(R.layout.all_list_item, null);
@@ -77,8 +83,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			// Make check buttons invisible if the meetings are created by the user
 			// Change calling icon to edit button
 			viewHolder.itemIcon.setClickable(true);
-			
-			
+
 			viewHolder.itemIcon.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
 	            	MeetingInstance meeting = (MeetingInstance) viewHolder.itemIcon.getTag();
@@ -89,7 +94,6 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            		Intent intent = new Intent(context, EditMeeting.class);
 	            		intent.putExtra("mid", mid);
 	            		context.startActivity(intent);
-	            		
 	            		
 	            	}else{
 	            		// Call the initiator's phone number
@@ -115,13 +119,13 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            	 
 	            	 if(buttonView.isChecked()){
 	            		 if(listType == LISTTYPE_PENDING){
-	            			 Log.d(TAG, "pending - check state change; meetingTitle = " +meeting.getMeetingTitle());
+	            			 //Log.d(TAG, "pending - check state change; meetingTitle = " +meeting.getMeetingTitle());
 	            			 MeetingListPendingTest.showBar();
 	            		 }else if(listType == LISTTYPE_ACCEPTED){
-	            			 Log.d(TAG, "accepted - check state change; meetingTitle = " +meeting.getMeetingTitle());
+	            			 //Log.d(TAG, "accepted - check state change; meetingTitle = " +meeting.getMeetingTitle());
 	            			 MeetingListAcceptedTest.showBar();
 	            		 }else{
-	            			 Log.d(TAG, "declined - check state change; meetingTitle = " +meeting.getMeetingTitle());
+	            			 //Log.d(TAG, "declined - check state change; meetingTitle = " +meeting.getMeetingTitle());
 	            			 MeetingListDeclinedTest.showBar();
 	            		 }
 	            		
@@ -136,14 +140,11 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 			
 		} else {
 			view = convertView;
+			((ViewHolder) view.getTag()).itemIcon.setTag(list.get(position));
 			((ViewHolder) view.getTag()).checkbox.setTag(list.get(position));
 		}
 		
-		if(uid == m.getMeetingInitiatorID() && listType == LISTTYPE_ACCEPTED){
-			m.setMeetingImageResourceID(R.drawable.edit_meeting);
-		}else{
-			m.setMeetingImageResourceID(R.drawable.call);
-		}
+		
 		
 		db.open();
 		UserInstance initiatorUser = db.getUser(list.get(position).getMeetingInitiatorID());
@@ -267,7 +268,7 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
         cb.setOnCheckedChangeListener(new OnCheckedChangeListener() { 
  
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { 
-        // TODO Auto-generated method stub 
+        
         if (buttonView.isChecked()) { 
         	//Toast.makeText(getBaseContext(), "Checked", Toast.LENGTH_SHORT).show(); 
         } 

@@ -195,6 +195,7 @@ public class CreateMeetingWhere extends SelectLocation implements OnEditorAction
 	            in.hideSoftInputFromWindow(v
 	                    .getApplicationWindowToken(),
 	                    InputMethodManager.HIDE_NOT_ALWAYS);
+	            findAddress(v);
 	        }
 	        return false;
 	    }

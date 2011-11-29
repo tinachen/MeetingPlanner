@@ -44,7 +44,7 @@ public class MeetingListAcceptedTest extends Activity{
 		
 		repopulate();
         
-        declineBtn.setOnClickListener(new View.OnClickListener() {
+        /*declineBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
              // Perform action on click
             
@@ -78,8 +78,44 @@ public class MeetingListAcceptedTest extends Activity{
 
            	hideBar();
            	
-            }});
+            }});*/
         
+		
+	}
+	
+	public void decline(View v){
+		
+		ArrayList<MeetingInstance> meetingsRemove = new ArrayList<MeetingInstance>(); 
+    	
+      	 for(int i = 0; i < meetings.size(); i++){
+      		 MeetingInstance m = meetings.get(i);
+      		 
+      		 if(m.isSelected()){
+      			 // Update with server
+      			 Communicator.declineMeeting(uid, m.getMeetingID());
+      			 
+      			 // Update with internal db
+      			 db.open();
+      			 db.updateMeetingUserAttendingStatus(m.getMeetingID(), uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_DECLINING);
+      			 db.close();
+      			 
+      			 meetingsRemove.add(m);
+      			 
+      			 Log.d(TAG, "Decline Selected - MeetingID = " + m.getMeetingID() + ", MeetingTitle = " + m.getMeetingTitle());
+      			 
+      		 }
+      	 }
+      	 
+      	for(int i = 0; i < meetingsRemove.size(); i++){
+     		MeetingInstance m = meetingsRemove.get(i);
+    		adapter.remove(m);
+    		Log.d(TAG, "remove " + m.getMeetingID());
+      	}
+      	adapter.notifyDataSetChanged();
+
+      	hideBar();
+      	
+      	Toast.makeText(this, "meeting declined", Toast.LENGTH_SHORT).show();
 		
 	}
 	
