@@ -23,7 +23,7 @@
 		   android:id="@+id/trackerlist"
 		   android:src="@drawable/map_1"
 		   android:layout_width="40dip" 
-		   android:layout_height="40dp"
+		   android:layout_height="40dip"
 		   android:layout_marginLeft="15dip" 
 		   android:layout_marginRight="5dip" 
 		   android:clickable="true"
