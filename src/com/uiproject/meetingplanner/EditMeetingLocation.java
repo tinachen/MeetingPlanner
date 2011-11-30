@@ -26,10 +26,9 @@ public class EditMeetingLocation extends SelectLocation {
         int lat = guh.getCurrentLat();
         int lon = guh.getCurrentLng();
         String addr = guh.getCurrentAddr();
-    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-        lat = settings.getInt("mlat", lat);
-        lon = settings.getInt("mlon", lon);
-        addr = settings.getString("maddr", addr);
+        lat = getIntent().getIntExtra("lat", lat);
+        lon = getIntent().getIntExtra("lon", lon);
+        addr = getIntent().getStringExtra("addr");
         init(lat, lon, addr);
         address_field.setText(addr);       
     }

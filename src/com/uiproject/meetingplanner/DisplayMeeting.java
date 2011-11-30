@@ -128,10 +128,10 @@ public class DisplayMeeting extends Activity {
     		if (added){
     			mnames += ", ";
     		}
-    		if (u.getUserAttendingStatus() == MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDINGSTRING){
-	    		mnames = mnames + u.getUserFirstName() + " " + u.getUserLastName();
+
+
+    			mnames = mnames + u.getUserFirstName() + " " + u.getUserLastName();
 	    		added = true;
-    		}
     	}
     	
     	// Set the view
