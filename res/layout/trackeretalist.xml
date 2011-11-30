@@ -19,7 +19,7 @@
 		   android:layout_marginLeft="5dip" 
 		   android:layout_height="75dp"/>
 		   
-		<ImageView
+		<ImageButton
 		   android:id="@+id/trackerlist"
 		   android:src="@drawable/map_1"
 		   android:layout_width="40dip" 
