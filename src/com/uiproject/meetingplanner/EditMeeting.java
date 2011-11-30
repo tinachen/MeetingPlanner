@@ -213,8 +213,8 @@ public class EditMeeting extends Activity {
 				break;
 			}case (R.string.editmeetattendees): { // people
 				 if (resultCode == Activity.RESULT_OK) { 
-					 uids = data.getStringExtra("uids");
-					 names = data.getStringExtra("names");
+					 uids = data.getStringExtra("mattendeeids");
+					 names = data.getStringExtra("mnames");
 					 attendees.setText(names);	
 					 ppl_changed = true;
 				} 
