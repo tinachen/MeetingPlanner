@@ -21,7 +21,7 @@
 
 		<activity android:name=".Login"
 				  android:theme="@android:style/Theme.NoTitleBar"
-				  android:noHistory="true">
+				  >
 			
                   <intent-filter>
             		<action android:name="android.intent.action.MAIN" />

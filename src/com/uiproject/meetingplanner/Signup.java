@@ -19,6 +19,7 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,6 +68,7 @@ public class Signup extends Activity {
         
         // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+	    
 	}
 
 	public void submit(View button) throws JSONException, ParseException, UnsupportedEncodingException{
@@ -133,5 +135,6 @@ public class Signup extends Activity {
     	Signup.this.startActivity(intent);
 		
 	}
+
 
 }
