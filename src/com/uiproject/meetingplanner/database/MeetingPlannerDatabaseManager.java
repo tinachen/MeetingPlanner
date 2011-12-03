@@ -633,7 +633,7 @@ public class MeetingPlannerDatabaseManager {
 		return meetingsArray;
 	}
 	
-	public ArrayList<MeetingInstance> getPastMeetings(int userID){
+	public ArrayList<MeetingInstance> getOldMeetings(int userID){
 		ArrayList<MeetingInstance> meetingsArray = new ArrayList<MeetingInstance>();
 		Cursor cursor;
 		
@@ -1048,12 +1048,12 @@ public class MeetingPlannerDatabaseManager {
 					int userLocationLon = cursor.getInt(5);
 					int userLocationLat = cursor.getInt(6);
 					
-					Log.d(dbManagerTag, "getAllUsers: " + " userID = " + userID
+					/*Log.d(dbManagerTag, "getAllUsers: " + " userID = " + userID
 														+ ", userFirstName = " + userFirstName
 														+ ", userLastName = " + userLastName
 														+ ", userEmail = " + userEmail
 														+ ", userPhone = " + userPhone
-														+ ", userLocationLon = " + userLocationLat);
+														+ ", userLocationLon = " + userLocationLat);*/
 					/*String userAttendingStatusName = MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_PENDINGSTRING;;
 					switch (userAttendingStatusId){
 						case MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING:
@@ -1085,8 +1085,7 @@ public class MeetingPlannerDatabaseManager {
 			e.printStackTrace();
 		}
 		
-
-		Log.d(dbManagerTag, "getAllUsers user size: " + usersArray.size());
+		//Log.d(dbManagerTag, "getAllUsers user size: " + usersArray.size());
 		return usersArray;
 	}
 	

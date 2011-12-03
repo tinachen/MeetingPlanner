@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dip"
             android:layout_weight="0.51"
+            android:singleLine="true"
             android:text="Meeting Title"
             android:textAppearance="?android:attr/textAppearanceLarge" android:textSize="20sp"/>
 
@@ -50,6 +51,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="51dp"
+            android:singleLine="true"
             android:text="Creator"/>
 
         <TextView

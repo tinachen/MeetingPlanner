@@ -9,9 +9,10 @@ import java.util.Set;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,14 +27,14 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
-import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 
 public class TrackerMap extends MapActivity {
 
 	public static final String TAG = "TrackerMap";
+	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	
-	protected MyItemizedOverlay itemizedoverlay;
+	protected MyItemizedOverlay itemizedoverlay, itemizedoverlay2;
 	protected MapView mapView;
 	protected int mid;
 	protected MapController mc;
@@ -41,7 +42,7 @@ public class TrackerMap extends MapActivity {
 	protected TextView name_text, eta_text;
 	private MeetingPlannerDatabaseManager db;
 	boolean zoom = false;
-	
+	ArrayList<Map<Integer,UserInstance>> list;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +60,11 @@ public class TrackerMap extends MapActivity {
     	eta_text =(TextView) findViewById(R.id.eta);
         
         List<Overlay> mapOverlays = mapView.getOverlays();
-        Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
+        Drawable drawable = this.getResources().getDrawable(R.drawable.marker);
         itemizedoverlay = new MyItemizedOverlay(drawable, this);
+        itemizedoverlay2 = new MyItemizedOverlay(this.getResources().getDrawable(R.drawable.goal_marker), this);
         mapOverlays.add(itemizedoverlay);
+        mapOverlays.add(itemizedoverlay2);
         /*
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
@@ -70,24 +73,9 @@ public class TrackerMap extends MapActivity {
         GeoPoint meetingloc = new GeoPoint(m.getMeetingLat(), m.getMeetingLon());
         itemizedoverlay.setMeetingloc(meetingloc);
         */
+
+        
         /*
-        Map<Integer,UserInstance> userLocations = new HashMap<Integer, UserInstance>();
-        UserInstance u = new UserInstance(1);
-        u.setUserEta("30");
-        u.setUserLocationLat(34019443);
-        u.setUserLocationLon(-118289440);
-        u.setUserFirstName("Tina");
-        u.setUserLastName("Chen");
-        userLocations.put(1, u);
-        UserInstance u2 = new UserInstance(2);
-        u2.setUserEta("60");
-        u2.setUserLocationLat(34150089);
-        u2.setUserLocationLon(-118269152);
-        u2.setUserFirstName("Elizabeth");
-        u2.setUserLastName("Deng");
-        userLocations.put(2, u2);
-        updateMap(userLocations);
-        */
         
         Intent intent = new Intent(TrackerMap.this, CommunicateService.class);
         intent.putExtra("mid", mid);
@@ -96,7 +84,292 @@ public class TrackerMap extends MapActivity {
         TestReceiver2 receiver2 =new TestReceiver2();
 		IntentFilter filter2 = new IntentFilter();
 		filter2.addAction("com.uiproject.meetingplanner");
-		registerReceiver(receiver2, filter2);       
+		registerReceiver(receiver2, filter2); 
+		*/
+        
+    }
+    
+    public void onResume(){
+    	super.onResume();
+
+    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+    	SharedPreferences.Editor  editor = settings.edit();
+    	int x = settings.getInt("fakeit", -1);
+    	if(x  == 9){
+    		editor.remove("fakeit");
+    		editor.commit();
+    	}else{
+    		fakeit();
+	    	x++;
+	    	editor.putInt("fakeit", x);
+	    	editor.commit();
+	    	fakeitagain(x);
+    	}        
+    }
+    
+    public void fakeit(){
+    	GeoPoint p = new GeoPoint(34019941, -118289108);
+    	itemizedoverlay2.setMeetingloc(p);
+    	itemizedoverlay2.addMeetingLoc();
+    	itemizedoverlay2.doPopulate();
+    	
+    	list= new ArrayList<Map<Integer,UserInstance>>();
+        Map<Integer,UserInstance> userLocations = new HashMap<Integer, UserInstance>();
+        UserInstance u = new UserInstance(1);
+        u.setUserEta("24 min");
+        u.setUserLocationLat(34115483);
+        u.setUserLocationLon(-118152738);
+        u.setUserFirstName("Tina");
+        u.setUserLastName("Chen");
+        userLocations.put(1, u);
+        UserInstance u2 = new UserInstance(2);
+        u2.setUserEta("20 min");
+        u2.setUserLocationLat(34149940);
+        u2.setUserLocationLon(-118269295);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
+        UserInstance u3 = new UserInstance(3);
+        u3.setUserEta("20 min");
+        u3.setUserLocationLat(34101428);
+        u3.setUserLocationLon(-118096870);
+        u3.setUserFirstName("Mengfei");
+        u3.setUserLastName("Xu");
+        userLocations.put(3, u3);
+        list.add(userLocations);
+
+        //2
+        userLocations = new HashMap<Integer, UserInstance>();
+        u = new UserInstance(1);
+        u.setUserEta("23 min");
+        u.setUserLocationLat(34119088);
+        u.setUserLocationLon(-118153238);
+        u.setUserFirstName("Tina");
+        u.setUserLastName("Chen");
+        userLocations.put(1, u);
+        u2 = new UserInstance(2);
+        u2.setUserEta("19 min");
+        u2.setUserLocationLat(34153827);
+        u2.setUserLocationLon(-118275375);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
+        u3 = new UserInstance(3);
+        u3.setUserEta("20 min");
+        u3.setUserLocationLat(34087640);
+        u3.setUserLocationLon(-118091755);
+        u3.setUserFirstName("Mengfei");
+        u3.setUserLastName("Xu");
+        userLocations.put(3, u3);
+        list.add(userLocations);
+        
+        //3
+        userLocations = new HashMap<Integer, UserInstance>();
+        u = new UserInstance(1);
+        u.setUserEta("22 min");
+        u.setUserLocationLat(34118732);
+        u.setUserLocationLon(-118163967);
+        u.setUserFirstName("Tina");
+        u.setUserLastName("Chen");
+        userLocations.put(1, u);
+        u2 = new UserInstance(2);
+        u2.setUserEta("18 min");
+        u2.setUserLocationLat(34150134);
+        u2.setUserLocationLon(-118280182);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
+        u3 = new UserInstance(3);
+        u3.setUserEta("20 min");
+        u3.setUserLocationLat(34072569);
+        u3.setUserLocationLon(-118101711);
+        u3.setUserFirstName("Mengfei");
+        u3.setUserLastName("Xu");
+        userLocations.put(3, u3);
+        list.add(userLocations);
+        
+        //4
+        userLocations = new HashMap<Integer, UserInstance>();
+        u = new UserInstance(1);
+        u.setUserEta("21 min");
+        u.setUserLocationLat(34115144);
+        u.setUserLocationLon(-118172636);
+        u.setUserFirstName("Tina");
+        u.setUserLastName("Chen");
+        userLocations.put(1, u);
+        u2 = new UserInstance(2);
+        u2.setUserEta("17 min");
+        u2.setUserLocationLat(34143209);
+        u2.setUserLocationLon(-118278208);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
+        u3 = new UserInstance(3);
+        u3.setUserEta("20 min");
+        u3.setUserLocationLat(34072853);
+        u3.setUserLocationLon(-118121624);
+        u3.setUserFirstName("Mengfei");
+        u3.setUserLastName("Xu");
+        userLocations.put(3, u3);
+        list.add(userLocations);
+        
+        //5
+        userLocations = new HashMap<Integer, UserInstance>();
+        u = new UserInstance(1);
+        u.setUserEta("20 min");
+        u.setUserLocationLat(34110241);
+        u.setUserLocationLon(-118184395);
+        u.setUserFirstName("Tina");
+        u.setUserLastName("Chen");
+        userLocations.put(1, u);
+        u2 = new UserInstance(2);
+        u2.setUserEta("15 min");
+        u2.setUserLocationLat(34129711);
+        u2.setUserLocationLon(-118274517);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
+        u3 = new UserInstance(3);
+        u3.setUserEta("20 min");
+        u3.setUserLocationLat(34055219);
+        u3.setUserLocationLon(-118199015);
+        u3.setUserFirstName("Mengfei");
+        u3.setUserLastName("Xu");
+        userLocations.put(3, u3);
+        list.add(userLocations);
+        
+        //6
+        userLocations = new HashMap<Integer, UserInstance>();
+        u = new UserInstance(1);
+        u.setUserEta("19 min");
+        u.setUserLocationLat(34102424);
+        u.setUserLocationLon(-118197956);
+        u.setUserFirstName("Tina");
+        u.setUserLastName("Chen");
+        userLocations.put(1, u);
+        u2 = new UserInstance(2);
+        u2.setUserEta("14 min");
+        u2.setUserLocationLat(34109815);
+        u2.setUserLocationLon(-118262157);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
+        u3 = new UserInstance(3);
+        u3.setUserEta("20 min");
+        u3.setUserLocationLat(34054082);
+        u3.setUserLocationLon(-118236780);
+        u3.setUserFirstName("Mengfei");
+        u3.setUserLastName("Xu");
+        userLocations.put(3, u3);
+        list.add(userLocations);
+        
+        //7
+        userLocations = new HashMap<Integer, UserInstance>();
+        u = new UserInstance(1);
+        u.setUserEta("17 min");
+        u.setUserLocationLat(34087497);
+        u.setUserLocationLon(-118210316);
+        u.setUserFirstName("Tina");
+        u.setUserLastName("Chen");
+        userLocations.put(1, u);
+        u2 = new UserInstance(2);
+        u2.setUserEta("14 min");
+        u2.setUserLocationLat(34095885);
+        u2.setUserLocationLon(-118244305);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
+        u3 = new UserInstance(3);
+        u3.setUserEta("20 min");
+        u3.setUserLocationLat(34058348);
+        u3.setUserLocationLon(-118253775);
+        u3.setUserFirstName("Mengfei");
+        u3.setUserLastName("Xu");
+        userLocations.put(3, u3);
+        list.add(userLocations);
+        
+        //8
+        userLocations = new HashMap<Integer, UserInstance>();
+        u = new UserInstance(1);
+        u.setUserEta("15 min");
+        u.setUserLocationLat(34074844);
+        u.setUserLocationLon(-118233147);
+        u.setUserFirstName("Tina");
+        u.setUserLastName("Chen");
+        userLocations.put(1, u);
+        u2 = new UserInstance(2);
+        u2.setUserEta("12 min");
+        u2.setUserLocationLat(34083943);
+        u2.setUserLocationLon(-118228855);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
+        u3 = new UserInstance(3);
+        u3.setUserEta("20 min");
+        u3.setUserLocationLat(34048393);
+        u3.setUserLocationLon(-118266306);
+        u3.setUserFirstName("Mengfei");
+        u3.setUserLastName("Xu");
+        userLocations.put(3, u3);
+        list.add(userLocations);
+        
+        //9
+        userLocations = new HashMap<Integer, UserInstance>();
+        u = new UserInstance(1);
+        u.setUserEta("15 min");
+        u.setUserLocationLat(34055788);
+        u.setUserLocationLon(-118255978);
+        u.setUserFirstName("Tina");
+        u.setUserLastName("Chen");
+        userLocations.put(1, u);
+        u2 = new UserInstance(2);
+        u2.setUserEta("11 min");
+        u2.setUserLocationLat(34074844);
+        u2.setUserLocationLon(-118233147);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
+        u3 = new UserInstance(3);
+        u3.setUserEta("20 min");
+        u3.setUserLocationLat(34029189);
+        u3.setUserLocationLon(-118274717);
+        u3.setUserFirstName("Mengfei");
+        u3.setUserLastName("Xu");
+        userLocations.put(3, u3);
+        list.add(userLocations);
+        
+        //10
+        userLocations = new HashMap<Integer, UserInstance>();
+        u = new UserInstance(1);
+        u.setUserEta("14 min");
+        u.setUserLocationLat(34045406);
+        u.setUserLocationLon(-118270226); 
+        u.setUserFirstName("Tina");
+        u.setUserLastName("Chen");
+        userLocations.put(1, u);
+        u2 = new UserInstance(2);
+        u2.setUserEta("9 min");
+        u2.setUserLocationLat(34053228);
+        u2.setUserLocationLon(-118258209);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
+        u3 = new UserInstance(3);
+        u3.setUserEta("20 min");
+        u3.setUserLocationLat(34022218);
+        u3.setUserLocationLon(-118287077);
+        u3.setUserFirstName("Mengfei");
+        u3.setUserLastName("Xu");
+        userLocations.put(3, u3);
+        list.add(userLocations);
+        
+    }
+    
+    public void fakeitagain(int x){
+    	if (x > list.size() + 1){
+    		return;
+    	}
+    	updateMap(list.get(x));
     }
     
     @Override
@@ -109,7 +382,6 @@ public class TrackerMap extends MapActivity {
     	Log.d(TAG, "updateMap size = " + attendees.size());
     	
     	itemizedoverlay.clear();
-    	//itemizedoverlay.addMeetingLoc();
     	MyOverlayItem myoi;
     	OverlayItem oi;
     	Set<Integer> keys = attendees.keySet();
@@ -124,13 +396,13 @@ public class TrackerMap extends MapActivity {
     	}
     	
     	itemizedoverlay.doPopulate();
-    	if (!zoom){
+    	//if (!zoom){
 	        mc.zoomToSpan(itemizedoverlay.getLatSpanE6(), itemizedoverlay.getLonSpanE6());
 	        
 	        // set the center
 	        mc.setCenter(itemizedoverlay.getCenter());
 	        zoom = true;
-    	}
+    	//}
     	
     }
     
@@ -171,7 +443,8 @@ public class TrackerMap extends MapActivity {
     
     public void toList(View button){  	
 
-		Intent intent = new Intent(TrackerMap.this, TrackerEtaList.class);
+    	Intent intent = new Intent(TrackerMap.this, TrackerEtaList.class);
+		intent.putExtra("mid", mid);
 		TrackerMap.this.startActivityForResult(intent, 0);
     }
 
@@ -213,7 +486,8 @@ public class TrackerMap extends MapActivity {
 
     	public void setMeetingloc(GeoPoint p){
     		OverlayItem oi = new OverlayItem(p, "", "");
-    		MyOverlayItem myoi = new MyOverlayItem(oi, "Meeting Location", "");
+    		//oi.setMarker(mContext.getResources().getDrawable(R.drawable.goal_marker));//TODO
+    		MyOverlayItem myoi = new MyOverlayItem(oi, "588 Group meeting", "");
     		meetingloc = myoi;
     		addOverlay(myoi);
     	}

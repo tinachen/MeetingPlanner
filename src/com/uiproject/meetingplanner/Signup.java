@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 
 import org.json.JSONException;
-
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseHelper;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseManager;
 import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseUtility;
@@ -12,14 +11,16 @@ import com.uiproject.meetingplanner.database.MeetingPlannerDatabaseUtility;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.GradientDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +31,9 @@ public class Signup extends Activity {
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
 	private MeetingPlannerDatabaseManager db;
 	private Button submit;
+	private ProgressDialog dialog;
+	private SharedPreferences settings;
+	private Editor editor;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -66,6 +70,10 @@ public class Signup extends Activity {
         String phone = tMgr.getLine1Number();
         phone_field.setText(phone);
         
+     
+		settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
+		editor = settings.edit();
+        
         // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    
@@ -78,7 +86,6 @@ public class Signup extends Activity {
         String fname = fname_field.getText().toString();
         String lname = lname_field.getText().toString();
         String phone = phone_field.getText().toString();
-        long phonenumber = Long.parseLong(phone);
         String email = email_field.getText().toString();
         String pw = pw_field.getText().toString();
         String pw2 = pw2_field.getText().toString();
@@ -97,6 +104,8 @@ public class Signup extends Activity {
         	
         }
         
+        long phonenumber = Long.parseLong(phone);
+        
         // Send create user request to server
 		int uid = Communicator.createUser(phonenumber, fname, lname, email, pw);
 		
@@ -107,20 +116,6 @@ public class Signup extends Activity {
 		}
 		
 		// User has been created successfully
-		
-		// Open db connection
-		db.open();
-		// Get meetings info & user infos from server and update internal db
-    	MeetingPlannerDatabaseUtility.updateDatabase(db);
-		
-		// Store user into internal db
-		//db.createUser(uid, fname, lname, email, Long.toString(phonenumber), 0, 0);
-		db.close();
-		
-		
-		// Log user in
-		SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
-		Editor editor = settings.edit();
 		editor.putInt("uid", uid);
     	editor.putString("userPhoneNumber", Long.toString(phonenumber));
     	editor.putString("userFirstName", fname);
@@ -128,13 +123,62 @@ public class Signup extends Activity {
     	editor.putString("userEmail", email);
 		editor.commit();
 		
-		// Notify user that the registration is successful
-		Toast.makeText(getBaseContext(), "You signed up successfully!", Toast.LENGTH_SHORT).show();
+		// Show the ProgressDialog on this thread
+        this.dialog = ProgressDialog.show(this, "", "Signing up...", true);
+        new StoreDataToDb(this, db).execute();
 		
-    	Intent intent = new Intent(Signup.this, MainPage.class);
-    	Signup.this.startActivity(intent);
 		
 	}
 
+	
+private class StoreDataToDb extends AsyncTask<Integer, Void, Void> {
+		
+		private Context context;
+		private MeetingPlannerDatabaseManager db;
+		
+		public StoreDataToDb(Context context, MeetingPlannerDatabaseManager db){
+			this.context = context;
+			this.db = db;
+		}
+		
+		@Override
+		protected Void doInBackground(Integer... params) {
+			
+			// Open db connection
+			db.open();
+			// Get meetings info & user infos from server and update internal db
+	    	try {
+				MeetingPlannerDatabaseUtility.updateDatabase(db);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Store user into internal db
+			//db.createUser(uid, fname, lname, email, Long.toString(phonenumber), 0, 0);
+			db.close();
+			
+			
+			return null;
+		}
+		
+		protected void onPostExecute(Void v){
+			if (Signup.this.dialog != null) {
+				Signup.this.dialog.dismiss();
+            }
+			
+			// Notify user that the registration is successful
+			Toast.makeText(context, "You signed up successfully!", Toast.LENGTH_SHORT).show();
+			
+			
+	        // no problems, go to main page
+	        Intent intent = new Intent(context, MainPage.class);
+	        ((Activity)context).startActivity(intent);
+		}
+		
+	}
 
 }

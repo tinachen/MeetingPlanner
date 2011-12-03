@@ -70,7 +70,7 @@
 	android:paddingTop="50dip"
 	android:paddingLeft="30dip"
 	android:paddingRight="30dip">
-    <Button android:text="Select Time From Calendar" android:layout_width="fill_parent" android:background="@drawable/when_button" android:id="@+id/calendarTimePicker" android:layout_height="40dip"></Button>
+    <Button android:text="Select Time From Calendar" android:layout_width="fill_parent" android:id="@+id/calendarTimePicker" android:layout_height="40dip"></Button>
 	<ImageView
 	    android:id="@+id/or"
 	    android:src="@drawable/or"
@@ -90,7 +90,6 @@
 		        android:text="Date: "
 		        android:layout_centerVertical="true"/>
 		    <Button android:id="@+id/pickDate"
-		    	android:background="@drawable/when_button"
 		        android:text="Change date"
 		         android:layout_width="150dp"
 		         android:layout_height="40dip"
@@ -114,7 +113,6 @@
 	    <Button android:id="@+id/startPickTime"
 		        android:layout_width="150dp"
 		         android:layout_height="40dip"
-		        android:background="@drawable/when_button"
 	        android:text="Change start time"
             	android:layout_alignParentRight="true"
             	android:onClick="changeStart"/>
@@ -138,7 +136,6 @@
 	    <Button android:id="@+id/endPickTime"
 		        android:layout_width="150dp"
 		         android:layout_height="40dip"
-		        android:background="@drawable/when_button"
 		        android:text="Change end time"
             	android:layout_alignParentRight="true"
             	android:onClick="changeEnd"/>
@@ -177,7 +174,6 @@
 	        android:prompt="@string/tracker_prompt"
             	android:layout_alignParentRight="true"
 		        android:layout_centerVertical="true"
-		        android:background="@drawable/when_button"
 	    />
 	</RelativeLayout>
 </LinearLayout>

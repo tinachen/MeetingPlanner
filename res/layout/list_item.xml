@@ -5,7 +5,7 @@
 	android:descendantFocusability="blocksDescendants">"
 	<ImageView
 	   android:id="@+id/userpic"
-	   android:src="@drawable/androidcontact"
+	   android:src="@drawable/androidcontactgrayscale"
 	   android:layout_width="match_parent"
 	   android:layout_height="wrap_content"
 	   android:adjustViewBounds="true"

@@ -19,11 +19,11 @@
 		   android:layout_marginLeft="5dip" 
 		   android:layout_height="75dp"/>
 		   
-		<ImageView
+		<ImageButton
 		   android:id="@+id/trackerlist"
 		   android:src="@drawable/map_1"
 		   android:layout_width="40dip" 
-		   android:layout_height="40dp"
+		   android:layout_height="40dip"
 		   android:layout_marginLeft="15dip" 
 		   android:layout_marginRight="5dip" 
 		   android:clickable="true"
@@ -42,7 +42,6 @@
 	    <TextView
 	    	style="@style/headerText"
 	        android:id="@+id/meetingName"
-	        android:text="CSCI588 Project Meeting"
 	        android:layout_width="fill_parent"
             android:layout_height="wrap_content"
 			android:layout_marginLeft="10dip"/>
@@ -69,24 +68,21 @@
 			    android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
 			    android:layout_weight="0.33"
-			    android:gravity="center_horizontal"
-			    android:text="TCC330"/>
+			    android:gravity="center_horizontal"/>
 			<TextView 
 			    android:id="@+id/date"
 	    	style="@style/header2Text"
 			    android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
 			    android:layout_weight="0.34"
-			    android:gravity="center_horizontal"
-			    android:text="11/11/11"/>
+			    android:gravity="center_horizontal"/>
 			<TextView
 			    android:id="@+id/time"
 	    	style="@style/header2Text"
 			    android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
 			    android:layout_weight="0.33"
-			    android:gravity="center_horizontal"
-			    android:text="1:00pm"/>
+			    android:gravity="center_horizontal"/>
 		</LinearLayout>
 	    
 		<ListView

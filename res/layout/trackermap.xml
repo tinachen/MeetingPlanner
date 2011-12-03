@@ -18,13 +18,17 @@
 		   android:layout_marginLeft="5dip"
 		   android:layout_height="75dp"/>
 		
-		<Button
+		<ImageButton
+			android:src="@drawable/bulleted_list"
+			android:adjustViewBounds="true"
+			android:scaleType="fitCenter"
 			android:text="ETA list" 
 			android:onClick="toList" 
-			android:layout_height="wrap_content" 
-			android:layout_width="wrap_content"
-			android:layout_marginLeft="10dip"
-			android:layout_marginTop="10dip"/>
+			android:layout_height="40dip" 
+			android:layout_width="40dip"
+			android:layout_marginLeft="15dip"
+			android:layout_marginRight="5dip"
+			android:layout_gravity="center_vertical"/>
 			
 	</LinearLayout>
 	<FrameLayout
@@ -38,7 +42,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clickable="true"
-    android:apiKey="0wN0oRwYCsR4VzTbYhaoRyVKyHcGtGQlmHhVcvg"
+    android:apiKey="0igWtYee5izJvMPsSwXKbUg5K-Hv3rg-V8yHwuA"
 />
 		
 		<LinearLayout

@@ -26,11 +26,13 @@
         
 
         <Button
+        	android:background="@drawable/button_shape"
             android:id="@+id/declinedAcceptBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dip"
             android:text="Accept" 
             android:layout_weight="1"
+            android:onClick="accept"
             />
 
     </LinearLayout>

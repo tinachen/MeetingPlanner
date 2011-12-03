@@ -33,6 +33,7 @@ public class TrackerEtaList extends Activity {
 	private TrackerAdapter adapter;
     private MeetingPlannerDatabaseManager db;
     private ArrayList<UserInstance> meetingUsers;
+    private MeetingInstance meetingInfo;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,12 +41,24 @@ public class TrackerEtaList extends Activity {
         setContentView(R.layout.trackeretalist);
         
         db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
-        SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
-        int mid = settings.getInt("currentTrackingMid", -1);
+        int mid = getIntent().getIntExtra("mid", -1);
         
         db.open();
+        meetingInfo = db.getMeeting(mid);
         meetingUsers = db.getMeetingUsersArray(mid);
         db.close();
+        
+        TextView tvMeetingName = (TextView) findViewById(R.id.meetingName);
+        tvMeetingName.setText(meetingInfo.getMeetingTitle());
+        
+        TextView tvMeetingLocation = (TextView) findViewById(R.id.location);
+        tvMeetingLocation.setText(meetingInfo.getMeetingAddress());
+        
+        TextView tvMeetingDate = (TextView) findViewById(R.id.date);
+        tvMeetingDate.setText(meetingInfo.getMeetingDate());
+        
+        TextView tvMeetingTime = (TextView) findViewById(R.id.time);
+        tvMeetingTime.setText(meetingInfo.getMeetingStartTime());
         
         attendeesList =  (ListView) findViewById(R.id.attendeesList);
         attendeesList.setClickable(false);
@@ -55,7 +68,7 @@ public class TrackerEtaList extends Activity {
 		//trackerList.add(new Tracker("Cauchy Choi", "3:00pm"));
 		//trackerList.add(new Tracker("Tina Chen", "4:00pm"));
         
-		adapter = new TrackerAdapter(this, attendees, meetingUsers);
+		adapter = new TrackerAdapter(this, attendees, meetingUsers, meetingInfo);
 		attendeesList.setAdapter(adapter);
 		
 		TestReceiver receiver = new TestReceiver();
@@ -77,7 +90,7 @@ public class TrackerEtaList extends Activity {
     		Log.d("map size", ""+map.size());
     		//attendeeNames.add(map2.get(i).getUserFirstName() + " " + map2.get(i).getUserLastName());
     	}
-    	adapter = new TrackerAdapter(this, attendees, meetingUsers);
+    	adapter = new TrackerAdapter(this, attendees, meetingUsers, meetingInfo);
         attendeesList.setAdapter(adapter);
     }
     
@@ -114,6 +127,7 @@ public class TrackerEtaList extends Activity {
             Bundle message = intent.getBundleExtra("message");
             int tag = message.getInt("tag");
             Bundle locations = message.getBundle("locations");
+            Log.d("BUNDLE",locations.toString());
             Map<Integer,UserInstance> userLocations = new HashMap<Integer, UserInstance>();
             for (String i : locations.keySet()){
             	Bundle location = locations.getBundle(i);

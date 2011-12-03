@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/oldmeeting"
+        android:title="Previous Meetings" />
+    <item android:id="@+id/help"
+        android:title="Icon help" />
+    <item android:id="@+id/logout"
+        android:title="Logout" />
+</menu>

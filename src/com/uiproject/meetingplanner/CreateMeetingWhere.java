@@ -191,7 +191,10 @@ public class CreateMeetingWhere extends SelectLocation implements OnEditorAction
 	    @Override
 	    public boolean onEditorAction(TextView v, int actionId,
 	            KeyEvent event) {
-	        if (event != null&& (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+	        if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+	            findAddress(v);
+	            v.setSingleLine(true);
+	            Log.d("TESTTESTTEST", "TEST");
 	            InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 	            in.hideSoftInputFromWindow(v
 	                    .getApplicationWindowToken(),

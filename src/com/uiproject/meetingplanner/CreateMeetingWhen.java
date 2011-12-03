@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -38,7 +39,7 @@ public class CreateMeetingWhen extends Activity {
     private int msMinute;
     static final int TIME_DIALOG_ID_START = 1;
     
-    private Button mePickTime;
+    private Button mePickTime, calendarTimePicker;
     private int meHour;
     private int meMinute;
     static final int TIME_DIALOG_ID_END = 2;
@@ -84,6 +85,16 @@ public class CreateMeetingWhen extends Activity {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.createmeetingwhen);
 	        
+	        calendarTimePicker= (Button)findViewById(R.id.calendarTimePicker);
+	        calendarTimePicker.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent calendarIntent = new Intent() ;
+					calendarIntent.setClassName("com.android.calendar","com.android.calendar.LaunchActivity");
+					startActivityForResult(calendarIntent,0);
+				}
+			});
 
 	        mPickDate = (Button) findViewById(R.id.pickDate);
 	        msPickTime = (Button) findViewById(R.id.startPickTime);

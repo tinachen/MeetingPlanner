@@ -9,7 +9,7 @@
 	android:paddingRight="20dip">
 
 <ScrollView
-    android:layout_width="fill_parent" android:layout_height="wrap_content">
+    android:layout_width="fill_parent" android:layout_height="fill_parent">
     
 <LinearLayout 
     android:layout_width="fill_parent"
@@ -149,13 +149,9 @@
 		    android:id="@+id/attendees"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="attendees go here" />
+			android:text="attendees go here super long list goes here DKFAJSDKLF KASDJF;L askljlasdf kljsdklf askldf lsdf lksdj flasd fajs df;lsdklf skldf " />
 	</LinearLayout>
 	
-	</LinearLayout>
-	</LinearLayout>
-	
-</ScrollView>
 
       <RelativeLayout
         android:layout_width="match_parent"
@@ -204,4 +200,8 @@
 
 		</LinearLayout>
     </RelativeLayout>
+	</LinearLayout>
+	
+	</LinearLayout>
+</ScrollView>
 </LinearLayout>

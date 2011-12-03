@@ -126,8 +126,7 @@ public class EditMeeting extends Activity {
         delete = (Button) findViewById(R.id.delete);
         delete.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
         
-
-	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+        db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    db.open();
 	    MeetingInstance m = db.getMeeting(mid);
 	    db.close();
@@ -157,13 +156,16 @@ public class EditMeeting extends Activity {
         db.close();
         
         names = "";
+        uids = "";
         boolean added = false;
         
         for (UserInstance u : users){
         	if (added){
         		names+= ", ";
+        		uids+=",";
         	}
         	names = names + u.getUserFirstName() + " " + u.getUserLastName();
+        	uids += u.getUserID();
         	added = true;
         } 
         
@@ -181,39 +183,37 @@ public class EditMeeting extends Activity {
         // set tracking time
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.tracker_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                this, R.array.tracker_array, R.layout.spinner_textview);
+        adapter.setDropDownViewResource(R.layout.spinner_textview);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
         int spinnerPosition = adapter.getPosition(trackTime + "");
         spinner.setSelection(spinnerPosition);
+	   
 		
 	}
 	
+	
 	@Override // this is called when we come back from child activity
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {     
-		super.onActivityResult(requestCode, resultCode, data); 
-			  
-		switch(requestCode) { 
-			case (R.string.editmeetloc) : { // location
-				 if (resultCode == Activity.RESULT_OK) { 
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {   
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == R.string.editmeetloc) {
 					lat = data.getIntExtra("lat", 0);
-					lon = data.getIntExtra("lon", 0);
-					addr = data.getStringExtra("addr");
-					location.setText(addr);
-				} 
-				break;
-			}case (R.string.editmeetattendees): { // people
-				 if (resultCode == Activity.RESULT_OK) { 
-					 uids = data.getStringExtra("uids");
-					 names = data.getStringExtra("names");
-					 attendees.setText(names);	
-					 ppl_changed = true;
-				} 
-				break; 
-				
-			}
-		} 
+				lon = data.getIntExtra("lon", 0);
+				addr = data.getStringExtra("addr");
+				location.setText(addr);
+		}else if (resultCode == R.string.editmeetattendees) { // people
+		    	SharedPreferences settings = getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE); 
+			 uids = settings.getString("mattendeeids", "");				 
+			 names = settings.getString("mnames", "");
+			 SharedPreferences.Editor editor = settings.edit();
+			 editor.remove("mattendeeids");
+			 editor.remove("mnames");
+			 editor.commit();
+			 attendees.setText(names);	
+			 ppl_changed = true;
+		 }
 	}
 	
 	public void changeDate(View button){
@@ -299,8 +299,8 @@ public class EditMeeting extends Activity {
     	db.updateMeeting(mid, mtitle, lat, lon, mdesc, addr, mdate, mstarttime, mendtime, (int)(trackTime * 60)); 
 
     	if (ppl_changed){ // need to update uses
-    		/*
-    		// db.deleteMeetingUsers(mid)
+    		
+    		db.deleteMeetingUsers(mid);
     		int  commaIndex;
             String tempids = uids;
             String n;
@@ -325,7 +325,7 @@ public class EditMeeting extends Activity {
         	}
         	//add meeting creator
     		db.createMeetingUser(mid, uid, MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDING, "0");
-    		*/
+    		
     	}
     	db.close();
     	this.finish();    	

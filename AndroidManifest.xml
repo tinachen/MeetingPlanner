@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
 
-    <application android:icon="@drawable/icon" 
+    <application android:icon="@drawable/icon2" 
     		android:label="@string/app_name"
     		android:debuggable="true">
     		
@@ -132,17 +132,22 @@
                   android:finishOnTaskLaunch="true">
 		</activity>
 		
-		<activity android:name=".MeetingListPendingTest"
+		<activity android:name=".MeetingListPending"
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
 		</activity>
 		
-		<activity android:name=".MeetingListAcceptedTest"
+		<activity android:name=".MeetingListAccepted"
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
 		</activity>
 		
-		<activity android:name=".MeetingListDeclinedTest"
+		<activity android:name=".MeetingListDeclined"
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
+		</activity>
+		
+		<activity android:name=".MeetingListOld"
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
 		</activity>
@@ -156,6 +161,12 @@
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
 		</activity>
+		
+		<activity android:name=".HelpPage"
+				  android:theme="@android:style/Theme.NoTitleBar"
+                  android:finishOnTaskLaunch="true">
+		</activity>
+		
 		<!--  
 		<receiver android:name=".TestReceiver">
 			<intent-filter >
