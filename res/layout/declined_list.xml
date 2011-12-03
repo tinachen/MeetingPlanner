@@ -26,6 +26,7 @@
         
 
         <Button
+        	android:background="@drawable/acceptbutton"
             android:id="@+id/declinedAcceptBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
