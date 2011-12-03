@@ -30,7 +30,7 @@ import android.widget.TextView;
 public class MainPage extends Activity {
     /** Called when the activity is first created. */
 
-	TextView name, mtitle, mdate, mtime, mcreator;
+	TextView name, mtitle, mdate, mtime, mcreator, nomeeting;
 	ImageView trackbutton;
 	View nextmeeting;
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
@@ -70,6 +70,7 @@ public class MainPage extends Activity {
 	    mcreator = (TextView) findViewById(R.id.mcreator);
 	    trackbutton = (ImageView) findViewById(R.id.displaytrackbutton);
     	nextmeeting = findViewById(R.id.nextmeetingview);
+    	nomeeting = (TextView) findViewById(R.id.nomeeting);
     	// Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
 	    uid = settings.getInt("uid", -1);
@@ -183,7 +184,8 @@ public class MainPage extends Activity {
 	    //Log.d(mainPageTag, "track mid = " + mid);
 	    
 	    if(mid < 0){
-	    	mtitle.setText("You have no upcoming meetings"); 
+	    	nomeeting.setVisibility(View.VISIBLE);
+	    	mtitle.setVisibility(View.GONE);
 	    	mtime.setVisibility(View.GONE);
 	    	mdate.setVisibility(View.GONE);
 	    	mcreator.setVisibility(View.GONE);
@@ -228,6 +230,8 @@ public class MainPage extends Activity {
 
 	    	nextmeeting.setTag(mid);
 
+	    	nomeeting.setVisibility(View.GONE);
+	    	mtitle.setVisibility(View.VISIBLE);
 	    	mtime.setVisibility(View.VISIBLE);
 	    	mdate.setVisibility(View.VISIBLE);
 	    	mcreator.setVisibility(View.VISIBLE);

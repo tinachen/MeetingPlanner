@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class EditMeetingAttendees extends Search {
 
@@ -50,6 +51,7 @@ public class EditMeetingAttendees extends Search {
     @Override
     public void onBackPressed(){
     	saveData();
+        EditMeetingAttendees.this.setResult(R.string.editmeetattendees);
     	EditMeetingAttendees.this.finish();
     	
     }

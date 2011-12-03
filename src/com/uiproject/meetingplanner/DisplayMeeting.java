@@ -77,6 +77,7 @@ public class DisplayMeeting extends Activity {
 				// TODO Auto-generated method stub
 				Intent myIntent = new Intent(DisplayMeeting.this, MyAlarmService.class);
 				myIntent.putExtra("mid", mid);
+				myIntent.putExtra("test", "test");
 
 				pendingIntent = PendingIntent.getService(DisplayMeeting.this, 0, myIntent, 0);
 
@@ -127,10 +128,10 @@ public class DisplayMeeting extends Activity {
     		if (added){
     			mnames += ", ";
     		}
-    		if (u.getUserAttendingStatus() == MeetingPlannerDatabaseHelper.ATTENDINGSTATUS_ATTENDINGSTRING){
-	    		mnames = mnames + u.getUserFirstName() + " " + u.getUserLastName();
+
+
+    			mnames = mnames + u.getUserFirstName() + " " + u.getUserLastName();
 	    		added = true;
-    		}
     	}
     	
     	// Set the view
