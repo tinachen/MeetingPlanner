@@ -128,7 +128,6 @@ public class Signup extends Activity {
 		
 		
 	}
-
 	
 private class StoreDataToDb extends AsyncTask<Integer, Void, Void> {
 		
