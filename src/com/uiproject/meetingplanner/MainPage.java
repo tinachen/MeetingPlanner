@@ -97,23 +97,11 @@ public class MainPage extends Activity {
 		startActivity(intent);
     	
     }
- //**************************************************************   
 
- //*******************************************************************
     public void createMeeting(View button){
 
 
     	startActivity(new Intent(MainPage.this, CreateMeetingWhat.class));
-	//	Intent intent = new Intent(MainPage.this, CommunicateService.class);
-	//	startService(intent);
-		
-		
-		
-		
-
-//		Intent intent = new Intent(MainPage.this, CreateMeetingWhat.class);
-//		startActivity(intent);
-
 
     }
     
