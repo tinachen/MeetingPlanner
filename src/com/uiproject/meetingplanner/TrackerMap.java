@@ -91,8 +91,44 @@ public class TrackerMap extends MapActivity {
     
     public void onResume(){
     	super.onResume();
+
+		fakeit();
     }
     
+    public void fakeit(){
+    	GeoPoint p = new GeoPoint(34019941, -118289108);
+    	itemizedoverlay2.setMeetingloc(p);
+    	itemizedoverlay2.addMeetingLoc();
+    	itemizedoverlay2.doPopulate();
+    	
+    	list= new ArrayList<Map<Integer,UserInstance>>();
+        Map<Integer,UserInstance> userLocations = new HashMap<Integer, UserInstance>();
+        UserInstance u = new UserInstance(1);
+        u.setUserEta("24 min");
+        u.setUserLocationLat(34115483);
+        u.setUserLocationLon(-118152738);
+        u.setUserFirstName("Tina");
+        u.setUserLastName("Chen");
+        userLocations.put(1, u);
+        UserInstance u2 = new UserInstance(2);
+        u2.setUserEta("20 min");
+        u2.setUserLocationLat(34149940);
+        u2.setUserLocationLon(-118269295);
+        u2.setUserFirstName("Elizabeth");
+        u2.setUserLastName("Deng");
+        userLocations.put(2, u2);
+        UserInstance u3 = new UserInstance(3);
+        u3.setUserEta("20 min");
+        u3.setUserLocationLat(34101428);
+        u3.setUserLocationLon(-118096870);
+        u3.setUserFirstName("Mengfei");
+        u3.setUserLastName("Xu");
+        userLocations.put(3, u3);
+        list.add(userLocations);
+    	updateMap(list.get(0));
+
+    }
+        
     @Override
     public boolean isRouteDisplayed() {
         return false;
