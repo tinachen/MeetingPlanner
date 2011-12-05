@@ -59,12 +59,14 @@
 
 <LinearLayout
 android:orientation="horizontal"
+android:layout_width="fill_parent"
 android:layout_height="wrap_content"
-android:layout_marginTop="5dip" android:layout_width="257dp">
+android:layout_marginTop="5dip">
 <EditText
 android:id="@+id/address_field"
 android:hint="type address here...."
 android:layout_height="wrap_content"
+android:layout_width="wrap_content"
 android:layout_weight="1" />
 
         <ImageButton
