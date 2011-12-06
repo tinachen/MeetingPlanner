@@ -18,8 +18,6 @@ public class TrackerAdapter extends BaseAdapter {
     private List<UserInstance> attendees;
     private List<UserInstance> meetingUsers;
     private MeetingInstance meetingInfo;
-    private int etaHour;
-    private int etaMinute;
     private Calendar cal;
     
 	public TrackerAdapter(Context context, List<UserInstance> attendees, List<UserInstance> meetingUsers, MeetingInstance meetingInfo) {
@@ -28,8 +26,6 @@ public class TrackerAdapter extends BaseAdapter {
 		this.attendees = attendees;
 		this.meetingUsers = meetingUsers;
 		this.meetingInfo = meetingInfo;
-		etaHour = 0;
-		etaMinute = 0;
 		cal = new GregorianCalendar();
 	}
 
@@ -65,6 +61,8 @@ public class TrackerAdapter extends BaseAdapter {
         
         // ETA parser
         boolean minutesSet = false;
+        int etaHour = 0;
+        int etaMinute = 0;
         String[] eta = entry.getUserEta().split("\\s+");
         for (int i = 0; i < eta.length; i++) {
         	if (isInteger(eta[i]) && !minutesSet) {
@@ -76,7 +74,7 @@ public class TrackerAdapter extends BaseAdapter {
         		etaMinute = Integer.parseInt(eta[i]);
         	}
         }
-        
+        Log.d(entry.getUserFirstName(),Integer.toString(etaHour) + " " + Integer.toString(etaMinute));
         // Meeting time
         int meetingHour = Integer.parseInt(meetingInfo.getMeetingStartTime().substring(0, meetingInfo.getMeetingStartTime().indexOf(':')));
         int meetingMinute = Integer.parseInt(meetingInfo.getMeetingStartTime().substring(meetingInfo.getMeetingStartTime().indexOf(':') + 1));
@@ -95,10 +93,11 @@ public class TrackerAdapter extends BaseAdapter {
         int difference = ((meetingHour - arrivalHour) * 60) + (meetingMinute - arrivalMinute);
         
         if (difference >= 0) {
-        	tvEta.setTextColor(Color.GREEN);
+        	tvEta.setTextColor(Color.parseColor("#24A506"));
         }
         else if (difference >= -20) {
-        	tvEta.setTextColor(R.color.orange);
+        	tvEta.setTextColor(Color.parseColor("#FFA800"));
+        	//tvEta.setTextColor(Color.YELLOW);
         }
         else {
         	tvEta.setTextColor(Color.RED);

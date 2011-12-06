@@ -53,6 +53,7 @@ public class TrackerEtaList extends Activity {
         
         TextView tvMeetingLocation = (TextView) findViewById(R.id.location);
         tvMeetingLocation.setText(meetingInfo.getMeetingAddress());
+        //tvMeetingLocation.setText("TCC 330");
         
         TextView tvMeetingDate = (TextView) findViewById(R.id.date);
         tvMeetingDate.setText(meetingInfo.getMeetingDate());
@@ -65,8 +66,10 @@ public class TrackerEtaList extends Activity {
         
         attendees = new ArrayList<UserInstance>();
         
-		//trackerList.add(new Tracker("Cauchy Choi", "3:00pm"));
-		//trackerList.add(new Tracker("Tina Chen", "4:00pm"));
+//      attendees.add(new UserInstance(2, "Elizabeth", "Deng", "elizabethdeng@gmail.com", "847-322-1831", 200, 200, "10 mins", "attending"));
+//      attendees.add(new UserInstance(4, "Tina", "Chen", "tinac@usc.edu", "626-376-1106", 200, 200, "1 hr 30 mins", "attending"));
+//		attendees.add(new UserInstance(1,"Cauchy","Choi","cauchych@usc.edu","408-499-1666",100,100,"2 hrs 30 mins","attending"));
+		
         
 		adapter = new TrackerAdapter(this, attendees, meetingUsers, meetingInfo);
 		attendeesList.setAdapter(adapter);
