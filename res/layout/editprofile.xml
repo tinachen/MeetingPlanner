@@ -19,11 +19,11 @@
 	android:layout_width="fill_parent">
 		
 	<ImageView
+		android:id="@+id/editpic"
 	   android:src="@drawable/camera" 
 	   android:layout_width="100dip" 
 	   android:layout_height="100dp"
-	   android:clickable="true"
-	   android:onClick="takepic"/>
+	   android:clickable="true"/>
 		
 		
 		<LinearLayout 
