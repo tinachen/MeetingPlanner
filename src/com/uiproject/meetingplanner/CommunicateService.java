@@ -30,6 +30,7 @@ public class CommunicateService extends Service {
 	
 	public static final String CommunicateServiceTag = "CommunicateService";
 	public static final String PREFERENCE_FILENAME = "MeetAppPrefs";
+    private static final String TAG = "MeetingTracker";
 	public static int MID;
 	private int uid;
 	MultiThread thread1;
@@ -45,7 +46,7 @@ public class CommunicateService extends Service {
 		super.onCreate();
 	}
 	
-	public void onStart(Intent intent, int startId) {
+	public void onStart(Intent intent, int startId) {      //Create new thread for communicating data
 		Log.d("CommunicateService", "onStart");
 		if(thread1==null){
 			thread1 = new MultiThread();
@@ -68,7 +69,7 @@ public class CommunicateService extends Service {
 			while(status){
 				try{
 					displayResult();
-					Thread.sleep(5000);
+					Thread.sleep(5000);                   //Set auto location update interval here
 				}
 				catch(Exception e) {   
 					e.printStackTrace();
@@ -80,24 +81,19 @@ public class CommunicateService extends Service {
 	
     public void displayResult() throws JSONException, ParseException
     {
-    	Log.d("asd","1");
     	ServerMsg sm1=new ServerMsg(6);
-    	Log.d("asd","2");
     	String result = getResponseResult(sm1);
     	Log.d("Show the result",result);
-   // 	Map<String,Object> msg =new HashMap<String,Object> ();
 		JSONObject message = new JSONObject(result);
 		int tag = message.getInt("tag");
-	//	msg.put("tag",tag);
 		JSONObject locations = message.getJSONObject("locations");
 		if(locations!=null){ //return msg;           don't send message and continue
-			Log.d("##############","tttttttt");
 			JSONArray userIds = locations.names();
 			JSONArray locationInfos = locations.toJSONArray(userIds);
 			Bundle msg = new Bundle();
 			//Bundle location = new Bundle();
 			Bundle locs = new Bundle();
-	//		Map<Integer,UserInstance> locs = new HashMap<Integer, UserInstance>();
+	
 			for (int i=0; i<locationInfos.length();i++) {
 				//locs.put(userIds.getInt(i), new UserInstance(userIds.getInt(i),locationInfos.getJSONObject(i).getInt("lon"),locationInfos.getJSONObject(i).getInt("lat"),locationInfos.getJSONObject(i).getString("eta")));
 				Bundle loc = new Bundle();
@@ -108,41 +104,16 @@ public class CommunicateService extends Service {
 				loc.putString("eta",locationInfos.getJSONObject(i).getString("eta"));
 				locs.putBundle(String.valueOf(userIds.getInt(i)), loc);
 			}
-			//	msg.put("locations", locs);
+			
 			msg.putInt("tag", tag);
 			msg.putBundle("locations", locs);
 			Intent intent = new Intent();
 			intent.putExtra("message", msg);
 			intent.setAction("com.uiproject.meetingplanner");
+			//Broadcast received location info out
 			sendBroadcast(intent);
-			Log.d("##############","Hello");
 			}
-			//return msg;
-		
-/*    	//HashMap<Integer, Msg> map = new HashMap<Integer, Msg>();
-    	HashMap<Integer, ServerMsg> map = new HashMap<Integer, ServerMsg>();
-		JSONObject myjson = new JSONObject(data);
-		JSONArray nameArray = myjson.names();
-		JSONArray valArray = myjson.toJSONArray(nameArray);
-		for (int i = 0; i < valArray.length(); i++) {
-			int la = valArray.getJSONObject(i).getInt("lat");
-			int lo = valArray.getJSONObject(i).getInt("lon");
-			map.put(nameArray.getInt(i), new ServerMsg(la,lo));
-		}
-		
-		// Output the map
-		for (Integer i: map.keySet()){
-			
-			//System.out.println(i+":"+map.get(i).lat+","+map.get(i).lon);
-			//textview1.setText(i+":"+map.get(i).lat+","+map.get(i).lon);
-			ServerMsg[] responseitem=new ServerMsg[10];
-			int j=0;
-			ServerMsg response=new ServerMsg(i,map.get(i).myLat,map.get(i).myLong);
-			responseitem[j]=response;
-		//	textview1.setText(responseitem[j].userID+":"+responseitem[j].myLat+","+responseitem[j].myLong);
-			j++;
-		}
-*/	
+
     	}
     Object origin;
 	Object destination;
@@ -154,19 +125,12 @@ public class CommunicateService extends Service {
     	SharedPreferences settings =getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
     	uid = settings.getInt("uid", -1);
   //  	GeoUpdateHandler geoHandler = new GeoUpdateHandler(this);
-    	String userId=new Integer(uid).toString();
-    	Log.d("Userid",userId);
-    	
-		
-		
+    	String userId=new Integer(uid).toString();  	
     	String currenctLat=new Integer(MainPage.guh.getCurrentLat()).toString(); 
     	String etaLat=new Double(MainPage.guh.getCurrentLatDouble()).toString();
-    	Log.d("CurLat",currenctLat);
     	String currenctLng=new Integer(MainPage.guh.getCurrentLng()).toString();
     	String etaLng=new Double(MainPage.guh.getCurrentLngDouble()).toString();
-    	Log.d("CurLng",currenctLng);
     	String originLoc=etaLat +"," + etaLng;
-    	Log.d("originLoc",originLoc);
     	String destinationLat;
     	String destinationLng;
     	
@@ -175,8 +139,6 @@ public class CommunicateService extends Service {
     	destinationLat = new Double(allMeetingMap.get(MID).getMeetingLat()*0.000001).toString();
     	destinationLng = new Double(allMeetingMap.get(MID).getMeetingLon()*0.000001).toString();
     	String destinationLoc=destinationLat +"," + destinationLng ;
-    	Log.d("destinationLoc",destinationLoc);
-    	
     	
     	{  
     	 this.origin = originLoc;
@@ -195,12 +157,9 @@ public class CommunicateService extends Service {
 		}
     	Log.d("eta value",etaValue);
     	String meetingId=new Integer(MID).toString();
-    //	String param2=new Integer(sm.myLat).toString();
-    //	String param3=new Integer(sm.myLong).toString();
-    //	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/yuwen?i="+param1;
+    	//Send latest location info to server
     	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=" + userId + "&meetingId=" + meetingId +"&lat=" + currenctLat +"&lon=" +currenctLng + "&eta=" + etaValue;
     	Log.d("urlstring",urlStr);
-    //	String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/myupdatelocation?userId=6&meetingId=2&lat=9&lon=9&eta=9";
     	String responseResult="";
     	try {
     		URL objUrl = new URL(urlStr);
@@ -219,14 +178,11 @@ public class CommunicateService extends Service {
     	} catch (Exception e) {
     		System.out.println("error!");
     	}
-    	return responseResult;
+    	return responseResult;              //Return others location from server
     }
     
-    private static final String TAG = "MeetingTracker";
-    
-   
-	
-    protected String getEta(Object origin, Object destination, String mode)
+
+    protected String getEta(Object origin, Object destination, String mode)         //Calculate ETA
     {
     	this.origin = origin;
     	this.destination = destination;

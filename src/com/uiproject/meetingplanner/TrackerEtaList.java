@@ -74,6 +74,7 @@ public class TrackerEtaList extends Activity {
 		adapter = new TrackerAdapter(this, attendees, meetingUsers, meetingInfo);
 		attendeesList.setAdapter(adapter);
 		
+		// Dynamically register receiver here
 		TestReceiver receiver = new TestReceiver();
 		IntentFilter filter = new IntentFilter();
 		filter.addAction("com.uiproject.meetingplanner");
@@ -120,7 +121,8 @@ public class TrackerEtaList extends Activity {
         return true;
     }
     
-    public class TestReceiver extends BroadcastReceiver { 
+  //Receive broadcast msg from communicator
+    public class TestReceiver extends BroadcastReceiver {  
     	public TestReceiver (){
     	}
 

@@ -120,13 +120,13 @@ public class MeetingListArrayAdapter extends ArrayAdapter<MeetingInstance> {
 	            	 if(buttonView.isChecked()){
 	            		 if(listType == LISTTYPE_PENDING){
 	            			 //Log.d(TAG, "pending - check state change; meetingTitle = " +meeting.getMeetingTitle());
-	            			 MeetingListPendingTest.showBar();
+	            			 MeetingListPending.showBar();
 	            		 }else if(listType == LISTTYPE_ACCEPTED){
 	            			 //Log.d(TAG, "accepted - check state change; meetingTitle = " +meeting.getMeetingTitle());
-	            			 MeetingListAcceptedTest.showBar();
+	            			 MeetingListAccepted.showBar();
 	            		 }else{
 	            			 //Log.d(TAG, "declined - check state change; meetingTitle = " +meeting.getMeetingTitle());
-	            			 MeetingListDeclinedTest.showBar();
+	            			 MeetingListDeclined.showBar();
 	            		 }
 	            		
 	            	 }

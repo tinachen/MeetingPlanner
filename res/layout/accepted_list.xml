@@ -26,9 +26,10 @@
         
 
         <Button
+        	android:background="@drawable/deletebutton"
             android:id="@+id/acceptedDeclineBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dip"
             android:text="Decline" 
             android:layout_weight="1"
             android:onClick="decline"

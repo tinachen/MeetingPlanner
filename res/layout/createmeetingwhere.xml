@@ -54,6 +54,7 @@
         android:layout_width="match_parent"/>
         
 <!-- start main content -->
+           
 
 
 <LinearLayout
@@ -64,8 +65,8 @@ android:layout_marginTop="5dip">
 <EditText
 android:id="@+id/address_field"
 android:hint="type address here...."
-android:layout_width="fill_parent"
 android:layout_height="wrap_content"
+android:layout_width="wrap_content"
 android:layout_weight="1" />
 
         <ImageButton

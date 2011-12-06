@@ -114,35 +114,7 @@ public class MeetingPlanner extends Activity {
     		return "Oh no! We could not find the ETA. Please try again."; 
     	}
     }
-    
-    /*Author:Yuwen
-     @Use this method to send your information
-     @The detailed info is stored individually into different params.
-     @And this method will also handling the response from the server.
-     */
-	public String getResponseResult() {
-		String param1="6",param2="33",param3="44";
-		String urlStr = "http://cs-server.usc.edu:21542/newwallapp/forms/project?id="+param1+"&lat="+param2+"&lon="+param3;
-		//request.getParameter("param1");
-		String responseResult="";
-		try {
-			URL objUrl = new URL(urlStr);
-			URLConnection connect1 = objUrl.openConnection();
-			connect1.connect();
-			BufferedReader in = new BufferedReader(new InputStreamReader(connect1.getInputStream()));
-			//Data
-			String content;
-		
-			while((content=in.readLine())!=null)
-			{
-				responseResult+=content;
-			}
-			in.close();
-		} catch (Exception e) {
-			System.out.println("error!");
-		}
-		return responseResult;
-	}   	
+        
     
 }
 

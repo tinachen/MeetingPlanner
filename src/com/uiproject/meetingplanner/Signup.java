@@ -76,6 +76,7 @@ public class Signup extends Activity {
         
         // Hook up with database
 	    db = new MeetingPlannerDatabaseManager(this, MeetingPlannerDatabaseHelper.DATABASE_VERSION);
+	    
 	}
 
 	public void submit(View button) throws JSONException, ParseException, UnsupportedEncodingException{
@@ -179,4 +180,5 @@ private class StoreDataToDb extends AsyncTask<Integer, Void, Void> {
 		}
 		
 	}
+
 }

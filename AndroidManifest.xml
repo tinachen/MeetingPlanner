@@ -21,7 +21,7 @@
 
 		<activity android:name=".Login"
 				  android:theme="@android:style/Theme.NoTitleBar"
-				  android:noHistory="true">
+				  >
 			
                   <intent-filter>
             		<action android:name="android.intent.action.MAIN" />
@@ -132,17 +132,17 @@
                   android:finishOnTaskLaunch="true">
 		</activity>
 		
-		<activity android:name=".MeetingListPendingTest"
+		<activity android:name=".MeetingListPending"
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
 		</activity>
 		
-		<activity android:name=".MeetingListAcceptedTest"
+		<activity android:name=".MeetingListAccepted"
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
 		</activity>
 		
-		<activity android:name=".MeetingListDeclinedTest"
+		<activity android:name=".MeetingListDeclined"
 				  android:theme="@android:style/Theme.NoTitleBar"
                   android:finishOnTaskLaunch="true">
 		</activity>
